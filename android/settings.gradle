@@ -1,0 +1,3 @@
+rootProject.name = 'little_village_events'
+
+include ':app'

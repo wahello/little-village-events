@@ -1,0 +1,12 @@
+{
+    "presets": [
+        "react-native"
+    ],
+    "plugins": [
+        [ "root-import", {
+            "rootPathPrefix": "/",
+            "rootPathSuffix": "app/"
+        } ]
+    ]
+
+}
