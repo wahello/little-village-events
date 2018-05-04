@@ -8,8 +8,14 @@
         "test": "jest"
     },
     "dependencies": {
+        "@textpress/freactal": "^2.4.1",
+        "axios": "^0.18.0",
+        "lodash": "^4.17.10",
+        "moment": "^2.22.1",
         "react": "16.3.1",
-        "react-native": "0.55.3"
+        "react-native": "0.55.3",
+        "react-native-navigation": "^1.1.457",
+        "recompose": "^0.27.0"
     },
     "devDependencies": {
         "@textpress/eslint-config-textpress": "^0.4.0",
