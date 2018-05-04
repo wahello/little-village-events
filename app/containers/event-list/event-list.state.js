@@ -13,7 +13,8 @@ const loadEvents = async () => {
     const start = moment().startOf( "day" ).format( dateFormat );
     const end = moment().add( { days: numberOfDays } ).endOf( "day" ).format( dateFormat );
 
-    const { data } = await axios.get( `http://littlevillagemag.com/iowa-city-area-events-calendar/events.json?range_from=${start}&range_to=${end}` );
+    const url = `http://littlevillagemag.com/iowa-city-area-events-calendar/events.json?range_from=${start}&range_to=${end}`;
+    const { data } = await axios.get( url );
 
     return mergeIntoState( {
         rawEvents: data.events
@@ -32,26 +33,23 @@ export default {
         events: ( { rawEvents } ) => {
             if ( !rawEvents ) return [];
 
-            const now = moment();
+            const today = moment();
 
             return _range( numberOfDays ).reduce( ( result, days ) => {
-                const date = now.clone().add( { days } );
-                const title = date.calendar( now, {
-                    sameDay: "[Today]",
-                    nextDay: "[Tomorrow]",
-                    nextWeek: "dddd, MMM Do",
-                    sameElse: "dddd, MMM Do"
-                } );
-                const start = date.startOf( "day" );
-                const end = date.endOf( "day" );
+                const date = today.clone().add( { days } );
 
-                const events = rawEvents.filter( event =>
-                    moment( event.starttime ).isBefore( end )
-                    && moment( event.endtime || event.starttime ).isAfter( start )
-                );
+                const start = date.clone().startOf( "day" );
+                const end = date.clone().endOf( "day" );
+
+                const events = rawEvents.filter( event => {
+                    return moment( event.starttime ).isBefore( end )
+                        && moment( event.endtime || event.starttime ).isAfter( start )
+                    ;
+                } );
 
                 result.push( {
-                    title: title,
+                    today,
+                    date,
                     data: events
                 } );
                 return result;
