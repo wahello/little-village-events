@@ -86,12 +86,6 @@ const styles = StyleSheet.create( {
 
 } );
 
-const detailsView = {
-    screen: "events.details",
-    title: "Details",
-    backButtonTitle: ""
-};
-
 const thumbnailSource = ( event ) => {
     const image = eventImage( event );
     return image ? { uri: `${image}-/resize/x${imageSize}/-/crop/${imageSize}x${imageSize}/center/` } : null;
@@ -144,9 +138,9 @@ const Hashtag = ( { item, state } ) => {
     ;
 };
 
-const Item = ( { item, navigator, state } ) => (
+const Item = ( { item, effects: { showEventDetails }, state } ) => (
     <TouchableOpacity activeOpacity={ 0.6 }
-        onPress={ () => navigator.push( { ...detailsView, passProps: { event: item } } ) }>
+        onPress={ () => showEventDetails( item ) }>
         <View style={ styles.card }>
             <LeftPanel item={ item }/>
             <View style={ styles.rightPanel }>

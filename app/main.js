@@ -1,8 +1,8 @@
-import { registerScreens } from "./screens";
+import registerScreens from "./screens";
 
 import { Navigation } from "react-native-navigation";
 
-const screens = registerScreens();
+const mainScreen = registerScreens();
 
 const navigatorStyle = {
     navBarTextColor: "white",
@@ -13,7 +13,7 @@ const navigatorStyle = {
 Navigation
     .startSingleScreenApp( {
         screen: {
-            ...screens.main,
+            ...mainScreen,
             navigatorStyle
         }
     } )

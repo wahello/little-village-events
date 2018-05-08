@@ -1,3 +1,6 @@
+import details from "./details";
+import { update } from "@textpress/freactal";
+
 import { Dimensions } from "react-native";
 
 const initialState = {
@@ -21,7 +24,16 @@ const initialState = {
 };
 
 const state = {
-    initialState: () => initialState
+    initialState: () => initialState,
+    effects: {
+        initialize: update( ( state, { navigator } ) => ( { navigator } ) ),
+        showEventDetails: ( effects, event ) => {
+            return ( state ) => {
+                state.navigator.push( { screen: details.id, ...details.nav, passProps: { event } } );
+                return state;
+            }
+        }
+    }
 };
 
 export default state;
