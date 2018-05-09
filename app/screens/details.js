@@ -1,4 +1,4 @@
-import EventDetails from "/components/event-details";
+import EventDetails from "/containers/event-details";
 
 export default {
     id: "events.details",
