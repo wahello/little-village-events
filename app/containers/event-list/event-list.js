@@ -9,11 +9,11 @@ import { SectionList } from "react-native";
 import { compose } from "recompose";
 
 const EventList = ( props ) => {
-    const { state, navigator } = props;
+    const { state } = props;
     return (
         <SectionList
             sections={ state.events }
-            renderItem={ props => <Item { ...props } navigator={ navigator }/> }
+            renderItem={ props => <Item { ...props }/> }
             renderSectionHeader={ Header }
             keyExtractor={ ( item, index ) => item.id || index }
         />
