@@ -1,4 +1,4 @@
-import { eventImage } from "../../utils/event";
+import { eventImage } from "/app/utils/event";
 
 import { injectState } from "@textpress/freactal";
 

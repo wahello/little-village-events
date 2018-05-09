@@ -1,4 +1,4 @@
-import EventList from "/containers/event-list";
+import EventList from "/app/containers/event-list";
 
 export default {
     id: "events.list",

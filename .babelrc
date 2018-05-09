@@ -4,8 +4,7 @@
     ],
     "plugins": [
         [ "root-import", {
-            "rootPathPrefix": "/",
-            "rootPathSuffix": "app/"
+            "rootPathPrefix": "/"
         } ]
     ]
 
