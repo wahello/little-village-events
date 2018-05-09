@@ -1,3 +1,5 @@
+import { transparent } from "./navigator-styles";
+
 import EventDetails from "/app/containers/event-details";
 
 export default {
@@ -6,10 +8,6 @@ export default {
     nav: {
         title: "",
         backButtonTitle: "",
-        navigatorStyle: {
-            drawUnderNavBar: true,
-            navBarTranslucent: true,
-            navBarTransparent: true
-        }
+        navigatorStyle: transparent
     }
 };

@@ -1,0 +1,18 @@
+{
+    "transparent": {
+        "drawUnderNavBar": true,
+        "navBarTranslucent": true,
+        "navBarTransparent": true,
+        "navBarTextColor": "white",
+        "navBarButtonColor": "white",
+        "statusBarTextColorScheme": "light"
+    },
+    "opaque": {
+        "drawUnderNavBar": false,
+        "navBarTranslucent": false,
+        "navBarTransparent": false,
+        "navBarTextColor": "white",
+        "navBarButtonColor": "white",
+        "statusBarTextColorScheme": "light"
+    }
+}
