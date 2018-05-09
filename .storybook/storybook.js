@@ -1,4 +1,5 @@
 import appState from "/app/screens/state";
+import { transparent } from "/app/screens/navigator-styles";
 
 import { provideState } from "@textpress/freactal";
 
@@ -25,6 +26,8 @@ const StorybookUIRoot = compose(
 // https://github.com/storybooks/storybook/issues/2081
 // eslint-disable-next-line react/prefer-stateless-function
 class StorybookUIHMRRoot extends Component {
+    static navigatorStyle = transparent;
+
     render() {
         return <StorybookUIRoot navigator={ this.props.navigator } />;
     }
@@ -34,17 +37,10 @@ const screenId = "storybook.main";
 
 Navigation.registerComponent( screenId, () => StorybookUIHMRRoot );
 
-const navigatorStyle = {
-    navBarTextColor: "white",
-    navBarButtonColor: "white",
-    statusBarTextColorScheme: "light"
-};
-
 Navigation
     .startSingleScreenApp( {
         screen: {
-            screen: screenId,
-            navigatorStyle
+            screen: screenId
         }
     } )
 ;
