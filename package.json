@@ -5,27 +5,38 @@
     "private": true,
     "scripts": {
         "run:ios": "react-native run-ios",
-        "test": "jest"
+        "storybook": "yarn clear:storybook-cache && BABEL_ENV=development storybook start -p 7007 -c .storybook",
+        "test": "jest",
+        "clear:storybook-cache": "rimraf ./node_modules/.cache/react-storybook/*"
     },
     "dependencies": {
         "@textpress/freactal": "^2.4.1",
         "axios": "^0.18.0",
         "lodash": "^4.17.10",
         "moment": "^2.22.1",
-        "react": "16.3.1",
-        "react-native": "0.55.3",
+        "react": "16.3.2",
+        "react-native": "0.55.4",
         "react-native-navigation": "^1.1.457",
-        "recompose": "^0.27.0"
+        "recompose": "^0.27.0",
+        "rimraf": "^2.6.2"
     },
     "devDependencies": {
+        "@storybook/addon-actions": "^3.4.3",
+        "@storybook/addon-links": "^3.4.3",
+        "@storybook/addons": "^3.4.3",
+        "@storybook/react-native": "^3.4.3",
         "@textpress/eslint-config-textpress": "^0.4.0",
+        "babel-core": "^6.26.3",
         "babel-jest": "22.4.3",
         "babel-plugin-root-import": "^5.1.0",
         "babel-preset-react-native": "4.0.0",
+        "babel-runtime": "^6.26.0",
         "eslint": "^4.19.1",
         "jest": "22.4.3",
+        "prop-types": "^15.6.1",
+        "react-dom": "16.3.2",
         "react-native-cli": "^2.0.1",
-        "react-test-renderer": "16.3.1"
+        "react-test-renderer": "16.3.2"
     },
     "jest": {
         "preset": "react-native"
