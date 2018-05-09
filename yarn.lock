@@ -504,6 +504,10 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@monterosa/react-native-parallax-scroll@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@monterosa/react-native-parallax-scroll/-/react-native-parallax-scroll-1.8.0.tgz#04339a772c02818b229582a8b903aca4f9106005"
+
 "@storybook/addon-actions@3.4.3", "@storybook/addon-actions@^3.4.3":
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-3.4.3.tgz#27ac798cb0085c9588c4fd0a1c4cbfa32ce3bd54"

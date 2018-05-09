@@ -1,1 +1,1 @@
-export { default } from "./event-details-header";
+export { Content, Background } from "./event-details-header";

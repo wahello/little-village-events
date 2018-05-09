@@ -10,6 +10,7 @@
         "clear:storybook-cache": "rimraf ./node_modules/.cache/react-storybook/*"
     },
     "dependencies": {
+        "@monterosa/react-native-parallax-scroll": "^1.8.0",
         "@textpress/freactal": "^2.4.1",
         "axios": "^0.18.0",
         "lodash": "^4.17.10",

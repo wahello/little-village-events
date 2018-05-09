@@ -10,5 +10,5 @@ import React from "react";
 
 storiesOf( "EventDetailsScreen", module )
     .addDecorator( navigatorStyleDecorator( "transparent" ) )
-    .add( "default", () => ( <EventDetails event={ { ...event, name: casual.sentences( 40 ) } }/> ) )
+    .add( "default", () => ( <EventDetails event={ { ...event, name: casual.sentences( 60 ) } }/> ) )
 ;
