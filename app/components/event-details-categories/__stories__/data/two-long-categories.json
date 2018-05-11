@@ -1,0 +1,272 @@
+{
+    "id": 1239527,
+    "name": "Iowa Corridor Sangeet Presents: 'Pancham… The Genius of R.D. BURMAN'",
+    "venue_id": 894,
+    "description": "<p>One of the most enduring shows of all time, Joseph and the Amazing Technicolor Dreamcoat is a reimagining of the Biblical story of Joseph, his father Jacob, eleven brothers, and the “coat of many colors”. This musical features a family-friendly storyline, universal themes, and catchy music that will have you dancing in your seats! May 4-27,2018. Adult $40  Student $31\n</p><p><br></p>",
+    "url": null,
+    "starttime": "2018-05-11T20:30:00.000-04:00",
+    "endtime": null,
+    "restrictions": "",
+    "ticketurl": "https://www.theatrecr.org/event/joseph-amazing-technicolor-dreamcoat/2018-05-04/",
+    "created_at": "2018-04-03T15:33:33.818-04:00",
+    "updated_at": "2018-04-03T15:34:12.707-04:00",
+    "tickets": {
+        "0": {
+            "name": "Adult",
+            "price": "140.00"
+        },
+        "1": {
+            "name": "",
+            "price": "31.00"
+        }
+    },
+    "parent_id": null,
+    "user_id": 945,
+    "multimedia": {
+        "0": {
+            "source": "uc",
+            "id": "67f42d71-515e-478e-90b0-a01a5543ee20",
+            "type": "img",
+            "image": "https://ucarecdn.com/67f42d71-515e-478e-90b0-a01a5543ee20/-/crop/849x459/0,486/-/resize/800x432/"
+        }
+    },
+    "recurring_id": 1239525,
+    "calendar_id": 7,
+    "featured": true,
+    "status": "approved",
+    "external_uid": null,
+    "external_src": null,
+    "moreinfo": "",
+    "allday": false,
+    "allday_text": "",
+    "summary": "This musical features a family-friendly storyline, universal themes, and catchy music that will have you dancing in your seats! May 4-27,2018. Adult $40  Student $31",
+    "organizer_id": null,
+    "facebook_uid": null,
+    "scraper_id": null,
+    "print_only": null,
+    "venue": {
+        "id": 894,
+        "name": "Theatre Cedar Rapids",
+        "url": "http://littlevillagemag.com/iowa-city-area-events-calendar/venues/894",
+        "img": null,
+        "address": "102 Third Street SE, Cedar Rapids, IA 52401",
+        "created_at": "2015-10-08T19:20:42.673-04:00",
+        "updated_at": "2018-03-09T19:11:44.113-05:00",
+        "phone": "(319) 366-8592",
+        "latitude": 41.9793217,
+        "longitude": -91.6669822,
+        "facebook": null,
+        "twitter": null,
+        "status": "approved",
+        "category_id": null,
+        "default_category": 1,
+        "clean_address": "102 3rd Street Southeast",
+        "city": "Cedar Rapids",
+        "state": "IA",
+        "zip": "52401",
+        "neighborhood_id": null,
+        "external_uid": null,
+        "external_src": null,
+        "facebook_uid": null,
+        "timezone": "America/Chicago"
+    },
+    "recurring_dates": [
+        {
+            "id": 1239527,
+            "starttime": "2018-05-11T20:30:00.000-04:00"
+        },
+        {
+            "id": 1239528,
+            "starttime": "2018-05-12T20:30:00.000-04:00"
+        },
+        {
+            "id": 1239532,
+            "starttime": "2018-05-26T20:30:00.000-04:00"
+        },
+        {
+            "id": 1239531,
+            "starttime": "2018-05-25T20:30:00.000-04:00"
+        },
+        {
+            "id": 1239530,
+            "starttime": "2018-05-19T20:30:00.000-04:00"
+        },
+        {
+            "id": 1239529,
+            "starttime": "2018-05-18T20:30:00.000-04:00"
+        },
+        {
+            "id": 1239845,
+            "starttime": "2018-05-04T20:30:00.000-04:00"
+        }
+    ],
+    "children": [
+
+    ],
+    "available_calendars": [
+        {
+            "id": 7,
+            "name": "Little Village",
+            "guideline_url": null,
+            "timezone": "America/Chicago",
+            "address": "Iowa City, IA"
+        }
+    ],
+    "lists": [
+
+    ],
+    "categories": [
+        {
+            "id": 62,
+            "name": "Editors' Picks ",
+            "image": "https://ucarecdn.com/612a31f5-6fb2-4954-a63e-57ebb0b24140/-/crop/640x346/0,42/-/resize/500x270/"
+        },
+        {
+            "id": 65,
+            "name": "Theatre/Performance",
+            "image": "https://ucarecdn.com/88d27828-a7dc-4f17-97b1-d0196aec1538/-/crop/800x431/0,0/-/resize/500x270/"
+        }
+    ],
+    "calendar": {
+        "lists": [
+            {
+                "id": 214,
+                "name": "Widget",
+                "calendar_id": 7,
+                "created_at": "2018-04-12T14:35:57.901-04:00",
+                "updated_at": "2018-04-12T14:35:57.901-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 7,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 153,
+                "name": "Slider",
+                "calendar_id": 7,
+                "created_at": "2017-09-05T12:13:57.755-04:00",
+                "updated_at": "2017-09-05T12:13:57.755-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 6,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 51,
+                "name": "Family Events",
+                "calendar_id": 7,
+                "created_at": "2015-10-02T16:01:35.151-04:00",
+                "updated_at": "2015-10-09T13:18:03.284-04:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 3,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 50,
+                "name": "Things To Do",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T15:50:16.283-04:00",
+                "updated_at": "2015-10-09T16:27:38.143-04:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 1,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 58,
+                "name": "",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T16:36:28.158-04:00",
+                "updated_at": "2015-10-09T16:36:28.158-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 4,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 49,
+                "name": "Witching Hour ",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T15:49:22.788-04:00",
+                "updated_at": "2015-10-30T13:39:23.221-04:00",
+                "description": "Witching Hour, a new festival, seeks to explore and engage “the unknown” through performance and discussion. Discussions (in the afternoon) will feature artists, writers, scientists, entrepreneurs, and other thinkers discussing their creative processes and paths to innovation via lectures and moderated Q&As. Performances (at night) will reflect a range of disciplines, including but not limited to music, comedy, literature, film, and dance.\r\n\r\nThe goal is to bring together our community to enjoy new art, to learn about the different ways we make things, to talk to each other, and to be inspired.",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 2,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 60,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2017-06-06T13:21:18.900-04:00",
+                "updated_at": "2017-06-06T13:21:18.900-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 5,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 53,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T10:56:30.069-04:00",
+                "updated_at": "2018-05-05T17:23:48.104-04:00",
+                "description": "Upcoming event highlights curated by Little Village editors",
+                "active": true,
+                "activefrom": "2017-08-29T00:00:00.000-04:00",
+                "activeto": "2018-06-30T00:00:00.000-04:00",
+                "sort": 0,
+                "autoremove": true,
+                "nav": true,
+                "display": "list",
+                "tagline": "",
+                "banner_img": ""
+            }
+        ]
+    },
+    "editable": false,
+    "distributable": false
+}
