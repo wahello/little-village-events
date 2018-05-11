@@ -1,0 +1,241 @@
+{
+    "id": 1272691,
+    "name": "New Release Films: 'You Were Never Really Here'",
+    "venue_id": 655,
+    "description": "<p>Iowa Corridor Sangeet presents a Niche event: Pancham… The Genius of R.D. BURMAN. This program traces the musical journey of a legendary Indian (Bollywood) music composer. </p><br><p>This 9-member team is packed with amazing talent that includes exquisite narration, live singing and dancing. The show has been conceptualized and directed by Milind Oak of Niche Entertainment, who has in the past given us some remarkable and popular musicals like Black and White, 100 Years of Bollywood, Yahoo, Bhairav se Bhairavi, Trendsetters, Gulzar ... Baat Pashmine Ki, Gaata Rahe Mera Dil, and many more.</p><br><p>Please click here to RSVP: http://evite.me/eZRhNk3sQr.</p><p>Supported, in part, by a grant from Humanities Iowa (National Endowment for the Humanities) and by sponsorship from Hills Bank and Trust and the University of Iowa Community Credit Union.</p><br><p>IOWA CORRIDOR SANGEET (ICS) is a community collaborative partnership with CARTHA (www.cartha.org) formed through generous contributions from the Corridor community. Our mission is to bring excellent South Asian performing arts and artists to the Iowa Corridor in order to enhance the community's experience and learning about these arts.  For more information and to find out how you can support our mission, e-mail us at: icsangeet@yahoo.com</p><br><p>Read More/Follow us: www.facebook.com/icsangeet</p>",
+    "url": null,
+    "starttime": "2018-05-11T17:00:00.000-07:00",
+    "endtime": null,
+    "restrictions": "",
+    "ticketurl": "https://www.evite.com/event/019EV6EQ4GI3IMNDEEPH67MZAWGDQU/rsvp?utm_campaign=send_sharable_link&utm_medium=sharable_invite&utm_source=www.coralvillearts.org",
+    "created_at": "2018-04-21T22:12:06.770-07:00",
+    "updated_at": "2018-04-21T22:14:09.322-07:00",
+    "tickets": {
+        "0": {
+            "name": "",
+            "price": "0.00"
+        }
+    },
+    "parent_id": null,
+    "user_id": 945,
+    "multimedia": {
+        "0": {
+            "source": "uc",
+            "id": "4824cfc6-2b6f-4776-8a09-1d1629498437",
+            "type": "img",
+            "image": "https://ucarecdn.com/4824cfc6-2b6f-4776-8a09-1d1629498437/-/crop/212x114/0,14/-/resize/800x432/"
+        }
+    },
+    "recurring_id": null,
+    "calendar_id": 7,
+    "featured": true,
+    "status": "approved",
+    "external_uid": null,
+    "external_src": null,
+    "moreinfo": "http://www.coralvillearts.org/calendar.aspx?EID=619",
+    "allday": false,
+    "allday_text": "",
+    "summary": "",
+    "organizer_id": null,
+    "facebook_uid": null,
+    "scraper_id": null,
+    "print_only": null,
+    "venue": {
+        "id": 655,
+        "name": "Coralville Center for the Performing Arts",
+        "url": "http://littlevillagemag.com/iowa-city-area-events-calendar/venues/655",
+        "img": "",
+        "address": "1301 5th Street, Coralville, IA 52241",
+        "created_at": "2015-10-08T16:19:05.428-07:00",
+        "updated_at": "2018-03-09T17:19:13.207-08:00",
+        "phone": "319-248-9370",
+        "latitude": 41.6764922,
+        "longitude": -91.5809742,
+        "facebook": "",
+        "twitter": "",
+        "status": "approved",
+        "category_id": null,
+        "default_category": 1,
+        "clean_address": "1301 5th Street",
+        "city": "Coralville",
+        "state": "IA",
+        "zip": "52241",
+        "neighborhood_id": null,
+        "external_uid": null,
+        "external_src": null,
+        "facebook_uid": null,
+        "timezone": "America/Chicago"
+    },
+    "recurring_dates": [
+
+    ],
+    "children": [
+
+    ],
+    "available_calendars": [
+        {
+            "id": 7,
+            "name": "Little Village",
+            "guideline_url": null,
+            "timezone": "America/Chicago",
+            "address": "Iowa City, IA"
+        }
+    ],
+    "lists": [
+
+    ],
+    "categories": [
+        {
+            "id": 65,
+            "name": "Theatre/Performance",
+            "image": "https://ucarecdn.com/88d27828-a7dc-4f17-97b1-d0196aec1538/-/crop/800x431/0,0/-/resize/500x270/"
+        },
+        {
+            "id": 62,
+            "name": "Editors' Picks ",
+            "image": "https://ucarecdn.com/612a31f5-6fb2-4954-a63e-57ebb0b24140/-/crop/640x346/0,42/-/resize/500x270/"
+        }
+    ],
+    "calendar": {
+        "lists": [
+            {
+                "id": 214,
+                "name": "Widget",
+                "calendar_id": 7,
+                "created_at": "2018-04-12T11:35:57.901-07:00",
+                "updated_at": "2018-04-12T11:35:57.901-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 7,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 153,
+                "name": "Slider",
+                "calendar_id": 7,
+                "created_at": "2017-09-05T09:13:57.755-07:00",
+                "updated_at": "2017-09-05T09:13:57.755-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 6,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 51,
+                "name": "Family Events",
+                "calendar_id": 7,
+                "created_at": "2015-10-02T13:01:35.151-07:00",
+                "updated_at": "2015-10-09T10:18:03.284-07:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 3,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 50,
+                "name": "Things To Do",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T12:50:16.283-07:00",
+                "updated_at": "2015-10-09T13:27:38.143-07:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 1,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 58,
+                "name": "",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T13:36:28.158-07:00",
+                "updated_at": "2015-10-09T13:36:28.158-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 4,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 49,
+                "name": "Witching Hour ",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T12:49:22.788-07:00",
+                "updated_at": "2015-10-30T10:39:23.221-07:00",
+                "description": "Witching Hour, a new festival, seeks to explore and engage “the unknown” through performance and discussion. Discussions (in the afternoon) will feature artists, writers, scientists, entrepreneurs, and other thinkers discussing their creative processes and paths to innovation via lectures and moderated Q&As. Performances (at night) will reflect a range of disciplines, including but not limited to music, comedy, literature, film, and dance.\r\n\r\nThe goal is to bring together our community to enjoy new art, to learn about the different ways we make things, to talk to each other, and to be inspired.",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 2,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 60,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2017-06-06T10:21:18.900-07:00",
+                "updated_at": "2017-06-06T10:21:18.900-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 5,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 53,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T07:56:30.069-07:00",
+                "updated_at": "2018-05-05T14:23:48.104-07:00",
+                "description": "Upcoming event highlights curated by Little Village editors",
+                "active": true,
+                "activefrom": "2017-08-28T21:00:00.000-07:00",
+                "activeto": "2018-06-29T21:00:00.000-07:00",
+                "sort": 0,
+                "autoremove": true,
+                "nav": true,
+                "display": "list",
+                "tagline": "",
+                "banner_img": ""
+            }
+        ]
+    },
+    "editable": false,
+    "distributable": false
+}
