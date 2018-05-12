@@ -7,7 +7,6 @@ const styles = StyleSheet.create( {
         alignItems: "center",
 
         alignSelf: "stretch",
-//        maxHeight: 64,
 
         margin: 6,
         padding: 10,
