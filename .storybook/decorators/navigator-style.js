@@ -1,16 +1,27 @@
-import styles from "/app/screens/navigator-styles";
+import { BackIcon } from "/app/components/icons";
+import navStyles from "/app/screens/navigator-styles";
 
 import { injectState } from "@textpress/freactal";
 
+import { StyleSheet } from "react-native";
 import React, { Fragment } from "react";
 import { compose } from "recompose";
 
 import _isString from "lodash/isString"
 
 
-export default function navigatorStyleDecorator( style ) {
+const styles = StyleSheet.create( {
+    back: {
+        position: "absolute",
+        left: 5,
+        top: 31
+    }
+} );
+
+
+export default function navigatorStyleDecorator( style, optios = {} ) {
     if ( _isString( style ) )
-        style = styles[ style ];
+        style = navStyles[ style ];
 
     function StorybookProvider( { children } ) {
 
@@ -23,7 +34,12 @@ export default function navigatorStyleDecorator( style ) {
             navigatorStyle
         );
 
-        return <NavigatorStyle>{ children }</NavigatorStyle>;
+        return (
+            <NavigatorStyle>
+                { children }
+                { optios.back ? <BackIcon style={ styles.back }/> : null }
+            </NavigatorStyle>
+        );
     }
 
     return ( story ) => {
