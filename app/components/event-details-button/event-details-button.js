@@ -3,6 +3,8 @@ import { TouchableButton } from "../touchable";
 import { Text, Animated, StyleSheet } from "react-native";
 import React from "react";
 
+import _isObject from "lodash/isObject";
+
 const styles = StyleSheet.create( {
     button: {
         flex: 1,
@@ -30,7 +32,8 @@ const Label = ( { style, label } ) => (
 );
 
 export default ( { label, renderLabel, onPress, style } ) => {
-    const { button: buttonStyle, label: labelStyle } = style || {};
+    const labelStyle = _isObject( style ) && style.label || null;
+    const buttonStyle = _isObject( style ) && style.button || style;
 
     renderLabel = renderLabel || Label;
 

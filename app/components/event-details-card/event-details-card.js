@@ -3,9 +3,6 @@ import React from "react";
 
 const styles = StyleSheet.create( {
     root: {
-        flexDirection: "row",
-        alignItems: "center",
-
         alignSelf: "stretch",
 
         margin: 6,
