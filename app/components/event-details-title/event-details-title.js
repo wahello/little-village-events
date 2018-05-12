@@ -12,8 +12,8 @@ const styles = StyleSheet.create( {
 } );
 
 
-export default ( { event, style } ) =>
-    <Animated.View style={ style }>
+export default ( { event, ...props } ) =>
+    <Animated.View {...props}>
         <Text numberOfLines={3} style={ styles.title }>
             {event.name}
         </Text>

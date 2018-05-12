@@ -29,8 +29,8 @@ const categories = event => ( event.categories || [] )
 ;
 
 
-export default ( { event, style } ) =>
-    <Animated.View style={ [ styles.root, style ] }>
+export default ( { event, style, ...props } ) =>
+    <Animated.View style={ [ styles.root, style ] } {...props}>
         { categories( event ).map( c =>
             <Text style={styles.category} key={c}>{c}</Text>
         ) }
