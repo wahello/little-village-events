@@ -37,11 +37,12 @@ const Loading = () => (
     </View>
 );
 
-const EventDetails = ( { event, state, effects } ) => {
+const EventDetails = ( { state, effects } ) => {
+    const { event, windowDimensions: { width } } = state;
+
     if ( !event )
         return <Loading/>;
 
-    const { windowDimensions: { width } } = state;
     const headerHeight = Math.round( width * .68 );
 
     const image = eventImage( event );
