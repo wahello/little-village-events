@@ -13,5 +13,6 @@ const Screen = compose( injectState )( EventDetails );
 
 storiesOf( "EventDetailsScreen", module )
     .addDecorator( navigatorStyleDecorator( "transparent", { back: true } ) )
-    .add( "default", () => ( <Screen event={ event } /> ) )
+    .add( "default", () => <Screen event={ event } /> )
+    .add( "loading", () => <Screen event={ null }/> )
 ;
