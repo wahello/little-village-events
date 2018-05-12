@@ -1,5 +1,5 @@
-import { TouchableHighlight, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 
-export const TouchableButton = TouchableHighlight;
+export const TouchableButton = TouchableOpacity;
 export const TouchableLink = TouchableOpacity;
