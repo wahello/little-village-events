@@ -1,9 +1,10 @@
+import { TouchableButton } from "../../components/touchable";
 import { eventImage } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";
 
 import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import moment from "moment";
 import { compose } from "recompose";
 
@@ -139,7 +140,7 @@ const Hashtag = ( { item, state } ) => {
 };
 
 const Item = ( { item, effects: { showEventDetails }, state } ) => (
-    <TouchableOpacity activeOpacity={ 0.6 }
+    <TouchableButton activeOpacity={ 0.6 }
         onPress={ () => showEventDetails( item ) }>
         <View style={ styles.card }>
             <LeftPanel item={ item }/>
@@ -154,7 +155,7 @@ const Item = ( { item, effects: { showEventDetails }, state } ) => (
                 <Hashtag item={ item } state={ state }/>
             </View>
         </View>
-    </TouchableOpacity>
+    </TouchableButton>
 );
 
 export default compose(

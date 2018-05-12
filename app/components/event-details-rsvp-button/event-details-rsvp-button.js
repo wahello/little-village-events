@@ -1,6 +1,7 @@
 // import { CalendarIcon } from "../icons";
 
-import { TouchableHighlight, View, Text, Animated, StyleSheet } from "react-native";
+import { TouchableButton } from "../touchable";
+import { View, Text, Animated, StyleSheet } from "react-native";
 import React from "react";
 
 import numeral from "numeral";
@@ -75,11 +76,11 @@ export default ( { event } ) => {
     const isFree = !tickets.length || last( tickets ) === 0.0;
 
     return (
-        <TouchableHighlight>
+        <TouchableButton>
             <View style={ styles.column }>
                 <Button label={ isFree ? "RSVP" : priceLabel( tickets )} />
                 { isFree ? null : <SmallPrint text="Buy tickets" /> }
             </View>
-        </TouchableHighlight>
+        </TouchableButton>
     );
 }
