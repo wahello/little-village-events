@@ -1,5 +1,5 @@
-import * as Header from "/app/components/event-details-header";
-import { eventImage } from "/app/utils/event";
+import * as Header from "../../components/event-details-header";
+import { eventImage } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";
 

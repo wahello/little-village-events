@@ -1,6 +1,6 @@
 import { opaque } from "./navigator-styles";
 
-import EventList from "/app/containers/event-list";
+import EventList from "../containers/event-list";
 
 export default {
     id: "events.list",
