@@ -1,22 +1,15 @@
-import DetailsCard from "../event-details-card";
+import DetailsIconCard from "../event-details-icon-card";
 
 import { CalendarIcon } from "../icons";
 
 import moment from "moment";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 import React from "react";
 
 
 const styles = StyleSheet.create( {
     root: {
         height: 64
-    },
-    icon: {
-        paddingLeft: 6,
-    },
-    column: {
-        flex: 1,
-        paddingLeft: 15,
     },
     date: {
         fontSize: 16,
@@ -52,12 +45,9 @@ export default ( { event } ) => {
         return null;
 
     return (
-        <DetailsCard style={ styles.root } >
-            <View style={ styles.icon }><CalendarIcon /></View>
-            <View style={ styles.column }>
-                <Date date={starttime} />
-                <Time starttime={starttime} endtime={endtime} />
-            </View>
-        </DetailsCard>
+        <DetailsIconCard style={ styles.root } renderIcon={ CalendarIcon } >
+            <Date date={starttime} />
+            <Time starttime={starttime} endtime={endtime} />
+        </DetailsIconCard>
     );
 }
