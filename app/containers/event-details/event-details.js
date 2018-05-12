@@ -1,52 +1,57 @@
 import * as Header from "../../components/event-details-header";
+import EventDetailsDateCard from "../../components/event-details-date-card";
 import { eventImage } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";
 
 import React from "react";
-import { ScrollView, Text } from "react-native";
+import { View, PixelRatio, StyleSheet } from "react-native";
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 import { compose } from "recompose";
 
 
+const styles = StyleSheet.create( {
+    body: {
+        backgroundColor: "#eaeaea",
+        minHeight: 1000
+    }
+} );
+
+
 const EventDetails = ( { event, state } ) => {
     const { windowDimensions: { width } } = state;
-    const height = Math.trunc( width / 1.85 );
+    const headerHeight = Math.round( width * .68 );
 
     const image = eventImage( event );
     if ( !image )
         return null;
 
-    const uri = `${image}-/scale_crop/${width}x${height}/center/`;
+    const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
+    const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
+    const uri = `${image}-/scale_crop/${imageWidth}x${imageHeight}/center/`;
 
     return (
         <ParallaxScroll
             style={ {} }
             renderHeader={ ( { height, animatedValue } ) => (
                 <Header.Content
+                    event={ event }
                     height={ height }
-                    // animatedValue={animatedValue}
+                    animatedValue={animatedValue}
                 />
             ) }
-            renderParallaxBackground={ () => (
-                <Header.Background
-                    uri={ uri }
-                    // animatedValue={animatedValue}
-                />
-            ) }
-            headerHeight={ height }
+            renderParallaxBackground={ () => <Header.Background uri={ uri } /> }
+            headerHeight={ headerHeight }
+            parallaxHeight={ headerHeight }
             isHeaderFixed={ true }
             useNativeDriver={ true }
+            headerFixedBackgroundColor={ "transparent" }
             isBackgroundScalable={ true }
-            headerBackgroundColor={ "green" }
-            headerFixedBackgroundColor={ "red" }
-            headerFixedTransformY={ height - 60 }
-            fadeOutParallaxBackground={ true }
-            fadeOutParallaxForeground={ false }
-            parallaxBackgroundScrollSpeed={ 1 }
-            parallaxForegroundScrollSpeed={ 1 }
+            parallaxBackgroundScrollSpeed={ 4 }
         >
-            <Text>{ event.name }</Text>
+            <View style={ styles.body }>
+                <EventDetailsDateCard event={event} />
+            </View>
         </ParallaxScroll>
     );
 };

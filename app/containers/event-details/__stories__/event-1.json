@@ -1,34 +1,245 @@
 {
-    "id": 1272880,
-    "name": "Kirkwood Community College: Chenille Bracelet",
-    "venue_id": 608,
-    "starttime": "2018-05-08T11:00:00.000-05:00",
+    "id": 1286695,
+    "name": "New Release Films: 'You Were Never Really Here'",
+    "venue_id": 552,
+    "description": "<p>Series:Coming Soon</p><p>Rating:R</p><p>Runtime:96 minutes</p><p>Director:Jason Reitman</p><p>Year Released:2018</p><p>Production Country:USA</p><p>Language:English</p><p>Showtimes announced Tuesday before opening date.</p><br><p>“Charlize Theron gives a fearless performance.\" - Owen Gleiberman, Variety</p><br><p>“Jason Reitman is back at his best again.\" - Alex Billington, First Showing</p><br><p>“A bitingly funny, deeply empathetic ode to motherhood.\"- Tomris Laffly, Film Journal International</p><br><p>A new comedy from Academy Award nominated director Jason Reitman (Up in the Air) and Academy Award winning screenwriter and University of Iowa graduate Diablo Cody (Juno), Marlo (Charlize Theron), a mother of three including a newborn, is gifted a nanny by her brother (Mark Duplass). Hesitant to the extravagance at first, Marlo comes to form a unique bond with the thoughtful, surprising and sometimes challenging young nanny named Tully.</p>",
+    "url": null,
+    "starttime": "2018-05-07T18:30:00.000-07:00",
     "endtime": null,
-    "created_at": "2018-04-22T23:48:30.274-05:00",
+    "restrictions": "",
+    "ticketurl": "https://prod3.agileticketing.net/WebSales/pages/info.aspx?evtinfo=370833~4635cd47-f165-4de0-b43c-56acafd02482&epguid=915c10f6-1274-4ddc-ad65-7cb03e0efae2&",
+    "created_at": "2018-05-04T22:14:02.504-07:00",
+    "updated_at": "2018-05-04T22:14:12.500-07:00",
+    "tickets": {
+        "0": {
+            "name": "",
+            "price": "8.00"
+        },
+        "1": {
+            "name": "",
+            "price": "10.50"
+        }
+    },
+    "parent_id": null,
+    "user_id": 945,
     "multimedia": {
         "0": {
             "source": "uc",
-            "id": "51a062f3-3488-4f81-aae0-b847b4b1051b",
+            "id": "2527d589-48d5-4536-b531-cb8cac451a38",
             "type": "img",
-            "image": "https://ucarecdn.com/51a062f3-3488-4f81-aae0-b847b4b1051b/-/crop/360x194/0,53/-/resize/800x432/"
+            "image": "https://ucarecdn.com/2527d589-48d5-4536-b531-cb8cac451a38/-/crop/1548x837/0,66/-/resize/800x432/"
         }
     },
+    "recurring_id": null,
     "calendar_id": 7,
     "featured": true,
+    "status": "approved",
+    "external_uid": null,
+    "external_src": null,
+    "moreinfo": "https://prod3.agileticketing.net/WebSales/pages/info.aspx?evtinfo=370833~4635cd47-f165-4de0-b43c-56acafd02482&epguid=915c10f6-1274-4ddc-ad65-7cb03e0efae2&",
     "allday": false,
     "allday_text": "",
-    "categories": [
+    "summary": "",
+    "organizer_id": null,
+    "facebook_uid": null,
+    "scraper_id": null,
+    "print_only": null,
+    "venue": {
+        "id": 552,
+        "name": "FilmScene",
+        "url": "http://littlevillagemag.com/iowa-city-area-events-calendar/venues/552",
+        "img": "http://www.ucarecdn.com/631e1a21-d340-4a9f-8ce9-9435e897c9e4~1/nth/0/",
+        "address": "118 E College St, Iowa City, IA 52240",
+        "created_at": "2015-10-08T16:17:19.158-07:00",
+        "updated_at": "2018-03-09T15:36:08.026-08:00",
+        "phone": "319-358-2555",
+        "latitude": 41.658985,
+        "longitude": -91.534414,
+        "facebook": "https://www.facebook.com/ICFilmScene",
+        "twitter": "@FilmScene",
+        "status": "approved",
+        "category_id": null,
+        "default_category": 1,
+        "clean_address": "100 E College St, Iowa City, IA 52240",
+        "city": "Iowa City",
+        "state": "IA",
+        "zip": "52240",
+        "neighborhood_id": null,
+        "external_uid": null,
+        "external_src": null,
+        "facebook_uid": null,
+        "timezone": "America/Chicago"
+    },
+    "recurring_dates": [
+
+    ],
+    "children": [
+
+    ],
+    "available_calendars": [
         {
-            "id": 62,
-            "image": "https://ucarecdn.com/612a31f5-6fb2-4954-a63e-57ebb0b24140/-/crop/640x346/0,42/-/resize/500x270/"
-        },
-        {
-            "id": 82,
-            "image": "https://ucarecdn.com/cf208933-4316-4aa1-86c6-a368defa3e90/-/crop/602x325/19,0/-/resize/500x270/"
+            "id": 7,
+            "name": "Little Village",
+            "guideline_url": null,
+            "timezone": "America/Chicago",
+            "address": "Iowa City, IA"
         }
     ],
-    "venue": {
-        "name": "Beadology Iowa",
-        "neighborhood_id": null
-    }
+    "lists": [
+
+    ],
+    "categories": [
+        {
+            "id": 67,
+            "name": "Cinema ",
+            "image": "https://ucarecdn.com/7d412fad-c8b6-4626-a40c-a1d35546e627/-/crop/800x431/0,0/-/resize/500x270/"
+        },
+        {
+            "id": 62,
+            "name": "Editors' Picks ",
+            "image": "https://ucarecdn.com/612a31f5-6fb2-4954-a63e-57ebb0b24140/-/crop/640x346/0,42/-/resize/500x270/"
+        }
+    ],
+    "calendar": {
+        "lists": [
+            {
+                "id": 214,
+                "name": "Widget",
+                "calendar_id": 7,
+                "created_at": "2018-04-12T11:35:57.901-07:00",
+                "updated_at": "2018-04-12T11:35:57.901-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 7,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 153,
+                "name": "Slider",
+                "calendar_id": 7,
+                "created_at": "2017-09-05T09:13:57.755-07:00",
+                "updated_at": "2017-09-05T09:13:57.755-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 6,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 51,
+                "name": "Family Events",
+                "calendar_id": 7,
+                "created_at": "2015-10-02T13:01:35.151-07:00",
+                "updated_at": "2015-10-09T10:18:03.284-07:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 3,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 50,
+                "name": "Things To Do",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T12:50:16.283-07:00",
+                "updated_at": "2015-10-09T13:27:38.143-07:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 1,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 58,
+                "name": "",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T13:36:28.158-07:00",
+                "updated_at": "2015-10-09T13:36:28.158-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 4,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 49,
+                "name": "Witching Hour ",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T12:49:22.788-07:00",
+                "updated_at": "2015-10-30T10:39:23.221-07:00",
+                "description": "Witching Hour, a new festival, seeks to explore and engage “the unknown” through performance and discussion. Discussions (in the afternoon) will feature artists, writers, scientists, entrepreneurs, and other thinkers discussing their creative processes and paths to innovation via lectures and moderated Q&As. Performances (at night) will reflect a range of disciplines, including but not limited to music, comedy, literature, film, and dance.\r\n\r\nThe goal is to bring together our community to enjoy new art, to learn about the different ways we make things, to talk to each other, and to be inspired.",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 2,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 60,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2017-06-06T10:21:18.900-07:00",
+                "updated_at": "2017-06-06T10:21:18.900-07:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 5,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 53,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T07:56:30.069-07:00",
+                "updated_at": "2018-05-05T14:23:48.104-07:00",
+                "description": "Upcoming event highlights curated by Little Village editors",
+                "active": true,
+                "activefrom": "2017-08-28T21:00:00.000-07:00",
+                "activeto": "2018-06-29T21:00:00.000-07:00",
+                "sort": 0,
+                "autoremove": true,
+                "nav": true,
+                "display": "list",
+                "tagline": "",
+                "banner_img": ""
+            }
+        ]
+    },
+    "editable": false,
+    "distributable": false
 }
