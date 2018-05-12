@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Animated, Text, StyleSheet } from "react-native";
 import React from "react";
 
 
@@ -10,6 +10,7 @@ const styles = StyleSheet.create( {
         alignItems: "flex-end",
         maxHeight: 28,
         width: 220,
+        marginBottom: 7,
         overflow: "hidden",
     },
     category: {
@@ -28,10 +29,10 @@ const categories = event => ( event.categories || [] )
 ;
 
 
-export default ( { event } ) =>
-    <View style={ styles.root }>
+export default ( { event, style } ) =>
+    <Animated.View style={ [ styles.root, style ] }>
         { categories( event ).map( c =>
             <Text style={styles.category} key={c}>{c}</Text>
         ) }
-    </View>
+    </Animated.View>
 ;
