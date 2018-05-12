@@ -6353,6 +6353,12 @@ param-case@2.1.x:
   dependencies:
     no-case "^2.2.0"
 
+parse-address@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/parse-address/-/parse-address-0.0.10.tgz#71c46948dcbca484c587e61cdf10f5816efe1ea2"
+  dependencies:
+    xregexp "^3.1.1"
+
 parse-asn1@^5.0.0:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/parse-asn1/-/parse-asn1-5.1.1.tgz#f6bf293818332bd0dab54efb16087724745e6ca8"
@@ -7199,6 +7205,14 @@ react-native-navigation@^1.1.457:
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.457.tgz#909012cc3674d3ded9648b4ddd7070b0a6df228a"
   dependencies:
     lodash "4.x.x"
+
+react-native-open-maps@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.1.4.tgz#ccd7bac2a69bc36716c7188ecbf7e3d3ca93a6a3"
+
+react-native-phone-call@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.4.tgz#809b7dd27452e429c9deddb4c311997702e333ba"
 
 react-native@0.55.4:
   version "0.55.4"
@@ -8984,6 +8998,10 @@ xmldom@0.1.x:
 xpipe@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/xpipe/-/xpipe-1.0.5.tgz#8dd8bf45fc3f7f55f0e054b878f43a62614dafdf"
+
+xregexp@^3.1.1:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/xregexp/-/xregexp-3.2.0.tgz#cb3601987bfe2695b584000c18f1c4a8c322878e"
 
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.1"

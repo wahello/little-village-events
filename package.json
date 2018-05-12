@@ -16,9 +16,12 @@
         "lodash": "^4.17.10",
         "moment": "^2.22.1",
         "numeral": "^2.0.6",
+        "parse-address": "^0.0.10",
         "react": "16.3.2",
         "react-native": "0.55.4",
         "react-native-navigation": "^1.1.457",
+        "react-native-open-maps": "^0.1.4",
+        "react-native-phone-call": "^1.0.4",
         "recompose": "^0.27.0",
         "rimraf": "^2.6.2"
     },
