@@ -1,1 +1,1 @@
-export { Content, Background } from "./event-details-header";
+export { Fixed, Foreground, Background } from "./event-details-header";

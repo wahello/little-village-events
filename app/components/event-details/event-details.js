@@ -5,8 +5,11 @@ import { eventImage } from "../../utils/event";
 
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 
-import React from "react";
 import { ActivityIndicator, PixelRatio, StyleSheet, View } from "react-native";
+import React from "react";
+
+const fixedHeaderHeight = 78;
+
 
 const styles = StyleSheet.create( {
     loadingRoot: {
@@ -56,22 +59,17 @@ const EventDetails = ( { state, effects } ) => {
 
     return (
         <ParallaxScroll
-            style={ {} }
-            renderHeader={ ( { height, animatedValue } ) => (
-                <Header.Content
-                    event={ event }
-                    height={ height }
-                    animatedValue={ animatedValue }
-                />
-            ) }
-            renderParallaxBackground={ () => <Header.Background uri={ uri }/> }
-            headerHeight={ headerHeight }
+            renderHeader={ props => <Header.Fixed event={ event } {...props} /> }
+            renderParallaxForeground={ props => <Header.Foreground event={ event } {...props} /> }
+            renderParallaxBackground={ () => <Header.Background uri={ uri } /> }
+            headerHeight={ fixedHeaderHeight }
             parallaxHeight={ headerHeight }
             isHeaderFixed={ true }
             useNativeDriver={ true }
             headerFixedBackgroundColor={ "transparent" }
             isBackgroundScalable={ true }
             parallaxBackgroundScrollSpeed={ 4 }
+            parallaxForegroundScrollSpeed={ 1 }
         >
             <View style={ styles.body }>
                 <EventDetailsDateCard event={ event }/>

@@ -1,5 +1,6 @@
 import EventDetails from "..";
-import event from "./event-1.json";
+import lightCoverEvent from "./data/light-cover.json";
+import darkCoverEvent from "./data/dark-cover.json";
 
 import navigatorStyleDecorator from "/.storybook/decorators/navigator-style";
 
@@ -20,6 +21,7 @@ const Screen = compose(
 
 storiesOf( "EventDetailsScreen", module )
     .addDecorator( navigatorStyleDecorator( "transparent", { back: true } ) )
-    .add( "default", () => <Screen event={ event } /> )
+    .add( "default", () => <Screen event={ darkCoverEvent } /> )
+    .add( "light cover", () => <Screen event={ lightCoverEvent } /> )
     .add( "loading", () => <Screen event={ null }/> )
 ;

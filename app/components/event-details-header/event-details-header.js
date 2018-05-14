@@ -2,7 +2,8 @@ import EventDetailsCategories from "../../components/event-details-categories";
 import EventDetailsTitle from "../../components/event-details-title";
 import EventDetailsRsvpButton from "../../components/event-details-rsvp-button";
 
-import { Image, Animated, StyleSheet } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
+import { View, ImageBackground, Animated, StyleSheet } from "react-native";
 import React, { Component } from "react";
 
 const fixedHeaderHeight = 78;
@@ -26,8 +27,13 @@ const styles = StyleSheet.create( {
         top: 0,
         left: 0,
         right: 0,
-        bottom: 0,
-        backgroundColor: "black"
+        bottom: 0
+    },
+    backgroundGradient: {
+        flex: 1
+    },
+    fixedHeader: {
+        backgroundColor: "rgba(255,0,0,.2)"
     }
 } );
 
@@ -35,7 +41,7 @@ const styles = StyleSheet.create( {
 const scrollTransform = ( animatedValue, height ) => {
     const translateY = animatedValue.interpolate( {
         inputRange: [ -height, 0, height - fixedHeaderHeight ],
-        outputRange: [ height / 2, 0, -( height - fixedHeaderHeight ) ],
+        outputRange: [ -height / 2, 0, 0 ],
         extrapolateRight: "clamp"
     } );
 
@@ -101,17 +107,54 @@ class TitleBlock extends Component {
 };
 
 
-export const Content = ( { event, height, animatedValue } ) =>
-    <Animated.View style={ [ styles.titleRow, { height }, scrollTransform( animatedValue, height ) ] } pointerEvents="box-none">
-        <Animated.View style={ [ styles.titleColumn ] } pointerEvents="none">
-            <EventDetailsCategories style={ categoriesOpacity( animatedValue, height ) } event={ event } />
-            <TitleBlock event={event} animatedValue={animatedValue} height={height} />
+const Gradient = () =>
+    <LinearGradient
+        style={ styles.backgroundGradient }
+        locations={[ 0, .25, .4, .6, 1 ]}
+        colors={[ "rgba(0,0,0,.35)", "rgba(0,0,0,.1)", "rgba(0,0,0,.1)", "rgba(0,0,0,.25)", "rgba(0,0,0,.8)" ]}
+    />
+;
+
+
+const overlayOpacity = ( animatedValue, height ) => {
+    const opacity = animatedValue.interpolate( {
+        inputRange: [ 0, height * .2, height - fixedHeaderHeight ],
+        outputRange: [ 0, .7, 1 ],
+        extrapolate: "clamp"
+    } );
+
+    return { opacity };
+};
+
+const Overlay = ( { children, height, animatedValue } ) =>
+    <View>
+        <Animated.View style={ [ styles.background, overlayOpacity( animatedValue, height ) ] }>
+            <Gradient />
         </Animated.View>
-        <EventDetailsRsvpButton event={ event } />
-    </Animated.View>
+        {children}
+    </View>
+;
+
+
+export const Fixed = ( { event, height, animatedValue } ) =>
+    <Animated.View style={ [ styles.background, styles.fixedHeader ] } ></Animated.View>;
+
+
+export const Foreground = ( { event, height, animatedValue } ) =>
+    <Overlay animatedValue={animatedValue} height={height}>
+        <Animated.View style={ [ styles.titleRow, { height }, scrollTransform( animatedValue, height ) ] } pointerEvents="box-none">
+            <Animated.View style={ [ styles.titleColumn ] } pointerEvents="none">
+                <EventDetailsCategories style={ categoriesOpacity( animatedValue, height ) } event={ event } />
+                <TitleBlock event={event} animatedValue={animatedValue} height={height} />
+            </Animated.View>
+            <EventDetailsRsvpButton event={ event } />
+        </Animated.View>
+    </Overlay>
 ;
 
 
 export const Background = ( { uri } ) =>
-    <Image style={ styles.background } source={ { uri } }/>
+    <ImageBackground style={ styles.background } source={ { uri } }>
+        <Gradient />
+    </ImageBackground>
 ;
