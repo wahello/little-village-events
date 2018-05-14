@@ -9,7 +9,8 @@ import React from "react";
 const styles = StyleSheet.create( {
     root: {
         flexDirection: "column",
-        padding: 16
+        padding: 16,
+        paddingBottom: 18
     },
     tab: {
         fontSize: 12,
@@ -22,7 +23,6 @@ const styles = StyleSheet.create( {
 const renderNode = node => {
     switch ( node.name ) {
         case "iframe": return null;
-        case "br": return null;
     }
 }
 
@@ -47,13 +47,17 @@ export const DescritionCard = ( { description, details } ) =>
 
 
 export const parseDescription = desc => {
-    const re = /(<p>(\w+(?:\s+\w+)*):(\w+(?:\s+\w+)*)<\/p>)/g;
+    const detailsRe = /(<p>(\w+(?:\s+\w+)*):(\w+(?:\s+\w+)*)<\/p>)/g;
 
     const details = [];
-    const description = desc.replace( re, ( match, p1, p2, p3 ) => {
-        details.push( [ p2, p3 ] );
-        return "";
-    } );
+    const description = desc
+        .replace( detailsRe, ( match, p1, p2, p3 ) => {
+            details.push( [ p2, p3 ] );
+            return "";
+        } )
+        .replace( /(<br>)/g, "" )
+        .replace( /(<p><\/p>)/g, "" )
+        ;
 
     return { description, details };
 };
