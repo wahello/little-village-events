@@ -13,12 +13,17 @@ import _isFinite from "lodash/isFinite";
 
 
 const styles = StyleSheet.create( {
-    row: {
-        flexDirection: "row",
-    },
     name: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "flex-start",
+        paddingTop: 2,
+        paddingBottom: 2
+    },
+    word: {
         fontSize: 16,
-        fontWeight: "600"
+        fontWeight: "600",
+        lineHeight: 18
     },
     call: {
         marginLeft: 6
@@ -31,12 +36,11 @@ const styles = StyleSheet.create( {
 } );
 
 const NameAndPhone = ( { name, phone, call } ) => {
-    const parts = [];
+    var parts = [];
     if ( name ) {
-        parts.push(
-            <Text key="name" style={ styles.name }>
-                { name }
-            </Text>
+        const words = name.split( " " );
+        parts = words.map( ( word, i ) =>
+            <Text style={ styles.word } key={i}>{ i !== words.length - 1 ? `${word} ` : word }</Text>
         );
     }
 
@@ -48,7 +52,7 @@ const NameAndPhone = ( { name, phone, call } ) => {
         );
     }
     return parts.length ? (
-        <View style={ styles.row }>
+        <View style={ styles.name }>
             { parts }
         </View>
     ) : null;

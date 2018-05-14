@@ -1,6 +1,7 @@
 import EventDetailsVenueCard, { VenueCard } from "../event-details-venue-card";
 import completeEvent from "./data/complete-event.json";
 import complexAddress from "./data/complex-address.json";
+import longVenueName from "./data/long-venue-name.json";
 import noAddress from "./data/no-address.json";
 import noDirections from "./data/no-directions.json";
 import noName from "./data/no-name.json";
@@ -19,6 +20,7 @@ storiesOf( "EventDetailsVenueCard", module )
     .add( "complete", () => ( <EventDetailsVenueCard event={ completeEvent } call={ number => action( `Call: ${number}` ) }/> ) )
     .add( "no venue", () => ( <EventDetailsVenueCard event={ {} } call={ number => action( `Call: ${number}` ) }/> ) )
     .add( "complex address", () => ( <VenueCard venue={ complexAddress } call={ number => action( `Call: ${number}` ) }/> ) )
+    .add( "long venue name", () => ( <VenueCard venue={ longVenueName } call={ number => action( `Call: ${number}` ) }/> ) )
     .add( "no address", () => ( <VenueCard venue={ noAddress } call={ number => action( `Call: ${number}` ) }/> ) )
     .add( "no directions", () => ( <VenueCard venue={ noDirections } call={ number => action( `Call: ${number}` ) }/> ) )
     .add( "no name", () => ( <VenueCard venue={ noName } call={ number => action( `Call: ${number}` ) }/> ) )
