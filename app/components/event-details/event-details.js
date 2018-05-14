@@ -52,7 +52,7 @@ const EventDetails = ( { state, effects } ) => {
 
     const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
     const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
-    const uri = `${image}-/scale_crop/${imageWidth}x${imageHeight}/center/`;
+    const uri = `${image}-/scale_crop/${imageWidth}x${imageHeight}/center/-/enhance/`;
 
     return (
         <ParallaxScroll
