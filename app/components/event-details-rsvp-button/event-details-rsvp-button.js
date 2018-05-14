@@ -23,6 +23,7 @@ const styles = StyleSheet.create( {
         alignItems: "center",
         justifyContent: "center",
         maxHeight: 28,
+        minWidth: 60,
         borderRadius: 28,
         backgroundColor: "#efeff4"
     },
@@ -66,9 +67,15 @@ const priceRange = tickets => {
 };
 
 
-const formatPrice = price => numeral( price ).format( "$0,0" );
-const priceLabel = priceRange =>
-    priceRange.map( formatPrice ).join( "-" );
+const formatPrice = ( price, forceDecimals ) =>
+    numeral( price ).format( forceDecimals ? "$0,0.00" : "$0,0[.]00" )
+;
+
+
+const priceLabel = priceRange => priceRange
+    .map( price => formatPrice( price, priceRange.length === 1 ) )
+    .join( "-" )
+;
 
 
 export default ( { event } ) => {
