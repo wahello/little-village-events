@@ -33,7 +33,7 @@ const styles = StyleSheet.create( {
         flex: 1
     },
     fixedHeader: {
-        backgroundColor: "rgba(255,0,0,.2)"
+        // backgroundColor: "rgba(255,0,0,.2)"
     }
 } );
 
