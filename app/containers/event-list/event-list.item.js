@@ -130,7 +130,7 @@ const Hashtag = ( { item, state } ) => {
     const hashtags = ( categories || [] )
         .map( c => allCategories[ "" + c.id ] || null )
         .filter( n => !!n )
-        .map( n => `#${n.toUpperCase().replace( /[^A-Z]+/g, "-" )}` )
+        .map( n => n.toUpperCase() )
         .join( " " )
     ;
     return hashtags
