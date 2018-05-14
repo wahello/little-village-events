@@ -30,15 +30,18 @@ const renderNode = node => {
 const htmlStyles = StyleSheet.create( {
     body: {
         fontSize: 16,
+    },
+    strong: {
+        fontWeight: "600"
     }
 } );
 
 
-export const DescritionCard = ( { description, details } ) =>
+export const DescritionCard = ( { summary, description, details } ) =>
     <DetailsCard style={ styles.root }>
         <Text style={ styles.tab }>DESCRIPTION</Text>
         <HTMLView
-            value={`<body>${description}</body>`}
+            value={`<body>${summary ? `<p><strong>${summary}</strong></p>` : ""}${description}</body>`}
             stylesheet={ htmlStyles }
             renderNode={ renderNode }
         />
@@ -64,9 +67,9 @@ export const parseDescription = desc => {
 
 
 export default ( { event } ) => {
-    const { description } = event;
-    if ( !description )
+    const { summary, description } = event;
+    if ( !summary && !description )
         return null;
 
-    return <DescritionCard {...parseDescription( description )} />;
+    return <DescritionCard summary={summary} {...parseDescription( description )} />;
 }

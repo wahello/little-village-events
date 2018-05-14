@@ -1,5 +1,6 @@
 import EventDetailsDescriptionCard from "..";
-import event from "./event.json";
+import descPlusDetails from "./data/desc-plus-details.json";
+import summaryPlusDesc from "./data/summary-plus-desc.json";
 
 import layout from "/.storybook/decorators/layout";
 
@@ -9,5 +10,6 @@ import React from "react";
 
 storiesOf( "EventDetailsDescriptionCard", module )
     .addDecorator( layout() )
-    .add( "default", () => ( <EventDetailsDescriptionCard event={event} /> ) )
+    .add( "description + details", () => ( <EventDetailsDescriptionCard event={descPlusDetails} /> ) )
+    .add( "summary + description", () => ( <EventDetailsDescriptionCard event={summaryPlusDesc} /> ) )
 ;

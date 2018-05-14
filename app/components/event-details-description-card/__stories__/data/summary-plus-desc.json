@@ -1,0 +1,463 @@
+{
+    "id": 1281319,
+    "name": "Toddler Storytime ",
+    "venue_id": 564,
+    "description": "<p>Specifically planned for toddlers or young preschoolers. The same program is performed Mondays and Tuesdays each week. Ideal for young children with short attention spans who need short stories, fingerplays, and action rhymes.</p>",
+    "url": null,
+    "starttime": "2018-05-14T10:30:00.000-05:00",
+    "endtime": null,
+    "restrictions": "",
+    "ticketurl": "",
+    "created_at": "2018-04-30T20:13:17.838-05:00",
+    "updated_at": "2018-04-30T20:13:17.838-05:00",
+    "tickets": {
+        "0": {
+            "name": "",
+            "price": "0.00"
+        }
+    },
+    "parent_id": null,
+    "user_id": 945,
+    "multimedia": {
+        "0": {
+            "source": "uc",
+            "id": "3646b51b-a4b4-4d8c-8b17-fde3681749ba",
+            "type": "img",
+            "image": "https://ucarecdn.com/3646b51b-a4b4-4d8c-8b17-fde3681749ba/-/crop/614x332/0,160/-/resize/800x432/"
+        }
+    },
+    "recurring_id": 740348,
+    "calendar_id": 7,
+    "featured": false,
+    "status": "approved",
+    "external_uid": null,
+    "external_src": null,
+    "moreinfo": "http://calendar.icpl.org",
+    "allday": false,
+    "allday_text": "",
+    "summary": "Ideal for young children with short attention spans who need short stories, fingerplays, and action rhymes.",
+    "organizer_id": null,
+    "facebook_uid": null,
+    "scraper_id": null,
+    "print_only": null,
+    "venue": {
+        "id": 564,
+        "name": "Iowa City Public Library",
+        "url": "http://littlevillagemag.com/iowa-city-area-events-calendar/venues/564",
+        "img": null,
+        "address": "123 S Linn, Iowa City, IA 52240",
+        "created_at": "2015-10-08T18:17:25.260-05:00",
+        "updated_at": "2018-03-09T17:33:57.132-06:00",
+        "phone": "(319) 356-5200",
+        "latitude": 41.6592011,
+        "longitude": -91.5320946,
+        "facebook": "https://www.facebook.com/icpubliclibrary/?fref=ts",
+        "twitter": null,
+        "status": "approved",
+        "category_id": null,
+        "default_category": 1,
+        "clean_address": "123 South Linn Street",
+        "city": "Iowa City",
+        "state": "IA",
+        "zip": "52240",
+        "neighborhood_id": null,
+        "external_uid": null,
+        "external_src": null,
+        "facebook_uid": null,
+        "timezone": "America/Chicago"
+    },
+    "recurring_dates": [
+        {
+            "id": 940306,
+            "starttime": "2017-12-11T10:30:00.000-06:00"
+        },
+        {
+            "id": 940307,
+            "starttime": "2017-12-12T10:30:00.000-06:00"
+        },
+        {
+            "id": 940308,
+            "starttime": "2017-12-18T10:30:00.000-06:00"
+        },
+        {
+            "id": 940309,
+            "starttime": "2017-12-19T10:30:00.000-06:00"
+        },
+        {
+            "id": 940310,
+            "starttime": "2017-12-25T10:30:00.000-06:00"
+        },
+        {
+            "id": 940311,
+            "starttime": "2017-12-26T10:30:00.000-06:00"
+        },
+        {
+            "id": 940312,
+            "starttime": "2018-01-02T10:30:00.000-06:00"
+        },
+        {
+            "id": 1153581,
+            "starttime": "2018-02-19T10:30:00.000-06:00"
+        },
+        {
+            "id": 1153582,
+            "starttime": "2018-02-20T10:30:00.000-06:00"
+        },
+        {
+            "id": 1153583,
+            "starttime": "2018-02-26T10:30:00.000-06:00"
+        },
+        {
+            "id": 1153584,
+            "starttime": "2018-02-27T10:30:00.000-06:00"
+        },
+        {
+            "id": 1153578,
+            "starttime": "2018-02-06T10:30:00.000-06:00"
+        },
+        {
+            "id": 1153579,
+            "starttime": "2018-02-12T10:30:00.000-06:00"
+        },
+        {
+            "id": 1153580,
+            "starttime": "2018-02-13T10:30:00.000-06:00"
+        },
+        {
+            "id": 1281317,
+            "starttime": "2018-05-07T10:30:00.000-05:00"
+        },
+        {
+            "id": 1281318,
+            "starttime": "2018-05-08T10:30:00.000-05:00"
+        },
+        {
+            "id": 1281319,
+            "starttime": "2018-05-14T10:30:00.000-05:00"
+        },
+        {
+            "id": 1281320,
+            "starttime": "2018-05-15T10:30:00.000-05:00"
+        },
+        {
+            "id": 1281321,
+            "starttime": "2018-05-21T10:30:00.000-05:00"
+        },
+        {
+            "id": 1281322,
+            "starttime": "2018-05-22T10:30:00.000-05:00"
+        },
+        {
+            "id": 1281323,
+            "starttime": "2018-05-28T10:30:00.000-05:00"
+        },
+        {
+            "id": 1281324,
+            "starttime": "2018-05-29T10:30:00.000-05:00"
+        },
+        {
+            "id": 1186201,
+            "starttime": "2018-03-19T10:30:00.000-05:00"
+        },
+        {
+            "id": 1186202,
+            "starttime": "2018-03-20T10:30:00.000-05:00"
+        },
+        {
+            "id": 1186203,
+            "starttime": "2018-03-26T10:30:00.000-05:00"
+        },
+        {
+            "id": 1186204,
+            "starttime": "2018-03-27T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237245,
+            "starttime": "2018-05-01T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237238,
+            "starttime": "2018-04-09T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237239,
+            "starttime": "2018-04-10T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237240,
+            "starttime": "2018-04-16T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237241,
+            "starttime": "2018-04-17T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237242,
+            "starttime": "2018-04-23T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237243,
+            "starttime": "2018-04-24T10:30:00.000-05:00"
+        },
+        {
+            "id": 1237244,
+            "starttime": "2018-04-30T10:30:00.000-05:00"
+        },
+        {
+            "id": 1055516,
+            "starttime": "2018-01-09T10:30:00.000-06:00"
+        },
+        {
+            "id": 1055517,
+            "starttime": "2018-01-10T10:30:00.000-06:00"
+        },
+        {
+            "id": 1055518,
+            "starttime": "2018-01-16T10:30:00.000-06:00"
+        },
+        {
+            "id": 1055519,
+            "starttime": "2018-01-17T10:30:00.000-06:00"
+        },
+        {
+            "id": 1055520,
+            "starttime": "2018-01-23T10:30:00.000-06:00"
+        },
+        {
+            "id": 1055521,
+            "starttime": "2018-01-24T10:30:00.000-06:00"
+        },
+        {
+            "id": 1055522,
+            "starttime": "2018-01-30T10:30:00.000-06:00"
+        },
+        {
+            "id": 1055523,
+            "starttime": "2018-01-31T10:30:00.000-06:00"
+        },
+        {
+            "id": 1190010,
+            "starttime": "2018-04-02T10:30:00.000-05:00"
+        },
+        {
+            "id": 1190011,
+            "starttime": "2018-04-03T10:30:00.000-05:00"
+        },
+        {
+            "id": 740349,
+            "starttime": "2017-10-24T10:30:00.000-05:00"
+        },
+        {
+            "id": 740350,
+            "starttime": "2017-10-30T10:30:00.000-05:00"
+        },
+        {
+            "id": 740351,
+            "starttime": "2017-10-31T10:30:00.000-05:00"
+        },
+        {
+            "id": 740352,
+            "starttime": "2017-11-06T10:30:00.000-06:00"
+        },
+        {
+            "id": 740353,
+            "starttime": "2017-11-07T10:30:00.000-06:00"
+        },
+        {
+            "id": 740354,
+            "starttime": "2017-11-13T10:30:00.000-06:00"
+        },
+        {
+            "id": 740355,
+            "starttime": "2017-11-14T10:30:00.000-06:00"
+        },
+        {
+            "id": 740356,
+            "starttime": "2017-11-20T10:30:00.000-06:00"
+        },
+        {
+            "id": 740357,
+            "starttime": "2017-11-21T10:30:00.000-06:00"
+        },
+        {
+            "id": 740358,
+            "starttime": "2017-11-27T10:30:00.000-06:00"
+        },
+        {
+            "id": 740359,
+            "starttime": "2017-11-28T10:30:00.000-06:00"
+        },
+        {
+            "id": 740360,
+            "starttime": "2017-12-04T10:30:00.000-06:00"
+        },
+        {
+            "id": 740361,
+            "starttime": "2017-12-05T10:30:00.000-06:00"
+        }
+    ],
+    "children": [
+
+    ],
+    "available_calendars": [
+        {
+            "id": 7,
+            "name": "Little Village",
+            "guideline_url": null,
+            "timezone": "America/Chicago",
+            "address": "Iowa City, IA"
+        }
+    ],
+    "lists": [
+
+    ],
+    "categories": [
+        {
+            "id": 83,
+            "name": "Family",
+            "image": "https://ucarecdn.com/520aa794-b823-466e-9d08-0172e0ae05dc/-/crop/800x431/0,0/-/resize/500x270/"
+        }
+    ],
+    "calendar": {
+        "lists": [
+            {
+                "id": 214,
+                "name": "Widget",
+                "calendar_id": 7,
+                "created_at": "2018-04-12T13:35:57.901-05:00",
+                "updated_at": "2018-04-12T13:35:57.901-05:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 7,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 153,
+                "name": "Slider",
+                "calendar_id": 7,
+                "created_at": "2017-09-05T11:13:57.755-05:00",
+                "updated_at": "2017-09-05T11:13:57.755-05:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 6,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 51,
+                "name": "Family Events",
+                "calendar_id": 7,
+                "created_at": "2015-10-02T15:01:35.151-05:00",
+                "updated_at": "2015-10-09T12:18:03.284-05:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 3,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 50,
+                "name": "Things To Do",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T14:50:16.283-05:00",
+                "updated_at": "2015-10-09T15:27:38.143-05:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 1,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 58,
+                "name": "",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T15:36:28.158-05:00",
+                "updated_at": "2015-10-09T15:36:28.158-05:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 4,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 49,
+                "name": "Witching Hour ",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T14:49:22.788-05:00",
+                "updated_at": "2015-10-30T12:39:23.221-05:00",
+                "description": "Witching Hour, a new festival, seeks to explore and engage “the unknown” through performance and discussion. Discussions (in the afternoon) will feature artists, writers, scientists, entrepreneurs, and other thinkers discussing their creative processes and paths to innovation via lectures and moderated Q&As. Performances (at night) will reflect a range of disciplines, including but not limited to music, comedy, literature, film, and dance.\r\n\r\nThe goal is to bring together our community to enjoy new art, to learn about the different ways we make things, to talk to each other, and to be inspired.",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 2,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 60,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2017-06-06T12:21:18.900-05:00",
+                "updated_at": "2017-06-06T12:21:18.900-05:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 5,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 53,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T09:56:30.069-05:00",
+                "updated_at": "2018-05-05T16:23:48.104-05:00",
+                "description": "Upcoming event highlights curated by Little Village editors",
+                "active": true,
+                "activefrom": "2017-08-28T23:00:00.000-05:00",
+                "activeto": "2018-06-29T23:00:00.000-05:00",
+                "sort": 0,
+                "autoremove": true,
+                "nav": true,
+                "display": "list",
+                "tagline": "",
+                "banner_img": ""
+            }
+        ]
+    },
+    "editable": false,
+    "distributable": false
+}
