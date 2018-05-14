@@ -1,6 +1,7 @@
 import * as Header from "../event-details-header";
 import EventDetailsDateCard from "../event-details-date-card";
 import EventDetailsVenueCard from "../event-details-venue-card";
+import EventDetailsDescriptionCard from "../event-details-description-card";
 import { eventImage } from "../../utils/event";
 
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
@@ -28,8 +29,7 @@ const styles = StyleSheet.create( {
     },
     body: {
         backgroundColor: "#eaeaea",
-        paddingTop: 6,
-        minHeight: 1000,
+        paddingTop: 6
     }
 } );
 
@@ -42,7 +42,7 @@ const Loading = () => (
 );
 
 const EventDetails = ( { state, effects } ) => {
-    const { event, windowDimensions: { width } } = state;
+    const { event, windowDimensions: { width, height } } = state;
 
     if ( !event )
         return <Loading/>;
@@ -71,9 +71,10 @@ const EventDetails = ( { state, effects } ) => {
             parallaxBackgroundScrollSpeed={ 4 }
             parallaxForegroundScrollSpeed={ 1 }
         >
-            <View style={ styles.body }>
+            <View style={ [ styles.body, { minHeight: height - headerHeight } ] }>
                 <EventDetailsDateCard event={ event }/>
                 <EventDetailsVenueCard event={ event } call={ effects.call }/>
+                <EventDetailsDescriptionCard event={ event }/>
             </View>
         </ParallaxScroll>
     );
