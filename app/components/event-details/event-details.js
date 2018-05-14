@@ -25,7 +25,8 @@ const styles = StyleSheet.create( {
     },
     body: {
         backgroundColor: "#eaeaea",
-        minHeight: 1000
+        paddingTop: 6,
+        minHeight: 1000,
     }
 } );
 

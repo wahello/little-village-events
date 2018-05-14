@@ -6,6 +6,7 @@ const styles = StyleSheet.create( {
         alignSelf: "stretch",
 
         margin: 6,
+        marginTop: 0,
         padding: 10,
 
         borderRadius: 10,
