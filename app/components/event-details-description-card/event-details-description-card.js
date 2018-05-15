@@ -1,4 +1,5 @@
 import DetailsCard from "../event-details-card";
+import parseDescription from "./parse-description.js";
 
 import HTMLView from "react-native-htmlview";
 
@@ -49,21 +50,6 @@ export const DescritionCard = ( { summary, description, details } ) =>
 ;
 
 
-export const parseDescription = desc => {
-    const detailsRe = /(<p>(\w+(?:\s+\w+)*):(\w+(?:\s+\w+)*)<\/p>)/g;
-
-    const details = [];
-    const description = desc
-        .replace( detailsRe, ( match, p1, p2, p3 ) => {
-            details.push( [ p2, p3 ] );
-            return "";
-        } )
-        .replace( /(<br>)/g, "" )
-        .replace( /(<p><\/p>)/g, "" )
-        ;
-
-    return { description, details };
-};
 
 
 export default ( { event } ) => {

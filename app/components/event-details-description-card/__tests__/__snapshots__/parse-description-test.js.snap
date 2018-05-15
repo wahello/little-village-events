@@ -1,36 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`event-details-description-card/parseDescription 1`] = `
+exports[`event-details-description-card/parseDescription extracts details 1`] = `
 Object {
-  "description": "plain text",
-  "details": Array [],
-}
-`;
-
-exports[`event-details-description-card/parseDescription 2`] = `
-Object {
-  "description": "<p>plain paragraph</p>",
-  "details": Array [],
-}
-`;
-
-exports[`event-details-description-card/parseDescription 3`] = `
-Object {
-  "description": "<p>ignore empty paragraphs</p>",
-  "details": Array [],
-}
-`;
-
-exports[`event-details-description-card/parseDescription 4`] = `
-Object {
-  "description": "<p>Chef Baroncini always rolls out terrific dough and amazing sauces. </p><p>More details to come!</p>",
-  "details": Array [],
-}
-`;
-
-exports[`event-details-description-card/parseDescription 5`] = `
-Object {
-  "description": "<p>Showtimes announced Tuesday before opening date.</p><p>“Charlize Theron gives a fearless performance.\\" - Owen Gleiberman, Variety</p><p>“Jason Reitman is back at his best again.\\" - Alex Billington, First Showing</p><p>“A bitingly funny, deeply empathetic ode to motherhood.\\"-        Tomris Laffly, Film Journal International</p><p>A new comedy from Academy Award nominated director Jason Reitman (Up in the Air) and Academy Award winning screenwriter and University of Iowa graduate Diablo Cody (Juno), Marlo (Charlize Theron), a mother of three including a newborn, is gifted a nanny by her brother (Mark Duplass). Hesitant to the extravagance at first, Marlo comes to form a unique bond with the thoughtful, surprising and sometimes challenging young nanny named        Tully.</p>",
+  "description": "<p>Showtimes announced Tuesday before opening date.</p><p>“Charlize Theron gives a fearless performance.\\" - Owen Gleiberman, Variety</p><p>“Jason Reitman is back at his best again.\\" - Alex Billington, First Showing</p><p>“A bitingly funny, deeply empathetic ode to motherhood.\\"-            Tomris Laffly, Film Journal International</p><p>A new comedy from Academy Award nominated director Jason Reitman (Up in the Air) and Academy Award winning screenwriter and University of Iowa graduate Diablo Cody (Juno), Marlo (Charlize Theron), a mother of three including a newborn, is gifted a nanny by her brother (Mark Duplass). Hesitant to the extravagance at first, Marlo comes to form a unique bond with the thoughtful, surprising and sometimes challenging young nanny named            Tully.</p>",
   "details": Array [
     Array [
       "Series",
@@ -61,5 +33,33 @@ Object {
       "English",
     ],
   ],
+}
+`;
+
+exports[`event-details-description-card/parseDescription ignores empty paragraphs 1`] = `
+Object {
+  "description": "<p>ignore empty paragraphs</p>",
+  "details": Array [],
+}
+`;
+
+exports[`event-details-description-card/parseDescription ignores empty paragraphs 2`] = `
+Object {
+  "description": "<p>Chef Baroncini always rolls out terrific dough and amazing sauces. </p><p>More details to come!</p>",
+  "details": Array [],
+}
+`;
+
+exports[`event-details-description-card/parseDescription parses plain description 1`] = `
+Object {
+  "description": "plain text",
+  "details": Array [],
+}
+`;
+
+exports[`event-details-description-card/parseDescription parses plain description 2`] = `
+Object {
+  "description": "<p>plain paragraph</p>",
+  "details": Array [],
 }
 `;
