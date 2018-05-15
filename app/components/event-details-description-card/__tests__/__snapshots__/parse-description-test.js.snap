@@ -36,6 +36,30 @@ Object {
 }
 `;
 
+exports[`event-details-description-card/parseDescription extracts details 2`] = `
+Object {
+  "description": "<p>The only thing you need to start making comics is a desire to start making comics. But diving in can still be intimidating, so why not join a group of people doing the same thing in a supportive environment? Comics for Anybody will be just that: you will be making your own work, however you want to, but with guidance on how to start and how to keep going. We will share            ideas and troubleshoot and support each other. The only things you need are an idea, your preferred writing and drawing tools, and a desire to start. You’re an anybody, you can do it!</p><p>Instructor Bio: Violet Austerlitz transplanted herself from Missouri to Iowa City five years ago with no plan, and she’s quite confident that it was a good idea. She studied printmaking at Truman State University, focusing             on silkscreen and letterpress, and has kept up her art practice as a member of the Iowa City Press Co-op. She also writes and draws a webcomic called The Satanic Mechanic.</p>",
+  "details": Array [
+    Array [
+      "Date/Time",
+      "Tuesdays, May 1, 8, and 15, 6-8pm",
+    ],
+    Array [
+      "Instructor",
+      "Violet A.",
+    ],
+    Array [
+      "Prerequisite/skill level",
+      "Beginner",
+    ],
+    Array [
+      "Age group",
+      "14+",
+    ],
+  ],
+}
+`;
+
 exports[`event-details-description-card/parseDescription ignores empty paragraphs 1`] = `
 Object {
   "description": "<p>ignore empty paragraphs</p>",
@@ -48,6 +72,97 @@ Object {
   "description": "<p>Chef Baroncini always rolls out terrific dough and amazing sauces. </p><p>More details to come!</p>",
   "details": Array [],
 }
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails allows for (limited) punctuation in prefixes 1`] = `
+Array [
+  "Av. Rating",
+  "9",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails allows for (limited) punctuation in prefixes 2`] = `
+Array [
+  "Date/Time",
+  "Tuesdays, May 1, 8, and 15, 6-8pm",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails allows for (limited) punctuation in prefixes 3`] = `
+Array [
+  "Prerequisite/skill level",
+  "Beginner",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails allows for (limited) punctuation in prefixes 4`] = `
+Array [
+  "Skill + thrill level",
+  "Beginner",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails allows for (limited) punctuation in prefixes 5`] = `
+Array [
+  "Skull & bones level",
+  "Beginner",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 1`] = `
+Array [
+  "Series",
+  "Coming Soon",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 2`] = `
+Array [
+  "Rating",
+  "R",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 3`] = `
+Array [
+  "Year Released",
+  "2018",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 4`] = `
+Array [
+  "Age",
+  "14+",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 5`] = `
+Array [
+  "Instructor",
+  "Violet A. Blue",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 6`] = `
+Array [
+  "Age restrictions",
+  "19+ After 10 pm.",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 7`] = `
+Array [
+  "Director",
+  "Frank Henenlotter (Frankenhooker)",
+]
+`;
+
+exports[`event-details-description-card/parseDescription parseAsDetails parses basic cases 8`] = `
+Array [
+  "Instructor",
+  "Benjamin Revis Longname, UI Scientific Glass Blower",
+]
 `;
 
 exports[`event-details-description-card/parseDescription parses plain description 1`] = `
