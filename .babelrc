@@ -6,6 +6,10 @@
         [ "root-import", {
             "rootPathPrefix": "/"
         } ]
-    ]
-
+    ],
+    "env": {
+        "test": {
+            "retainLines": true
+        }
+    }
 }
