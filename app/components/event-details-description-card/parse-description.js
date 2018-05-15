@@ -1,6 +1,6 @@
-import toPairs from "lodash/topairs";
-import startsWith from "lodash/startswith";
 import htmlparser from "htmlparser2-without-node-native";
+import toPairs from "lodash/toPairs";
+import startsWith from "lodash/startsWith";
 import last from "lodash/last";
 
 
