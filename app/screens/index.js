@@ -1,6 +1,6 @@
 import details from "./details";
 import list from "./list";
-import state from "./state";
+import state from "../state";
 
 import { provideState } from "@textpress/freactal";
 
