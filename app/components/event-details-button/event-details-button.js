@@ -18,8 +18,7 @@ const styles = StyleSheet.create( {
     buttonLabel: {
         fontSize: 14,
         fontWeight: "500",
-        paddingLeft: 14,
-        paddingRight: 14,
+        paddingHorizontal: 14,
         color: "#007aff"
     }
 } );

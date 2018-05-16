@@ -34,8 +34,10 @@ const styles = StyleSheet.create( {
 
 } );
 
-const NameAndPhone = ( { name, phone, call } ) => {
-    var parts = [];
+const NameAndPhone = ( { venue, call } ) => {
+    const { name, phone } = venue;
+
+    let parts = [];
     if ( name ) {
         const words = name.split( " " );
         parts = words.map( ( word, i ) =>
@@ -90,7 +92,8 @@ const Address = ( { address } ) => {
     ) : null;
 };
 
-const DirectionsButton = ( { name, latitude, longitude, style, openMap } ) => {
+const DirectionsButton = ( { style, venue, openMap } ) => {
+    const { name, latitude, longitude } = venue;
     return _isFinite( latitude ) && _isFinite( longitude )
         ? <Button style={ style } label="Directions" onPress={ () => openMap( { longitude, latitude, name } ) }/>
         : null
@@ -104,14 +107,12 @@ export const VenueCard = ( { venue, call, openMap } ) => (
         renderButton={ ( { style } ) => (
             <DirectionsButton
                 style={ style }
-                name={ venue.name }
-                latitude={ venue.latitude }
-                longitude={ venue.longitude }
+                venue={ venue }
                 openMap={ openMap }
             />
         ) }
     >
-        <NameAndPhone name={ venue.name } phone={ venue.phone } call={ call }/>
+        <NameAndPhone venue={ venue } call={ call }/>
         <Address address={ venue.address }/>
     </Card>
 );

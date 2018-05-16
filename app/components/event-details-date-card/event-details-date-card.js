@@ -1,4 +1,5 @@
 import DetailsIconCard from "../event-details-icon-card";
+import DetailsButton from "../event-details-button";
 
 import { CalendarIcon } from "../icons";
 
@@ -32,6 +33,13 @@ const styles = StyleSheet.create( {
         marginTop: 1,
         fontSize: 11,
         fontWeight: "400",
+    },
+    calendarButton: {
+        width: 28,
+        height: 28
+    },
+    calendarButtonLabel: {
+        paddingHorizontal: 0
     }
 
 } );
@@ -99,14 +107,29 @@ const Time = ( { starttime, endtime } ) => {
     );
 };
 
+const AddToCalendar = ( { event, addEventToCalendar } ) => {
+    const { endtime } = event;
+    return !endtime ? (
+        <DetailsButton style={ { button: styles.calendarButton, label: styles.calendarButtonLabel } } label="+" onPress={ () => addEventToCalendar( event ) }/>
+    ) : null;
+};
 
-export default ( { event } ) => {
+export default ( { event, addEventToCalendar } ) => {
     const { starttime, endtime } = event;
     if ( !starttime )
         return null;
 
     return (
-        <DetailsIconCard style={ styles.root } renderIcon={ CalendarIcon }>
+        <DetailsIconCard
+            style={ styles.root }
+            renderIcon={ CalendarIcon }
+            renderButton={ () => (
+                <AddToCalendar
+                    event={ event }
+                    addEventToCalendar={ addEventToCalendar }
+                />
+            ) }
+        >
             <Date date={ starttime }/>
             <Time starttime={ starttime } endtime={ endtime }/>
         </DetailsIconCard>
