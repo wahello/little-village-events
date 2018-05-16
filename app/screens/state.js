@@ -1,7 +1,8 @@
 import details from "./details";
-import { update } from "@textpress/freactal";
+import { mergeIntoState, update } from "@textpress/freactal";
 
 import { Dimensions } from "react-native";
+import call from "react-native-phone-call"
 
 const initialState = {
     windowDimensions: Dimensions.get( "window" ),
@@ -32,6 +33,13 @@ const state = {
                 state.navigator.push( { screen: details.id, ...details.nav, passProps: { event } } );
                 return state;
             }
+        },
+        call: ( effects, number ) => {
+            call( {
+                number: number.replace( /[- ()]/g, "" ),
+                prompt: true
+            } );
+            return mergeIntoState( {} );
         }
     }
 };

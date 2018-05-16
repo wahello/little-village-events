@@ -46,7 +46,7 @@ const NameAndPhone = ( { name, phone, call } ) => {
 
     if ( phone ) {
         parts.push(
-            <TouchableLink key="call" style={ styles.call } onPress={ () => call( phone.replace( /[- ()]/g, "" ) ) }>
+            <TouchableLink key="call" style={ styles.call } onPress={ () => call( phone ) }>
                 <PhoneIcon/>
             </TouchableLink>
         );
