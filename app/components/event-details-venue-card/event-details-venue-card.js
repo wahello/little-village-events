@@ -7,7 +7,6 @@ import { PhoneIcon, PinIcon } from "../icons";
 import React, { Fragment } from "react";
 import { parseLocation } from "parse-address";
 import { Text, View, StyleSheet } from "react-native";
-import openMap from "react-native-open-maps";
 
 import _isFinite from "lodash/isFinite";
 
@@ -91,20 +90,25 @@ const Address = ( { address } ) => {
     ) : null;
 };
 
-const DirectionsButton = ( { name, latitude, longitude, style } ) => {
+const DirectionsButton = ( { name, latitude, longitude, style, openMap } ) => {
     return _isFinite( latitude ) && _isFinite( longitude )
         ? <Button style={ style } label="Directions" onPress={ () => openMap( { longitude, latitude, name } ) }/>
         : null
     ;
 };
 
-export const VenueCard = ( { venue, call } ) => (
+export const VenueCard = ( { venue, call, openMap } ) => (
     <Card
         style={ styles.root }
         renderIcon={ PinIcon }
         renderButton={ ( { style } ) => (
-            <DirectionsButton style={ style } name={ venue.name } latitude={ venue.latitude }
-                longitude={ venue.longitude }/>
+            <DirectionsButton
+                style={ style }
+                name={ venue.name }
+                latitude={ venue.latitude }
+                longitude={ venue.longitude }
+                openMap={ openMap }
+            />
         ) }
     >
         <NameAndPhone name={ venue.name } phone={ venue.phone } call={ call }/>
@@ -112,10 +116,10 @@ export const VenueCard = ( { venue, call } ) => (
     </Card>
 );
 
-export default ( { event, call } ) => {
+export default ( { event, call, openMap } ) => {
     const { venue } = event;
     if ( !venue )
         return null;
 
-    return <VenueCard venue={ venue } call={ call }/>;
+    return <VenueCard venue={ venue } call={ call } openMap={ openMap }/>;
 }

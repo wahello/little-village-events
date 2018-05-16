@@ -73,7 +73,7 @@ const EventDetails = ( { state, effects } ) => {
         >
             <View style={ [ styles.body, { minHeight: height - headerHeight } ] }>
                 <EventDetailsDateCard event={ event }/>
-                <EventDetailsVenueCard event={ event } call={ effects.call }/>
+                <EventDetailsVenueCard event={ event } call={ effects.call } openMap={ effects.openMap }/>
                 <EventDetailsDescriptionCard event={ event }/>
             </View>
         </ParallaxScroll>

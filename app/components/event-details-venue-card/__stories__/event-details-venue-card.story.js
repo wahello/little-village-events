@@ -14,16 +14,20 @@ import React from "react";
 import { storiesOf } from "@storybook/react-native";
 import { action } from "@storybook/addon-actions";
 
+const actions = {
+    call: number => action( "call" )( number ),
+    openMap: options => action( "openMap" )( options )
+};
 
 storiesOf( "EventDetailsVenueCard", module )
     .addDecorator( layout() )
-    .add( "complete", () => ( <EventDetailsVenueCard event={ completeEvent } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "no venue", () => ( <EventDetailsVenueCard event={ {} } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "complex address", () => ( <VenueCard venue={ complexAddress } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "long venue name", () => ( <VenueCard venue={ longVenueName } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "no address", () => ( <VenueCard venue={ noAddress } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "no directions", () => ( <VenueCard venue={ noDirections } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "no name", () => ( <VenueCard venue={ noName } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "no name and phone", () => ( <VenueCard venue={ noNameAndPhone } call={ number => action( "Call" )( number ) }/> ) )
-    .add( "no phone", () => ( <VenueCard venue={ noPhone } call={ number => action( "Call" )( number ) }/> ) )
+    .add( "complete", () => ( <EventDetailsVenueCard event={ completeEvent } { ...actions } /> ) )
+    .add( "no venue", () => ( <EventDetailsVenueCard event={ {} } { ...actions }/> ) )
+    .add( "complex address", () => ( <VenueCard venue={ complexAddress } { ...actions }/> ) )
+    .add( "long venue name", () => ( <VenueCard venue={ longVenueName } { ...actions }/> ) )
+    .add( "no address", () => ( <VenueCard venue={ noAddress } { ...actions }/> ) )
+    .add( "no directions", () => ( <VenueCard venue={ noDirections } { ...actions }/> ) )
+    .add( "no name", () => ( <VenueCard venue={ noName } { ...actions }/> ) )
+    .add( "no name and phone", () => ( <VenueCard venue={ noNameAndPhone } { ...actions }/> ) )
+    .add( "no phone", () => ( <VenueCard venue={ noPhone } { ...actions }/> ) )
 ;

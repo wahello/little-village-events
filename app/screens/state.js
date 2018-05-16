@@ -2,6 +2,7 @@ import details from "./details";
 import { mergeIntoState, update } from "@textpress/freactal";
 
 import { Dimensions } from "react-native";
+import openMap from "react-native-open-maps";
 import call from "react-native-phone-call"
 
 const initialState = {
@@ -34,11 +35,15 @@ const state = {
                 return state;
             }
         },
-        call: ( effects, number ) => {
-            call( {
+        call: async ( effects, number ) => {
+            await call( {
                 number: number.replace( /[- ()]/g, "" ),
                 prompt: true
             } );
+            return mergeIntoState( {} );
+        },
+        openMap: async ( effects, options ) => {
+            await openMap( options );
             return mergeIntoState( {} );
         }
     }
