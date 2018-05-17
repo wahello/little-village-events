@@ -1,17 +1,32 @@
-import appState from "/app/state";
-import { transparent } from "/app/navigator/styles";
+import navigatorStyleDecorator from "./decorators/navigator-style";
+
+import appState from "../app/state";
+import { transparent } from "../app/navigator/styles";
 
 import { provideState } from "@textpress/freactal";
 
-import { getStorybookUI, configure } from "@storybook/react-native";
+import { getStorybookUI, configure, addDecorator } from "@storybook/react-native";
 
 import React, { Component } from "react";
 import { Navigation } from "react-native-navigation";
 import { compose } from "recompose";
 
+// react-native hot module loader must take in a Class - https://github.com/facebook/react-native/issues/10991
+// https://github.com/storybooks/storybook/issues/2081
+// eslint-disable-next-line react/prefer-stateless-function
+class StorybookUIHMRRoot extends Component {
+    static id = "storybook.main";
+    static navigatorStyle = { ...transparent };
+
+    render() {
+        return <StorybookUIRoot navigator={ this.props.navigator } />;
+    }
+}
+
 // import stories
 
 configure( () => {
+    addDecorator( navigatorStyleDecorator( StorybookUIHMRRoot ) );
     require( "./stories" );
 }, module );
 
@@ -22,25 +37,13 @@ const StorybookUIRoot = compose(
 )( getStorybookUI( { port: 7007, host: 'localhost' } ) );
 
 
-// react-native hot module loader must take in a Class - https://github.com/facebook/react-native/issues/10991
-// https://github.com/storybooks/storybook/issues/2081
-// eslint-disable-next-line react/prefer-stateless-function
-class StorybookUIHMRRoot extends Component {
-    static navigatorStyle = transparent;
 
-    render() {
-        return <StorybookUIRoot navigator={ this.props.navigator } />;
-    }
-}
-
-const screenId = "storybook.main";
-
-Navigation.registerComponent( screenId, () => StorybookUIHMRRoot );
+Navigation.registerComponent( StorybookUIHMRRoot.id, () => StorybookUIHMRRoot );
 
 Navigation
     .startSingleScreenApp( {
         screen: {
-            screen: screenId
+            screen: StorybookUIHMRRoot.id
         }
     } )
 ;

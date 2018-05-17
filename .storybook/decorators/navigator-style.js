@@ -19,14 +19,18 @@ const styles = StyleSheet.create( {
 } );
 
 
-export default function navigatorStyleDecorator( style, optios = {} ) {
-    if ( _isString( style ) )
-        style = navStyles[ style ];
+export default function navigatorStyleDecorator( options ) {
+    if ( _isString( options.style ) )
+        options.style = navStyles[ options.style ];
 
     function StorybookProvider( { children } ) {
 
         const navigatorStyle = ( { state, children } ) => {
-            state.navigator.setStyle( style );
+            console.log( "navigatorStyle for " + options.id );
+
+            state.navigator.setStyle( options.style || options.navigatorStyle );
+            state.navigator.setButtons( { rightButtons: [], leftButtons: [], ...( options.navigatorButtons || {} ) } );
+
             return <Fragment>{ children }</Fragment>;
         };
 
@@ -37,7 +41,7 @@ export default function navigatorStyleDecorator( style, optios = {} ) {
         return (
             <NavigatorStyle>
                 { children }
-                { optios.back ? <BackIcon style={ styles.back }/> : null }
+                { options.back ? <BackIcon style={ styles.back }/> : null }
             </NavigatorStyle>
         );
     }

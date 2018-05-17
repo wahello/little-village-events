@@ -21,7 +21,7 @@ const Screen = compose(
 
 
 storiesOf( "EventDetailsScreen", module )
-    .addDecorator( navigatorStyleDecorator( "transparent", { back: true } ) )
+    .addDecorator( navigatorStyleDecorator( { ...EventDetails, back: true } ) )
     .add( "default", () => <Screen event={ darkCoverEvent } /> )
     .add( "light cover", () => <Screen event={ lightCoverEvent } /> )
     .add( "loading", () => <Screen event={ null }/> )
