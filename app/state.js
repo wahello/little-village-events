@@ -1,4 +1,5 @@
-import details from "./screens/details";
+import EventDetails from "./containers/event-details";
+
 import { mergeIntoState, update } from "@textpress/freactal";
 
 import { Alert, Dimensions, Linking } from "react-native";
@@ -37,14 +38,7 @@ const state = {
 
         showEventDetails: ( effects, event ) => {
             return ( state ) => {
-                state.navigator.push( { screen: details.id, ...details.nav, passProps: { event } } );
-                return state;
-            }
-        },
-
-        openWeb: async () => {
-            return ( state ) => {
-                state.navigator.push( { screen: details.id, ...details.nav, passProps: { event } } );
+                state.navigator.push( { screen: EventDetails.id, passProps: { event } } );
                 return state;
             }
         },

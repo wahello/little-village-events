@@ -1,5 +1,5 @@
 import { BackIcon } from "/app/components/icons";
-import navStyles from "/app/screens/navigator-styles";
+import navStyles from "/app/navigator/styles";
 
 import { injectState } from "@textpress/freactal";
 

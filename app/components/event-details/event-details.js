@@ -3,6 +3,7 @@ import EventDetailsDateCard from "../event-details-date-card";
 import EventDetailsVenueCard from "../event-details-venue-card";
 import EventDetailsDescriptionCard from "../event-details-description-card";
 import { eventImage } from "../../utils/event";
+import navigatorStyles from "../../navigator/styles";
 
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 
@@ -80,5 +81,9 @@ const EventDetails = ( { state, effects } ) => {
     );
 };
 
+EventDetails.id = "events.details";
+EventDetails.navigatorStyle = {
+    ...navigatorStyles.transparent
+};
 
 export default EventDetails;

@@ -1,5 +1,5 @@
 import appState from "/app/state";
-import { transparent } from "/app/screens/navigator-styles";
+import { transparent } from "/app/navigator/styles";
 
 import { provideState } from "@textpress/freactal";
 
