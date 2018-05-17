@@ -1,4 +1,4 @@
-import { mergeIntoState } from "@textpress/freactal";
+import { mergeIntoState } from "../../utils/freactal";
 
 import axios from "axios";
 import moment from "moment";

@@ -2,7 +2,7 @@ import details from "./details";
 import list from "./list";
 import state from "../state";
 
-import { provideState } from "@textpress/freactal";
+import { provideState } from "../utils/freactal";
 
 import { Navigation } from "react-native-navigation";
 import { compose } from "recompose";

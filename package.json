@@ -13,6 +13,7 @@
         "@monterosa/react-native-parallax-scroll": "^1.8.0",
         "@textpress/freactal": "^2.4.1",
         "axios": "^0.18.0",
+        "hoist-non-react-statics": "^2.5.0",
         "htmlparser2-without-node-native": "^3.9.2",
         "lodash": "^4.17.10",
         "moment": "^2.22.1",

@@ -2,7 +2,7 @@ import state from "./event-details.state";
 
 import EventDetails from "../../components/event-details";
 
-import { injectState, provideState } from "@textpress/freactal";
+import { injectState, provideState } from "../../utils/freactal";
 
 import { compose } from "recompose";
 
