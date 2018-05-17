@@ -1,5 +1,7 @@
-import EventDetails from "../containers/event-details/index";
-import EventList from "../containers/event-list/index";
+import EventDetails from "../containers/event-details";
+import EventList from "../containers/event-list";
+import WebPage from "../containers/web-page";
+
 import state from "../state";
 
 import { provideState } from "../utils/freactal";
@@ -14,6 +16,7 @@ const registerScreen = screen => {
 const registerScreens = () => {
     registerScreen( EventList );
     registerScreen( EventDetails );
+    registerScreen( WebPage );
 
     return { screen: EventList.id, title: EventList.title };
 };

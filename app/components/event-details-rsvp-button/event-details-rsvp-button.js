@@ -78,12 +78,13 @@ const priceLabel = priceRange => priceRange
 ;
 
 
-export default ( { event } ) => {
+export default ( { event, openWebPage } ) => {
+    const { ticketurl } = event;
     const tickets = priceRange( event.tickets );
     const isFree = !tickets.length || last( tickets ) === 0.0;
 
     return (
-        <TouchableButton>
+        <TouchableButton onPress={ ticketurl ? () => openWebPage( ticketurl ) : undefined }>
             <View style={ styles.column }>
                 <Button label={ isFree ? "RSVP" : priceLabel( tickets )} />
                 { isFree ? null : <SmallPrint text="Buy tickets" /> }

@@ -1,4 +1,5 @@
 import EventDetails from "./containers/event-details";
+import WebPage from "./containers/web-page";
 
 import { mergeIntoState, update } from "@textpress/freactal";
 
@@ -51,10 +52,20 @@ const state = {
             return mergeIntoState( {} );
         },
 
+
         openMap: async ( effects, options ) => {
             await openMap( options );
             return mergeIntoState( {} );
         },
+
+
+        openWebPage: async ( effects, uri ) => {
+            return ( state ) => {
+                state.navigator.push( { screen: WebPage.id, passProps: { source: { uri } } } );
+                return state;
+            }
+        },
+
 
         addEventToCalendar: async ( effects, { name, starttime, venue, moreinfo } ) => {
             try {
