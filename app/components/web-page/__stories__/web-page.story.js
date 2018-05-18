@@ -1,4 +1,4 @@
-import WebPage from "..";
+import WebPage from "../index";
 
 import navigatorStyleDecorator from "/.storybook/decorators/navigator-style";
 
