@@ -85,5 +85,6 @@ EventDetails.id = "events.details";
 EventDetails.navigatorStyle = {
     ...navigatorStyles.transparent
 };
+EventDetails.backButtonTitle = "";
 
 export default EventDetails;

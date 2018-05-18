@@ -35,13 +35,19 @@ const initialState = {
 
 const state = {
     initialState: () => initialState,
+
     effects: {
+
         initialize: update( ( state, { navigator } ) => ( { navigator } ) ),
 
 
         showEventDetails: async ( effects, event ) => {
             return ( state ) => {
-                state.navigator.push( { screen: EventDetails.id, passProps: { event } } );
+                state.navigator.push( {
+                    screen: EventDetails.id,
+                    backButtonTitle: EventDetails.backButtonTitle,
+                    passProps: { event }
+                } );
                 return state;
             }
         },
