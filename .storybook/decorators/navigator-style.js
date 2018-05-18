@@ -26,8 +26,6 @@ export default function navigatorStyleDecorator( options ) {
     function StorybookProvider( { children } ) {
 
         const navigatorStyle = ( { state, children } ) => {
-            console.log( "navigatorStyle for " + options.id );
-
             state.navigator.setStyle( options.style || options.navigatorStyle );
             state.navigator.setButtons( { rightButtons: [], leftButtons: [], ...( options.navigatorButtons || {} ) } );
 
