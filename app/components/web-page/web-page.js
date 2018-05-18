@@ -1,8 +1,23 @@
+import BottomBar from "./web-page.bottom-bar";
+
 import { opaque } from "../../navigator/styles";
 
 import React, { Component } from "react";
-import { WebView } from "react-native";
+import { View, WebView, StyleSheet } from "react-native";
 import URL from "url";
+
+const styles = StyleSheet.create( {
+    root: {
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "stretch",
+    },
+    webView: {
+        flex: 1
+    }
+
+} );
+
 
 function urlToTitle( url ) {
     const result = [];
@@ -15,12 +30,13 @@ function urlToTitle( url ) {
         const hostname = parsedUrl.hostname && parsedUrl.hostname.startsWith( "www." )
             ? parsedUrl.hostname.substr( 4 )
             : parsedUrl.hostname
-            ;
+        ;
 
         result.push( hostname );
     }
     return result.join( "" );
 }
+
 
 class WebPage extends Component {
 
@@ -40,6 +56,13 @@ class WebPage extends Component {
         } ],
     };
 
+    state = {
+        canGoBack: false,
+        canGoForward: false,
+        title: "",
+        url: "",
+    };
+
     constructor( props ) {
         super( props );
         const { state } = this.props;
@@ -54,35 +77,81 @@ class WebPage extends Component {
         switch ( event.type ) {
             case "NavBarButtonPress": {
                 switch ( event.id ) {
-                    case "refresh": this.refresh()
+                    case "refresh":
+                        this.refresh()
                 }
                 break;
             }
         }
     };
 
-    onPageLoading = () => {
-        this.props.state.navigator.setTitle( { title: "" } );
+    onPageLoading = ( { nativeEvent } ) => {
+        this.updateState( nativeEvent );
     };
 
     onPageLoaded = ( { nativeEvent } ) => {
-        const { url } = nativeEvent;
-        this.props.state.navigator.setTitle( { title: urlToTitle( url ) } );
+        this.updateState( nativeEvent );
     };
+
+    updateState( nativeEvent ) {
+        const { canGoBack, canGoForward, title, url } = nativeEvent;
+        this.props.state.navigator.setTitle( { title: urlToTitle( url ) } );
+
+        this.setState( () => ( {
+            canGoBack,
+            canGoForward,
+            title,
+            url
+        } ) );
+    }
 
 
     refresh() {
-        if ( !this._webView )
-            return;
-        this._webView.reload();
+        this._webView && this._webView.reload();
     }
 
+    goBack = () => {
+        this._webView && this._webView.goBack();
+    };
+
+    goForward = () => {
+        this._webView && this._webView.goForward();
+    };
+
+    share = () => {
+        const { effects } = this.props;
+        const { title, url } = this.state;
+        return effects.share( { title, message: title, url }, { subtitle: title } );
+    };
+
+    openInBrowser = () => {
+        const { effects } = this.props;
+        return effects.openExternalURL( this.state.url );
+    };
+
     render() {
-        return <WebView ref={ webView => this._webView = webView } source={ this.props.source } onLoadStart={ this.onPageLoading } onLoad={ this.onPageLoaded } />
+        const { canGoBack, canGoForward, url } = this.state;
+
+        return (
+            <View style={ styles.root } >
+                <WebView
+                    style={ styles.webView }
+                    ref={ webView => this._webView = webView }
+                    source={ this.props.source }
+                    onLoadStart={ this.onPageLoading }
+                    onLoad={ this.onPageLoaded }/>
+                <BottomBar
+                    goBack={ canGoBack ? this.goBack : null }
+                    goForward={ canGoForward ? this.goForward : null }
+                    share={ url ? this.share : null }
+                    openInBrowser={ url ? this.openInBrowser : null }
+                />
+            </View>
+        );
+
+
     }
 
 }
 
 export default WebPage;
-
-

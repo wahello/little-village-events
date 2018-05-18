@@ -3,7 +3,7 @@ import WebPage from "./containers/web-page";
 
 import { mergeIntoState, update } from "@textpress/freactal";
 
-import { Alert, Dimensions, Linking } from "react-native";
+import { Alert, Dimensions, Linking, Share } from "react-native";
 import openMap from "react-native-open-maps";
 import call from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
@@ -44,11 +44,18 @@ const state = {
             }
         },
 
+
         call: async ( effects, number ) => {
             await call( {
                 number: number.replace( /[- ()]/g, "" ),
                 prompt: true
             } );
+            return mergeIntoState( {} );
+        },
+
+
+        share: async ( effects, content, options ) => {
+            await Share.share( content, options );
             return mergeIntoState( {} );
         },
 
@@ -64,6 +71,13 @@ const state = {
                 state.navigator.push( { screen: WebPage.id, passProps: { source: { uri } } } );
                 return state;
             }
+        },
+
+
+        openExternalURL: async ( effects, uri ) => {
+            if ( await Linking.canOpenURL( uri ) )
+                await Linking.openURL( uri );
+            return mergeIntoState( {} );
         },
 
 
@@ -85,6 +99,7 @@ const state = {
             return mergeIntoState( {} );
         },
 
+
         showUpdateYourSettings: async () => {
             const buttons = [ { text: "Cancel", style: "cancel" } ];
 
@@ -100,7 +115,9 @@ const state = {
             );
             return mergeIntoState( {} );
         }
+
     }
+
 };
 
 export default state;

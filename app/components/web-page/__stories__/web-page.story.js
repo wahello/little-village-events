@@ -14,6 +14,6 @@ const Screen = compose(
 )( WebPage );
 
 storiesOf( "WebPage", module )
-    .addDecorator( navigatorStyleDecorator( { ...WebPage, back: true } ) )
+    .addDecorator( navigatorStyleDecorator( { ...WebPage, back: false } ) )
     .add( "default", () => ( <Screen source={ { uri: "https://google.com" } } /> ) )
 ;
