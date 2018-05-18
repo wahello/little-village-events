@@ -1,10 +1,10 @@
-import BottomBar from "./web-page.bottom-bar";
+import { ShareIcon, SafariIcon } from "../icons";
 
-import { opaque } from "../../navigator/styles";
+import BottomBar from "./web-page.bottom-bar";
+import TopBar, { Button as TopBarButton } from "./web-page.top-bar";
 
 import React, { Component } from "react";
 import { View, WebView, StyleSheet } from "react-native";
-import URL from "url";
 
 const styles = StyleSheet.create( {
     root: {
@@ -14,28 +14,12 @@ const styles = StyleSheet.create( {
     },
     webView: {
         flex: 1
+    },
+    actionButton: {
+        width: 44
     }
 
 } );
-
-
-function urlToTitle( url ) {
-    const result = [];
-
-    if ( url ) {
-        const parsedUrl = URL.parse( url );
-        if ( parsedUrl.protocol === "https:" )
-            result.push( "\uD83D\uDD12" );
-
-        const hostname = parsedUrl.hostname && parsedUrl.hostname.startsWith( "www." )
-            ? parsedUrl.hostname.substr( 4 )
-            : parsedUrl.hostname
-        ;
-
-        result.push( hostname );
-    }
-    return result.join( "" );
-}
 
 
 class WebPage extends Component {
@@ -43,17 +27,7 @@ class WebPage extends Component {
     static id = "events.webPage";
 
     static navigatorStyle = {
-        ...opaque
-    };
-
-    static navigatorButtons = {
-        rightButtons: [ { // buttons for the right side of the nav bar (optional)
-            title: "↻", // if you want a textual button
-            id: "refresh", // id of the button which will pass to your press event handler. See the section bellow for Android specific button ids
-            disabled: false, // optional, used to disable the button (appears faded and doesn't interact)
-            buttonFontSize: 24, // Set font size for the button (can also be used in setButtons function to set different button style programatically)
-            buttonFontWeight: "600", // Set font weight for the button (can also be used in setButtons function to set different button style programatically)
-        } ],
+        navBarHidden: true
     };
 
     state = {
@@ -61,6 +35,7 @@ class WebPage extends Component {
         canGoForward: false,
         title: "",
         url: "",
+        loading: false
     };
 
     constructor( props ) {
@@ -85,38 +60,28 @@ class WebPage extends Component {
         }
     };
 
-    onPageLoading = ( { nativeEvent } ) => {
-        this.updateState( nativeEvent );
-    };
-
-    onPageLoaded = ( { nativeEvent } ) => {
-        this.updateState( nativeEvent );
-    };
-
-    updateState( nativeEvent ) {
-        const { canGoBack, canGoForward, title, url } = nativeEvent;
-        this.props.state.navigator.setTitle( { title: urlToTitle( url ) } );
-
-        this.setState( () => ( {
-            canGoBack,
-            canGoForward,
-            title,
-            url
-        } ) );
-    }
-
-
-    refresh() {
+    onReload = () => {
         this._webView && this._webView.reload();
-    }
+    };
+
+
+    onCancel = () => {
+        if ( !this._webView )
+            return;
+        this._webView.stopLoading();
+        this.setState( { loading: false } );
+    };
+
 
     goBack = () => {
         this._webView && this._webView.goBack();
     };
 
+
     goForward = () => {
         this._webView && this._webView.goForward();
     };
+
 
     share = () => {
         const { effects } = this.props;
@@ -124,22 +89,74 @@ class WebPage extends Component {
         return effects.share( { title, message: title, url }, { subtitle: title } );
     };
 
+
     openInBrowser = () => {
         const { effects } = this.props;
         return effects.openExternalURL( this.state.url );
     };
 
+
+    onLoadStart = ( { nativeEvent } ) => {
+        this._updateState( nativeEvent, true );
+    };
+
+
+    onLoad = ( { nativeEvent } ) => {
+        this._updateState( nativeEvent, false );
+    };
+
+
+    onError = ( { nativeEvent } ) => {
+        this._updateState( nativeEvent, false );
+    };
+
+
+    _updateState( nativeEvent, loading ) {
+        const { canGoBack, canGoForward, title, url } = nativeEvent;
+
+        this.setState( () => ( {
+            canGoBack,
+            canGoForward,
+            title,
+            url,
+            loading
+        } ) );
+    }
+
+
+    renderTopBarActions() {
+        const { url, loading } = this.state;
+        if ( !url )
+            return null;
+
+        return loading
+            ? ( <TopBarButton onPress={ this.onCancel } style={ styles.actionButton }><ShareIcon/></TopBarButton> )
+            : ( <TopBarButton onPress={ this.onReload } style={ styles.actionButton }><SafariIcon/></TopBarButton> )
+        ;
+    }
+
+
     render() {
         const { canGoBack, canGoForward, url } = this.state;
+        const { closeWebPage } = this.props.effects;
 
         return (
-            <View style={ styles.root } >
+            <View style={ styles.root }>
+                <TopBar
+                    url={ url }
+                    onClose={ closeWebPage }
+                >
+                    { this.renderTopBarActions() }
+                </TopBar>
                 <WebView
                     style={ styles.webView }
                     ref={ webView => this._webView = webView }
                     source={ this.props.source }
-                    onLoadStart={ this.onPageLoading }
-                    onLoad={ this.onPageLoaded }/>
+                    onLoadStart={ this.onLoadStart }
+                    onLoad={ this.onLoad }
+                    onError={ this.onError }
+                    renderLoading={ () => null }
+                />
                 <BottomBar
                     goBack={ canGoBack ? this.goBack : null }
                     goForward={ canGoForward ? this.goForward : null }

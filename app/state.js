@@ -29,7 +29,8 @@ const initialState = {
         "82": "Crafty",
         "83": "Family",
         "85": "Sports / Rec"
-    }
+    },
+    webPageShown: false
 };
 
 const state = {
@@ -37,7 +38,8 @@ const state = {
     effects: {
         initialize: update( ( state, { navigator } ) => ( { navigator } ) ),
 
-        showEventDetails: ( effects, event ) => {
+
+        showEventDetails: async ( effects, event ) => {
             return ( state ) => {
                 state.navigator.push( { screen: EventDetails.id, passProps: { event } } );
                 return state;
@@ -68,8 +70,22 @@ const state = {
 
         openWebPage: async ( effects, uri ) => {
             return ( state ) => {
+                if ( state.webPageShown )
+                    return state;
+
                 state.navigator.push( { screen: WebPage.id, passProps: { source: { uri } } } );
-                return state;
+                return { ...state, webPageShown: true };
+            }
+        },
+
+
+        closeWebPage: async () => {
+            return ( state ) => {
+                if ( !state.webPageShown )
+                    return state;
+
+                state.navigator.pop();
+                return { ...state, webPageShown: false };
             }
         },
 
