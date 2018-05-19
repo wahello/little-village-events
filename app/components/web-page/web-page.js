@@ -1,10 +1,9 @@
-import { ShareIcon, SafariIcon } from "../icons";
+import { NextIcon, PreviousIcon, ShareIcon, SafariIcon } from "../icons";
 
-import BottomBar from "./web-page.bottom-bar";
-import TopBar, { Button as TopBarButton } from "./web-page.top-bar";
+import Bar, { UrlTitle, Button } from "./web-page.bar-parts";
 
 import React, { Component } from "react";
-import { View, WebView, StyleSheet } from "react-native";
+import { Text, View, WebView, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create( {
     root: {
@@ -12,12 +11,33 @@ const styles = StyleSheet.create( {
         flexDirection: "column",
         alignItems: "stretch",
     },
+
+
     webView: {
         flex: 1
     },
-    actionButton: {
-        width: 44
+
+
+    topBarPortrait: {
+        paddingTop: 20
+    },
+
+
+    closeButtonLabel: {
+        marginHorizontal: 6,
+
+        fontSize: 16,
+        fontWeight: "600",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        color: "#ffffff",
+    },
+
+
+    bottomBarButton: {
+        flex: 1
     }
+
 
 } );
 
@@ -129,30 +149,70 @@ class WebPage extends Component {
         } ) );
     }
 
+    sharedBarButtons( style ) {
+        const { canGoBack, canGoForward, url } = this.state;
+        return {
+            left: [
+                <Button key="back" style={ style } disabled={ !canGoBack } onPress={ this.goBack }><PreviousIcon/></Button>,
+                <Button key="forward" style={ style } disabled={ !canGoForward } onPress={ this.goForward }><NextIcon/></Button>
+            ],
+            right: [
+                <Button key="share" style={ style } disabled={ !url } onPress={ this.share }><ShareIcon/></Button>,
+                <Button key="browser" style={ style } disabled={ !url } onPress={ this.openInBrowser }><SafariIcon/></Button>
 
-    renderTopBarActions() {
+            ]
+        };
+    }
+
+
+    renderTopBar( landscape ) {
         const { url, loading } = this.state;
-        if ( !url )
+
+        const sharedBarButtons = landscape ? this.sharedBarButtons() : { left: [], right: [] };
+
+        const action = loading
+            ? { onPress: this.onCancel, image: PreviousIcon }
+            : { onPress: this.onReload, image: NextIcon }
+            ;
+
+        return (
+            <Bar style={ landscape ? null : styles.topBarPortrait } >
+                <Button onPress={ this.onClose }><Text style={ styles.closeButtonLabel }>Done</Text></Button>
+                { sharedBarButtons.left }
+                <UrlTitle url={ url }/>
+                { sharedBarButtons.right }
+                <Button
+                    disabled={ !url }
+                    onPress={ action.onPress }
+                ><action.image/></Button>
+            </Bar>
+        );
+    }
+
+
+    renderBottomBar( landscape ) {
+        if ( landscape )
             return null;
 
-        return loading
-            ? ( <TopBarButton onPress={ this.onCancel } style={ styles.actionButton }><ShareIcon/></TopBarButton> )
-            : ( <TopBarButton onPress={ this.onReload } style={ styles.actionButton }><SafariIcon/></TopBarButton> )
-        ;
+        const sharedBarButtons = this.sharedBarButtons( styles.bottomBarButton );
+
+        return (
+            <Bar>
+                { sharedBarButtons.left }
+                { sharedBarButtons.right }
+            </Bar>
+        );
     }
 
 
     render() {
-        const { canGoBack, canGoForward, url } = this.state;
+        const { screenDimensions } = this.props.state;
+        const landscape = screenDimensions.width > screenDimensions.height;
+
 
         return (
             <View style={ styles.root }>
-                <TopBar
-                    url={ url }
-                    onClose={ this.onClose }
-                >
-                    { this.renderTopBarActions() }
-                </TopBar>
+                { this.renderTopBar( landscape ) }
                 <WebView
                     style={ styles.webView }
                     ref={ webView => this._webView = webView }
@@ -162,16 +222,9 @@ class WebPage extends Component {
                     onError={ this.onError }
                     renderLoading={ () => null }
                 />
-                <BottomBar
-                    goBack={ canGoBack ? this.goBack : null }
-                    goForward={ canGoForward ? this.goForward : null }
-                    share={ url ? this.share : null }
-                    openInBrowser={ url ? this.openInBrowser : null }
-                />
+                { this.renderBottomBar( landscape ) }
             </View>
         );
-
-
     }
 
 }

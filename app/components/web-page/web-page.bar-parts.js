@@ -10,7 +10,6 @@ const styles = StyleSheet.create( {
         flex: 0,
         flexDirection: "row",
 
-        paddingTop: 20,
         paddingHorizontal: 2,
 
         backgroundColor: "#000000"
@@ -22,17 +21,8 @@ const styles = StyleSheet.create( {
         justifyContent: "center",
         alignItems: "center",
 
-        height: 44
-    },
-
-    text: {
-        marginHorizontal: 6,
-
-        fontSize: 16,
-        fontWeight: "600",
-        fontStyle: "normal",
-        letterSpacing: 0,
-        color: "#ffffff",
+        height: 44,
+        width: 51
     },
 
     disabledButton: {
@@ -46,12 +36,20 @@ const styles = StyleSheet.create( {
         alignItems: "center",
 
         height: 44
+    },
+
+    titleText: {
+        fontSize: 16,
+        fontWeight: "600",
+        fontStyle: "normal",
+        letterSpacing: 0,
+        color: "#ffffff",
     }
 
 } );
 
 
-const Title = ( { url } ) => {
+export const UrlTitle = ( { url } ) => {
     const title = [];
 
     if ( url ) {
@@ -68,27 +66,24 @@ const Title = ( { url } ) => {
     }
 
     return (
-        <Text style={ styles.text }>
-            { title }
-        </Text>
+        <View style={ styles.titleContainer }>
+            <Text style={ styles.titleText }>
+                { title }
+            </Text>
+        </View>
     );
 };
 
-export const Button = ( { children, onPress, style } ) => (
-    <TouchableButton disabled={ !onPress } onPress={ onPress }
-        style={ [ styles.button, !onPress ? styles.disabledButton : undefined, style ] }>
+
+export const Button = ( { children, disabled, onPress, style } ) => (
+    <TouchableButton onPress={ onPress }
+        style={ [ styles.button, disabled ? styles.disabledButton : null, style ] }>
         { children }
     </TouchableButton>
 );
 
-export default ( { url, onClose, children } ) => (
-    <View style={ styles.root }>
-        <Button onPress={ onClose }>
-            <Text style={ styles.text }>Done</Text>
-        </Button>
-        <View style={ styles.titleContainer }>
-            <Title url={ url }/>
-        </View>
+export default ( { children, style } ) => (
+    <View style={ [ styles.root, style ] }>
         { children }
     </View>
 );
