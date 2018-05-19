@@ -140,14 +140,14 @@ export const Fixed = ( { event, height, animatedValue } ) =>
     <Animated.View style={ [ styles.background, styles.fixedHeader ] } ></Animated.View>;
 
 
-export const Foreground = ( { event, height, animatedValue, openWebPage } ) =>
+export const Foreground = ( { event, height, animatedValue, navigateToWebPage } ) =>
     <Overlay animatedValue={animatedValue} height={height}>
         <Animated.View style={ [ styles.titleRow, { height }, scrollTransform( animatedValue, height ) ] } pointerEvents="box-none">
             <Animated.View style={ [ styles.titleColumn ] } pointerEvents="none">
                 <EventDetailsCategories style={ categoriesOpacity( animatedValue, height ) } event={ event } />
                 <TitleBlock event={event} animatedValue={animatedValue} height={height} />
             </Animated.View>
-            <EventDetailsRsvpButton event={ event } openWebPage={ openWebPage } />
+            <EventDetailsRsvpButton event={ event } navigateToWebPage={ navigateToWebPage } />
         </Animated.View>
     </Overlay>
 ;

@@ -1,14 +1,14 @@
-import EventDetails from "./containers/event-details";
-import WebPage from "./containers/web-page";
+import { mergeIntoState, provideState } from "@textpress/freactal";
 
-import { mergeIntoState, update } from "@textpress/freactal";
-
+import React, { Component } from "react";
 import { Alert, Dimensions, Linking, Share } from "react-native";
 import openMap from "react-native-open-maps";
 import call from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
 
+import hoistNonReactStatics from "hoist-non-react-statics";
 import moment from "moment";
+import { object } from "prop-types";
 
 const appName = "little_village_events";
 
@@ -29,29 +29,13 @@ const initialState = {
         "82": "Crafty",
         "83": "Family",
         "85": "Sports / Rec"
-    },
-    webPageShown: false
+    }
 };
 
-const state = {
+const appState = {
     initialState: () => initialState,
 
     effects: {
-
-        initialize: update( ( state, { navigator } ) => ( { navigator } ) ),
-
-
-        showEventDetails: async ( effects, event ) => {
-            return ( state ) => {
-                state.navigator.push( {
-                    screen: EventDetails.id,
-                    backButtonTitle: EventDetails.backButtonTitle,
-                    passProps: { event }
-                } );
-                return state;
-            }
-        },
-
 
         call: async ( effects, number ) => {
             await call( {
@@ -71,28 +55,6 @@ const state = {
         openMap: async ( effects, options ) => {
             await openMap( options );
             return mergeIntoState( {} );
-        },
-
-
-        openWebPage: async ( effects, uri ) => {
-            return ( state ) => {
-                if ( state.webPageShown )
-                    return state;
-
-                state.navigator.push( { screen: WebPage.id, passProps: { source: { uri } } } );
-                return { ...state, webPageShown: true };
-            }
-        },
-
-
-        closeWebPage: async () => {
-            return ( state ) => {
-                if ( !state.webPageShown )
-                    return state;
-
-                state.navigator.pop();
-                return { ...state, webPageShown: false };
-            }
         },
 
 
@@ -142,4 +104,29 @@ const state = {
 
 };
 
-export default state;
+const rootStatefulComponent = provideState( appState )();
+const context = rootStatefulComponent.getChildContext();
+
+export const contextTypes = {
+    freactal: object
+};
+
+export default Screen => {
+
+    class AppStateProvider extends Component {
+
+        getChildContext() {
+            return context;
+        }
+
+        render() {
+            return <Screen { ...this.props }/>;
+        }
+    }
+
+    AppStateProvider.childContextTypes = contextTypes;
+
+    hoistNonReactStatics( AppStateProvider, Screen );
+
+    return AppStateProvider;
+}

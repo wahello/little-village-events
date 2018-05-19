@@ -139,9 +139,9 @@ const Hashtag = ( { item, state } ) => {
     ;
 };
 
-const Item = ( { item, effects: { showEventDetails }, state } ) => (
+const Item = ( { item, effects: { navigateToEventDetails }, state } ) => (
     <TouchableButton activeOpacity={ 0.6 }
-        onPress={ () => showEventDetails( item ) }>
+        onPress={ () => navigateToEventDetails( item ) }>
         <View style={ styles.card }>
             <LeftPanel item={ item }/>
             <View style={ styles.rightPanel }>

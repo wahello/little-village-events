@@ -111,6 +111,12 @@ class WebPage extends Component {
     };
 
 
+    onClose = () => {
+        const { effects, screenInstanceID } = this.props;
+        effects.navigateFromWebPage( screenInstanceID );
+    };
+
+
     _updateState( nativeEvent, loading ) {
         const { canGoBack, canGoForward, title, url } = nativeEvent;
 
@@ -138,13 +144,12 @@ class WebPage extends Component {
 
     render() {
         const { canGoBack, canGoForward, url } = this.state;
-        const { closeWebPage } = this.props.effects;
 
         return (
             <View style={ styles.root }>
                 <TopBar
                     url={ url }
-                    onClose={ closeWebPage }
+                    onClose={ this.onClose }
                 >
                     { this.renderTopBarActions() }
                 </TopBar>
