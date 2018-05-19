@@ -88,12 +88,12 @@ export const isInProgress = ( now, eventStart, eventEnd ) => {
     return todayEnd.isAfter( now );
 };
 
-const Time = ( { starttime, endtime } ) => {
-    const inProgress = isInProgress( moment(), starttime, endtime );
+const Time = ( { allday, starttime, endtime } ) => {
+    const inProgress = !allday && isInProgress( moment(), starttime, endtime );
     return (
         <View style={ styles.timeContainer }>
             <Text style={ [ styles.date, inProgress ? styles.startedColor : {} ] }>
-                { moment( starttime ).format( "h:mm A" ) }
+                { allday ? "All day" : moment( starttime ).format( "h:mm A" ) }
             </Text>
             { inProgress ?
                 (
@@ -115,7 +115,7 @@ const AddToCalendar = ( { event, addEventToCalendar } ) => {
 };
 
 export default ( { event, addEventToCalendar } ) => {
-    const { starttime, endtime } = event;
+    const { allday, starttime, endtime } = event;
     if ( !starttime )
         return null;
 
@@ -131,7 +131,7 @@ export default ( { event, addEventToCalendar } ) => {
             ) }
         >
             <Date date={ starttime }/>
-            <Time starttime={ starttime } endtime={ endtime }/>
+            <Time allday={ allday } starttime={ starttime } endtime={ endtime }/>
         </DetailsIconCard>
     );
 }
