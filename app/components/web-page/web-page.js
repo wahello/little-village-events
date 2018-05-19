@@ -172,7 +172,7 @@ class WebPage extends Component {
 
         const action = loading
             ? { onPress: this.onCancel, image: PreviousIcon }
-            : { onPress: this.onReload, image: NextIcon }
+            : { onPress: this.onReload, image: NextIcon, disabled: !url }
             ;
 
         return (
@@ -182,7 +182,7 @@ class WebPage extends Component {
                 <UrlTitle url={ url }/>
                 { sharedBarButtons.right }
                 <Button
-                    disabled={ !url }
+                    disabled={ action.disabled }
                     onPress={ action.onPress }
                 ><action.image/></Button>
             </Bar>

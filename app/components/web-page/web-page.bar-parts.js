@@ -76,8 +76,8 @@ export const UrlTitle = ( { url } ) => {
 
 
 export const Button = ( { children, disabled, onPress, style } ) => (
-    <TouchableButton onPress={ onPress }
-        style={ [ styles.button, disabled ? styles.disabledButton : null, style ] }>
+    <TouchableButton disabled={disabled} onPress={ onPress }
+        style={ [ styles.button, style, disabled ? styles.disabledButton : null ] }>
         { children }
     </TouchableButton>
 );
