@@ -1,4 +1,4 @@
-import { mergeIntoState, provideState } from "@textpress/freactal";
+import { mergeIntoState, provideState, update } from "@textpress/freactal";
 
 import React, { Component } from "react";
 import { Alert, Dimensions, Linking, Share } from "react-native";
@@ -13,6 +13,7 @@ import { object } from "prop-types";
 const appName = "little_village_events";
 
 const initialState = {
+    screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
     categories: {
         "62": "Editors' Picks",
@@ -98,8 +99,15 @@ const appState = {
                 { cancelable: false }
             );
             return mergeIntoState( {} );
-        }
+        },
 
+        updateDimensions: update( ( state, dimensions ) => {
+
+            return {
+                screenDimensions: dimensions.screen,
+                windowDimensions: dimensions.screen
+            }
+        } )
     }
 
 };
@@ -110,6 +118,8 @@ const context = rootStatefulComponent.getChildContext();
 export const contextTypes = {
     freactal: object
 };
+
+Dimensions.addEventListener( "change", context.freactal.effects.updateDimensions );
 
 export default Screen => {
 
