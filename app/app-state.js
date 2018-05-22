@@ -5,6 +5,7 @@ import { Alert, Dimensions, Linking, Share } from "react-native";
 import openMap from "react-native-open-maps";
 import call from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
+import SafariView from "react-native-safari-view";
 
 import hoistNonReactStatics from "hoist-non-react-statics";
 import moment from "moment";
@@ -58,10 +59,40 @@ const appState = {
             return mergeIntoState( {} );
         },
 
+        openEmbeddedBrowser: async ( effects, options ) => {
+            const { url, readerMode, tintColor, barTintColor, fromBottom, onDismiss } = options;
 
-        openExternalURL: async ( effects, uri ) => {
-            if ( await Linking.canOpenURL( uri ) )
-                await Linking.openURL( uri );
+            try {
+                await SafariView.isAvailable();
+            } catch ( x ) {
+                effects.openExternalURL( url );
+                return mergeIntoState( {} );
+            }
+
+            if ( onDismiss ) {
+
+                let subscription = null;
+                function listener() {
+                    subscription.remove();
+                    onDismiss();
+                }
+                subscription = SafariView.addEventListener( "onDismiss", listener );
+            }
+
+
+            await SafariView.addEventListener( "onDismiss", onDismiss || ( () => {} ) );
+            await SafariView
+                .show( { url, readerMode, tintColor, barTintColor, fromBottom } )
+            ;
+            return ( state ) => {
+                return state;
+            }
+        },
+
+
+        openExternalURL: async ( effects, url ) => {
+            if ( await Linking.canOpenURL( url ) )
+                await Linking.openURL( url );
             return mergeIntoState( {} );
         },
 

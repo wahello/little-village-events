@@ -61,7 +61,7 @@ const EventDetails = ( { state, effects } ) => {
     return (
         <ParallaxScroll
             renderHeader={ props => <Header.Fixed event={ event } {...props} /> }
-            renderParallaxForeground={ props => <Header.Foreground event={ event } navigateToWebPage={ effects.navigateToWebPage } {...props} /> }
+            renderParallaxForeground={ props => <Header.Foreground event={ event } openEmbeddedBrowser={ effects.openEmbeddedBrowser } {...props} /> }
             renderParallaxBackground={ () => <Header.Background uri={ uri } /> }
             headerHeight={ fixedHeaderHeight }
             parallaxHeight={ headerHeight }

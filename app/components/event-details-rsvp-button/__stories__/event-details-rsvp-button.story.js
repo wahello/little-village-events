@@ -12,7 +12,7 @@ import { action } from "@storybook/addon-actions";
 import React from "react";
 
 const actions = {
-    navigateToWebPage: args => action( "navigateToWebPage" )( args )
+    openEmbeddedBrowser: args => action( "openEmbeddedBrowser" )( args )
 };
 
 
