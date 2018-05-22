@@ -1,4 +1,10 @@
-import { NextIcon, PreviousIcon, ShareIcon, SafariIcon } from "../icons";
+import NextIcon from "../icons/next";
+import PreviousIcon from "../icons/previous";
+import ShareIcon from "../icons/share";
+import SafariIcon from "../icons/safari";
+import ReloadIcon from "../icons/reload";
+import CancelIcon from "../icons/cancel";
+
 
 import Bar, { UrlTitle, Button } from "./web-page.bar-parts";
 
@@ -36,9 +42,17 @@ const styles = StyleSheet.create( {
 
     bottomBarButton: {
         flex: 1
+    },
+
+    icon: {
+        width: 28,
+        height: 28
+    },
+
+    loadIcon: {
+        width: 22,
+        height: 22
     }
-
-
 } );
 
 
@@ -153,12 +167,20 @@ class WebPage extends Component {
         const { canGoBack, canGoForward, url } = this.state;
         return {
             left: [
-                <Button key="back" style={ style } disabled={ !canGoBack } onPress={ this.goBack }><PreviousIcon/></Button>,
-                <Button key="forward" style={ style } disabled={ !canGoForward } onPress={ this.goForward }><NextIcon/></Button>
+                <Button key="back" style={ style } disabled={ !canGoBack } onPress={ this.goBack }>
+                    <PreviousIcon style={ styles.icon } fill="#ffffff" />
+                </Button>,
+                <Button key="forward" style={ style } disabled={ !canGoForward } onPress={ this.goForward }>
+                    <NextIcon style={ styles.icon } fill="#ffffff" />
+                </Button>
             ],
             right: [
-                <Button key="share" style={ style } disabled={ !url } onPress={ this.share }><ShareIcon/></Button>,
-                <Button key="browser" style={ style } disabled={ !url } onPress={ this.openInBrowser }><SafariIcon/></Button>
+                <Button key="share" style={ style } disabled={ !url } onPress={ this.share }>
+                    <ShareIcon style={ styles.icon } fill="#ffffff" />
+                </Button>,
+                <Button key="browser" style={ style } disabled={ !url } onPress={ this.openInBrowser }>
+                    <SafariIcon style={ styles.icon } fill="#ffffff" />
+                </Button>
 
             ]
         };
@@ -171,8 +193,8 @@ class WebPage extends Component {
         const sharedBarButtons = landscape ? this.sharedBarButtons() : { left: [], right: [] };
 
         const action = loading
-            ? { onPress: this.onCancel, image: PreviousIcon }
-            : { onPress: this.onReload, image: NextIcon, disabled: !url }
+            ? { onPress: this.onCancel, image: CancelIcon }
+            : { onPress: this.onReload, image: ReloadIcon, disabled: !url }
             ;
 
         return (
@@ -184,7 +206,7 @@ class WebPage extends Component {
                 <Button
                     disabled={ action.disabled }
                     onPress={ action.onPress }
-                ><action.image/></Button>
+                ><action.image style={ styles.loadIcon } fill="#ffffff" /></Button>
             </Bar>
         );
     }
@@ -208,7 +230,6 @@ class WebPage extends Component {
     render() {
         const { screenDimensions } = this.props.state;
         const landscape = screenDimensions.width > screenDimensions.height;
-
 
         return (
             <View style={ styles.root }>

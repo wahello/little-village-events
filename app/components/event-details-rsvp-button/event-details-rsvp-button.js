@@ -1,5 +1,3 @@
-// import { CalendarIcon } from "../icons";
-
 import { TouchableButton } from "../touchable";
 import { View, Text, Animated, StyleSheet } from "react-native";
 import React from "react";

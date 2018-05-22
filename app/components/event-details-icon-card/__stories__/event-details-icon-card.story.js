@@ -1,6 +1,6 @@
 import EventDetailsIconCard from "..";
 import EventDetailsButton from "../../event-details-button";
-import { CalendarIcon } from "../../icons";
+import CalendarIcon from "../../icons/calendar";
 
 import layout from "/.storybook/decorators/layout";
 

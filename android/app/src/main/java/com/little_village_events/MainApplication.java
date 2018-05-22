@@ -3,6 +3,7 @@ package com.little_village_events;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.horcrux.svg.SvgPackage;
 import com.vonovak.AddCalendarEventPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.reactnativenavigation.NavigationReactPackage;
@@ -26,6 +27,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new SvgPackage(),
             new AddCalendarEventPackage(),
             new LinearGradientPackage(),
             new NavigationReactPackage()

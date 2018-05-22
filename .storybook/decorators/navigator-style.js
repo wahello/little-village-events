@@ -1,4 +1,4 @@
-import { BackIcon } from "/app/components/icons";
+import BackIcon from "/app/components/icons/back";
 import navStyles from "/app/navigator/styles";
 
 import { injectState } from "@textpress/freactal";
@@ -14,7 +14,9 @@ const styles = StyleSheet.create( {
     back: {
         position: "absolute",
         left: 5,
-        top: 31
+        top: 31,
+        width: 22,
+        height: 22
     }
 } );
 
@@ -39,7 +41,7 @@ export default function navigatorStyleDecorator( options ) {
         return (
             <NavigatorStyle>
                 { children }
-                { options.back ? <BackIcon style={ styles.back }/> : null }
+                { options.back ? <BackIcon style={ styles.back } fill="#fff" /> : null }
             </NavigatorStyle>
         );
     }

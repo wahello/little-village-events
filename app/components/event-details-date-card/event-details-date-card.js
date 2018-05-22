@@ -1,7 +1,7 @@
 import DetailsIconCard from "../event-details-icon-card";
 import DetailsButton from "../event-details-button";
 
-import { CalendarIcon } from "../icons";
+import CalendarIcon from "../icons/calendar";
 
 import moment from "moment";
 import { Text, View, StyleSheet } from "react-native";

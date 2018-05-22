@@ -1,5 +1,5 @@
 import EventDetailsButton from "..";
-import { CalendarIcon } from "../../icons";
+import CalendarIcon from "../../icons/calendar";
 
 import layout from "/.storybook/decorators/layout";
 
@@ -10,7 +10,7 @@ import { Text } from "react-native";
 
 const CustomLabel = ( { style, label } ) => (
     <Fragment>
-        <CalendarIcon/>
+        <CalendarIcon width={36} height={36} />
         <Text style={ style }>{ label }</Text>
     </Fragment>
 
@@ -18,7 +18,7 @@ const CustomLabel = ( { style, label } ) => (
 
 storiesOf( "EventDetailsButton", module )
     .addDecorator( layout( { theme: "black" } ) )
-    .add( "text label", () => (<EventDetailsButton label={ "Directions" } onPress={ action( "onPress" ) }/>) )
+    .add( "text label", () => ( <EventDetailsButton label={ "Directions" } onPress={ action( "onPress" ) }/> ) )
     .add( "custom style", () => (
         <EventDetailsButton label={ "Directions" }
             onPress={ action( "onPress" ) }

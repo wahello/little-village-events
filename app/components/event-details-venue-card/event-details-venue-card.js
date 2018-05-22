@@ -2,7 +2,8 @@ import { TouchableLink } from "../touchable";
 import Button from "../event-details-button";
 import Card from "../event-details-icon-card";
 
-import { PhoneIcon, PinIcon } from "../icons";
+import PhoneIcon from "../icons/phone";
+import PinIcon from "../icons/pin";
 
 import React, { Fragment } from "react";
 import { parseLocation } from "parse-address";
@@ -28,6 +29,10 @@ const styles = StyleSheet.create( {
         marginLeft: 6
 
     },
+    phoneIcon: {
+        width: 16,
+        height: 16
+    },
     address: {
         fontSize: 12
     }
@@ -48,7 +53,7 @@ const NameAndPhone = ( { venue, call } ) => {
     if ( phone ) {
         parts.push(
             <TouchableLink key="call" style={ styles.call } onPress={ () => call( phone ) }>
-                <PhoneIcon/>
+                <PhoneIcon style={ styles.phoneIcon } fill="#007aff" />
             </TouchableLink>
         );
     }

@@ -7,7 +7,9 @@
         "run:ios": "react-native run-ios",
         "storybook": "yarn clear:storybook-cache && BABEL_ENV=development storybook start -p 7007 -c .storybook",
         "test": "jest",
-        "clear:storybook-cache": "rimraf ./node_modules/.cache/react-storybook/*"
+        "postinstall": "rndebugger-open",
+        "clear:storybook-cache": "rimraf ./node_modules/.cache/react-storybook/*",
+        "build-icons": "gulp build-icons"
     },
     "dependencies": {
         "@monterosa/react-native-parallax-scroll": "^1.8.0",
@@ -27,6 +29,7 @@
         "react-native-navigation": "^1.1.458",
         "react-native-open-maps": "^0.1.4",
         "react-native-phone-call": "^1.0.4",
+        "react-native-svg": "^6.3.1",
         "recompose": "^0.27.0",
         "rimraf": "^2.6.2"
     },
@@ -44,11 +47,16 @@
         "babel-runtime": "^6.26.0",
         "casual-browserify": "^1.5.19",
         "eslint": "^4.19.1",
+        "gulp": "^3.9.1",
+        "gulp-rename": "^1.2.3",
+        "gulp-transform": "^3.0.5",
         "jest": "22.4.3",
         "prop-types": "^15.6.1",
         "react-dom": "16.3.2",
         "react-native-cli": "^2.0.1",
-        "react-test-renderer": "16.3.2"
+        "react-test-renderer": "16.3.2",
+        "svgr": "^1.9.2",
+        "yargs": "^11.0.0"
     },
     "jest": {
         "preset": "react-native"
