@@ -1,5 +1,11 @@
-import { isInProgress } from "../event-details-date-card";
+import { isInProgress as _isInProgress } from "../event-details-date-card";
 import moment from "moment";
+
+const isInProgress = ( ...args ) => {
+    return _isInProgress(
+        ...args.map( a => typeof a === "string" ? moment( a ) : a )
+    );
+};
 
 describe( "event-details-date-card", () => {
 

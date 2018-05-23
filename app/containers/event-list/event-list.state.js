@@ -1,9 +1,11 @@
-import { mergeIntoState } from "../../utils/freactal";
+import { makeSummaryEvent } from "../../models/event";
+import { mergeIntoState, update } from "../../utils/freactal";
 
 import axios from "axios";
 import moment from "moment";
 
 import _range from "lodash/range";
+import _findIndex from "lodash/findIndex";
 
 const numberOfDays = 14;
 
@@ -17,21 +19,43 @@ const loadEvents = async () => {
     const { data } = await axios.get( url );
 
     return mergeIntoState( {
-        rawEvents: data.events
+        events: data.events && data.events.map( makeSummaryEvent )
     } );
 };
 
 
 export default {
     initialState: () => ( {
-        rawEvents: null
+        events: null
     } ),
     effects: {
         initialize: loadEvents,
+        updateEvent: ( effects, event ) => {
+            return state => {
+                const { events } = state;
+
+                if ( !events )
+                    return state;
+
+                const eventIndex = _findIndex( events, e => e.id === event.id );
+                if ( eventIndex === -1 )
+                    return state;
+
+                const updatedEvents = events
+                    .slice( eventIndex )
+                    .concat( [
+                        event,
+                        events.slice( eventIndex + 1, events.length )
+                    ] )
+                ;
+
+                return { ...state, events: updatedEvents };
+            };
+        }
     },
     computed: {
-        events: ( { rawEvents } ) => {
-            if ( !rawEvents ) return [];
+        eventCalendar: ( { events } ) => {
+            if ( !events ) return [];
 
             const today = moment();
 
@@ -41,16 +65,16 @@ export default {
                 const start = date.clone().startOf( "day" );
                 const end = date.clone().endOf( "day" );
 
-                const events = rawEvents.filter( event => {
-                    return moment( event.starttime ).isBefore( end )
-                        && moment( event.endtime || event.starttime ).isAfter( start )
+                const dayEvents = events.filter( event => {
+                    return event.startTime.isBefore( end )
+                        && ( event.endTime || event.startTime ).isAfter( start )
                     ;
                 } );
 
                 result.push( {
                     today,
                     date,
-                    data: events
+                    data: dayEvents
                 } );
                 return result;
 

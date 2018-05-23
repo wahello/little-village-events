@@ -25,7 +25,7 @@ const renderNode = node => {
     switch ( node.name ) {
         case "iframe": return null;
     }
-}
+};
 
 
 const htmlStyles = StyleSheet.create( {
@@ -38,7 +38,7 @@ const htmlStyles = StyleSheet.create( {
 } );
 
 
-export const DescritionCard = ( { summary, description, details } ) =>
+export const DescriptionCard = ( { summary, description, details } ) =>
     <DetailsCard style={ styles.root }>
         <Text style={ styles.tab }>DESCRIPTION</Text>
         <HTMLView
@@ -52,10 +52,10 @@ export const DescritionCard = ( { summary, description, details } ) =>
 
 
 
-export default ( { event } ) => {
-    const { summary, description } = event;
+export default ( { event: { details } } ) => {
+    const { summary, description } = details;
     if ( !summary && !description )
         return null;
 
-    return <DescritionCard summary={summary} {...parseDescription( description )} />;
+    return <DescriptionCard summary={summary} {...parseDescription( description )} />;
 }

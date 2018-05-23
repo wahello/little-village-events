@@ -56,7 +56,7 @@ const SmallPrint = ( { text } ) =>
 
 const priceRange = tickets => {
     const result = values( tickets || [] )
-        .map( t => toNumber( t.price ) )
+        .map( price => toNumber( price ) )
         .sort( ( x, y ) => x > y );
 
     return result.length > 2
@@ -76,13 +76,13 @@ const priceLabel = priceRange => priceRange
 ;
 
 
-export default ( { event, openEmbeddedBrowser } ) => {
-    const { ticketurl } = event;
-    const tickets = priceRange( event.tickets );
+export default ( { event: { details }, openEmbeddedBrowser } ) => {
+    const { ticketUrl } = details;
+    const tickets = priceRange( details.tickets );
     const isFree = !tickets.length || last( tickets ) === 0.0;
 
     return (
-        <TouchableButton onPress={ ticketurl ? () => openEmbeddedBrowser( { url: ticketurl } ) : undefined }>
+        <TouchableButton onPress={ ticketUrl ? () => openEmbeddedBrowser( { url: ticketUrl } ) : undefined }>
             <View style={ styles.column }>
                 <Button label={ isFree ? "RSVP" : priceLabel( tickets )} />
                 { isFree ? null : <SmallPrint text="Buy tickets" /> }

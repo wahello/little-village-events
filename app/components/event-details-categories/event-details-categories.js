@@ -22,7 +22,7 @@ const styles = StyleSheet.create( {
 } );
 
 
-const categories = event => ( event.categories || [] )
+const categories = event => event.categories
     .map( c => ( c.name || "" ).trim().toUpperCase() )
     .filter( c => !!c )
     .sort()

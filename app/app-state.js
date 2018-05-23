@@ -1,3 +1,5 @@
+import categories from "./models/categories";
+
 import { mergeIntoState, provideState, update } from "@textpress/freactal";
 
 import React, { Component } from "react";
@@ -8,7 +10,6 @@ import * as calendar from "react-native-add-calendar-event";
 import SafariView from "react-native-safari-view";
 
 import hoistNonReactStatics from "hoist-non-react-statics";
-import moment from "moment";
 import { object } from "prop-types";
 
 const appName = "little_village_events";
@@ -16,22 +17,7 @@ const appName = "little_village_events";
 const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
-    categories: {
-        "62": "Editors' Picks",
-        "63": "Music",
-        "64": "Art/Exhibition",
-        "65": "Theatre/Performance",
-        "81": "Literature",
-        "67": "Cinema",
-        "68": "Foodie",
-        "79": "Education",
-        "80": "Community",
-        "71": "Fashion",
-        "66": "Drink Specials",
-        "82": "Crafty",
-        "83": "Family",
-        "85": "Sports / Rec"
-    }
+    categories
 };
 
 const appState = {
@@ -97,14 +83,14 @@ const appState = {
         },
 
 
-        addEventToCalendar: async ( effects, { name, starttime, venue, moreinfo } ) => {
+        addEventToCalendar: async ( effects, { name, venueName, startTime, details: { venue, moreInfo } } ) => {
             try {
                 await calendar.presentEventDialog( {
                     title: name,
-                    startDate: moment( starttime ).toISOString(),
-                    endDate: moment( starttime ).clone().add( { hours: 1 } ).toISOString(),
-                    location: venue ? [ venue.name, venue.address ].filter( p => !!p ).join( " " ) : "",
-                    url: moreinfo
+                    startDate: startTime.toISOString(),
+                    endDate: startTime.clone().add( { hours: 1 } ).toISOString(),
+                    location: venue ? venue.location : venueName,
+                    url: moreInfo || ""
                 } );
             } catch ( x ) {
                 if ( x.message === "permissionNotGranted" )

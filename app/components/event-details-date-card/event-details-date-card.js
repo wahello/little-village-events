@@ -47,12 +47,11 @@ const styles = StyleSheet.create( {
 
 const Date = ( { date } ) =>
     <Text style={ styles.date }>
-        { moment( date ).format( "dddd, MMM D" ) }
+        { date.format( "dddd, MMM D" ) }
     </Text>
 ;
 
 export const isInProgress = ( now, eventStart, eventEnd ) => {
-    eventStart = moment( eventStart );
     if ( now.isBefore( eventStart ) ) {
         // future event
         return false;
@@ -64,7 +63,6 @@ export const isInProgress = ( now, eventStart, eventEnd ) => {
         return !eventStart.isBefore( startOfToday );
     }
 
-    eventEnd = moment( eventEnd );
     if ( eventEnd.isBefore( now ) ) {
         // event ended
         return false;
@@ -88,12 +86,12 @@ export const isInProgress = ( now, eventStart, eventEnd ) => {
     return todayEnd.isAfter( now );
 };
 
-const Time = ( { allday, starttime, endtime } ) => {
-    const inProgress = !allday && isInProgress( moment(), starttime, endtime );
+const Time = ( { allDay, startTime, endTime } ) => {
+    const inProgress = !allDay && isInProgress( moment(), startTime, endTime );
     return (
         <View style={ styles.timeContainer }>
             <Text style={ [ styles.date, inProgress ? styles.startedColor : {} ] }>
-                { allday ? "All day" : moment( starttime ).format( "h:mm A" ) }
+                { allDay ? "All day" : startTime.format( "h:mm A" ) }
             </Text>
             { inProgress ?
                 (
@@ -108,15 +106,15 @@ const Time = ( { allday, starttime, endtime } ) => {
 };
 
 const AddToCalendar = ( { event, addEventToCalendar } ) => {
-    const { endtime } = event;
-    return !endtime ? (
+    const { endTime } = event;
+    return !endTime ? (
         <DetailsButton style={ { button: styles.calendarButton, label: styles.calendarButtonLabel } } label="+" onPress={ () => addEventToCalendar( event ) }/>
     ) : null;
 };
 
 export default ( { event, addEventToCalendar } ) => {
-    const { allday, starttime, endtime } = event;
-    if ( !starttime )
+    const { allDay, startTime, endTime } = event;
+    if ( !startTime )
         return null;
 
     return (
@@ -130,8 +128,8 @@ export default ( { event, addEventToCalendar } ) => {
                 />
             ) }
         >
-            <Date date={ starttime }/>
-            <Time allday={ allday } starttime={ starttime } endtime={ endtime }/>
+            <Date date={ startTime }/>
+            <Time allDay={ allDay } startTime={ startTime } endTime={ endTime }/>
         </DetailsIconCard>
     );
 }

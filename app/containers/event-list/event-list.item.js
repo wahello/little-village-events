@@ -1,5 +1,5 @@
 import { TouchableButton } from "../../components/touchable";
-import { eventImage } from "../../utils/event";
+import { getEventImageUrl } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";
 
@@ -87,27 +87,25 @@ const styles = StyleSheet.create( {
 
 } );
 
-const thumbnailSource = ( event ) => {
-    const image = eventImage( event );
-    return image ? { uri: `${image}-/resize/x${imageSize}/-/crop/${imageSize}x${imageSize}/center/` } : null;
+const LeftPanel = ( { event: { imageUrl } } ) => {
+    if ( !imageUrl )
+        return <View style={ styles.leftPanel }/>;
+
+    return (
+        <Image style={ styles.leftPanel }
+            source={ { uri: `${imageUrl}-/resize/x${imageSize}/-/crop/${imageSize}x${imageSize}/center/` } }
+        />
+    );
 };
 
-const LeftPanel = ( { item } ) => {
-    const image = thumbnailSource( item );
-    return image
-        ? <Image style={ styles.leftPanel } source={ image }/>
-        : <View style={ styles.leftPanel }/>
-    ;
-};
+const Location = ( { event } ) => {
+    const { allDay, startTime, venueName } = event;
 
-const Location = ( { item } ) => {
-    const { allday, starttime, venue: { name } = {} } = item;
-
-    const time = ( allday && "All Day" )
-        || ( starttime && moment( starttime ).format( "h:mma" ) )
+    const time = ( allDay && "All Day" )
+        || ( startTime && moment( startTime ).format( "h:mma" ) )
         || ""
     ;
-    const location = name ? `@ ${name}` : "";
+    const location = venueName ? `@ ${venueName}` : "";
     const value = [ time, location ].filter( v => !!v ).join( " " );
     return value
         ? <Text style={ styles.location }>{ value }</Text>
@@ -115,20 +113,19 @@ const Location = ( { item } ) => {
     ;
 };
 
-const Days = ( { item } ) => {
-    const { starttime, endtime } = item;
-    if ( !starttime || !endtime || moment( starttime ).diff( endtime, "days" ) === 0 )
+const Days = ( { event } ) => {
+    const { startTime, endTime } = event;
+    if ( !startTime || !endTime || startTime.diff( endTime, "days" ) === 0 )
         return null;
     const format = "MMM. D";
-    const value = `${moment( starttime ).format( format )} - ${moment( endtime ).format( format )}`;
+    const value = `${startTime.format( format )} - ${endTime.format( format )}`;
     return <Text style={ styles.location }>{ value }</Text>;
 };
 
-const Hashtag = ( { item, state } ) => {
-    const { categories } = item;
-    const { categories: allCategories } = state;
-    const hashtags = ( categories || [] )
-        .map( c => allCategories[ "" + c.id ] || null )
+const Hashtag = ( { event } ) => {
+    const { categories } = event;
+    const hashtags = categories
+        .map( c => c.name )
         .filter( n => !!n )
         .map( n => n.toUpperCase() )
         .join( " " )
@@ -139,20 +136,20 @@ const Hashtag = ( { item, state } ) => {
     ;
 };
 
-const Item = ( { item, effects: { navigateToEventDetails }, state } ) => (
+const Item = ( { item: event, effects: { navigateToEventDetails }, state } ) => (
     <TouchableButton activeOpacity={ 0.6 }
-        onPress={ () => navigateToEventDetails( item ) }>
+        onPress={ () => navigateToEventDetails( event ) }>
         <View style={ styles.card }>
-            <LeftPanel item={ item }/>
+            <LeftPanel event={ event }/>
             <View style={ styles.rightPanel }>
                 <View style={ styles.info }>
                     <Text style={ styles.name }>
-                        { item.name }
+                        { event.name }
                     </Text>
-                    <Location item={ item }/>
-                    <Days item={ item }/>
+                    <Location event={ event }/>
+                    <Days event={ event }/>
                 </View>
-                <Hashtag item={ item } state={ state }/>
+                <Hashtag event={ event } state={ state }/>
             </View>
         </View>
     </TouchableButton>

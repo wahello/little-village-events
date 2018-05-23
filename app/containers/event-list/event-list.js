@@ -13,7 +13,7 @@ const EventList = ( props ) => {
     const { state } = props;
     return (
         <SectionList
-            sections={ state.events }
+            sections={ state.eventCalendar }
             renderItem={ props => <Item { ...props }/> }
             renderSectionHeader={ Header }
             keyExtractor={ ( item, index ) => item.id || index }

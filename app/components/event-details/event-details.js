@@ -2,7 +2,6 @@ import * as Header from "../event-details-header";
 import EventDetailsDateCard from "../event-details-date-card";
 import EventDetailsVenueCard from "../event-details-venue-card";
 import EventDetailsDescriptionCard from "../event-details-description-card";
-import { eventImage } from "../../utils/event";
 import navigatorStyles from "../../navigator/styles";
 
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
@@ -50,19 +49,18 @@ const EventDetails = ( { state, effects } ) => {
 
     const headerHeight = Math.round( width * .68 );
 
-    const image = eventImage( event );
-    if ( !image )
-        return null;
-
-    const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
-    const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
-    const uri = `${image}-/scale_crop/${imageWidth}x${imageHeight}/center/-/enhance/`;
+    let { imageUrl } = event;
+    if ( imageUrl ) {
+        const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
+        const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
+        imageUrl = `${imageUrl}-/scale_crop/${imageWidth}x${imageHeight}/center/-/enhance/`;
+    }
 
     return (
         <ParallaxScroll
             renderHeader={ props => <Header.Fixed event={ event } {...props} /> }
             renderParallaxForeground={ props => <Header.Foreground event={ event } openEmbeddedBrowser={ effects.openEmbeddedBrowser } {...props} /> }
-            renderParallaxBackground={ () => <Header.Background uri={ uri } /> }
+            renderParallaxBackground={ () => imageUrl ? <Header.Background uri={ imageUrl } /> : null }
             headerHeight={ fixedHeaderHeight }
             parallaxHeight={ headerHeight }
             isHeaderFixed={ true }
