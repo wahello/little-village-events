@@ -21,12 +21,12 @@ const styles = StyleSheet.create( {
         display: "flex",
         alignItems: "center",
         alignSelf: "stretch",
-        paddingTop: 12
+        paddingTop: 14
     },
     buttonLabel: {
         fontSize: 12,
         color: "#000",
-        padding: 8
+        padding: 12
     }
 } );
 
@@ -86,7 +86,7 @@ export default class extends Component {
 
 
     render() {
-        const { children, initialMaxHeight = 200 } = this.props;
+        const { children, initialMaxHeight = 200, paddingBottom = 0 } = this.props;
         const { contentHeight, expanded } = this.state;
 
         const style = isNull( contentHeight ) || expanded
@@ -97,7 +97,9 @@ export default class extends Component {
 
         return (
             <View style={ [ styles.root, style ] }>
-                <View onLayout={ ( { nativeEvent } ) => this._onLayout( nativeEvent ) } >
+                <View
+                    style={ showFooter ? {} : { marginBottom: paddingBottom } }
+                    onLayout={ ( { nativeEvent } ) => this._onLayout( nativeEvent ) } >
                     {children}
                 </View>
                 { showFooter ? this._renderFooter( expanded ) : null }

@@ -3,6 +3,8 @@ import ExpandableView from "..";
 import EventDetailsCard from "../../event-details-card";
 import layout from "/.storybook/decorators/layout";
 
+import { number } from "@storybook/addon-knobs";
+
 import { Text } from "react-native";
 import { storiesOf } from "@storybook/react-native";
 import React from "react";
@@ -11,8 +13,8 @@ import React from "react";
 storiesOf( "ExpandableView", module )
     .addDecorator( layout() )
     .add( "default", () => (
-        <EventDetailsCard>
-            <ExpandableView>
+        <EventDetailsCard style={ { paddingBottom: 0 } }>
+            <ExpandableView paddingBottom={ number( "paddingBottom", 6 ) }>
                 <Text>
                 Sed ut perspiciatis unde omnis iste natus error
                 sit voluptatem accusantium doloremque laudantium,
@@ -31,6 +33,19 @@ storiesOf( "ExpandableView", module )
                 reprehenderit qui in ea voluptate velit esse quam
                 nihil molestiae consequatur, vel illum qui dolorem
                 eum fugiat quo voluptas nulla pariatur?
+                </Text>
+            </ExpandableView>
+        </EventDetailsCard>
+    ) )
+    .add( "short", () => (
+        <EventDetailsCard>
+            <ExpandableView paddingBottom={ number( "paddingBottom", 0 ) }>
+                <Text>
+                Sed ut perspiciatis unde omnis iste natus error
+                sit voluptatem accusantium doloremque laudantium,
+                totam rem aperiam, eaque ipsa quae ab illo inventore
+                veritatis et quasi architecto beatae vitae dicta sunt
+                explicabo.
                 </Text>
             </ExpandableView>
         </EventDetailsCard>

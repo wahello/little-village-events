@@ -1,5 +1,7 @@
-import DetailsCard from "../event-details-card";
 import parseDescription from "./parse-description.js";
+
+import DetailsCard from "../event-details-card";
+import ExpandableView from "../expandable-view";
 
 import HTMLView from "react-native-htmlview";
 
@@ -11,7 +13,7 @@ const styles = StyleSheet.create( {
     root: {
         flexDirection: "column",
         padding: 16,
-        paddingBottom: 18
+        paddingBottom: 0
     },
     tab: {
         fontSize: 12,
@@ -41,11 +43,13 @@ const htmlStyles = StyleSheet.create( {
 export const DescriptionCard = ( { summary, description, details } ) =>
     <DetailsCard style={ styles.root }>
         <Text style={ styles.tab }>DESCRIPTION</Text>
-        <HTMLView
-            value={`<body>${summary ? `<p><strong>${summary}</strong></p>` : ""}${description}</body>`}
-            stylesheet={ htmlStyles }
-            renderNode={ renderNode }
-        />
+        <ExpandableView initialMaxHeight={350} paddingBottom={18} >
+            <HTMLView
+                value={`<body>${summary ? `<p><strong>${summary}</strong></p>` : ""}${description}</body>`}
+                stylesheet={ htmlStyles }
+                renderNode={ renderNode }
+            />
+        </ExpandableView>
     </DetailsCard>
 ;
 
