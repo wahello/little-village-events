@@ -16,7 +16,8 @@ const styles = StyleSheet.create( {
         left: 5,
         top: 31,
         width: 22,
-        height: 22
+        height: 22,
+        color: "#fff"
     }
 } );
 
@@ -41,7 +42,7 @@ export default function navigatorStyleDecorator( options ) {
         return (
             <NavigatorStyle>
                 { children }
-                { options.back ? <BackIcon style={ styles.back } fill="#fff" /> : null }
+                { options.back ? <BackIcon style={ styles.back } /> : null }
             </NavigatorStyle>
         );
     }

@@ -12,7 +12,8 @@ const styles = StyleSheet.create( {
         marginLeft: 6,
         marginRight: 9,
         width: 38,
-        height: 38
+        height: 38,
+        color: "#4A4A4A"
     },
     column: {
         flex: 1,
@@ -28,7 +29,7 @@ const styles = StyleSheet.create( {
 export default ( { style, renderIcon, renderButton, children } ) => {
     return (
         <DetailsCard style={ [ styles.card, style ] } >
-            { renderIcon && renderIcon( { style: styles.icon, fill: "#4A4A4A" } ) }
+            { renderIcon && renderIcon( { style: styles.icon } ) }
             <View style={ styles.column }>{ children }</View>
             { renderButton && renderButton( { style: styles.button } ) }
         </DetailsCard>

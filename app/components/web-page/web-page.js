@@ -46,12 +46,14 @@ const styles = StyleSheet.create( {
 
     icon: {
         width: 28,
-        height: 28
+        height: 28,
+        color: "#fff"
     },
 
     loadIcon: {
         width: 22,
-        height: 22
+        height: 22,
+        color: "#fff"
     }
 } );
 
@@ -168,20 +170,19 @@ class WebPage extends Component {
         return {
             left: [
                 <Button key="back" style={ style } disabled={ !canGoBack } onPress={ this.goBack }>
-                    <PreviousIcon style={ styles.icon } fill="#ffffff" />
+                    <PreviousIcon style={ styles.icon } />
                 </Button>,
                 <Button key="forward" style={ style } disabled={ !canGoForward } onPress={ this.goForward }>
-                    <NextIcon style={ styles.icon } fill="#ffffff" />
+                    <NextIcon style={ styles.icon } />
                 </Button>
             ],
             right: [
                 <Button key="share" style={ style } disabled={ !url } onPress={ this.share }>
-                    <ShareIcon style={ styles.icon } fill="#ffffff" />
+                    <ShareIcon style={ styles.icon } />
                 </Button>,
                 <Button key="browser" style={ style } disabled={ !url } onPress={ this.openInBrowser }>
-                    <SafariIcon style={ styles.icon } fill="#ffffff" />
+                    <SafariIcon style={ styles.icon } />
                 </Button>
-
             ]
         };
     }
@@ -206,7 +207,7 @@ class WebPage extends Component {
                 <Button
                     disabled={ action.disabled }
                     onPress={ action.onPress }
-                ><action.image style={ styles.loadIcon } fill="#ffffff" /></Button>
+                ><action.image style={ styles.loadIcon } /></Button>
             </Bar>
         );
     }

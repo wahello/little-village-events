@@ -12,15 +12,19 @@ import React from "react";
 storiesOf( "Icons", module )
     .addDecorator( layout() )
     .add( "style", () => <CalendarIcon
-        style={ { width: number( "width", 38 ), height: number( "height", 38 ) } }
-        fill={ color( "color", "black" ) } /> )
+        style={ {
+            width: number( "width", 38 ),
+            height: number( "height", 38 ),
+            color: color( "color", "black" )
+        } } /> )
     .add( "atrributes", () => <CalendarIcon
-        width={ number( "width", 38 ) } height={ number( "height", 38 ) }
-        fill={ color( "color", "black" ) } /> )
+        width={ number( "width", 38 ) }
+        height={ number( "height", 38 ) }
+        color={ color( "color", "black" ) } /> )
     .add( "stylesheet", () => <CalendarIcon
         style={ StyleSheet.create( { icon: {
             width: number( "width", 38 ),
-            height: number( "height", 38 )
-        } } ).icon }
-        fill={ color( "color", "black" ) } /> )
+            height: number( "height", 38 ),
+            color: color( "color", "black" )
+        } } ).icon } /> )
 ;

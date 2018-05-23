@@ -31,7 +31,8 @@ const styles = StyleSheet.create( {
     },
     phoneIcon: {
         width: 16,
-        height: 16
+        height: 16,
+        color: "#007aff"
     },
     address: {
         fontSize: 12
@@ -53,7 +54,7 @@ const NameAndPhone = ( { venue, call } ) => {
     if ( phone ) {
         parts.push(
             <TouchableLink key="call" style={ styles.call } onPress={ () => call( phone ) }>
-                <PhoneIcon style={ styles.phoneIcon } fill="#007aff" />
+                <PhoneIcon style={ styles.phoneIcon } />
             </TouchableLink>
         );
     }
