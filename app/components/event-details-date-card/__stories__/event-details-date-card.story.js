@@ -1,6 +1,8 @@
 import EventDetailsDateCard from "..";
 import event from "./event.json";
 
+import { makeFullEvent } from "../../../models/event";
+
 import layout from "/.storybook/decorators/layout";
 
 import { storiesOf } from "@storybook/react-native";
@@ -15,6 +17,6 @@ const actions = {
 
 storiesOf( "EventDetailsDateCard", module )
     .addDecorator( layout() )
-    .add( "default", () => ( <EventDetailsDateCard event={ event } { ...actions } /> ) )
-    .add( "started", () => ( <EventDetailsDateCard event={ { starttime: moment().subtract( { minutes: 1 } ).toISOString() } } { ...actions }/> ) )
+    .add( "default", () => ( <EventDetailsDateCard event={ makeFullEvent( event ) } { ...actions } /> ) )
+    .add( "started", () => ( <EventDetailsDateCard event={ { startTime: moment().subtract( { minutes: 1 } ) } } { ...actions }/> ) )
 ;
