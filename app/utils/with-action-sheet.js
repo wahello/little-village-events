@@ -3,6 +3,7 @@ import { provideState, injectState, update } from "./freactal";
 
 import { ActionSheetCustom as ActionSheet } from "react-native-custom-actionsheet";
 
+import hoistNonReactStatics from "hoist-non-react-statics";
 import { compose } from "recompose";
 import _omit from "lodash/omit";
 
@@ -70,6 +71,6 @@ export default Screen => {
     return compose(
         provideState( state ),
         injectState
-    )( WithActionSheet )
+    )( hoistNonReactStatics( WithActionSheet, Screen ) )
     ;
 }
