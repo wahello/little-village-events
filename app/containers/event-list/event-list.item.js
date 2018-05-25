@@ -1,5 +1,4 @@
 import { TouchableButton } from "../../components/touchable";
-import { getEventImageUrl } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";
 

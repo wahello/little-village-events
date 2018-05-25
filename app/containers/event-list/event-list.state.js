@@ -1,11 +1,10 @@
 import { makeSummaryEvent } from "../../models/event";
-import { mergeIntoState, update } from "../../utils/freactal";
+import { mergeIntoState } from "../../utils/freactal";
 
 import axios from "axios";
 import moment from "moment";
 
 import _range from "lodash/range";
-import _findIndex from "lodash/findIndex";
 
 const numberOfDays = 14;
 
