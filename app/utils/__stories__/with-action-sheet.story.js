@@ -4,7 +4,7 @@ import { storiesOf } from "@storybook/react-native";
 import { action } from "@storybook/addon-actions";
 
 import { Button, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { Fragment } from "react";
 import { compose } from "recompose";
 
 const styles = StyleSheet.create( {
@@ -51,21 +51,31 @@ const ActionSheet2 = {
     onPress: action( "SelectedAction" )
 };
 
-const ActionSheets = ( { effects } ) => (
-    <View style={ styles.wrapper }>
+
+const OneActionSheet = ( { effects } ) => (
+    <Button title="Action Sheet" onPress={ () => effects.showActionSheet( ActionSheet1 ) }/>
+);
+
+const TwoActionSheets = ( { effects } ) => (
+    <Fragment>
         <Button title="Action Sheet #1" onPress={ () => effects.showActionSheet( ActionSheet1 ) }/>
         <Button title="Action Sheet #2" onPress={ () => effects.showActionSheet( ActionSheet2 ) }/>
-    </View>
+    </Fragment>
 );
 
 
 const makeScreen = Content => {
-    const Wrapper = ( props ) => ( <Content style={ styles.wrapper } { ...props }/> );
+    const Wrapper = ( props ) => (
+        <View style={ styles.wrapper }>
+            <Content style={ styles.wrapper } { ...props }/>
+        </View>
+    );
     const Screen = compose( injectState )( Wrapper );
     return () => <Screen/>;
 };
 
 
 storiesOf( "WithActionSheet", module )
-    .add( "default", makeScreen( ActionSheets ) )
+    .add( "default", makeScreen( OneActionSheet ) )
+    .add( "two sheets", makeScreen( TwoActionSheets ) )
 ;
