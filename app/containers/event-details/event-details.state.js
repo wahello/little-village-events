@@ -20,8 +20,8 @@ const loadEventDetails = async ( effects, eventId ) => {
     const { data } = await axios.get( url );
     const event = makeFullEvent( data );
 
-    if ( effects.updateEvent )
-        await effects.updateEvent( event );
+    // if ( effects.updateEvent )
+    //     await effects.updateEvent( event );
 
     return mergeIntoState( {
         event
