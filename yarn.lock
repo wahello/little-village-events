@@ -8414,6 +8414,10 @@ react-native-compat@^1.0.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-custom-actionsheet@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-custom-actionsheet/-/react-native-custom-actionsheet-0.0.4.tgz#21560576bf8030a51a04d8988276f52eb6955029"
+
 react-native-debugger-open@^0.3.17:
   version "0.3.17"
   resolved "https://registry.yarnpkg.com/react-native-debugger-open/-/react-native-debugger-open-0.3.17.tgz#85b1b0dd76b0025d6f7c16a7c161b9d30a9bae93"
