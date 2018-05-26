@@ -48,7 +48,7 @@ const appState = {
         },
 
         openEmbeddedBrowser: async ( effects, options ) => {
-            const { url, readerMode, tintColor, barTintColor, fromBottom, onDismiss } = options;
+            const { url, readerMode, tintColor, barTintColor, fromBottom, wait } = options;
 
             try {
                 await SafariView.isAvailable();
@@ -57,24 +57,31 @@ const appState = {
                 return mergeIntoState( {} );
             }
 
-            if ( onDismiss ) {
+            if ( !wait ) {
 
-                let subscription = null;
-                function listener() {
-                    subscription.remove();
-                    onDismiss();
-                }
-                subscription = SafariView.addEventListener( "onDismiss", listener );
+                await SafariView.show( { url, readerMode, tintColor, barTintColor, fromBottom } );
+
+            } else {
+
+                await ( new Promise( ( resolve, reject ) => {
+
+                    let subscription = null;
+                    const onDismiss = () => {
+                        subscription.remove();
+                        resolve();
+                    };
+                    subscription = SafariView.addEventListener( "onDismiss", onDismiss );
+
+                    SafariView
+                        .show( { url, readerMode, tintColor, barTintColor, fromBottom } )
+                        .catch( reject )
+                    ;
+                } ) );
+
             }
 
 
-            await SafariView.addEventListener( "onDismiss", onDismiss || ( () => {} ) );
-            await SafariView
-                .show( { url, readerMode, tintColor, barTintColor, fromBottom } )
-            ;
-            return ( state ) => {
-                return state;
-            }
+            return ( state ) => state;
         },
 
 
