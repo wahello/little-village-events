@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { provideState, injectState, update } from "./freactal";
+import { provideState, injectState, mergeIntoState, update } from "./freactal";
 
 import { ActionSheetCustom as ActionSheet } from "react-native-custom-actionsheet";
 
@@ -9,13 +9,10 @@ import _omit from "lodash/omit";
 
 const state = {
     initialState: () => ( {
-        actionSheet: null,
-        actionSheetRef: null
+        actionSheet: null
     } ),
     effects: {
-        attachActionSheet: update( ( state, actionSheetRef ) => ( { actionSheetRef } ) ),
-
-        showActionSheet: ( effects, actionSheetDef ) => {
+        showActionSheet: async ( effects, actionSheetDef ) => {
             const actionSheet = { ...actionSheetDef };
             const actions = [];
 
@@ -34,7 +31,8 @@ const state = {
             } );
 
             const defaultOnPress = actionSheet.onPress;
-            actionSheet.onPress = index => {
+            actionSheet.onPress = async index => {
+                await effects._setActionSheet( null );
                 const action = actions[ index ];
                 return action
                     ? action()
@@ -42,35 +40,38 @@ const state = {
                 ;
             };
 
-            return ( state ) => {
-                state.actionSheetRef.show();
-                return { ...state, actionSheet };
-            };
-        }
+            await effects._setActionSheet( actionSheet );
+            return mergeIntoState( {} );
+        },
+
+        _setActionSheet: update( ( state, actionSheet ) => ( { actionSheet } ) )
     }
 
 };
 
+const ActionSheetWrapper = compose( injectState )(
+    ( { state: { actionSheet } } ) => actionSheet ? (
+        <ActionSheet
+            key="action-sheet"
+            ref={ ref => ref && ref.show() }
+            { ...actionSheet }
+        />
+    ) : null
+);
+
 export default Screen => {
 
     const WithActionSheet = props => {
-        const { effects, state } = props;
-        const { actionSheet } = state;
-
         return (
             <Fragment>
                 <Screen { ...props }/>
-                <ActionSheet
-                    ref={ effects.attachActionSheet }
-                    { ...( actionSheet ? actionSheet : { options: [ "Cancel" ] } ) }
-                />
+                <ActionSheetWrapper { ...props }/>
             </Fragment>
         );
     };
 
     return compose(
-        provideState( state ),
-        injectState
+        provideState( state )
     )( hoistNonReactStatics( WithActionSheet, Screen ) )
     ;
 }
