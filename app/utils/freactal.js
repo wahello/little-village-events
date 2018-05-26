@@ -9,7 +9,7 @@ import hoistNonReactStatics from "hoist-non-react-statics";
 
 const middleware = () => {
     const result = [];
-    if ( __DEV__ ) {
+    if ( __DEV__ && typeof DedicatedWorkerGlobalScope !== "undefined" ) {
         const logger = require( "freactal-logger" ).default;
         result.push( logger() );
     }
