@@ -1,11 +1,9 @@
 import { makeFullEvent } from "../../models/event";
 import { mergeIntoState } from "../../utils/freactal";
 
-import axios from "axios";
-
-const initialize = async ( effects, { event } ) => {
+const initialize = async ( effects, { event, state: { api } } ) => {
     if ( !event.details ) {
-        effects.loadEventDetails( event.id );
+        effects.loadEventDetails( api, event.id );
         event = { ...event, details: {} };
     }
 
@@ -15,9 +13,8 @@ const initialize = async ( effects, { event } ) => {
 
 };
 
-const loadEventDetails = async ( effects, eventId ) => {
-    const url = `http://littlevillagemag.com/iowa-city-area-events-calendar/events/${eventId}.json`;
-    const { data } = await axios.get( url );
+const loadEventDetails = async ( effects, api, eventId ) => {
+    const data = await api.getEvent( eventId );
     const event = makeFullEvent( data );
 
     // if ( effects.updateEvent )

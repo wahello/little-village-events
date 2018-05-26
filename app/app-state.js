@@ -1,3 +1,4 @@
+import api from "./api";
 import categories from "./models/categories";
 
 import { mergeIntoState, provideState, update } from "@textpress/freactal";
@@ -17,6 +18,7 @@ const appName = "little_village_events";
 const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
+    api,
     categories
 };
 

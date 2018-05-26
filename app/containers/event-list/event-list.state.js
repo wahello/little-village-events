@@ -1,21 +1,16 @@
 import { makeSummaryEvent } from "../../models/event";
 import { mergeIntoState } from "../../utils/freactal";
 
-import axios from "axios";
 import moment from "moment";
 
 import _range from "lodash/range";
 
+
 const numberOfDays = 14;
 
-const loadEvents = async () => {
-    const dateFormat = "YYYY-MM-DD";
 
-    const start = moment().startOf( "day" ).format( dateFormat );
-    const end = moment().add( { days: numberOfDays } ).endOf( "day" ).format( dateFormat );
-
-    const url = `http://littlevillagemag.com/iowa-city-area-events-calendar/events.json?range_from=${start}&range_to=${end}`;
-    const { data } = await axios.get( url );
+const loadEvents = async ( effects, { state: { api } } ) => {
+    const data = await api.getEventList( moment(), numberOfDays );
 
     return mergeIntoState( {
         events: data.events && data.events.map( makeSummaryEvent )
