@@ -48,10 +48,12 @@ export default {
         // }
     },
     computed: {
-        eventCalendar: ( { events } ) => {
+        eventCalendar: ( { events, rsvps } ) => {
             if ( !events ) return [];
 
             const today = moment();
+
+            const eventsWithRSVP = events.map( event => ( { ...event, rsvp: !!rsvps[ event.id ] } ) );
 
             return _range( numberOfDays ).reduce( ( result, days ) => {
                 const date = today.clone().add( { days } );
@@ -59,7 +61,7 @@ export default {
                 const start = date.clone().startOf( "day" );
                 const end = date.clone().endOf( "day" );
 
-                const dayEvents = events.filter( event => {
+                const dayEvents = eventsWithRSVP.filter( event => {
                     return event.startTime.isBefore( end )
                         && ( event.endTime || event.startTime ).isAfter( start )
                     ;

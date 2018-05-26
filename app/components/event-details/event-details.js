@@ -7,7 +7,7 @@ import navigatorStyles from "../../navigator/styles";
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 
 import { ActivityIndicator, PixelRatio, StyleSheet, View } from "react-native";
-import React from "react";
+import React, { Component } from "react";
 
 const fixedHeaderHeight = 78;
 
@@ -41,48 +41,54 @@ const Loading = () => (
     </View>
 );
 
-const EventDetails = ( { state, effects } ) => {
-    const { event, windowDimensions: { width, height } } = state;
+class EventDetails extends Component {
+    static id = "events.details";
+    static navigatorStyle = {
+        ...navigatorStyles.transparent
+    };
+    static backButtonTitle = "";
 
-    if ( !event )
-        return <Loading/>;
+    render() {
 
-    const headerHeight = Math.round( width * .68 );
+        const { state, effects } = this.props;
 
-    let { imageUrl } = event;
-    if ( imageUrl ) {
-        const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
-        const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
-        imageUrl = `${imageUrl}-/scale_crop/${imageWidth}x${imageHeight}/center/-/enhance/`;
+        const { event, windowDimensions: { width, height } } = state;
+
+        if ( !event )
+            return <Loading/>;
+
+        const headerHeight = Math.round( width * .68 );
+
+        let { imageUrl } = event;
+        if ( imageUrl ) {
+            const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
+            const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
+            imageUrl = `${imageUrl}-/scale_crop/${imageWidth}x${imageHeight}/center/-/enhance/`;
+        }
+
+        return (
+            <ParallaxScroll
+                renderHeader={ props => <Header.Fixed event={ event } { ...props } /> }
+                renderParallaxForeground={ props => <Header.Foreground event={ event }
+                    handleRSVP={ () => effects.handleRSVP( state ) } { ...props } /> }
+                renderParallaxBackground={ () => imageUrl ? <Header.Background uri={ imageUrl }/> : null }
+                headerHeight={ fixedHeaderHeight }
+                parallaxHeight={ headerHeight }
+                isHeaderFixed={ true }
+                useNativeDriver={ true }
+                headerFixedBackgroundColor={ "transparent" }
+                isBackgroundScalable={ true }
+                parallaxBackgroundScrollSpeed={ 4 }
+                parallaxForegroundScrollSpeed={ 1 }
+            >
+                <View style={ [ styles.body, { minHeight: height - headerHeight } ] }>
+                    <EventDetailsDateCard event={ event } addEventToCalendar={ effects.addEventToCalendar }/>
+                    <EventDetailsVenueCard event={ event } call={ effects.call } openMap={ effects.openMap }/>
+                    <EventDetailsDescriptionCard event={ event }/>
+                </View>
+            </ParallaxScroll>
+        );
     }
-
-    return (
-        <ParallaxScroll
-            renderHeader={ props => <Header.Fixed event={ event } {...props} /> }
-            renderParallaxForeground={ props => <Header.Foreground event={ event } openEmbeddedBrowser={ effects.openEmbeddedBrowser } {...props} /> }
-            renderParallaxBackground={ () => imageUrl ? <Header.Background uri={ imageUrl } /> : null }
-            headerHeight={ fixedHeaderHeight }
-            parallaxHeight={ headerHeight }
-            isHeaderFixed={ true }
-            useNativeDriver={ true }
-            headerFixedBackgroundColor={ "transparent" }
-            isBackgroundScalable={ true }
-            parallaxBackgroundScrollSpeed={ 4 }
-            parallaxForegroundScrollSpeed={ 1 }
-        >
-            <View style={ [ styles.body, { minHeight: height - headerHeight } ] }>
-                <EventDetailsDateCard event={ event } addEventToCalendar={ effects.addEventToCalendar }/>
-                <EventDetailsVenueCard event={ event } call={ effects.call } openMap={ effects.openMap }/>
-                <EventDetailsDescriptionCard event={ event }/>
-            </View>
-        </ParallaxScroll>
-    );
-};
-
-EventDetails.id = "events.details";
-EventDetails.navigatorStyle = {
-    ...navigatorStyles.transparent
-};
-EventDetails.backButtonTitle = "";
+}
 
 export default EventDetails;

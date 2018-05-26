@@ -4,7 +4,10 @@ import moment from "moment";
 
 import _get from "lodash/get";
 import _find from "lodash/find";
+import _last from "lodash/last";
 import _reduce from "lodash/reduce";
+import _values from "lodash/values";
+import _toNumber from "lodash/toNumber";
 
 
 function imageUrl( rawEvent ) {
@@ -15,6 +18,23 @@ function imageUrl( rawEvent ) {
     const image = _find( multimedia, image => image.source === "uc" && image.type === "img" && !!image.id );
     return image ? `https://ucarecdn.com/${image.id}/` : null;
 }
+
+
+const priceRange = ( { tickets } ) => {
+    const result = _values( tickets || [] )
+        .map( ticket => _toNumber( ticket.price ) )
+        .filter( price => !isNaN( price ) )
+        .sort( ( x, y ) => x > y )
+    ;
+
+    if ( _last( result ) === 0 )
+        return [];
+
+    return result.length > 2
+        ? [ result[ 0 ], _last( result ) ]
+        : result
+    ;
+};
 
 
 function date( path ) {
@@ -58,8 +78,11 @@ function value( path ) {
 function fieldValue( rawEvent, field, source ) {
     let path = field;
     switch ( typeof source ) {
-        case "function": return source( rawEvent );
-        case "string": path = source; break;
+        case "function":
+            return source( rawEvent );
+        case "string":
+            path = source;
+            break;
     }
 
     return _get( rawEvent, path, null );
@@ -93,7 +116,7 @@ const summary = {
 
     "categories": array( "categories", fields( {
         "id": 1,
-        "name": c => Categories[c.id] || null
+        "name": c => Categories[ c.id ] || null
     } ) ),
     "featured": 1,
 
@@ -109,7 +132,7 @@ const details = {
     moreInfo: "moreinfo",
 
     ticketUrl: "ticketurl",
-    tickets: array( "tickets", value( "price" ) ),
+    priceRange: priceRange,
 
     venue: object( "venue", fields( {
         "address": 1,

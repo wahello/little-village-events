@@ -125,7 +125,7 @@ export const VenueCard = ( { venue, call, openMap } ) => (
 
 export default ( { event, call, openMap } ) => {
     const { venueName, details } = event;
-    if ( !venueName )
+    if ( !venueName || !details )
         return null;
 
     const venue = { name: venueName, ...( details.venue || {} ) };

@@ -81,12 +81,12 @@ const titleBlockPosition = ( scale, width ) => ( {
 class TitleBlock extends Component {
     state = {
         width: 0
-    }
+    };
 
     onLayout = ( { nativeEvent } ) => {
         const { layout } = nativeEvent;
         this.setState( { width: layout.width } );
-    }
+    };
 
     render() {
         const { event, animatedValue, height } = this.props;
@@ -137,17 +137,17 @@ const Overlay = ( { children, height, animatedValue } ) =>
 
 
 export const Fixed = ( { event, height, animatedValue } ) =>
-    <Animated.View style={ [ styles.background, styles.fixedHeader ] } ></Animated.View>;
+    <Animated.View style={ [ styles.background, styles.fixedHeader ] }/>;
 
 
-export const Foreground = ( { event, height, animatedValue, openEmbeddedBrowser } ) =>
+export const Foreground = ( { event, height, animatedValue, handleRSVP } ) =>
     <Overlay animatedValue={animatedValue} height={height}>
         <Animated.View style={ [ styles.titleRow, { height }, scrollTransform( animatedValue, height ) ] } pointerEvents="box-none">
             <Animated.View style={ [ styles.titleColumn ] } pointerEvents="none">
                 <EventDetailsCategories style={ categoriesOpacity( animatedValue, height ) } event={ event } />
                 <TitleBlock event={event} animatedValue={animatedValue} height={height} />
             </Animated.View>
-            <EventDetailsRsvpButton event={ event } openEmbeddedBrowser={ openEmbeddedBrowser } />
+            <EventDetailsRsvpButton event={ event } handleRSVP={ handleRSVP } />
         </Animated.View>
     </Overlay>
 ;

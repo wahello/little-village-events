@@ -19,6 +19,7 @@
         "htmlparser2-without-node-native": "^3.9.2",
         "lodash": "^4.17.10",
         "moment": "^2.22.1",
+        "moment-json-parser": "^0.9.1",
         "numeral": "^2.0.6",
         "parse-address": "^0.0.10",
         "react": "16.3.2",

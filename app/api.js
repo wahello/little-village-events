@@ -1,6 +1,11 @@
+import RSVPStorage from "./models/rsvp";
+
 import axios from "axios/index";
 
 const root = "http://littlevillagemag.com/iowa-city-area-events-calendar";
+
+
+const rsvpStorage = new RSVPStorage;
 
 export default {
 
@@ -19,5 +24,13 @@ export default {
         const url = `${root}/events/${eventId}.json`;
         const { data } = await axios.get( url );
         return data;
-    }
+    },
+
+
+    addRSVP: event => rsvpStorage.add( event ),
+
+    getRSVPList: ids => rsvpStorage.get( ids ),
+    getAllRSVPs: () => rsvpStorage.all(),
+
+    removeAllRSVPs: () => rsvpStorage.clear()
 }

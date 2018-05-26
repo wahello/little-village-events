@@ -14,7 +14,7 @@ import { action } from "@storybook/addon-actions";
 import React from "react";
 
 const actions = {
-    openEmbeddedBrowser: args => action( "openEmbeddedBrowser" )( args )
+    handleRSVP: args => action( "handleRSVP" )( args )
 };
 
 

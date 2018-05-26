@@ -7042,7 +7042,13 @@ mkdirp@0.x.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@~0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.15.2, moment@^2.21.0, moment@^2.22.1:
+moment-json-parser@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/moment-json-parser/-/moment-json-parser-0.9.1.tgz#162108930d488752fdabd6d0f5318f26b174a9d0"
+  dependencies:
+    moment "^2.9.0"
+
+moment@^2.15.2, moment@^2.21.0, moment@^2.22.1, moment@^2.9.0:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 

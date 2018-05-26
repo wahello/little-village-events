@@ -18,14 +18,21 @@ const appName = "little_village_events";
 const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
+    rsvps: [],
     api,
-    categories
+    categories,
 };
 
 const appState = {
     initialState: () => initialState,
 
     effects: {
+        initialize: async () => {
+            //const rsvps = await api.getAllRSVPs();
+            // return mergeIntoState( { rsvps } )
+            await api.removeAllRSVPs();
+            return mergeIntoState( {} );
+        },
 
         call: async ( effects, number ) => {
             await call( {
@@ -133,12 +140,20 @@ const appState = {
                 screenDimensions: dimensions.screen,
                 windowDimensions: dimensions.screen
             }
-        } )
+        } ),
+
+        addRSVP: async ( effects, event ) => {
+            await api.addRSVP( event );
+            return ( state ) => ( { ...state, rsvps: { ...state.rsvps, [event.id]: event } } );
+        }
+
+
     }
 
 };
 
 const rootStatefulComponent = provideState( appState )();
+rootStatefulComponent.effects.initialize( {} );
 const context = rootStatefulComponent.getChildContext();
 
 export const contextTypes = {

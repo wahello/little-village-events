@@ -29,6 +29,7 @@ EventList.navigatorStyle = {
 EventList.title = "Iowa City";
 
 export default compose(
+    injectState,
     provideState( state ),
     injectState
 )( EventList );

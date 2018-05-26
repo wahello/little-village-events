@@ -143,7 +143,7 @@ const Item = ( { item: event, effects: { navigateToEventDetails }, state } ) => 
             <View style={ styles.rightPanel }>
                 <View style={ styles.info }>
                     <Text style={ styles.name }>
-                        { event.name }
+                        { event.name + ( event.rsvp ? " !!!RSVP!!!" : "" ) }
                     </Text>
                     <Location event={ event }/>
                     <Days event={ event }/>
