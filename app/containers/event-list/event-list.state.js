@@ -1,4 +1,3 @@
-import { makeSummaryEvent } from "../../models/event";
 import { mergeIntoState } from "../../utils/freactal";
 
 import moment from "moment";
@@ -10,10 +9,10 @@ const numberOfDays = 14;
 
 
 const loadEvents = async ( effects, { state: { api } } ) => {
-    const data = await api.getEventList( moment(), numberOfDays );
+    const events = await api.getEventList( moment(), numberOfDays );
 
     return mergeIntoState( {
-        events: data.events && data.events.map( makeSummaryEvent )
+        events
     } );
 };
 

@@ -1,3 +1,4 @@
+import { makeFullEvent, makeSummaryEvent } from "./models/event";
 import RSVPStorage from "./models/rsvp";
 
 import axios from "axios/index";
@@ -17,13 +18,13 @@ export default {
 
         const url = `${root}/events.json?range_from=${start}&range_to=${end}`;
         const { data } = await axios.get( url );
-        return data;
+        return data.events ? data.events.map( makeSummaryEvent ) : [];
     },
 
     getEvent: async eventId => {
         const url = `${root}/events/${eventId}.json`;
         const { data } = await axios.get( url );
-        return data;
+        return makeFullEvent( data );
     },
 
 

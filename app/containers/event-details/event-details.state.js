@@ -1,6 +1,5 @@
 import confirmRSPVActionSheet from "../../action-sheets/confirm-rsvp";
 
-import { makeFullEvent } from "../../models/event";
 import { mergeIntoState } from "../../utils/freactal";
 
 const initialize = async ( effects, { event, state: { api } } ) => {
@@ -15,8 +14,7 @@ const initialize = async ( effects, { event, state: { api } } ) => {
 };
 
 const loadEventDetails = async ( effects, api, eventId ) => {
-    const data = await api.getEvent( eventId );
-    const event = makeFullEvent( data );
+    const event = await api.getEvent( eventId );
 
     // if ( effects.updateEvent )
     //     await effects.updateEvent( event );
