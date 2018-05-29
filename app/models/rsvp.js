@@ -20,6 +20,12 @@ export default class RSVP {
         return this.storage.set( event.id, _omit( event, "details" ) );
     }
 
+
+    remove( event ) {
+        return this.storage.remove( event.id );
+    }
+
+
     async get( ids ) {
         if ( !_isArray( ids ) )
             return this.storage.get( ids );

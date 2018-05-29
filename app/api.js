@@ -30,6 +30,8 @@ export default {
 
     addRSVP: event => rsvpStorage.add( event ),
 
+    removeRSVP: event => rsvpStorage.remove( event ),
+
     getRSVPList: ids => rsvpStorage.get( ids ),
     getAllRSVPs: () => rsvpStorage.all(),
 

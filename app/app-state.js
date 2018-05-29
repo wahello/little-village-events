@@ -13,6 +13,8 @@ import SafariView from "react-native-safari-view";
 import hoistNonReactStatics from "hoist-non-react-statics";
 import { object } from "prop-types";
 
+import _omit from "lodash/omit";
+
 const appName = "little_village_events";
 
 const initialState = {
@@ -134,6 +136,7 @@ const appState = {
             return mergeIntoState( {} );
         },
 
+
         updateDimensions: update( ( state, dimensions ) => {
 
             return {
@@ -142,9 +145,16 @@ const appState = {
             }
         } ),
 
+
         addRSVP: async ( effects, event ) => {
             await api.addRSVP( event );
             return ( state ) => ( { ...state, rsvps: { ...state.rsvps, [event.id]: event } } );
+        },
+
+
+        removeRSVP: async ( effects, event ) => {
+            await api.removeRSVP( event );
+            return ( state ) => ( { ...state, rsvps: _omit( state.rsvps, [ event.id ] ) } );
         }
 
 

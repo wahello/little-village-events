@@ -1,6 +1,12 @@
-import confirmRSPVActionSheet from "../../action-sheets/confirm-rsvp";
+import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-sheets/rsvp";
 
 import { mergeIntoState } from "../../utils/freactal";
+
+
+function setRSVP( rsvp ) {
+    return state => ( { ...state, event: { ...state.event, rsvp } } )
+}
+
 
 const initialize = async ( effects, { event, state: { api } } ) => {
     if ( !event.details ) {
@@ -10,8 +16,8 @@ const initialize = async ( effects, { event, state: { api } } ) => {
     return mergeIntoState( {
         event
     } );
-
 };
+
 
 const loadEventDetails = async ( effects, api, eventId ) => {
     const event = await api.getEvent( eventId );
@@ -19,11 +25,9 @@ const loadEventDetails = async ( effects, api, eventId ) => {
     // if ( effects.updateEvent )
     //     await effects.updateEvent( event );
 
-    return mergeIntoState( {
-        event
-    } );
-
+    return state => ( { ...state, event: { ...state.event, ...event } } );
 };
+
 
 export default {
     initialState: () => ( {
@@ -34,6 +38,15 @@ export default {
         initialize,
         loadEventDetails,
         handleRSVP: async ( effects, { event } ) => {
+            if ( event.rsvp )
+                await effects.confirmRescindSVP( event );
+            else
+                await effects.confirmAddRSVP( event );
+
+            return mergeIntoState( {} );
+        },
+
+        confirmAddRSVP: async ( effects, event ) => {
             const { details: { ticketUrl } } = event;
 
             if ( ticketUrl )
@@ -48,7 +61,20 @@ export default {
             if ( addToCalendar )
                 await effects.addEventToCalendar( event );
 
+            return setRSVP( true );
+        },
+
+        confirmRescindSVP: async ( effects, event ) => {
+            await effects.showActionSheet( rescindRSPVActionSheet( event, effects.RSVPRescinded ) );
             return mergeIntoState( {} );
+        },
+
+        RSVPRescinded: async ( effects, event ) => {
+            await effects.removeRSVP( event );
+            return setRSVP( false );
+
         }
+
     }
+
 }
