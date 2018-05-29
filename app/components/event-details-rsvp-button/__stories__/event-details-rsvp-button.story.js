@@ -24,4 +24,5 @@ storiesOf( "EventDetailsRsvpButton", module )
     .add( "$1 price", () => ( <EventDetailsRsvpButton event={ makeFullEvent( oneDollarEvent ) } { ...actions } /> ) )
     .add( "large price", () => ( <EventDetailsRsvpButton event={ makeFullEvent( priceyEvent ) } { ...actions } /> ) )
     .add( "free", () => ( <EventDetailsRsvpButton event={ makeFullEvent( freeEvent ) } { ...actions } /> ) )
+    .add( "going", () => ( <EventDetailsRsvpButton event={ { ...makeFullEvent( freeEvent ), rsvp: true } } { ...actions } /> ) )
 ;
