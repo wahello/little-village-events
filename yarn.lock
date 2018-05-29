@@ -8454,6 +8454,10 @@ react-native-linear-gradient@^2.4.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-measure-text@1.0.0-beta:
+  version "1.0.0-beta"
+  resolved "https://registry.yarnpkg.com/react-native-measure-text/-/react-native-measure-text-1.0.0-beta.tgz#dd9bc2575c31f9e90ff7ca3601bf1368ca05cc84"
+
 react-native-navigation@^1.1.458:
   version "1.1.458"
   resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.458.tgz#fe0ad5f7948768a82ebe69ed4bfc319c94ff9893"

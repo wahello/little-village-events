@@ -37,6 +37,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* little_village_eventsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* little_village_eventsTests.m */; };
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		457EABCB98FF436E81D67091 /* libSafariViewManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F38E3A902D184709867CB30C /* libSafariViewManager.a */; };
+		54123EF0F1FB4D9ABFF535EF /* libRNMeasureText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4FBCF873CC4947AB8D2E7C91 /* libRNMeasureText.a */; };
 		5E0C6756A7EE4D0CB74F446C /* libRNAddCalendarEvent.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9148B0368D2045C08BD88A6A /* libRNAddCalendarEvent.a */; };
 		5F0AD54A1D8C4144B08B2561 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F0DBE565F1A410CAD01A085 /* libRNSVG-tvOS.a */; };
 		67216EC92D3140499788477C /* libReactNativeNavigation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24C2D2736DED425481A19B54 /* libReactNativeNavigation.a */; };
@@ -335,6 +336,13 @@
 			remoteGlobalIDString = 64AA15081EF7F30100718508;
 			remoteInfo = "BVLinearGradient-tvOS";
 		};
+		96A18E6920BD10D600AF1821 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A53AFBC525A46788CF99A1B /* RNMeasureText.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RNMeasureText;
+		};
 		96EAC7DA20B3C27800F83DF3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D94A3C2A59D3482887707430 /* RNAddCalendarEvent.xcodeproj */;
@@ -398,6 +406,8 @@
 		2D02E4901E0B4A5D006451C7 /* little_village_events-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "little_village_events-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D16E6891FA4F8E400B85C8A /* libReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		392CBB91BA914A889E745751 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
+		4A53AFBC525A46788CF99A1B /* RNMeasureText.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNMeasureText.xcodeproj; path = "../node_modules/react-native-measure-text/ios/RNMeasureText.xcodeproj"; sourceTree = "<group>"; };
+		4FBCF873CC4947AB8D2E7C91 /* libRNMeasureText.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNMeasureText.a; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -444,6 +454,7 @@
 				5E0C6756A7EE4D0CB74F446C /* libRNAddCalendarEvent.a in Frameworks */,
 				035758C5E6F74403BDA0160E /* libRNSVG.a in Frameworks */,
 				457EABCB98FF436E81D67091 /* libSafariViewManager.a in Frameworks */,
+				54123EF0F1FB4D9ABFF535EF /* libRNMeasureText.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +648,7 @@
 				D94A3C2A59D3482887707430 /* RNAddCalendarEvent.xcodeproj */,
 				392CBB91BA914A889E745751 /* RNSVG.xcodeproj */,
 				E1454847996046D0AA19C069 /* SafariViewManager.xcodeproj */,
+				4A53AFBC525A46788CF99A1B /* RNMeasureText.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -685,6 +697,7 @@
 				AB7F3048F48E48F6956FEF58 /* libRNSVG.a */,
 				F38E3A902D184709867CB30C /* libSafariViewManager.a */,
 				8F0DBE565F1A410CAD01A085 /* libRNSVG-tvOS.a */,
+				4FBCF873CC4947AB8D2E7C91 /* libRNMeasureText.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -702,6 +715,14 @@
 			children = (
 				968DFA0A20ABD4EC003A7BD4 /* libBVLinearGradient.a */,
 				968DFA0C20ABD4EC003A7BD4 /* libBVLinearGradient.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96A18E6620BD10D600AF1821 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96A18E6A20BD10D600AF1821 /* libRNMeasureText.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -910,6 +931,10 @@
 				{
 					ProductGroup = 96EAC7D320B3C27800F83DF3 /* Products */;
 					ProjectRef = D94A3C2A59D3482887707430 /* RNAddCalendarEvent.xcodeproj */;
+				},
+				{
+					ProductGroup = 96A18E6620BD10D600AF1821 /* Products */;
+					ProjectRef = 4A53AFBC525A46788CF99A1B /* RNMeasureText.xcodeproj */;
 				},
 				{
 					ProductGroup = 96EAC7D720B3C27800F83DF3 /* Products */;
@@ -1204,6 +1229,13 @@
 			remoteRef = 968DFA0B20ABD4EC003A7BD4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		96A18E6A20BD10D600AF1821 /* libRNMeasureText.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNMeasureText.a;
+			remoteRef = 96A18E6920BD10D600AF1821 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		96EAC7DB20B3C27800F83DF3 /* libRNAddCalendarEvent.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1384,12 +1416,14 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = little_village_eventsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1414,12 +1448,14 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = little_village_eventsTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1445,6 +1481,7 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = little_village_events/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1471,6 +1508,7 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = little_village_events/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1504,11 +1542,13 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = "little_village_events-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1542,11 +1582,13 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = "little_village_events-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1579,11 +1621,13 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = "little_village_events-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
@@ -1616,11 +1660,13 @@
 					"$(SRCROOT)/../node_modules/react-native-add-calendar-event/ios",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-safari-view",
+					"$(SRCROOT)/../node_modules/react-native-measure-text/ios",
 				);
 				INFOPLIST_FILE = "little_village_events-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				OTHER_LDFLAGS = (

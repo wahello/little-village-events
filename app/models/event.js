@@ -110,7 +110,7 @@ const summary = {
     "name": 1,
     "venueId": "venue_id",
     "venueName": "venue.name",
-    "allDay": 1,
+    "allDay": "allday",
     "startTime": date( "starttime" ),
     "endTime": date( "endtime" ),
 
@@ -154,3 +154,4 @@ export const makeFullEvent = rawEvent => ( {
     ...process( rawEvent, summary ),
     details: process( rawEvent, details )
 } );
+

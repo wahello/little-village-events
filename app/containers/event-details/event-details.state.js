@@ -37,21 +37,21 @@ export default {
     effects: {
         initialize,
         loadEventDetails,
-        handleRSVP: async ( effects, { event } ) => {
+        handleRSVP: async ( effects, { event, windowDimensions } ) => {
             if ( event.rsvp )
-                await effects.confirmRescindSVP( event );
+                await effects.confirmRescindSVP( event, windowDimensions.width );
             else
-                await effects.confirmAddRSVP( event );
+                await effects.confirmAddRSVP( event, windowDimensions.width );
 
             return mergeIntoState( {} );
         },
 
-        confirmAddRSVP: async ( effects, event ) => {
+        confirmAddRSVP: async ( effects, event, windowWidth ) => {
             const { details: { ticketUrl } } = event;
 
             if ( ticketUrl )
                 await effects.openEmbeddedBrowser( { url: ticketUrl, wait: true } );
-            await effects.showActionSheet( confirmRSPVActionSheet( event, effects.RSVPConfirmed ) );
+            await effects.showActionSheet( await confirmRSPVActionSheet( event, effects.RSVPConfirmed, windowWidth ) );
 
             return mergeIntoState( {} );
         },
@@ -64,8 +64,8 @@ export default {
             return setRSVP( true );
         },
 
-        confirmRescindSVP: async ( effects, event ) => {
-            await effects.showActionSheet( rescindRSPVActionSheet( event, effects.RSVPRescinded ) );
+        confirmRescindSVP: async ( effects, event, windowWidth ) => {
+            await effects.showActionSheet( await rescindRSPVActionSheet( event, effects.RSVPRescinded, windowWidth) );
             return mergeIntoState( {} );
         },
 
