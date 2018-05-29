@@ -1,4 +1,5 @@
 import { TouchableButton } from "../../components/touchable";
+import CheckmarkIcon from "../../components/icons/rsvp-checkmark";
 
 import { injectState } from "@textpress/freactal";
 
@@ -45,10 +46,27 @@ const styles = StyleSheet.create( {
         alignItems: "stretch",
     },
 
+    topSection: {
+        flex: 1,
+        alignSelf: "stretch",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignContent: "flex-start"
+    },
+
+    bottomSection: {
+        flex: 0,
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignContent: "flex-start",
+        alignItems: "center"
+
+    },
+
     info: {
         flex: 1,
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "center"
     },
 
     name: {
@@ -74,7 +92,7 @@ const styles = StyleSheet.create( {
     },
 
     hashtag: {
-        flex: 0,
+        flex: 1,
 
         fontSize: 12,
         fontWeight: "normal",
@@ -82,7 +100,23 @@ const styles = StyleSheet.create( {
         letterSpacing: 0,
         textAlign: "left",
         color: "#4a4a4a"
+    },
+
+    rsvpBadge: {
+        flex: 0,
+        height: 22,
+        width: 22,
+        borderRadius: 22,
+        backgroundColor: "#007aff",
+        alignSelf: "flex-start"
+    },
+
+    rsvpBadgeIcon: {
+        height: 22,
+        width: 22,
+        color: "#efeff4",
     }
+
 
 } );
 
@@ -141,14 +175,23 @@ const Item = ( { item: event, effects: { navigateToEventDetails }, state } ) => 
         <View style={ styles.card }>
             <LeftPanel event={ event }/>
             <View style={ styles.rightPanel }>
-                <View style={ styles.info }>
-                    <Text style={ styles.name }>
-                        { event.name + ( event.rsvp ? " !!!RSVP!!!" : "" ) }
-                    </Text>
-                    <Location event={ event }/>
-                    <Days event={ event }/>
+                <View style={ styles.topSection }>
+                    <View style={ styles.info }>
+                        <Text style={ styles.name }>
+                            { event.name }
+                        </Text>
+                        <Location event={ event }/>
+                        <Days event={ event }/>
+                    </View>
                 </View>
-                <Hashtag event={ event } state={ state }/>
+                <View style={ styles.bottomSection }>
+                    <Hashtag event={ event } state={ state }/>
+                    { event.rsvp ? (
+                        <View style={ styles.rsvpBadge }>
+                            <CheckmarkIcon style={ styles.rsvpBadgeIcon }/>
+                        </View>
+                    ) : null }
+                </View>
             </View>
         </View>
     </TouchableButton>
