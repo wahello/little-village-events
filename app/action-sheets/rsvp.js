@@ -31,7 +31,8 @@ const rawStyles = {
 
     note: {
         fontSize: 13,
-        textAlign: "center"
+        textAlign: "center",
+        color: "#8F8F8F"
     }
 
 };
