@@ -1,11 +1,11 @@
 import { TouchableButton } from "../../components/touchable";
 import CheckmarkIcon from "../../components/icons/rsvp-checkmark";
+import { formatStartTimeAndPlace } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";
 
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import moment from "moment";
 import { compose } from "recompose";
 
 const imageSize = 90;
@@ -132,14 +132,7 @@ const LeftPanel = ( { event: { imageUrl } } ) => {
 };
 
 const Location = ( { event } ) => {
-    const { allDay, startTime, venueName } = event;
-
-    const time = ( allDay && "All Day" )
-        || ( startTime && moment( startTime ).format( "h:mma" ) )
-        || ""
-    ;
-    const location = venueName ? `@ ${venueName}` : "";
-    const value = [ time, location ].filter( v => !!v ).join( " " );
+    const value = formatStartTimeAndPlace( event );
     return value
         ? <Text style={ styles.location }>{ value }</Text>
         : null

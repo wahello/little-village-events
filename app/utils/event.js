@@ -8,3 +8,9 @@ export const formatStartTime = ( { allDay, startTime } ) =>
         ? "All day"
         : startTime && startTime.format( "h:mm A" )
 ;
+
+export const formatStartTimeAndPlace = ( event ) =>
+    [ formatStartTime( event ), event.venueName && `@ ${event.venueName}` ]
+        .filter( part => !!part )
+        .join( " " )
+;
