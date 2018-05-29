@@ -3,6 +3,8 @@ import DetailsButton from "../event-details-button";
 
 import CalendarIcon from "../icons/calendar";
 
+import { formatStartDate, formatStartTime } from "../../utils/event";
+
 import moment from "moment";
 import { Text, View, StyleSheet } from "react-native";
 import React from "react";
@@ -45,9 +47,9 @@ const styles = StyleSheet.create( {
 } );
 
 
-const Date = ( { date } ) =>
+const Date = ( { event } ) =>
     <Text style={ styles.date }>
-        { date.format( "dddd, MMM D" ) }
+        { formatStartDate( event ) }
     </Text>
 ;
 
@@ -86,12 +88,13 @@ export const isInProgress = ( now, eventStart, eventEnd ) => {
     return todayEnd.isAfter( now );
 };
 
-const Time = ( { allDay, startTime, endTime } ) => {
+const Time = ( { event } ) => {
+    const { allDay, startTime, endTime } = event;
     const inProgress = !allDay && isInProgress( moment(), startTime, endTime );
     return (
         <View style={ styles.timeContainer }>
             <Text style={ [ styles.date, inProgress ? styles.startedColor : {} ] }>
-                { allDay ? "All day" : startTime.format( "h:mm A" ) }
+                { formatStartTime( event ) }
             </Text>
             { inProgress ?
                 (
@@ -128,8 +131,8 @@ export default ( { event, addEventToCalendar } ) => {
                 />
             ) }
         >
-            <Date date={ startTime }/>
-            <Time allDay={ allDay } startTime={ startTime } endTime={ endTime }/>
+            <Date event={ event }/>
+            <Time event={ event }/>
         </DetailsIconCard>
     );
 }
