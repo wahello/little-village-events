@@ -30,10 +30,8 @@ const appState = {
 
     effects: {
         initialize: async () => {
-            //const rsvps = await api.getAllRSVPs();
-            // return mergeIntoState( { rsvps } )
-            await api.removeAllRSVPs();
-            return mergeIntoState( {} );
+            const rsvps = await api.getAllRSVPs();
+            return mergeIntoState( { rsvps } );
         },
 
         call: async ( effects, number ) => {
