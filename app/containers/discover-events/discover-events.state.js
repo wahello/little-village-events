@@ -47,7 +47,7 @@ export default {
         // }
     },
     computed: {
-        eventCalendar: ( { events, rsvps } ) => {
+        eventList: ( { events, rsvps } ) => {
             if ( !events ) return [];
 
             const today = moment();

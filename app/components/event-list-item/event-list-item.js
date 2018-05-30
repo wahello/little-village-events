@@ -1,5 +1,5 @@
-import { TouchableButton } from "../../components/touchable";
-import CheckmarkIcon from "../../components/icons/rsvp-checkmark";
+import { TouchableButton } from "../touchable";
+import CheckmarkIcon from "../icons/rsvp-checkmark";
 import { formatStartTimeAndPlace } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";

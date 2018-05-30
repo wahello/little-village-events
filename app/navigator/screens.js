@@ -1,10 +1,10 @@
+import DiscoverEventsView from "../containers/discover-events";
 import EventDetailsView from "../containers/event-details";
-import EventListView from "../containers/event-list";
 
 import NavigatorStyles from "./styles";
 
-export const DiscoverTab = {
-    view: EventListView,
+export const DiscoverEventsTab = {
+    view: DiscoverEventsView,
     id: "events.discover",
     navigatorStyle: {
         ...NavigatorStyles.opaque,
