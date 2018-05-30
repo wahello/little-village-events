@@ -3,7 +3,6 @@ import Item from "./event-list.item";
 import state from "./event-list.state";
 
 import { injectState, provideState } from "../../utils/freactal";
-import navigatorStyles from "../../navigator/styles";
 
 import React from "react";
 import { SectionList } from "react-native";
@@ -20,13 +19,6 @@ const EventList = ( props ) => {
         />
     );
 };
-
-EventList.id = "events.list";
-EventList.navigatorStyle = {
-    ...navigatorStyles.opaque,
-};
-
-EventList.title = "Iowa City";
 
 export default compose(
     injectState,

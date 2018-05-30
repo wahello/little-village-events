@@ -17,8 +17,6 @@ const StorybookUIRoot = getStorybookUI( { port: 7007, host: "localhost" } );
 // https://github.com/storybooks/storybook/issues/2081
 // eslint-disable-next-line react/prefer-stateless-function
 class StorybookUIHMRRoot extends Component {
-    static id = "storybook.main";
-    static navigatorStyle = { ...transparent };
 
     render() {
         return <StorybookUIRoot { ...this.props } />;
@@ -33,12 +31,18 @@ configure( () => {
     require( "./stories" );
 }, module );
 
-registerScreen( StorybookUIHMRRoot );
+const StorybookScreen = {
+    id: "storybook.main",
+    navigatorStyle: { ...transparent },
+    view: StorybookUIHMRRoot
+};
+
+registerScreen( StorybookScreen );
 
 Navigation
     .startSingleScreenApp( {
         screen: {
-            screen: StorybookUIHMRRoot.id
+            screen: StorybookScreen.id
         }
     } )
 ;

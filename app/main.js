@@ -1,9 +1,3 @@
-import registerScreens from "./navigator/screens";
+import startApp from "./navigator";
 
-import { Navigation } from "react-native-navigation";
-
-const params = registerScreens();
-
-Navigation
-    .startTabBasedApp( params )
-;
+startApp();

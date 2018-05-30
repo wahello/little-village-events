@@ -1,4 +1,4 @@
-import EventDetails from "../containers/event-details";
+import { EventDetails } from "./screens";
 //import WebPage from "../containers/web-page";
 
 import { update } from "@textpress/freactal";

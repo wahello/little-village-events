@@ -2,7 +2,6 @@ import * as Header from "../event-details-header";
 import EventDetailsDateCard from "../event-details-date-card";
 import EventDetailsVenueCard from "../event-details-venue-card";
 import EventDetailsDescriptionCard from "../event-details-description-card";
-import navigatorStyles from "../../navigator/styles";
 
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 
@@ -42,13 +41,6 @@ const Loading = () => (
 );
 
 class EventDetails extends Component {
-    static id = "events.details";
-    static navigatorStyle = {
-        ...navigatorStyles.transparent,
-        tabBarHidden: true
-    };
-    static backButtonTitle = "";
-
     render() {
 
         const { state, effects } = this.props;
