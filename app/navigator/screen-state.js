@@ -10,7 +10,7 @@ const initialState = {
 };
 
 const screenState = {
-    initialState: () => initialState,
+    initialState: () => ( { ...initialState } ),
 
     effects: {
 
