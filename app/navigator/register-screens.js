@@ -1,9 +1,10 @@
 import registerScreen from "./register-screen";
 
-import { DiscoverEventsTab, EventDetails } from "./screens";
+import { DiscoverEventsTab, RSVPEventsTab, EventDetails } from "./screens";
 
 const registerScreens = () => {
     registerScreen( DiscoverEventsTab );
+    registerScreen( RSVPEventsTab );
     registerScreen( EventDetails );
 
     return {
@@ -29,8 +30,8 @@ const registerScreens = () => {
                 }
             },
             {
-                screen: DiscoverEventsTab.id,
-                title: DiscoverEventsTab.title,
+                screen: RSVPEventsTab.id,
+                title: RSVPEventsTab.title,
                 icon: require( "../components/icons/pngs/rsvps.png" ),
                 selectedIcon: require( "../components/icons/pngs/rsvps-active.png" ),
                 iconInsets: {

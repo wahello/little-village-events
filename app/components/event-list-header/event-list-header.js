@@ -37,6 +37,8 @@ const styles = StyleSheet.create( {
 
 const Header = ( { section: { today, date } } ) => {
     const weekday = moment( date ).calendar( today, {
+        lastWeek: "[Last] dddd",
+        lastDay: "[Yesterday]",
         sameDay: "[Today]",
         nextDay: "[Tomorrow]",
         nextWeek: "dddd",
@@ -44,6 +46,8 @@ const Header = ( { section: { today, date } } ) => {
     } ).toUpperCase();
 
     const monthday = moment( date ).calendar( today, {
+        lastWeek: "MMM D",
+        lastDay: "ddd, MMM D",
         sameDay: "ddd, MMM D",
         nextDay: "ddd, MMM D",
         nextWeek: "MMM D",

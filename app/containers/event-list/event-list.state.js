@@ -29,11 +29,14 @@ export default {
                     ;
                 } );
 
-                result.push( {
-                    today,
-                    date,
-                    data: dayEvents
-                } );
+                if ( dayEvents.length ) {
+                    result.push( {
+                        today,
+                        date,
+                        data: dayEvents
+                    } );
+                }
+
                 return result;
 
             }, [] );
