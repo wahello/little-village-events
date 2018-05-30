@@ -46,6 +46,9 @@ const registerScreens = () => {
             tabBarButtonColor: "#929292",
             tabBarSelectedButtonColor: "#007AFF",
             tabBarBackgroundColor: "#F9F9F9"
+        },
+        appStyle: {
+            keepStyleAcrossPush: false
         }
     };
 };

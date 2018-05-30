@@ -3,8 +3,7 @@
         "drawUnderNavBar": true,
         "navBarTranslucent": true,
         "navBarTransparent": true,
-        "navBarTextColor": "white",
-        "navBarSubtitleColor": "white",
+        "navBarTextColor": "black",
         "navBarButtonColor": "white",
         "statusBarTextColorScheme": "light"
     },
