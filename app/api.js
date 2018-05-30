@@ -10,13 +10,13 @@ const rsvpStorage = new RSVPStorage;
 
 export default {
 
-    getEventList: async ( startDate, numberOfDays ) => {
+    getEventList: async ( firstDate, lastDate ) => {
         const dateFormat = "YYYY-MM-DD";
 
-        const start = startDate.clone().format( dateFormat );
-        const end = startDate.clone().add( { days: numberOfDays - 1 } ).format( dateFormat );
+        const from = firstDate.format( dateFormat );
+        const to = lastDate.format( dateFormat );
 
-        const url = `${root}/events.json?range_from=${start}&range_to=${end}`;
+        const url = `${root}/events.json?range_from=${from}&range_to=${to}`;
         const { data } = await axios.get( url );
         return data.events ? data.events.map( makeSummaryEvent ) : [];
     },
