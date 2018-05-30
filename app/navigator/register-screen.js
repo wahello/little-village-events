@@ -1,7 +1,6 @@
-import screenState from "./screen-state";
 
-import provideAppState from "../app-state";
-import { provideState } from "../utils/freactal";
+import provideGlobalState from "./states/global-state";
+import provideScreenState from "./states/screen-state";
 import provideActionSheet from "../utils/with-action-sheet";
 
 import { Navigation } from "react-native-navigation";
@@ -14,8 +13,8 @@ import _omit from "lodash/omit";
 export default screen => {
     const ScreenView = hoistNonReactStatics(
         compose(
-            provideAppState,
-            provideState( screenState ),
+            provideGlobalState,
+            provideScreenState,
             provideActionSheet
         )( screen.view ),
         _omit( screen, [ "view" ] )

@@ -1,5 +1,5 @@
-import api from "./api";
-import categories from "./models/categories";
+import api from "../../api";
+import categories from "../../models/categories";
 
 import { mergeIntoState, provideState, update } from "@textpress/freactal";
 
@@ -20,12 +20,12 @@ const appName = "little_village_events";
 const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
-    rsvps: [],
+    rsvps: {},
     api,
     categories,
 };
 
-const appState = {
+const globalState = {
     initialState: () => initialState,
 
     effects: {
@@ -160,7 +160,7 @@ const appState = {
 
 };
 
-const rootStatefulComponent = provideState( appState )();
+const rootStatefulComponent = provideState( globalState )();
 rootStatefulComponent.effects.initialize( {} );
 const context = rootStatefulComponent.getChildContext();
 

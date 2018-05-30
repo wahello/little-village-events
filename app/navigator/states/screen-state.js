@@ -1,7 +1,6 @@
-import { EventDetails } from "./screens";
+import { EventDetails } from "../screens";
 //import WebPage from "../containers/web-page";
-
-import { update } from "@textpress/freactal";
+import { provideState, update } from "../../utils/freactal";
 
 //import { Navigation } from "react-native-navigation";
 
@@ -52,4 +51,4 @@ const screenState = {
 
 };
 
-export default screenState;
+export default provideState( screenState );
