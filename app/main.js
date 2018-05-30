@@ -2,10 +2,8 @@ import registerScreens from "./navigator/screens";
 
 import { Navigation } from "react-native-navigation";
 
-const screen = registerScreens();
+const params = registerScreens();
 
 Navigation
-    .startSingleScreenApp( {
-        screen
-    } )
+    .startTabBasedApp( params )
 ;

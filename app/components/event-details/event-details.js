@@ -44,7 +44,8 @@ const Loading = () => (
 class EventDetails extends Component {
     static id = "events.details";
     static navigatorStyle = {
-        ...navigatorStyles.transparent
+        ...navigatorStyles.transparent,
+        tabBarHidden: true
     };
     static backButtonTitle = "";
 
