@@ -4,7 +4,7 @@
         "navBarTranslucent": true,
         "navBarTransparent": true,
         "navBarTextColor": "white",
-        "navBarSubtitleColor": "while",
+        "navBarSubtitleColor": "white",
         "navBarButtonColor": "white",
         "statusBarTextColorScheme": "light"
     },
@@ -12,9 +12,9 @@
         "drawUnderNavBar": false,
         "navBarTranslucent": false,
         "navBarTransparent": false,
-        "navBarBackgroundColor": "black",
-        "navBarTextColor": "white",
-        "navBarButtonColor": "white",
-        "statusBarTextColorScheme": "light"
+        "navBarBackgroundColor": "#F9F9F9",
+        "navBarTextColor": "black",
+        "navBarButtonColor": "black",
+        "statusBarTextColorScheme": "dark"
     }
 }

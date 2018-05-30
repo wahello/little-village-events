@@ -9,23 +9,27 @@ const styles = StyleSheet.create( {
         justifyContent: "space-between",
         alignItems: "center",
 
-        height: 34,
+        height: 38,
 
         paddingTop: 2,
         paddingLeft: 10,
         paddingRight: 10,
         paddingBottom: 2,
-        backgroundColor: "black",
+        backgroundColor: "#F9F9F9",
+
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: "#C8C7CC"
     },
     weekday: {
         fontSize: 16,
         fontWeight: "bold",
-        color: "white",
+        color: "black",
     },
     monthday: {
         fontSize: 14,
         fontWeight: "bold",
-        color: "white",
+        color: "black",
+        opacity: 0.7
     }
 
 
