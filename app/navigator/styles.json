@@ -15,5 +15,11 @@
         "navBarTextColor": "black",
         "navBarButtonColor": "black",
         "statusBarTextColorScheme": "dark"
+    },
+    "transparentDark": {
+        "drawUnderNavBar": true,
+        "navBarTranslucent": true,
+        "navBarTransparent": true,
+        "statusBarTextColorScheme": "dark"
     }
 }
