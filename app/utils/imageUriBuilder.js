@@ -19,12 +19,12 @@ const uc = image => {
 };
 
 
-const lorem = () => {
+const lorem = ( image ) => {
     const imageUrl = "https://source.unsplash.com/random";
 
     return {
-        scale: ( width, height ) => `${imageUrl}/${width}x${height}`,
-        resize: ( size ) => `${imageUrl}/${size}x${size}`
+        scale: ( width, height ) => `${imageUrl}/${width}x${height}/?${image.term},featured`,
+        resize: ( size ) => `${imageUrl}/${size}x${size}/?${image.term},featured`
     }
 };
 
