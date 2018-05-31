@@ -7,6 +7,7 @@ import { injectState } from "@textpress/freactal";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { compose } from "recompose";
+import imageUriBuilder from "../../utils/imageUriBuilder";
 
 const imageSize = 90;
 
@@ -120,13 +121,14 @@ const styles = StyleSheet.create( {
 
 } );
 
-const LeftPanel = ( { event: { imageUrl } } ) => {
-    if ( !imageUrl )
+const LeftPanel = ( { event } ) => {
+    const uri = imageUriBuilder( event ).resize( imageSize );
+    if ( !uri )
         return <View style={ styles.leftPanel }/>;
 
     return (
         <Image style={ styles.leftPanel }
-            source={ { uri: `${imageUrl}-/resize/x${imageSize}/-/crop/${imageSize}x${imageSize}/center/` } }
+            source={ { uri } }
         />
     );
 };

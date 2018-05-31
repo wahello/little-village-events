@@ -3,21 +3,10 @@ import Categories from "./categories";
 import moment from "moment";
 
 import _get from "lodash/get";
-import _find from "lodash/find";
 import _last from "lodash/last";
 import _reduce from "lodash/reduce";
 import _values from "lodash/values";
 import _toNumber from "lodash/toNumber";
-
-
-function imageUrl( rawEvent ) {
-    const { multimedia } = rawEvent;
-    if ( !multimedia )
-        return "";
-
-    const image = _find( multimedia, image => image.source === "uc" && image.type === "img" && !!image.id );
-    return image ? `https://ucarecdn.com/${image.id}/` : null;
-}
 
 
 const priceRange = ( { tickets } ) => {
@@ -120,7 +109,11 @@ const summary = {
     } ) ),
     "featured": 1,
 
-    "imageUrl": imageUrl
+    "multimedia": array( "multimedia", fields( {
+        source: 1,
+        type: 1,
+        id: 1
+    } ) )
 };
 
 

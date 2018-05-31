@@ -3,6 +3,8 @@ import EventDetailsDateCard from "../event-details-date-card";
 import EventDetailsVenueCard from "../event-details-venue-card";
 import EventDetailsDescriptionCard from "../event-details-description-card";
 
+import imageUriBuilder from "../../utils/imageUriBuilder";
+
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 
 import { ActivityIndicator, PixelRatio, StyleSheet, View } from "react-native";
@@ -52,19 +54,16 @@ class EventDetails extends Component {
 
         const headerHeight = Math.round( width * .68 );
 
-        let { imageUrl } = event;
-        if ( imageUrl ) {
-            const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
-            const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
-            imageUrl = `${imageUrl}-/scale_crop/${imageWidth}x${imageHeight}/center/-/enhance/`;
-        }
+        const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
+        const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
+        const imageUri = imageUriBuilder( event ).scale( imageWidth, imageHeight );
 
         return (
             <ParallaxScroll
                 renderHeader={ props => <Header.Fixed event={ event } { ...props } /> }
                 renderParallaxForeground={ props => <Header.Foreground event={ event }
                     handleRSVP={ () => effects.handleRSVP( state ) } { ...props } /> }
-                renderParallaxBackground={ () => imageUrl ? <Header.Background uri={ imageUrl }/> : null }
+                renderParallaxBackground={ () => imageUri ? <Header.Background uri={ imageUri }/> : null }
                 headerHeight={ fixedHeaderHeight }
                 parallaxHeight={ headerHeight }
                 isHeaderFixed={ true }
