@@ -17,7 +17,7 @@ export default class RSVP {
     storage = new Storage( "RSVP" );
 
     add( event ) {
-        return this.storage.set( event.id, _omit( event, "details" ) );
+        return this.storage.set( event.id, { ..._omit( event, "details" ), rsvp: true } );
     }
 
 
