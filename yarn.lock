@@ -1065,6 +1065,10 @@
     lodash "^4.17.5"
     to-fast-properties "^2.0.0"
 
+"@expo/status-bar-height@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@expo/status-bar-height/-/status-bar-height-0.0.1.tgz#c39df6daa018fe10bba4b699cce8a881bfc6f9e4"
+
 "@monterosa/react-native-parallax-scroll@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@monterosa/react-native-parallax-scroll/-/react-native-parallax-scroll-1.8.0.tgz#04339a772c02818b229582a8b903aca4f9106005"
@@ -8447,6 +8451,10 @@ react-native-htmlview@^0.12.1:
 react-native-iphone-x-helper@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.2.tgz#7dbca530930f7c1ce8633cc8fd13ba94102992e1"
+
+react-native-iphone-x-helper@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.0.3.tgz#7a2f1e0574e899a0f1d426e6167fd98990083214"
 
 react-native-linear-gradient@^2.4.0:
   version "2.4.0"

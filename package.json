@@ -12,6 +12,7 @@
         "build-icons": "gulp build-icons"
     },
     "dependencies": {
+        "@expo/status-bar-height": "^0.0.1",
         "@monterosa/react-native-parallax-scroll": "^1.8.0",
         "@textpress/freactal": "^2.4.1",
         "axios": "^0.18.0",
@@ -27,6 +28,7 @@
         "react-native-add-calendar-event": "^1.1.1",
         "react-native-custom-actionsheet": "^0.0.4",
         "react-native-htmlview": "^0.12.1",
+        "react-native-iphone-x-helper": "^1.0.3",
         "react-native-linear-gradient": "^2.4.0",
         "react-native-measure-text": "1.0.0-beta",
         "react-native-navigation": "^1.1.458",
