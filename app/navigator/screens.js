@@ -18,10 +18,8 @@ export const RSVPEventsTab = {
     view: RSVPEventsView,
     id: "events.rsvps",
     navigatorStyle: {
-        ...NavigatorStyles.opaque,
-        navBarHidden: false
-    },
-    title: "RSVPs"
+        ...NavigatorStyles.navBarHiddenLight
+    }
 };
 
 export const EventDetails = {

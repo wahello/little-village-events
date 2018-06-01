@@ -10,11 +10,11 @@ import { storiesOf } from "@storybook/react-native";
 import React from "react";
 import { compose } from "recompose";
 
-const ScreenProvider = ( tense ) => {
+const ScreenProvider = ( { quantity = 30, tense = "any" } = {} ) => {
     const Screen = compose(
         provideState( {
             initialState: () => ( {
-                rsvps: casual.rsvps( 15, tense )
+                rsvps: casual.rsvps( quantity, tense )
             } )
         } )
     )( RSVPEvents );
@@ -22,7 +22,9 @@ const ScreenProvider = ( tense ) => {
 };
 
 storiesOf( "RSVPEventsScreen", module )
-    .addDecorator( navigatorStyleDecorator( { style: "transparentDark" } ) )
-    .add( "future", ScreenProvider( "future" ) )
-    .add( "past", ScreenProvider( "past" ) )
+    .addDecorator( navigatorStyleDecorator( { style: "navBarHiddenLight" } ) )
+    .add( "default", ScreenProvider() )
+    .add( "empty", ScreenProvider( { quantity: 0 } ) )
+    .add( "future", ScreenProvider( { tense: "future" } ) )
+    .add( "past", ScreenProvider( { tense: "past" } ) )
 ;
