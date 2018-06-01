@@ -164,7 +164,7 @@ const Hashtag = ( { event } ) => {
     ;
 };
 
-const Item = ( { item: event, effects: { navigateToEventDetails }, state } ) => (
+const Item = ( { item: event, effects: { navigateToEventDetails } } ) => (
     <TouchableButton activeOpacity={ 0.6 }
         onPress={ () => navigateToEventDetails( event ) }>
         <View style={ styles.card }>
@@ -180,7 +180,7 @@ const Item = ( { item: event, effects: { navigateToEventDetails }, state } ) => 
                     </View>
                 </View>
                 <View style={ styles.bottomSection }>
-                    <Hashtag event={ event } state={ state }/>
+                    <Hashtag event={ event }/>
                     { event.rsvp ? (
                         <View style={ styles.rsvpBadge }>
                             <CheckmarkIcon style={ styles.rsvpBadgeIcon }/>
