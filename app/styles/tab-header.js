@@ -7,8 +7,6 @@ export default {
 
         flexDirection: "column",
         alignItems: "stretch",
-
-        paddingTop: 20,
         backgroundColor: variables.panelBackgroundColor
     },
 

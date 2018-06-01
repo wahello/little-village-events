@@ -1,4 +1,5 @@
 import ScopeSelector from "./scope-selector";
+import StatusBarSpacer from "../status-bar-spacer";
 
 import * as Styles from "../../styles";
 
@@ -17,10 +18,10 @@ const styles = Styles.create( Styles.tabHeader, {
 
 const Header = ( { scope, setScope } ) => (
     <View style={ styles.root }>
+        <StatusBarSpacer/>
         <Text style={ styles.label }>You’re going</Text>
         <ScopeSelector scope={ scope } setScope={ setScope }/>
     </View>
 );
-
 
 export default Header;
