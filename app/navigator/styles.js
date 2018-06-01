@@ -1,25 +1,32 @@
-{
+import variables from "../styles/variables";
+
+export default {
     "transparent": {
         "drawUnderNavBar": true,
         "navBarTranslucent": true,
         "navBarTransparent": true,
-        "navBarTextColor": "black",
-        "navBarButtonColor": "white",
+        "navBarButtonColor": variables.invertedTextColor,
         "statusBarTextColorScheme": "light"
     },
     "opaque": {
         "drawUnderNavBar": false,
         "navBarTranslucent": false,
         "navBarTransparent": false,
-        "navBarBackgroundColor": "#F9F9F9",
-        "navBarTextColor": "black",
-        "navBarButtonColor": "black",
+        "navBarBackgroundColor": variables.panelBackgroundColor,
+        "navBarTextColor": variables.text,
+        "navBarButtonColor": variables.text,
         "statusBarTextColorScheme": "dark"
     },
-    "transparentDark": {
+    "transparentLight": {
         "drawUnderNavBar": true,
         "navBarTranslucent": true,
         "navBarTransparent": true,
         "statusBarTextColorScheme": "dark"
+    },
+    "navBarHiddenLight": {
+        "navBarHidden": true,
+        "statusBarTextColorScheme": "dark"
     }
+
+
 }

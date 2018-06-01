@@ -1,7 +1,7 @@
 import navigatorStyleDecorator from "./decorators/navigator-style";
 
 import registerScreen from "../app/navigator/register-screen";
-import { transparent } from "../app/navigator/styles";
+import NavigatorStyles from "../app/navigator/styles";
 
 import { getStorybookUI, configure, addDecorator } from "@storybook/react-native";
 import { withKnobs } from "@storybook/addon-knobs/react";
@@ -33,7 +33,7 @@ configure( () => {
 
 const StorybookScreen = {
     id: "storybook.main",
-    navigatorStyle: { ...transparent },
+    navigatorStyle: { ...NavigatorStyles.navBarHiddenLight },
     view: StorybookUIHMRRoot
 };
 
