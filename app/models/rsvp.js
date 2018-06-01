@@ -1,6 +1,6 @@
+import { stripToSummaryEvent } from "./event";
 import Storage from "../storage";
 
-import _omit from "lodash/omit";
 import _isArray from "lodash/isArray";
 
 const arrayToMap = array => {
@@ -17,7 +17,7 @@ export default class RSVP {
     storage = new Storage( "RSVP" );
 
     add( event ) {
-        return this.storage.set( event.id, { ..._omit( event, "details" ), rsvp: true } );
+        return this.storage.set( event.id, stripToSummaryEvent( event, "details" ) );
     }
 
 

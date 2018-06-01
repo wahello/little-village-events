@@ -3,7 +3,9 @@ import Categories from "./categories";
 import moment from "moment";
 
 import _get from "lodash/get";
+import _keys from "lodash/keys";
 import _last from "lodash/last";
+import _pick from "lodash/pick";
 import _reduce from "lodash/reduce";
 import _values from "lodash/values";
 import _toNumber from "lodash/toNumber";
@@ -148,3 +150,4 @@ export const makeFullEvent = rawEvent => ( {
     details: process( rawEvent, details )
 } );
 
+export const stripToSummaryEvent = event => _pick( event, _keys( summary ) );
