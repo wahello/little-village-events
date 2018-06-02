@@ -64,6 +64,7 @@
         "react-native-cli": "^2.0.1",
         "react-native-debugger-open": "^0.3.17",
         "react-test-renderer": "16.4.0",
+        "sinon": "^5.0.10",
         "svgr": "^1.10.0",
         "yargs": "^11.0.0"
     },

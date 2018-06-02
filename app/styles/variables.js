@@ -21,6 +21,7 @@ export default {
     borderWidth: StyleSheet.hairlineWidth,
 
     highlightColor: "#007AFF",
+    warningColor: "#FF0000",
 
     marginHorizontal: 10
 
