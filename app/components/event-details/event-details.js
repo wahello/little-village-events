@@ -47,7 +47,7 @@ class EventDetails extends Component {
 
         const { state, effects } = this.props;
 
-        const { event, windowDimensions: { width, height } } = state;
+        const { event, calendarDay, windowDimensions: { width, height } } = state;
 
         if ( !event )
             return <Loading/>;
@@ -74,7 +74,7 @@ class EventDetails extends Component {
                 parallaxForegroundScrollSpeed={ 1 }
             >
                 <View style={ [ styles.body, { minHeight: height - headerHeight } ] }>
-                    <EventDetailsDateCard event={ event } addEventToCalendar={ effects.addEventToCalendar }/>
+                    <EventDetailsDateCard event={ event } calendarDay={ calendarDay } addEventToCalendar={ effects.addEventToCalendar }/>
                     <EventDetailsVenueCard event={ event } call={ effects.call } openMap={ effects.openMap }/>
                     <EventDetailsDescriptionCard event={ event }/>
                 </View>

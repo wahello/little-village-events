@@ -1,11 +1,11 @@
 import DetailsIconCard from "../event-details-icon-card";
 import DetailsButton from "../event-details-button";
+import EventTime from "../event-time";
 
 import CalendarIcon from "../icons/calendar";
 
-import { formatStartDate, formatStartTime } from "../../utils/event";
+import { formatStartDate } from "../../utils/event";
 
-import moment from "moment";
 import { Text, View, StyleSheet } from "react-native";
 import React from "react";
 
@@ -53,61 +53,6 @@ const Date = ( { event } ) =>
     </Text>
 ;
 
-export const isInProgress = ( now, eventStart, eventEnd ) => {
-    if ( now.isBefore( eventStart ) ) {
-        // future event
-        return false;
-    }
-
-    const startOfToday = moment( now.clone().startOf( "day" ) );
-    if ( !eventEnd ) {
-        // check if one-time events' day has not ended yet
-        return !eventStart.isBefore( startOfToday );
-    }
-
-    if ( eventEnd.isBefore( now ) ) {
-        // event ended
-        return false;
-    }
-
-    const startOfFirstEventDay = eventStart.clone().startOf( "day" );
-    const startedDaysAgo = startOfToday.diff( startOfFirstEventDay, "days" );
-
-    const todayStart = eventStart.clone().add( { days: startedDaysAgo } );
-    if ( todayStart.isAfter( now ) ) {
-        // ongoing event hasn't started today yet
-        return false;
-    }
-
-    const startOfLastEventDay = eventEnd.clone().startOf( "day" );
-    const daysRemained = startOfLastEventDay.diff( startOfToday, "days" );
-
-    const todayEnd = eventEnd.clone().subtract( { days: daysRemained } );
-
-    // check if ongoing event has not ended today yet
-    return todayEnd.isAfter( now );
-};
-
-const Time = ( { event } ) => {
-    const { allDay, startTime, endTime } = event;
-    const inProgress = !allDay && isInProgress( moment(), startTime, endTime );
-    return (
-        <View style={ styles.timeContainer }>
-            <Text style={ [ styles.date, inProgress ? styles.startedColor : {} ] }>
-                { formatStartTime( event ) }
-            </Text>
-            { inProgress ?
-                (
-                    <Text style={ [ styles.date, styles.started, styles.startedColor ] }>
-                        Started
-                    </Text>
-                )
-                : null
-            }
-        </View>
-    );
-};
-
 const AddToCalendar = ( { event, addEventToCalendar } ) => {
     const { endTime } = event;
     return !endTime ? (
@@ -115,8 +60,8 @@ const AddToCalendar = ( { event, addEventToCalendar } ) => {
     ) : null;
 };
 
-export default ( { event, addEventToCalendar } ) => {
-    const { allDay, startTime, endTime } = event;
+export default ( { event, calendarDay, addEventToCalendar } ) => {
+    const { startTime } = event;
     if ( !startTime )
         return null;
 
@@ -132,7 +77,9 @@ export default ( { event, addEventToCalendar } ) => {
             ) }
         >
             <Date event={ event }/>
-            <Time event={ event }/>
+            <View style={ styles.timeContainer }>
+                <EventTime event={ event } calendarDay={ calendarDay } size="regular"/>
+            </View>
         </DetailsIconCard>
     );
 }

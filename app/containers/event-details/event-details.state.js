@@ -8,13 +8,14 @@ function setRSVP( rsvp ) {
 }
 
 
-const initialize = async ( effects, { event, state: { api } } ) => {
+const initialize = async ( effects, { event, calendarDay, state: { api } } ) => {
     if ( !event.details ) {
         effects.loadEventDetails( api, event.id );
     }
 
     return mergeIntoState( {
-        event
+        event,
+        calendarDay
     } );
 };
 
@@ -31,7 +32,8 @@ const loadEventDetails = async ( effects, api, eventId ) => {
 
 export default {
     initialState: () => ( {
-        event: null
+        event: null,
+        calendarDay: null
     } ),
 
     effects: {
