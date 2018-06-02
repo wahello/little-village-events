@@ -1,3 +1,4 @@
+import EventHashtags from "../event-hashtags";
 import { TouchableButton } from "../touchable";
 import CheckmarkIcon from "../icons/rsvp-checkmark";
 import { formatStartTimeAndPlace } from "../../utils/event";
@@ -92,17 +93,6 @@ const styles = StyleSheet.create( {
         color: "#000000"
     },
 
-    hashtag: {
-        flex: 1,
-
-        fontSize: 12,
-        fontWeight: "normal",
-        fontStyle: "normal",
-        letterSpacing: 0,
-        textAlign: "left",
-        color: "#4a4a4a"
-    },
-
     rsvpBadge: {
         flex: 0,
         height: 22,
@@ -150,20 +140,6 @@ const Days = ( { event } ) => {
     return <Text style={ styles.location }>{ value }</Text>;
 };
 
-const Hashtag = ( { event } ) => {
-    const { categories } = event;
-    const hashtags = categories
-        .map( c => c.name )
-        .filter( n => !!n )
-        .map( n => n.toUpperCase() )
-        .join( " " )
-    ;
-    return hashtags
-        ? <Text style={ styles.hashtag }>{ hashtags }</Text>
-        : null
-    ;
-};
-
 const Item = ( { item: event, effects: { navigateToEventDetails } } ) => (
     <TouchableButton activeOpacity={ 0.6 }
         onPress={ () => navigateToEventDetails( event ) }>
@@ -180,7 +156,7 @@ const Item = ( { item: event, effects: { navigateToEventDetails } } ) => (
                     </View>
                 </View>
                 <View style={ styles.bottomSection }>
-                    <Hashtag event={ event }/>
+                    <EventHashtags event={ event }/>
                     { event.rsvp ? (
                         <View style={ styles.rsvpBadge }>
                             <CheckmarkIcon style={ styles.rsvpBadgeIcon }/>
