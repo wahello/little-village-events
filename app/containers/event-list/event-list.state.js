@@ -29,8 +29,8 @@ export default {
                 const end = date.clone().endOf( "day" );
 
                 const dayEvents = eventsWithRSVP.filter( event => {
-                    return event.startTime.isBefore( end )
-                        && ( event.endTime || event.startTime ).isAfter( start )
+                    return !event.startTime.isAfter( end )
+                        && !( event.endTime || event.startTime ).isBefore( start )
                     ;
                 } );
 
