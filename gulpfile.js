@@ -21,7 +21,7 @@ const svgrOptions = {
 
 
 gulp.task( "build-icons", () => {
-    return gulp.src( [ "app/components/icons/svgs/*.svg" ] )
+    return gulp.src( [ "app/components/icons/svgs/**/*.svg" ] )
         .pipe( transform( "utf8", buildIcon ) )
         .pipe( rename( { extname: ".js" } ) )
         .pipe( gulp.dest( "app/components/icons" ) )
