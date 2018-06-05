@@ -87,5 +87,8 @@ export const eventTense = ( event, calendarDay, currentTime ) => {
         return minutes <= 60 ? "upcoming" : "future";
     }
 
+    if ( event.allDay )
+        return "upcoming";
+
     return "present";
 };
