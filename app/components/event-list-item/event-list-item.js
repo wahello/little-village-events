@@ -1,12 +1,11 @@
 import EventHashtags from "../event-hashtags";
-import EventTime from "../event-time";
+import EventTimeLocationRSVP from "../event-time-location-rsvp";
 import { TouchableButton } from "../touchable";
 import CheckmarkIcon from "../icons/rsvp-checkmark";
-import { formatStartTimeAndPlace } from "../../utils/event";
 
 import { injectState } from "@textpress/freactal";
 
-import React, { Fragment } from "react";
+import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { compose } from "recompose";
 import imageUriBuilder from "../../utils/image-uri-builder";
@@ -84,28 +83,6 @@ const styles = StyleSheet.create( {
         color: "#000000"
     },
 
-    timeAndVenue: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-        marginVertical: 2
-    },
-
-    venueWrapper: {
-        flex: 1
-    },
-
-    venue: {
-        marginLeft: 3,
-        fontSize: 14,
-        fontWeight: "normal",
-        fontStyle: "normal",
-        letterSpacing: 0,
-        textAlign: "left",
-        color: "#000000",
-    },
-
     days: {
         fontSize: 14,
         fontWeight: "normal",
@@ -145,29 +122,6 @@ const LeftPanel = ( { event } ) => {
     );
 };
 
-const TimeAndVenue = ( { event, calendarDay } ) => {
-
-    const venueViews = event.venueName
-        ? (
-            <Fragment>
-                <Text style={ styles.venue }>@</Text>
-                <View style={ styles.venueWrapper }>
-                    <Text style={ styles.venue }>
-                        { event.venueName }
-                    </Text>
-                </View>
-            </Fragment>
-
-        ) : null;
-
-    return (
-        <View style={ styles.timeAndVenue }>
-            <EventTime event={ event } calendarDay={ calendarDay } size="small"/>
-            { venueViews }
-        </View>
-    );
-};
-
 const Days = ( { event } ) => {
     const { startTime, endTime } = event;
     if ( !startTime || !endTime || startTime.diff( endTime, "days" ) === 0 )
@@ -187,21 +141,14 @@ const Item = ( props ) => {
                 <View style={ styles.rightPanel }>
                     <View style={ styles.topSection }>
                         <View style={ styles.info }>
+                            <EventHashtags event={ event }/>
                             <Text style={ styles.name }>
                                 { event.name }
                             </Text>
-                            <TimeAndVenue event={ event } calendarDay={ calendarDay }/>
                             <Days event={ event }/>
                         </View>
                     </View>
-                    <View style={ styles.bottomSection }>
-                        <EventHashtags event={ event }/>
-                        { event.rsvp ? (
-                            <View style={ styles.rsvpBadge }>
-                                <CheckmarkIcon style={ styles.rsvpBadgeIcon }/>
-                            </View>
-                        ) : null }
-                    </View>
+                    <EventTimeLocationRSVP event={ event } calendarDay={ calendarDay } size="small"/>
                 </View>
             </View>
         </TouchableButton>
