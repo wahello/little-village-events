@@ -10,8 +10,12 @@ import { storiesOf } from "@storybook/react-native";
 
 import React from "react";
 
+const Screen = ( { event } ) => {
+    return <EventDetails event={ event } calendarDay={ event.startTime.clone() } />
+};
+
 storiesOf( "EventDetailsScreen", module )
     .addDecorator( navigatorStyleDecorator( { style: "transparent", back: true } ) )
-    .add( "default", () => <EventDetails event={ makeFullEvent( darkCoverEvent ) } /> )
-    .add( "light cover", () => <EventDetails event={ makeFullEvent( lightCoverEvent ) } /> )
+    .add( "default", () => <Screen event={ makeFullEvent( darkCoverEvent ) } /> )
+    .add( "light cover", () => <Screen event={ makeFullEvent( lightCoverEvent ) } /> )
 ;

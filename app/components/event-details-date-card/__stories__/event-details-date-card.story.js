@@ -15,8 +15,14 @@ const actions = {
     addEventToCalendar: options => action( "addEventToCalendar" )( options )
 };
 
+
+const Screen = ( props ) => {
+    return <EventDetailsDateCard { ...props } calendarDay={ props.event.startTime.clone() } />
+};
+
+
 storiesOf( "EventDetailsDateCard", module )
     .addDecorator( layout() )
-    .add( "default", () => ( <EventDetailsDateCard event={ makeFullEvent( event ) } { ...actions } /> ) )
-    .add( "started", () => ( <EventDetailsDateCard event={ { startTime: moment().subtract( { minutes: 1 } ) } } { ...actions }/> ) )
+    .add( "default", () => ( <Screen event={ makeFullEvent( event ) } { ...actions } /> ) )
+    .add( "started", () => ( <Screen event={ { startTime: moment().subtract( { minutes: 1 } ) } } { ...actions }/> ) )
 ;
