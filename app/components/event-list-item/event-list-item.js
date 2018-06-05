@@ -1,7 +1,6 @@
 import EventHashtags from "../event-hashtags";
 import EventTimeLocationRSVP from "../event-time-location-rsvp";
 import { TouchableButton } from "../touchable";
-import CheckmarkIcon from "../icons/rsvp-checkmark";
 
 import { injectState } from "@textpress/freactal";
 
@@ -22,15 +21,7 @@ const styles = StyleSheet.create( {
         margin: 6,
         padding: 10,
 
-        borderRadius: 10,
         backgroundColor: "#ffffff",
-        shadowColor: "rgba(227, 227, 227, 0.38)",
-        shadowOffset: {
-            width: 0,
-            height: 8
-        },
-        shadowRadius: 30,
-        shadowOpacity: 1
     },
 
     leftPanel: {
