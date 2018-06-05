@@ -1,4 +1,4 @@
-import Categories from "../app/models/categories";
+import Categories from "../../app/models/categories";
 
 import casual from "casual-browserify";
 import moment from "moment";
@@ -8,6 +8,7 @@ import _keys from "lodash/keys";
 import _range from "lodash/range";
 import _uniqWith from "lodash/uniqWith";
 
+import "./multimedia-image-source";
 
 casual.define( "id", () => casual.integer( 100000, Number.MAX_SAFE_INTEGER ) );
 

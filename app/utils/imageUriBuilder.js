@@ -19,19 +19,8 @@ const uc = image => {
 };
 
 
-const lorem = ( image ) => {
-    const imageUrl = "https://source.unsplash.com/random";
-
-    return {
-        scale: ( width, height ) => `${imageUrl}/${width}x${height}/?${image.term},featured`,
-        resize: ( size ) => `${imageUrl}/${size}x${size}/?${image.term},featured`
-    }
-};
-
-
 const sources = {
-    uc,
-    lorem
+    uc
 };
 
 
@@ -45,5 +34,8 @@ const imageUriBuilder = event => {
     ) || noImage;
 };
 
+export const registerImageSource = ( source, handler ) => {
+    sources[ source ] = handler;
+};
 
 export default imageUriBuilder;
