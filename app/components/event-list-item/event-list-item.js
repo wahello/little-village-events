@@ -9,7 +9,7 @@ import { injectState } from "@textpress/freactal";
 import React, { Fragment } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { compose } from "recompose";
-import imageUriBuilder from "../../utils/imageUriBuilder";
+import imageUriBuilder from "../../utils/image-uri-builder";
 
 const imageSize = 90;
 

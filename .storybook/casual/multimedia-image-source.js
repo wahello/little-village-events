@@ -1,4 +1,4 @@
-import { registerImageSource } from "../../app/utils/imageUriBuilder";
+import { registerImageSource } from "../../app/utils/image-uri-builder";
 
 const lorem = ( image ) => {
     const imageUrl = "https://source.unsplash.com/random";
