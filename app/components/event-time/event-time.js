@@ -10,10 +10,10 @@ import { View, Text } from "react-native";
 const stylesSize = {
     regular: Styles.create( {
         root: {
-            paddingHorizontal: 8,
-            paddingVertical: 5,
+            paddingHorizontal: 5,
+            paddingVertical: 4,
 
-            borderRadius: 5
+            borderRadius: 3
         },
 
         label: {
