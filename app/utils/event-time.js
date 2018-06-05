@@ -1,17 +1,6 @@
+import { addToDate, dayStart, dayEnd } from "./date";
+
 import moment from "moment";
-
-
-const dayStart = ( date ) => {
-    return date.clone().startOf( "day" );
-};
-
-const dayEnd = ( date ) => {
-    return date.clone().endOf( "day" );
-};
-
-const add = ( date, param ) => {
-    return date.clone().add( param );
-};
 
 
 const validateEventTimeRange = ( event, result, calendarDay ) => {
@@ -33,12 +22,12 @@ const calcClosestEventTime = ( { startTime, endTime, allDay }, calendarDay ) => 
 
     if ( !endTime ) {
         if ( allDay ) {
-            endTime = add( eventFirstDayStart, { hours: 17 } );
+            endTime = addToDate( eventFirstDayStart, { hours: 17 } );
             if ( endTime.isAfter( startTime ) )
                 return { startTime, endTime };
         }
 
-        endTime = add( startTime, { minutes: 15 } );
+        endTime = addToDate( startTime, { minutes: 15 } );
         const eventFirstDayEnd = dayEnd( startTime );
         if ( endTime.isAfter( eventFirstDayEnd ) )
             endTime = eventFirstDayEnd;
@@ -50,20 +39,20 @@ const calcClosestEventTime = ( { startTime, endTime, allDay }, calendarDay ) => 
     if ( eventFirstDayStart.isAfter( calendarDayStart ) ) {
         return {
             startTime,
-            endTime: add( endTime, { days: eventFirstDayStart.diff( lastEventDayStart, "days" ) } )
+            endTime: addToDate( endTime, { days: eventFirstDayStart.diff( lastEventDayStart, "days" ) } )
         };
     }
 
     if ( lastEventDayStart.isBefore( calendarDayStart ) ) {
         return {
-            startTime: add( startTime, { days: lastEventDayStart.diff( eventFirstDayStart, "days" ) } ),
+            startTime: addToDate( startTime, { days: lastEventDayStart.diff( eventFirstDayStart, "days" ) } ),
             endTime
         };
     }
 
     return {
-        startTime: add( startTime, { days: calendarDayStart.diff( eventFirstDayStart, "days" ) } ),
-        endTime: add( endTime, { days: calendarDayStart.diff( lastEventDayStart, "days" ) } )
+        startTime: addToDate( startTime, { days: calendarDayStart.diff( eventFirstDayStart, "days" ) } ),
+        endTime: addToDate( endTime, { days: calendarDayStart.diff( lastEventDayStart, "days" ) } )
     };
 };
 
