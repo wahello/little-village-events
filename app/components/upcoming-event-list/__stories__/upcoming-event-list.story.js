@@ -43,7 +43,7 @@ const generateEventList = quantity => {
 
     const eventsByDates = events.reduce( ( result, event, index ) => {
         if ( index === 0 ) {
-            event.featured = true;
+            event.showAsFeatured = true;
             event.startTime = addToDate( today, { minutes: 1 } );
         }
 
