@@ -7,16 +7,7 @@ import * as Styles from "../../styles";
 import React from "react";
 import { View } from "react-native";
 
-const styles = Styles.create( Styles.screen, {
-    emptyRoot: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-    emptyLabel: {
-
-    }
-} );
+const styles = Styles.create( Styles.screen );
 
 const RSVPEvents = ( props ) => {
     const { state, effects } = props;
