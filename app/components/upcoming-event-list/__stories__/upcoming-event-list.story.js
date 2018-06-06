@@ -18,7 +18,7 @@ import { compose } from "recompose";
 import moment from "moment";
 import _reduce from "lodash/reduce";
 
-const styles = Styles.create( {
+const styles = Styles.create( Styles.screen, {
     root: {
         backgroundColor: Styles.variables.bodyBackgroundColor
     },
