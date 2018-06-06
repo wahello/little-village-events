@@ -1,5 +1,6 @@
 import api from "../../api";
 import categories from "../../models/categories";
+import openEmbeddedBrowser from "../../utils/openEmbeddedBrowser"
 
 import { mergeIntoState, provideState, update } from "@textpress/freactal";
 
@@ -8,7 +9,6 @@ import { Alert, Dimensions, Linking, Share } from "react-native";
 import openMap from "react-native-open-maps";
 import call from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
-import SafariView from "react-native-safari-view";
 
 import hoistNonReactStatics from "hoist-non-react-statics";
 import { object } from "prop-types";
@@ -24,6 +24,7 @@ const initialState = {
     api,
     categories,
 };
+
 
 const globalState = {
     initialState: () => initialState,
@@ -57,36 +58,10 @@ const globalState = {
         openEmbeddedBrowser: async ( effects, options ) => {
             const { url, readerMode, tintColor, barTintColor, fromBottom, wait } = options;
 
-            try {
-                await SafariView.isAvailable();
-            } catch ( x ) {
-                effects.openExternalURL( url );
-                return mergeIntoState( {} );
-            }
+            const success = await openEmbeddedBrowser( { url, readerMode, tintColor, barTintColor, fromBottom }, wait );
 
-            if ( !wait ) {
-
-                await SafariView.show( { url, readerMode, tintColor, barTintColor, fromBottom } );
-
-            } else {
-
-                await ( new Promise( ( resolve, reject ) => {
-
-                    let subscription = null;
-                    const onDismiss = () => {
-                        subscription.remove();
-                        resolve();
-                    };
-                    subscription = SafariView.addEventListener( "onDismiss", onDismiss );
-
-                    SafariView
-                        .show( { url, readerMode, tintColor, barTintColor, fromBottom } )
-                        .catch( reject )
-                    ;
-                } ) );
-
-            }
-
+            if ( !success )
+                await effects.openExternalURL( url );
 
             return ( state ) => state;
         },
