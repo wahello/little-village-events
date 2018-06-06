@@ -78,12 +78,11 @@ describe( "event-time", () => {
         it( "all day events", () => {
             expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayMorning.clone().subtract( { minutes: 61 } ) ) ).toEqual( "future" );
             expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayMorning.clone().subtract( { minutes: 10 } ) ) ).toEqual( "upcoming" );
-            expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayMorning.clone().add( { minutes: 10 } ) ) ).toEqual( "present" );
+            expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayMorning.clone().add( { minutes: 10 } ) ) ).toEqual( "upcoming" );
 
-            expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayMidday ) ).toEqual( "present" );
+            expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayMidday ) ).toEqual( "upcoming" );
 
-
-            expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayEvening.clone().subtract( { minutes: 10 } ) ) ).toEqual( "present" );
+            expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayEvening.clone().subtract( { minutes: 10 } ) ) ).toEqual( "upcoming" );
             expect( eventTense( { startTime: todayMorning, allDay: true }, calendarDay, todayEvening.clone().add( { minutes: 10 } ) ) ).toEqual( "past" );
 
             expect( () => eventTense( { startTime: pastMorning, allDay: true }, calendarDay, todayMidday ) ).toThrow();
