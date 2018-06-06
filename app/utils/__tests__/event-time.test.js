@@ -1,4 +1,4 @@
-import { closestEventTime, eventTense } from "../event-time";
+import { calcRSVPTime, eventTense } from "../event-time";
 import moment from "moment";
 import sinon from "sinon";
 
@@ -12,7 +12,7 @@ describe( "event-time", () => {
     const futureMorning = moment( "2018-05-20T09:00:00.000-05:00" );
     const futureEvening = moment( "2018-05-25T17:00:00.000-05:00" );
 
-    describe( "closestEventTime", () => {
+    describe( "calcRSVPTime", () => {
 
         const sandbox = sinon.sandbox.create();
 
@@ -28,31 +28,31 @@ describe( "event-time", () => {
         } );
 
         it( "events without end time", () => {
-            expect( closestEventTime( { startTime: todayMorning }, todayMidday ) ).toMatchSnapshot();
+            expect( calcRSVPTime( { startTime: todayMorning }, todayMidday ) ).toMatchSnapshot();
 
-            expect( () => closestEventTime( { startTime: pastMorning }, todayMidday ) ).toThrow();
-            expect( () => closestEventTime( { startTime: futureMorning }, todayMidday ) ).toThrow();
+            expect( () => calcRSVPTime( { startTime: pastMorning }, todayMidday ) ).toThrow();
+            expect( () => calcRSVPTime( { startTime: futureMorning }, todayMidday ) ).toThrow();
 
             expect( originalDates ).toEqual( clonedDates );
         } );
 
         it( "all day events", () => {
-            expect( closestEventTime( { startTime: todayMorning, allDay: true }, todayMidday ) ).toMatchSnapshot();
-            expect( closestEventTime( { startTime: todayEvening, allDay: true }, todayMidday ) ).toMatchSnapshot();
+            expect( calcRSVPTime( { startTime: todayMorning, allDay: true }, todayMidday ) ).toMatchSnapshot();
+            expect( calcRSVPTime( { startTime: todayEvening, allDay: true }, todayMidday ) ).toMatchSnapshot();
 
-            expect( () => closestEventTime( { startTime: pastMorning, allDay: true }, todayMidday ) ).toThrow();
-            expect( () => closestEventTime( { startTime: futureMorning, allDay: true }, todayMidday ) ).toThrow();
+            expect( () => calcRSVPTime( { startTime: pastMorning, allDay: true }, todayMidday ) ).toThrow();
+            expect( () => calcRSVPTime( { startTime: futureMorning, allDay: true }, todayMidday ) ).toThrow();
 
             expect( originalDates ).toEqual( clonedDates );
         } );
 
         it( "events with end time", () => {
-            expect( closestEventTime( { startTime: pastMorning, endTime: todayEvening }, todayMidday ) ).toMatchSnapshot();
-            expect( closestEventTime( { startTime: pastMorning, endTime: futureEvening }, todayMidday ) ).toMatchSnapshot();
-            expect( closestEventTime( { startTime: todayMorning, endTime: futureEvening }, todayMidday ) ).toMatchSnapshot();
+            expect( calcRSVPTime( { startTime: pastMorning, endTime: todayEvening }, todayMidday ) ).toMatchSnapshot();
+            expect( calcRSVPTime( { startTime: pastMorning, endTime: futureEvening }, todayMidday ) ).toMatchSnapshot();
+            expect( calcRSVPTime( { startTime: todayMorning, endTime: futureEvening }, todayMidday ) ).toMatchSnapshot();
 
-            expect( () => closestEventTime( { startTime: pastMorning, endTime: pastEvening }, todayMidday ) ).toThrow();
-            expect( () => closestEventTime( { startTime: futureMorning, endTime: futureEvening }, todayMidday ) ).toThrow();
+            expect( () => calcRSVPTime( { startTime: pastMorning, endTime: pastEvening }, todayMidday ) ).toThrow();
+            expect( () => calcRSVPTime( { startTime: futureMorning, endTime: futureEvening }, todayMidday ) ).toThrow();
 
             expect( originalDates ).toEqual( clonedDates );
         } );

@@ -59,7 +59,7 @@ export default {
         },
 
         RSVPConfirmed: async ( effects, event, addToCalendar ) => {
-            await effects.addRSVP( event );
+            await effects.createRSVP( event );
             if ( addToCalendar )
                 await effects.addEventToCalendar( event );
 
@@ -67,14 +67,13 @@ export default {
         },
 
         confirmRescindSVP: async ( effects, event, windowWidth ) => {
-            await effects.showActionSheet( await rescindRSPVActionSheet( event, effects.RSVPRescinded, windowWidth) );
+            await effects.showActionSheet( await rescindRSPVActionSheet( event, effects.RSVPRescinded, windowWidth ) );
             return mergeIntoState( {} );
         },
 
         RSVPRescinded: async ( effects, event ) => {
-            await effects.removeRSVP( event );
+            await effects.deleteRSVP( event );
             return setRSVP( false );
-
         }
 
     }

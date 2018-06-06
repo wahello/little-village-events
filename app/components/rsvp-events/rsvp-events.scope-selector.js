@@ -41,9 +41,9 @@ const labels = {
     past: "PAST EVENTS"
 };
 
-const ScopeSelectorButton = ( { value, selectedValue, setScope } ) => (
-    <TouchableButton style={ styles.button } onPress={ () => { setScope( value ) } }>
-        <Text style={ [ styles.label, styles[`${value}Label`], value === selectedValue ? styles.selectedLabel : null ] }>
+const ScopeSelectorButton = ( { value, isSelected, flipUpcoming } ) => (
+    <TouchableButton style={ styles.button } onPress={ () => { !isSelected && flipUpcoming() } }>
+        <Text style={ [ styles.label, styles[`${value}Label`], isSelected ? styles.selectedLabel : null ] }>
             {labels[value]}
         </Text>
     </TouchableButton>
@@ -51,12 +51,12 @@ const ScopeSelectorButton = ( { value, selectedValue, setScope } ) => (
 );
 
 
-const ScopeSelector = ( { scope, setScope } ) => (
+const RsvpEventsScopeSelector = ( { upcoming, flipUpcoming } ) => (
     <View style={ styles.root }>
-        <ScopeSelectorButton value="upcoming" selectedValue={ scope } setScope={ setScope }/>
-        <ScopeSelectorButton value="past" selectedValue={ scope } setScope={ setScope }/>
+        <ScopeSelectorButton value="upcoming" isSelected={ upcoming } flipUpcoming={ flipUpcoming }/>
+        <ScopeSelectorButton value="past" isSelected={ !upcoming } flipUpcoming={ flipUpcoming }/>
     </View>
 );
 
 
-export default ScopeSelector;
+export default RsvpEventsScopeSelector;

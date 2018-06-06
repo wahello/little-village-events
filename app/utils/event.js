@@ -1,3 +1,4 @@
+import { sortByDate } from "./date";
 
 export const formatStartDate = ( { startTime } ) =>
     startTime && startTime.format( "dddd, MMM D" )
@@ -14,3 +15,8 @@ export const formatStartTimeAndPlace = ( event ) =>
         .filter( part => !!part )
         .join( " " )
 ;
+
+
+export const sortByStartTime = ( events ) => {
+    return sortByDate( events, "startTime" );
+};

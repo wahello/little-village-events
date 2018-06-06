@@ -1,41 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`event-time closestEventTime all day events 1`] = `
+exports[`event-time calcRSVPTime all day events 1`] = `
 Object {
   "endTime": "2018-05-14T17:00:00-05:00",
   "startTime": "2018-05-14T09:00:00-05:00",
 }
 `;
 
-exports[`event-time closestEventTime all day events 2`] = `
+exports[`event-time calcRSVPTime all day events 2`] = `
 Object {
   "endTime": "2018-05-14T17:15:00-05:00",
   "startTime": "2018-05-14T17:00:00-05:00",
 }
 `;
 
-exports[`event-time closestEventTime events with end time 1`] = `
+exports[`event-time calcRSVPTime events with end time 1`] = `
 Object {
   "endTime": "2018-05-14T17:00:00-05:00",
   "startTime": "2018-05-14T09:00:00-05:00",
 }
 `;
 
-exports[`event-time closestEventTime events with end time 2`] = `
+exports[`event-time calcRSVPTime events with end time 2`] = `
 Object {
   "endTime": "2018-05-14T17:00:00-05:00",
   "startTime": "2018-05-14T09:00:00-05:00",
 }
 `;
 
-exports[`event-time closestEventTime events with end time 3`] = `
+exports[`event-time calcRSVPTime events with end time 3`] = `
 Object {
   "endTime": "2018-05-14T17:00:00-05:00",
   "startTime": "2018-05-14T09:00:00-05:00",
 }
 `;
 
-exports[`event-time closestEventTime events without end time 1`] = `
+exports[`event-time calcRSVPTime events without end time 1`] = `
 Object {
   "endTime": "2018-05-14T09:15:00-05:00",
   "startTime": "2018-05-14T09:00:00-05:00",

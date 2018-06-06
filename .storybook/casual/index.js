@@ -1,4 +1,8 @@
-import Categories from "../../app/models/categories";
+import Categories from "/app/models/categories";
+import { makeRSVPEvent } from "/app/models/rsvp";
+import { sortByStartTime } from "/app/utils/event";
+
+import config from "/app/config";
 
 import casual from "casual-browserify";
 import moment from "moment";
@@ -6,15 +10,15 @@ import moment from "moment";
 import _isEqual from "lodash/isEqual";
 import _keys from "lodash/keys";
 import _range from "lodash/range";
-import _sortBy from "lodash/sortBy";
 import _uniqWith from "lodash/uniqWith";
 
 import "./multimedia-image-source";
 
 casual.define( "id", () => casual.integer( 100000, Number.MAX_SAFE_INTEGER ) );
 
+casual.define( "upcomingDate", () => moment().add( { minutes: casual.integer( 1, config.eventThresholds.upcoming ) } ) );
 casual.define( "futureDate", () => moment().add( { minutes: casual.integer( 1, 20160 ) } ) );
-casual.define( "pastDate", () => moment().subtract( { minutes: casual.integer( 1, 20160 ) } ) );
+casual.define( "pastDate", () => moment().subtract( { minutes: casual.integer( config.eventThresholds.past + 1, 20160 ) } ) );
 casual.define( "anyDate", () => casual.coin_flip ? casual.futureDate : casual.pastDate );
 
 casual.define( "categories", () => {
@@ -55,9 +59,7 @@ casual.define( "summaryEvent", ( tense ) => {
         "categories": casual.categories,
         "featured": casual.integer( 0, 3 ) === 0,
 
-        "multimedia": casual.multimedia,
-
-        "rsvp": casual.integer( 0, 3 ) === 0
+        "multimedia": casual.multimedia
     }
 } );
 
@@ -73,14 +75,15 @@ casual.define( "events", ( quantity, tense ) => {
         ids[ event.id ] = true;
     }
 
-    return _sortBy( result, event => event.startTime.valueOf() );
+    return sortByStartTime( result );
 } );
 
 casual.define( "rsvps", ( quantity, tense ) => {
     const events = casual.events( quantity, tense );
 
     return events.reduce( ( result, event ) => {
-        result[event.id] = event;
+        const rsvp = makeRSVPEvent( event, event.startTime );
+        result[rsvp.rsvpId] = rsvp;
         return result
     }, {} );
 } );

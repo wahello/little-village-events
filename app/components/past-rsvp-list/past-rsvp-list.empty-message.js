@@ -15,12 +15,12 @@ const styles = Styles.create( {
     }
 } );
 
-const EmptyListMessage = () => (
+const EmptyMessage = () => (
     <View style={ styles.root }>
         <Text style={ styles.label }>
-            NO EVENTS FOUND
+            NO PAST EVENTS FOUND
         </Text>
     </View>
 );
 
-export default EmptyListMessage;
+export default EmptyMessage;

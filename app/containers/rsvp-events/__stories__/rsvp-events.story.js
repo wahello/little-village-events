@@ -10,11 +10,21 @@ import { storiesOf } from "@storybook/react-native";
 import React from "react";
 import { compose } from "recompose";
 
-const ScreenProvider = ( { quantity = 30, tense = "any" } = {} ) => {
+const generateRSVPs = quantity => {
+    if ( !quantity )
+        return {};
+
+    return {
+        ...casual.rsvps( 1, "upcoming" ),
+        ...casual.rsvps( quantity - 1, "any" )
+    };
+};
+
+const ScreenProvider = ( { quantity = 30 } = {} ) => {
     const Screen = compose(
         provideState( {
             initialState: () => ( {
-                rsvps: casual.rsvps( quantity, tense )
+                rsvps: generateRSVPs( quantity )
             } )
         } )
     )( RSVPEvents );
@@ -25,6 +35,4 @@ storiesOf( "RSVPEventsScreen", module )
     .addDecorator( navigatorStyleDecorator( { style: "navBarHiddenLight" } ) )
     .add( "default", ScreenProvider() )
     .add( "empty", ScreenProvider( { quantity: 0 } ) )
-    .add( "future", ScreenProvider( { tense: "future" } ) )
-    .add( "past", ScreenProvider( { tense: "past" } ) )
 ;

@@ -1,22 +1,25 @@
 import { addToDate, dayStart, dayEnd } from "./date";
+import config from "../config";
 
 import moment from "moment";
 
+const { eventThresholds } = config;
 
-const validateEventTimeRange = ( event, result, calendarDay ) => {
+const validateRSVPTimeRange = ( event, result, calendarDay ) => {
     const eventDayStart = dayStart( result.startTime );
     const eventDayEnd = dayEnd( result.endTime );
 
     if ( calendarDay.isBefore( eventDayStart ) || calendarDay.isAfter( eventDayEnd ) )
-        throw new Error( `Event Time: given calendar day is outside of event days:\n${ JSON.stringify( {
+        throw new Error( `RSVP Time: given calendar day is outside of event days:\n${ JSON.stringify( {
             event,
             result,
             calendarDay
         } ) }` );
 };
 
+// TODO remove end time calculation, tense checks should use config.eventThresholds.past instead
 
-const calcClosestEventTime = ( { startTime, endTime, allDay }, calendarDay ) => {
+const calcRSVPTimeImpl = ( { startTime, endTime, allDay }, calendarDay ) => {
     const calendarDayStart = dayStart( calendarDay );
     const eventFirstDayStart = dayStart( startTime );
 
@@ -57,27 +60,38 @@ const calcClosestEventTime = ( { startTime, endTime, allDay }, calendarDay ) => 
 };
 
 
-export const closestEventTime = ( event, calendarDay ) => {
-    const result = calcClosestEventTime( event, calendarDay );
-    validateEventTimeRange( event, result, calendarDay );
+export const calcRSVPTime = ( event, calendarDay ) => {
+    const result = calcRSVPTimeImpl( event, calendarDay );
+    validateRSVPTimeRange( event, result, calendarDay );
     return result;
 };
 
 
-export const eventTense = ( event, calendarDay, currentTime ) => {
+export const rsvpTense = ( rsvp, currentTime ) => {
     currentTime = currentTime || moment();
-    const { startTime, endTime } = closestEventTime( event, calendarDay );
+    const { startTime, endTime } = rsvp;
 
     if ( endTime.isBefore( currentTime ) )
         return "past";
 
     if ( currentTime.isBefore( startTime ) ) {
         const minutes = startTime.diff( currentTime, "minutes" );
-        return minutes <= 60 ? "upcoming" : "future";
+        return minutes <= eventThresholds.upcoming ? "upcoming" : "future";
     }
 
-    if ( event.allDay )
+    if ( rsvp.allDay )
         return "upcoming";
 
     return "present";
+};
+
+
+export const isRSVPFeatured = ( rsvp, currentTime ) => {
+    return [ "upcoming", "present" ].indexOf( rsvpTense( rsvp, currentTime ) ) > -1;
+};
+
+
+export const eventTense = ( event, calendarDay, currentTime ) => {
+    currentTime = currentTime || moment();
+    return rsvpTense( calcRSVPTime( event, calendarDay ), currentTime );
 };

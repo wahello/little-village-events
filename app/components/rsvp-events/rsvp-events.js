@@ -1,6 +1,6 @@
-import Header from "./header";
-import EmptyListMessage from "./empty-list-message";
-import EventList from "../../containers/event-list";
+import Header from "./rsvp-events.header";
+import UpcomingRSVPList from "../../containers/upcoming-rsvp-list";
+import PastRSVPList from "../../containers/past-rsvp-list";
 
 import * as Styles from "../../styles";
 
@@ -13,10 +13,10 @@ const RSVPEvents = ( props ) => {
     const { state, effects } = props;
     return (
         <View style={ styles.root }>
-            <Header scope={ state.scope } setScope={ effects.setScope }/>
-            { state.events.length
-                ? ( <EventList { ...props }/> )
-                : ( <EmptyListMessage/> )
+            <Header upcoming={ state.upcoming } flipUpcoming={ effects.flipUpcoming }/>
+            { state.upcoming
+                ? <UpcomingRSVPList/>
+                : <PastRSVPList/>
             }
         </View>
     );

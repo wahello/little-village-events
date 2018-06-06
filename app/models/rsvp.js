@@ -1,46 +1,19 @@
 import { stripToSummaryEvent } from "./event";
-import Storage from "../storage";
+import { calcRSVPTime } from "../utils/event-time";
 
-import _isArray from "lodash/isArray";
+const toRsvpId = event => `${event.id}.${event.startTime.valueOf()}`;
 
-const arrayToMap = array => {
-    return array.reduce( ( result, pair ) => {
-        const event = pair[ 1 ];
-        result[ event.id ] = event;
-        return result;
-    }, {} );
+export const makeRSVPEvent = ( event, calendarDay ) => {
+    const result = {
+        ...stripToSummaryEvent( event ),
+        ...calcRSVPTime( event, calendarDay )
+    };
+
+    result.rsvpId = toRsvpId( result );
+    return result;
 };
 
-
-export default class RSVP {
-
-    storage = new Storage( "RSVP" );
-
-    add( event ) {
-        return this.storage.set( event.id, stripToSummaryEvent( event, "details" ) );
-    }
-
-
-    remove( event ) {
-        return this.storage.remove( event.id );
-    }
-
-
-    async get( ids ) {
-        if ( !_isArray( ids ) )
-            return this.storage.get( ids );
-
-        const result = await this.storage.multiGet( ids );
-        return arrayToMap( result );
-    }
-
-    async all() {
-        const result = await this.storage.all();
-        return arrayToMap( result );
-    }
-
-    clear() {
-        return this.storage.clear();
-    }
-
+export const validateRSVPEvent = rsvp => {
+    if ( !rsvp.rsvpId )
+        throw new Error( "RSVP validation: passed event is not rsvp" );
 };

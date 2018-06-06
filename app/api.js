@@ -1,5 +1,5 @@
 import { makeFullEvent, makeSummaryEvent } from "./models/event";
-import RSVPStorage from "./models/rsvp";
+import RSVPStorage from "./models/rsvps";
 
 import axios from "axios/index";
 
@@ -28,11 +28,10 @@ export default {
     },
 
 
-    addRSVP: event => rsvpStorage.add( event ),
+    createRSVP: ( event, calendarDay ) => rsvpStorage.add( event, calendarDay ),
 
-    removeRSVP: event => rsvpStorage.remove( event ),
+    deleteRSVP: rsvp => rsvpStorage.remove( rsvp ),
 
-    getRSVPList: ids => rsvpStorage.get( ids ),
     getAllRSVPs: () => rsvpStorage.all(),
 
     removeAllRSVPs: () => rsvpStorage.clear()
