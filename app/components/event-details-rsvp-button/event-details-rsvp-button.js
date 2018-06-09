@@ -1,5 +1,5 @@
 import { TouchableButton } from "../touchable";
-import CheckmarkIcon from "../icons/rsvp-checkmark";
+import CheckmarkIcon from "../icons/checkmark";
 
 import { View, Text, Animated, StyleSheet } from "react-native";
 import React from "react";

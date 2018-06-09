@@ -1,5 +1,5 @@
 import EventTime from "../event-time";
-import RSVPCheckmarkIcon from "../icons/rsvp-checkmark";
+import CheckmarkIcon from "../icons/checkmark";
 import * as Styles from "../../styles";
 
 import React, { Fragment } from "react";
@@ -92,7 +92,7 @@ const EventTimeLocationRSVP = ( { event, calendarDay, size } ) => {
     const rsvpViews = event.rsvp
         ? (
             <View style={ styles.rsvpBadge }>
-                <RSVPCheckmarkIcon style={ styles.rsvpBadgeIcon }/>
+                <CheckmarkIcon style={ styles.rsvpBadgeIcon }/>
             </View>
         )
         : null
