@@ -9,6 +9,7 @@ import "../app/components/event-details-venue-card/__stories__/event-details-ven
 import "../app/components/event-list-featured-item/__stories__/event-list-featured-item.story";
 import "../app/components/icons/__stories__/icons.story";
 import "../app/components/expandable-view/__stories__/expandable-view.story";
+import "../app/components/round-checkmark/__stories__/round-checkmark.story";
 import "../app/components/web-page/__stories__/web-page.story";
 import "../app/containers/event-details/__stories__/event-details.story";
 import "../app/containers/rsvp-events/__stories__/rsvp-events.story";
