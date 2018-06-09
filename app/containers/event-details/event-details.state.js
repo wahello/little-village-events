@@ -1,10 +1,10 @@
 import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-sheets/rsvp";
-
+import { EventWithRSVP } from "../../models/event-with-rsvp";
 import { mergeIntoState } from "../../utils/freactal";
 
 
 function setRSVP( rsvp ) {
-    return state => ( { ...state, event: { ...state.event, rsvp } } )
+    return state => ( { ...state, event: new EventWithRSVP( state.event.event, rsvp ) } )
 }
 
 
@@ -26,56 +26,78 @@ const loadEventDetails = async ( effects, api, eventId ) => {
     // if ( effects.updateEvent )
     //     await effects.updateEvent( event );
 
-    return state => ( { ...state, event: { ...state.event, ...event } } );
+    return state => ( { ...state, event: new EventWithRSVP( event, state.event.rsvp ) } );
 };
 
 
 export default {
+
+
     initialState: () => ( {
         event: null,
         calendarDay: null
     } ),
 
+
     effects: {
         initialize,
         loadEventDetails,
-        handleRSVP: async ( effects, { event, windowDimensions } ) => {
-            if ( event.rsvp )
-                await effects.confirmRescindSVP( event, windowDimensions.width );
+        handleRSVP: async ( effects, state ) => {
+            const { event } = state;
+            if ( event.rsvpId )
+                await effects.confirmRescindSVP( state );
             else
-                await effects.confirmAddRSVP( event, windowDimensions.width );
+                await effects.confirmAddRSVP( state );
 
             return mergeIntoState( {} );
         },
 
-        confirmAddRSVP: async ( effects, event, windowWidth ) => {
+
+        confirmAddRSVP: async ( effects, state ) => {
+            const { event, windowDimensions } = state;
             const { details: { ticketUrl } } = event;
 
             if ( ticketUrl )
                 await effects.openEmbeddedBrowser( { url: ticketUrl, wait: true } );
-            await effects.showActionSheet( await confirmRSPVActionSheet( event, effects.RSVPConfirmed, windowWidth ) );
+            await effects.showActionSheet( await confirmRSPVActionSheet(
+                event,
+                windowDimensions.width,
+                ( ...args ) => effects.RSVPConfirmed( state, ...args )
+            ) );
 
             return mergeIntoState( {} );
         },
 
-        RSVPConfirmed: async ( effects, event, addToCalendar ) => {
-            await effects.createRSVP( event );
+
+        confirmRescindSVP: async ( effects, state ) => {
+            const { event, windowDimensions } = state;
+            await effects.showActionSheet( await rescindRSPVActionSheet(
+                event,
+                windowDimensions.width,
+                ( ...args ) => effects.RSVPRescinded( state, ...args )
+            ) );
+            return mergeIntoState( {} );
+        },
+
+
+        RSVPConfirmed: async ( effects, state, addToCalendar ) => {
+            const { api, event, calendarDay } = state;
+            const rsvp = await api.rsvps.add( event, calendarDay );
             if ( addToCalendar )
                 await effects.addEventToCalendar( event );
 
-            return setRSVP( true );
+            return setRSVP( rsvp );
         },
 
-        confirmRescindSVP: async ( effects, event, windowWidth ) => {
-            await effects.showActionSheet( await rescindRSPVActionSheet( event, effects.RSVPRescinded, windowWidth ) );
-            return mergeIntoState( {} );
-        },
 
-        RSVPRescinded: async ( effects, event ) => {
-            await effects.deleteRSVP( event );
-            return setRSVP( false );
+        RSVPRescinded: async ( effects, state ) => {
+            const { api, event } = state;
+            await api.rsvps.remove( event );
+            return setRSVP( null );
         }
 
+
     }
+
 
 }

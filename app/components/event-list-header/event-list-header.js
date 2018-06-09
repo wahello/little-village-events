@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
+
 import moment from "moment";
+import _isString from "lodash";
 
 const styles = StyleSheet.create( {
     header: {
@@ -35,7 +37,7 @@ const styles = StyleSheet.create( {
 
 } );
 
-const Header = ( { section: { today, date } } ) => {
+const DateHeader = ( { today, date } ) => {
     const weekday = moment( date ).calendar( today, {
         lastWeek: "[Last] dddd",
         lastDay: "[Yesterday]",
@@ -60,6 +62,21 @@ const Header = ( { section: { today, date } } ) => {
             <Text style={ styles.monthday }> { monthday }</Text>
         </View>
     );
+};
+
+const TextHeader = ( { text } ) => {
+    return (
+        <View style={ styles.header }>
+            <Text style={ styles.weekday }>{ text }</Text>
+        </View>
+    );
+};
+
+const Header = ( { section: { today, date, ongoing } } ) => {
+    return ongoing
+        ? <TextHeader text="ONGOING"/>
+        : <DateHeader today={ today } date={ date }/>
+    ;
 };
 
 export default Header;

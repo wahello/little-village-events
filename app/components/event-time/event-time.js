@@ -6,6 +6,8 @@ import { eventTense } from "../../utils/event-time";
 import React from "react";
 import { View, Text } from "react-native";
 
+import _isString from "lodash/isString";
+
 
 const stylesSize = {
     regular: Styles.create( {
@@ -74,10 +76,10 @@ const colorsByTense = {
 };
 
 
-const EventTime = ( { event, calendarDay, size = "small" } ) => {
+const EventTime = ( { event, calendarDay, ongoing, size = "small" } ) => {
 
     const styles = stylesSize[size];
-    const tense = eventTense( event, calendarDay );
+    const tense = ongoing ? "future" : eventTense( event, calendarDay );
     const colors = colorsByTense[ tense ];
 
     return (

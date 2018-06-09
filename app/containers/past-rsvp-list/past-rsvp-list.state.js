@@ -13,13 +13,12 @@ const toEventList = ( rsvps ) => {
     return _keys( rsvpsByDates )
         .map( Number )
         .sort( ( a, b ) => b - a ) // reverse sorting
-        .reduce( ( result, dayTimestamp ) => {
-            const rsvps = rsvpsByDates[ dayTimestamp ];
-            const date = moment( dayTimestamp );
+        .reduce( ( result, timestamp ) => {
+            const rsvps = rsvpsByDates[ timestamp ];
 
             result.push( {
                 today: currentTime,
-                date,
+                date: moment( timestamp ),
                 data: sortByStartTime( rsvps )
             } );
             return result;

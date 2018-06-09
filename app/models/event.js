@@ -2,6 +2,7 @@ import Categories from "./categories";
 
 import moment from "moment";
 
+import _assign from "lodash/assign";
 import _get from "lodash/get";
 import _keys from "lodash/keys";
 import _last from "lodash/last";
@@ -9,6 +10,7 @@ import _pick from "lodash/pick";
 import _reduce from "lodash/reduce";
 import _values from "lodash/values";
 import _toNumber from "lodash/toNumber";
+import memoize from "memoizee";
 
 
 const priceRange = ( { tickets } ) => {
@@ -94,7 +96,7 @@ function process( rawEvent, fieldsMap ) {
 }
 
 
-const summary = {
+export const summaryProperties = {
     "id": 1,
     "updatedAt": date( "updated_at" ),
 
@@ -116,10 +118,11 @@ const summary = {
         type: 1,
         id: 1
     } ) )
+
 };
 
 
-const details = {
+const detailsProperties = {
 
     description: 1,
     summary: 1,
@@ -138,16 +141,15 @@ const details = {
     } ) )
 };
 
-
 export const makeSummaryEvent = rawEvent => ( {
-    ...process( rawEvent, summary ),
+    ...process( rawEvent, summaryProperties ),
     details: null
 } );
 
 
 export const makeFullEvent = rawEvent => ( {
-    ...process( rawEvent, summary ),
-    details: process( rawEvent, details )
+    ...process( rawEvent, summaryProperties ),
+    details: process( rawEvent, detailsProperties )
 } );
 
-export const stripToSummaryEvent = event => _pick( event, _keys( summary ) );
+export const stripToSummaryEvent = event => _pick( event, _keys( summaryProperties ) );

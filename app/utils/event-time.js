@@ -1,68 +1,104 @@
-import { addToDate, dayStart, dayEnd } from "./date";
+import { addToDate, dayStart, daysDiff, subtractFromDate, moveTimeToDate } from "./date";
 import config from "../config";
 
 import moment from "moment";
 
 const { eventThresholds } = config;
 
-const validateRSVPTimeRange = ( event, result, calendarDay ) => {
-    const eventDayStart = dayStart( result.startTime );
-    const eventDayEnd = dayEnd( result.endTime );
-
-    if ( calendarDay.isBefore( eventDayStart ) || calendarDay.isAfter( eventDayEnd ) )
-        throw new Error( `RSVP Time: given calendar day is outside of event days:\n${ JSON.stringify( {
-            event,
-            result,
-            calendarDay
-        } ) }` );
+export const firstRSVPDate = event => {
+    const { startTime, allDay } = event;
+    return allDay ? dayStart( startTime ) : startTime;
 };
 
-// TODO remove end time calculation, tense checks should use config.eventThresholds.past instead
+export const lastRSVPDate = event => {
+    const { startTime, endTime, allDay } = event;
+    const days = endTime ? daysDiff( startTime, endTime ) : 0;
+    if ( days < 1 )
+        return null;
 
-const calcRSVPTimeImpl = ( { startTime, endTime, allDay }, calendarDay ) => {
-    const calendarDayStart = dayStart( calendarDay );
-    const eventFirstDayStart = dayStart( startTime );
+    const last = addToDate( startTime, { days } );
+    if ( allDay )
+        return dayStart( last );
 
-    if ( !endTime ) {
-        if ( allDay ) {
-            endTime = addToDate( eventFirstDayStart, { hours: 17 } );
-            if ( endTime.isAfter( startTime ) )
-                return { startTime, endTime };
-        }
-
-        endTime = addToDate( startTime, { minutes: 15 } );
-        const eventFirstDayEnd = dayEnd( startTime );
-        if ( endTime.isAfter( eventFirstDayEnd ) )
-            endTime = eventFirstDayEnd;
-        return { startTime, endTime };
+    // overnight
+    if ( endTime.isBefore( last ) ) {
+        return days > 1
+            ? subtractFromDate( last, { day: 1 } )
+            : null
+        ;
     }
+    return last;
+};
 
-    const lastEventDayStart = dayStart( endTime );
+export const getRSVPInfo = event => {
+    const { startTime, endTime, allDay = false } = event;
+    const first = firstRSVPDate( event );
+    const last = lastRSVPDate( event );
 
-    if ( eventFirstDayStart.isAfter( calendarDayStart ) ) {
+    return {
+        first,
+        last,
+        allDay,
+        duration: allDay || !endTime ? 0 : Math.max( 0, endTime.diff( last || startTime, "minutes" ) )
+    };
+
+};
+
+const calcRSVPStartTime = ( rsvpInfo, calendarDay ) => {
+    const { first, last } = rsvpInfo;
+    if ( !last || calendarDay.isBefore( first ) )
+        return first;
+
+    if ( calendarDay.isAfter( last ) )
+        return last;
+
+    return moveTimeToDate( first, calendarDay );
+};
+
+
+const calcRSVPEndTime = ( rsvpInfo, startTime ) => {
+    const { allDay, duration } = rsvpInfo;
+    if ( allDay || !duration )
+        return null;
+
+    return addToDate( startTime, { minutes: duration } );
+};
+
+export const RSVPTimeForDay = ( event, calendarDay ) => {
+    const rsvpInfo = getRSVPInfo( event );
+    const { first, last, allDay } = rsvpInfo;
+    if ( daysDiff( last || first, calendarDay ) > 0 )
+        return null;
+
+    if ( daysDiff( first, calendarDay ) < 0 )
+        return null;
+
+    const startTime = calcRSVPStartTime( rsvpInfo, calendarDay );
+
+    if ( allDay ) {
         return {
-            startTime,
-            endTime: addToDate( endTime, { days: eventFirstDayStart.diff( lastEventDayStart, "days" ) } )
-        };
-    }
-
-    if ( lastEventDayStart.isBefore( calendarDayStart ) ) {
-        return {
-            startTime: addToDate( startTime, { days: lastEventDayStart.diff( eventFirstDayStart, "days" ) } ),
-            endTime
+            startTime: startTime,
+            endTime: null,
+            allDay
         };
     }
 
     return {
-        startTime: addToDate( startTime, { days: calendarDayStart.diff( eventFirstDayStart, "days" ) } ),
-        endTime: addToDate( endTime, { days: calendarDayStart.diff( lastEventDayStart, "days" ) } )
+        startTime,
+        endTime: calcRSVPEndTime( rsvpInfo, startTime ),
+        allDay
     };
 };
 
 
 export const calcRSVPTime = ( event, calendarDay ) => {
-    const result = calcRSVPTimeImpl( event, calendarDay );
-    validateRSVPTimeRange( event, result, calendarDay );
+    const result = RSVPTimeForDay( event, calendarDay );
+    if ( !result )
+        throw new Error( `RSVP Time: given calendar day is outside of event days:\n${ JSON.stringify( {
+            event,
+            result,
+            calendarDay
+        } ) }` );
     return result;
 };
 
@@ -71,27 +107,37 @@ export const rsvpTense = ( rsvp, currentTime ) => {
     currentTime = currentTime || moment();
     const { startTime, endTime } = rsvp;
 
-    if ( endTime.isBefore( currentTime ) )
-        return "past";
-
-    if ( currentTime.isBefore( startTime ) ) {
-        const minutes = startTime.diff( currentTime, "minutes" );
-        return minutes <= eventThresholds.upcoming ? "upcoming" : "future";
-    }
-
-    if ( rsvp.allDay )
+    if ( rsvp.allDay && daysDiff( startTime, currentTime ) === 0 )
         return "upcoming";
 
-    return "present";
-};
+    const minutes = startTime.diff( currentTime, "minutes" );
+    if ( minutes > 0 )
+        return minutes < eventThresholds.upcoming ? "upcoming" : "future";
 
+    const isPast = endTime
+        ? endTime.isBefore( currentTime )
+        : Math.abs( minutes ) >= eventThresholds.past
+    ;
 
-export const isRSVPFeatured = ( rsvp, currentTime ) => {
-    return [ "upcoming", "present" ].indexOf( rsvpTense( rsvp, currentTime ) ) > -1;
+    return isPast ? "past" : "present";
 };
 
 
 export const eventTense = ( event, calendarDay, currentTime ) => {
     currentTime = currentTime || moment();
-    return rsvpTense( calcRSVPTime( event, calendarDay ), currentTime );
+    const rsvpTime = RSVPTimeForDay( event, calendarDay );
+    if ( !rsvpTime ) {
+        return calendarDay.isBefore( event.startTime )
+            ? "future"
+            : "past"
+        ;
+    }
+
+    const days = daysDiff( rsvpTime.startTime, currentTime );
+    if ( days > 0 )
+        return "past";
+    if ( days < 0 )
+        return "future";
+
+    return rsvpTense( RSVPTimeForDay( event, calendarDay ), currentTime );
 };

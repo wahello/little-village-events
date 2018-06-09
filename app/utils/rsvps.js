@@ -1,31 +1,21 @@
-import { dayStart } from "./date";
+import { dayTimestamp } from "./date";
 import { rsvpTense } from "./event-time";
 
 import _values from "lodash/values";
 
-const isPastRSVP = ( rsvp, todayStart, todayEnd, currentTime ) => {
-    return rsvp.startTime.isBefore( todayStart )
-        || (
-            !rsvp.startTime.isAfter( todayEnd )
-            && rsvpTense( rsvp, currentTime ) === "past"
-        )
-    ;
-};
-
 export const groupByDates = ( rsvps, currentTime, forPast ) => {
 
-    const todayStart = dayStart( currentTime );
-    const todayEnd = dayStart( currentTime );
-
     return _values( rsvps ).reduce( ( result, rsvp ) => {
-        const isPast = isPastRSVP( rsvp, todayStart, todayEnd, currentTime );
+
+        const tense = rsvpTense( rsvp, currentTime );
+        const isPast = tense === "past";
         if ( forPast ? !isPast : isPast )
             return result;
 
-        const dayTimestamp = dayStart( rsvp.startTime ).valueOf();
-        if ( !result[ dayTimestamp ] )
-            result[ dayTimestamp ] = [];
-        result[ dayTimestamp ].push( { ...rsvp, showAsFeatured: false } );
+        const timestamp = dayTimestamp( rsvp.startTime );
+        if ( !result[ timestamp ] )
+            result[ timestamp ] = [];
+        result[ timestamp ].push( { ...rsvp, tense } );
         return result;
     }, {} );
 

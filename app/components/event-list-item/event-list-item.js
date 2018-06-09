@@ -123,7 +123,7 @@ const Days = ( { event } ) => {
 };
 
 const Item = ( props ) => {
-    const { item: event, section: { date: calendarDay }, effects: { navigateToEventDetails } } = props;
+    const { item: event, section: { date: calendarDay, ongoing }, effects: { navigateToEventDetails } } = props;
     return (
         <TouchableButton activeOpacity={ 0.6 }
             onPress={ () => { navigateToEventDetails( event, calendarDay ) } }>
@@ -139,7 +139,7 @@ const Item = ( props ) => {
                             <Days event={ event }/>
                         </View>
                     </View>
-                    <EventTimeLocationRSVP event={ event } calendarDay={ calendarDay } size="small"/>
+                    <EventTimeLocationRSVP event={ event } calendarDay={ calendarDay } ongoing={ ongoing } size="small"/>
                 </View>
             </View>
         </TouchableButton>

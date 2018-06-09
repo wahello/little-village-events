@@ -28,11 +28,5 @@ export default {
     },
 
 
-    createRSVP: ( event, calendarDay ) => rsvpStorage.add( event, calendarDay ),
-
-    deleteRSVP: rsvp => rsvpStorage.remove( rsvp ),
-
-    getAllRSVPs: () => rsvpStorage.all(),
-
-    removeAllRSVPs: () => rsvpStorage.clear()
+    rsvps: rsvpStorage
 }

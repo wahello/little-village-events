@@ -47,7 +47,7 @@ const makeConfirmRSVPTitleParts = ( event ) => ( {
 } );
 
 
-export const confirmRSPVActionSheet = async ( event, RSVPConfirmed, windowWidth ) => {
+export const confirmRSPVActionSheet = async ( event, windowWidth, callback ) => {
     const parts = makeConfirmRSVPTitleParts( event );
 
     return {
@@ -56,11 +56,11 @@ export const confirmRSPVActionSheet = async ( event, RSVPConfirmed, windowWidth 
             "Cancel",
             {
                 title: "RSVP + add to calendar",
-                onPress: () => RSVPConfirmed( event, true )
+                onPress: () => callback( true )
             },
             {
                 title: "RSVP",
-                onPress: () => RSVPConfirmed( event, false )
+                onPress: () => callback( false )
             },
         ],
         titleHeight: await calcTitleHeight( parts, windowWidth, rawStyles ),
@@ -77,7 +77,7 @@ const makeRescindRSVPTitleParts = ( event ) => ( {
 } );
 
 
-export const rescindRSPVActionSheet = async ( event, RSVPRescinded, windowWidth ) => {
+export const rescindRSPVActionSheet = async ( event, windowWidth, callback ) => {
     const parts = makeRescindRSVPTitleParts( event );
 
     return {
@@ -86,7 +86,7 @@ export const rescindRSPVActionSheet = async ( event, RSVPRescinded, windowWidth 
             "Cancel",
             {
                 title: "Rescind RSVP",
-                onPress: () => RSVPRescinded( event, true )
+                onPress: () => callback()
             },
         ],
         titleHeight: await calcTitleHeight( parts, windowWidth, rawStyles ),

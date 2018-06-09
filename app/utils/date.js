@@ -11,6 +11,26 @@ export const dayEnd = ( date ) => {
 };
 
 
+export const dayTimestamp = ( date ) => {
+    return dayStart( date ).valueOf();
+};
+
+
+export const weekStart = ( date ) => {
+    return date.clone().startOf( "week" );
+};
+
+
+export const weekEnd = ( date ) => {
+    return date.clone().endOf( "week" );
+};
+
+
+export const weekTimestamp = ( date ) => {
+    return weekStart( date ).valueOf();
+};
+
+
 export const addToDate = ( date, param ) => {
     return date.clone().add( param );
 };
@@ -21,11 +41,28 @@ export const subtractFromDate = ( date, param ) => {
 };
 
 
-export const daysDiff = ( date1, date2 ) => {
-    return dayStart( date1 ).diff( dayStart( date2 ), "days" );
+export const daysDiff = ( startDay, endDay ) => {
+    return dayStart( endDay ).diff( dayStart( startDay ), "days" );
+};
+
+
+export const hoursDiff = ( startDay, endDay ) => {
+    return endDay.diff( startDay, "hours" );
+};
+
+
+export const moveTimeToDate = ( time, date ) => {
+    if ( time === date )
+        return time;
+    const daysToAdd = daysDiff( time, date );
+    return daysToAdd
+        ? addToDate( time, { days: daysToAdd } )
+        : time
+    ;
 };
 
 
 export const sortByDate = ( items, property ) => {
     return _sortBy( items, item => item[property].valueOf() );
 };
+

@@ -70,9 +70,8 @@ const stylesSize = {
 };
 
 
-const EventTimeLocationRSVP = ( { event, calendarDay, size } ) => {
-
-    size = size || "small";
+const EventTimeLocationRSVP = ( props ) => {
+    const { event, size = "small" } = props;
 
     const locationStyle = [ styles.location, stylesSize[ size ].location ];
 
@@ -101,7 +100,7 @@ const EventTimeLocationRSVP = ( { event, calendarDay, size } ) => {
     return (
         <View style={ styles.root }>
             <View style={ styles.timeAndLocation }>
-                <EventTime event={ event } calendarDay={ calendarDay } size={ size }/>
+                <EventTime { ...props } size={ size }/>
                 { locationViews }
             </View>
             { rsvpViews }

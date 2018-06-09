@@ -30,9 +30,11 @@ const globalState = {
     initialState: () => initialState,
 
     effects: {
-        initialize: async () => {
-            await api.removeAllRSVPs();
-            const rsvps = await api.getAllRSVPs();
+        initialize: async ( effects ) => {
+            await api.rsvps.clear();
+            const rsvps = await api.rsvps.all();
+            api.rsvps.addEventListener( "added", effects._rsvpAdded );
+            api.rsvps.addEventListener( "removed", effects._rsvpRemoved );
             return mergeIntoState( { rsvps } );
         },
 
@@ -120,14 +122,12 @@ const globalState = {
         } ),
 
 
-        createRSVP: async ( effects, event, calendarDay ) => {
-            const rsvp = await api.createRSVP( event, calendarDay );
+        _rsvpAdded: async ( effects, rsvp ) => {
             return ( state ) => ( { ...state, rsvps: { ...state.rsvps, [ rsvp.rsvpId ]: rsvp } } );
         },
 
 
-        deleteRSVP: async ( effects, rsvp ) => {
-            await api.deleteRSVP( rsvp );
+        _rsvpRemoved: async ( effects, rsvp ) => {
             return ( state ) => ( { ...state, rsvps: _omit( state.rsvps, [ rsvp.rsvpId ] ) } );
         }
 

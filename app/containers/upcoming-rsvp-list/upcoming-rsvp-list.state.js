@@ -1,5 +1,5 @@
 import { sortByStartTime } from "../../utils/event";
-import { isRSVPFeatured } from "../../utils/event-time";
+import { isRSVPFeatured, rsvpTense } from "../../utils/event-time";
 import * as RSVPS from "../../utils/rsvps";
 
 import moment from "moment";
@@ -14,16 +14,17 @@ const toEventList = ( rsvps ) => {
     return _keys( rsvpsByDates )
         .map( Number )
         .sort( ( a, b ) => a - b )
-        .reduce( ( result, dayTimestamp, index ) => {
-            const rsvps = rsvpsByDates[ dayTimestamp ];
-            const date = moment( dayTimestamp );
+        .reduce( ( result, timestamp, index ) => {
+            const rsvps = rsvpsByDates[ timestamp ];
 
-            if ( !index )
-                rsvps[ 0 ].showAsFeatured = isRSVPFeatured( rsvps[ 0 ], currentTime );
+            if ( !index ) {
+                const rsvp = rsvps[ 0 ];
+                rsvp.showAsFeatured = [ "upcoming", "present" ].indexOf( rsvp.tense ) > -1;
+            }
 
             result.push( {
                 today: currentTime,
-                date,
+                date: moment( timestamp ),
                 data: sortByStartTime( rsvps )
             } );
             return result;
