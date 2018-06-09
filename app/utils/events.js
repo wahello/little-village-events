@@ -41,7 +41,7 @@ const calcRSVPDays = rsvpsByDates => {
 };
 
 const sortEvents = ( events ) =>
-    _sortBy( events, [ "timestamp" ] ) //"name", "priority",
+    _sortBy( events, [ "priority", e => e.startTime.valueOf(), "name" ] )
 ;
 
 export const upcomingEvents = ( dates, events, rsvps, currentTime ) => {
@@ -77,7 +77,7 @@ export const upcomingEvents = ( dates, events, rsvps, currentTime ) => {
     const numberOfDays = daysDiff( first, last ) + 1;
 
     const result = _range( numberOfDays ).reduce( ( result, day ) => {
-        const date = addToDate( first, { day } )
+        const date = addToDate( first, { day } );
         const timestamp = dayTimestamp( date );
 
         const events = eventsByDate[timestamp] || [];
