@@ -61,13 +61,13 @@ const CategoryItem = ( { icon: Icon, label, selected, ...props } ) =>
 
 const EventCategoriesChooser = ( { state, effects, onChange, style, ...props } ) =>
     <View style={ [ styles.root, style ] } {...props}>
-        { [ ...state.categories.entries() ].map( ( [ id, { name, icon } ], i ) =>
+        { [ ...state.categories.entries() ].map( ( [ id, { name, icon } ] ) =>
             <Fragment key={id}>
                 <CategoryItem
                     icon={ icon() }
                     label={name}
                     selected={ state.selected.has( id ) }
-                    onPress={ () => effects.toggleItem( id ) }
+                    onPress={ () => effects.toggleItem( id, onChange ) }
                 />
                 <Hr style={ styles.separator } />
             </Fragment>
@@ -83,12 +83,13 @@ export default compose(
             selected: new Set( selected )
         } ),
         effects: {
-            toggleItem: update( ( { selected }, id ) => {
+            toggleItem: update( ( { selected }, id, onChange ) => {
                 if ( selected.has( id ) )
                     selected.delete( id );
                 else
                     selected.add( id );
 
+                onChange && onChange( Array.from( selected ) );
                 return { selected: new Set( selected ) };
             } )
         }
