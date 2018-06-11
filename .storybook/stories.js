@@ -1,3 +1,4 @@
+import "../app/components/event-categories-chooser/__stories__/event-categories-chooser.story";
 import "../app/components/event-details-button/__stories__/event-details-button.story";
 import "../app/components/event-details-categories/__stories__/event-details-categories.story";
 import "../app/components/event-details-date-card/__stories__/event-details-date-card.story";

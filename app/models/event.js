@@ -109,7 +109,7 @@ export const summaryProperties = {
 
     "categories": array( "categories", fields( {
         "id": 1,
-        "name": c => Categories[ c.id ] || null
+        "name": c => ( Categories.get( c.id ) || {} ).name || null
     } ) ),
     "featured": 1,
 

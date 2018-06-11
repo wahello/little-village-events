@@ -22,7 +22,6 @@ const initialState = {
     windowDimensions: Dimensions.get( "window" ),
     rsvps: {},
     api,
-    categories,
 };
 
 
