@@ -1,3 +1,4 @@
+import { SkipButton, ContinueButton } from "./onboarding-buttons";
 import EventCategoriesChooser from "../../components/event-categories-chooser";
 import Hr from "../../components/hr";
 import StatusBarSpacer from "../../components/status-bar-spacer";
@@ -40,32 +41,15 @@ const styles = StyleSheet.create( {
         alignItems: "center",
         justifyContent: "center",
         padding: 20,
-        minHeight: 77
+        minHeight: 84
     },
     skipButton: {
         backgroundColor: "#DADADA",
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        borderRadius: 50
-    },
-    skipButtonLabel: {
-        fontSize: variables.largeFontSize
     },
     continueButton: {
         position: "absolute",
         alignSelf: "center",
-        bottom: 20,
-        padding: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        borderRadius: 50,
-        backgroundColor: variables.highlightColor
-    },
-    continueButtonLabel: {
-        fontSize: variables.largeFontSize,
-        fontWeight: "700",
-        color: "#fff"
+        bottom: 20
     }
 } );
 
@@ -80,21 +64,7 @@ const Header = () =>
 ;
 
 
-const SkipButton = ( ...props ) =>
-    <TouchableButton style={ styles.skipButton} {...props}>
-        <Text style={ styles.skipButtonLabel }>Skip</Text>
-    </TouchableButton>
-;
-
-
-const ContinueButton = ( ...props ) =>
-    <TouchableButton style={ styles.continueButton} {...props}>
-        <Text style={ styles.continueButtonLabel }>Continue</Text>
-    </TouchableButton>
-;
-
-
-const OnboardingInterestsPicker = ( { state, effects } ) =>
+const OnboardingInterestsPicker = ( { state, effects, onSkip, onContinue } ) =>
     <View style={ styles.root }>
         <Header />
         <Hr />
@@ -106,13 +76,13 @@ const OnboardingInterestsPicker = ( { state, effects } ) =>
             />
             <View style={ styles.footer } >
                 { state.canSkip
-                    ? <SkipButton />
+                    ? <SkipButton style={ styles.skipButton} onPress={ onSkip } />
                     : null
                 }
             </View>
         </ScrollView>
         { state.canContinue
-            ? <ContinueButton />
+            ? <ContinueButton style={ styles.continueButton } onPress={ onContinue } />
             : null
         }
     </View>
