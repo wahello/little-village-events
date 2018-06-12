@@ -14,7 +14,7 @@ const styles = StyleSheet.create( {
         backgroundColor: variables.panelBackgroundColor
     },
     intro: {
-        maxWidth: 280,
+        maxWidth: 290,
         margin: 40
     },
     title: {

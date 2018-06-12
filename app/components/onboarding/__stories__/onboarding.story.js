@@ -1,5 +1,6 @@
 import InterestsPicker from "../onboarding-interests-picker";
 import InterestsIntro from "../onboarding-interests-intro";
+import NotificationsIntro from "../onboarding-notifications-intro";
 
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react-native";
@@ -13,6 +14,10 @@ storiesOf( "Onboarding", module )
         onContinue={ action( "onContinue" ) }
     /> ) )
     .add( "interests picker", () => ( <InterestsPicker
+        onSkip={ action( "onSkip" ) }
+        onContinue={ action( "onContinue" ) }
+    /> ) )
+    .add( "notifications intro", () => ( <NotificationsIntro
         onSkip={ action( "onSkip" ) }
         onContinue={ action( "onContinue" ) }
     /> ) )
