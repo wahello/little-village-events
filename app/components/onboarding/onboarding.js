@@ -1,3 +1,4 @@
+import OnboardingStart from "./onboarding-start";
 import InterestsPicker from "./onboarding-interests-picker";
 import InterestsIntro from "./onboarding-interests-intro";
 import NotificationsIntro from "./onboarding-notifications-intro";
@@ -28,6 +29,7 @@ class OnboardingSequence extends Component {
                 loop={false}
                 showsPagination={false}
             >
+                <OnboardingStart onContinue={ this.next } />
                 <InterestsIntro onContinue={ this.next } />
                 <InterestsPicker onContinue={ this.next } />
                 <LocationIntro onContinue={ this.next } />
