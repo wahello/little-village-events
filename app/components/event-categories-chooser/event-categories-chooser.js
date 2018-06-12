@@ -59,9 +59,9 @@ const CategoryItem = ( { icon: Icon, label, selected, ...props } ) =>
 ;
 
 
-const EventCategoriesChooser = ( { state, effects, onChange, style, ...props } ) =>
+const EventCategoriesChooser = ( { state, effects, categories, onChange, style, ...props } ) =>
     <View style={ [ styles.root, style ] } {...props}>
-        { [ ...state.categories.entries() ].map( ( [ id, { name, icon } ] ) =>
+        { [ ...categories.entries() ].map( ( [ id, { name, icon } ] ) =>
             <Fragment key={id}>
                 <CategoryItem
                     icon={ icon() }
@@ -78,8 +78,7 @@ const EventCategoriesChooser = ( { state, effects, onChange, style, ...props } )
 
 export default compose(
     provideState( {
-        initialState: ( { categories, selected } ) => ( {
-            categories,
+        initialState: ( { selected } ) => ( {
             selected: new Set( selected )
         } ),
         effects: {
