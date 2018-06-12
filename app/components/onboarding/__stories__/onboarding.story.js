@@ -1,3 +1,5 @@
+import Onboarding from "../onboarding";
+
 import InterestsPicker from "../onboarding-interests-picker";
 import InterestsIntro from "../onboarding-interests-intro";
 import NotificationsIntro from "../onboarding-notifications-intro";
@@ -11,6 +13,7 @@ import React from "react";
 
 
 storiesOf( "Onboarding", module )
+    .add( "default", () => <Onboarding /> )
     .add( "interests intro", () => ( <InterestsIntro
         onSkip={ action( "onSkip" ) }
         onContinue={ action( "onContinue" ) }
