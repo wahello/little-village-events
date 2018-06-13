@@ -65,22 +65,23 @@ export const upcomingEvents = ( dates, { eventsByDate, ongoingEvents }, rsvpsByD
         const date = addToDate( dates.first, { day } );
         const timestamp = dayTimestamp( date );
 
-        const events = eventsByDate[timestamp] || [];
-        const rsvps = rsvpsByDates[timestamp] || [];
+        const events = eventsByDate[ timestamp ] || [];
+        const rsvpMap = rsvpsByDates[ timestamp ] || {};
 
         let dayEvents = events.reduce( ( dayEvents, event ) => {
-            const rsvpIndex = _findIndex( rsvps, rsvp => rsvp.id === event.id );
-            const rsvp = rsvpIndex < 0 ? null : rsvps.splice( rsvpIndex, 1 )[0];
-            dayEvents.push( new EventWithRSVP( event, rsvp ) );
+            const rsvps = rsvpMap[ event.id ] || [];
+            if ( rsvps.length )
+                rsvps.forEach( rsvp => dayEvents.push( new EventWithRSVP( event, rsvp ) ) );
+            else
+                dayEvents.push( new EventWithRSVP( event, null ) );
+
             return dayEvents;
         }, [] );
 
-        dayEvents = rsvps.reduce( ( dayEvents, rsvp ) => {
-            const event = _find( ongoingEvents, event => rsvp.id === event.id );
-            if ( !event )
-                return dayEvents;
-
-            dayEvents.push( new EventWithRSVP( event, rsvp ) );
+        dayEvents = _values( ongoingEvents ).reduce( ( dayEvents, event ) => {
+            const rsvps = rsvpMap[ event.id ] || [];
+            if ( rsvps.length )
+                rsvps.forEach( rsvp => dayEvents.push( new EventWithRSVP( event, rsvp ) ) );
 
             return dayEvents;
         }, dayEvents );

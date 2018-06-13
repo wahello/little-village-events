@@ -3,6 +3,7 @@ import { sortByStartTime } from "../../utils/event";
 import { now } from "app/utils/date";
 
 import _keys from "lodash/keys";
+import _values from "lodash/values";
 
 
 const toEventList = ( rsvpsByDates ) => {
@@ -12,7 +13,7 @@ const toEventList = ( rsvpsByDates ) => {
         .map( Number )
         .sort( ( a, b ) => a - b )
         .reduce( ( result, timestamp, index ) => {
-            const rsvps = rsvpsByDates[ timestamp ];
+            const rsvps = [].concat( ..._values( rsvpsByDates[ timestamp ] ) );
 
             if ( !index ) {
                 const rsvp = rsvps[ 0 ];

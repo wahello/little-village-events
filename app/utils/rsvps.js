@@ -1,6 +1,8 @@
 import { dayTimestamp } from "./date";
 import { rsvpTense } from "./event-time";
 
+import _get from "lodash/get";
+import _set from "lodash/set";
 import _values from "lodash/values";
 
 export const groupByDates = ( rsvps, currentTime, forPast ) => {
@@ -13,9 +15,11 @@ export const groupByDates = ( rsvps, currentTime, forPast ) => {
             return result;
 
         const timestamp = dayTimestamp( rsvp.startTime );
-        if ( !result[ timestamp ] )
-            result[ timestamp ] = [];
-        result[ timestamp ].push( { ...rsvp, tense } );
+        const dayRSVPs = result[ timestamp ] || {};
+        const eventRSVPs = dayRSVPs[ rsvp.id ] || [];
+        eventRSVPs.push( { ...rsvp, tense } );
+        dayRSVPs[ rsvp.id ] = eventRSVPs;
+        result[ timestamp ] = dayRSVPs;
         return result;
     }, {} );
 
