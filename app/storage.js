@@ -1,5 +1,12 @@
 import { AsyncStorage } from "react-native";
-import jsonParser from "moment-json-parser";
+
+const dateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/;
+
+const jsonDateParser = ( key, value ) => {
+    if ( typeof value === "string" && dateFormat.test( value ) )
+        return new Date( value );
+    return value;
+};
 
 export default class Storage {
 
@@ -58,7 +65,7 @@ export default class Storage {
 
     async _multiGet( keys ) {
         const result = await AsyncStorage.multiGet( keys );
-        return ( result || [] ).map( pair => [ this._toId( pair[ 0 ] ), jsonParser( pair[ 1 ] ) ] );
+        return (result || []).map( pair => [ this._toId( pair[ 0 ] ), JSON.parse( pair[ 1 ], jsonDateParser ) ] );
     }
 
 

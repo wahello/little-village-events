@@ -1,8 +1,7 @@
+import { calendarFormat } from "app/utils/date";
+
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-
-import moment from "moment";
-import _isString from "lodash";
 
 const styles = StyleSheet.create( {
     header: {
@@ -38,7 +37,7 @@ const styles = StyleSheet.create( {
 } );
 
 const DateHeader = ( { today, date } ) => {
-    const weekday = moment( date ).calendar( today, {
+    const weekday = calendarFormat( date, today, {
         lastWeek: "[Last] dddd",
         lastDay: "[Yesterday]",
         sameDay: "[Today]",
@@ -47,7 +46,7 @@ const DateHeader = ( { today, date } ) => {
         sameElse: "dddd"
     } ).toUpperCase();
 
-    const monthday = moment( date ).calendar( today, {
+    const monthday = calendarFormat( date, today, {
         lastWeek: "MMM D",
         lastDay: "ddd, MMM D",
         sameDay: "ddd, MMM D",

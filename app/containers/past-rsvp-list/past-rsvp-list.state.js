@@ -1,14 +1,13 @@
-import { sortByStartTime } from "../../utils/event";
-
-import moment from "moment";
+import { now } from "app/utils/date";
+import { sortByStartTime } from "app/utils/event";
+import * as RSVPS from "app/utils/rsvps";
 
 import _keys from "lodash/keys";
-import * as RSVPS from "../../utils/rsvps";
 
 
 const toEventList = ( rsvps ) => {
-    const currentTime = moment();
-    const rsvpsByDates = RSVPS.groupByDates( rsvps, currentTime, false );
+    const currentTime = now();
+    const rsvpsByDates = RSVPS.groupByDates( rsvps, currentTime, true );
 
     return _keys( rsvpsByDates )
         .map( Number )
@@ -18,7 +17,7 @@ const toEventList = ( rsvps ) => {
 
             result.push( {
                 today: currentTime,
-                date: moment( timestamp ),
+                date: new Date( timestamp ),
                 data: sortByStartTime( rsvps )
             } );
             return result;

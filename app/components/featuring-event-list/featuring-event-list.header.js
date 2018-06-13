@@ -1,8 +1,8 @@
-import * as Styles from "../../styles";
+import { calendarFormat } from "app/utils/date";
+import * as Styles from "app/styles";
 
 import React from "react";
 import { View, Text } from "react-native";
-import moment from "moment";
 
 const styles = Styles.create( {
     root: {
@@ -33,14 +33,14 @@ const styles = Styles.create( {
 
 
 const Header = ( { section: { today, date } } ) => {
-    const monthDay = moment( date ).calendar( today, {
+    const monthDay = calendarFormat( date, today, {
         sameDay: "dddd, MMM D",
         nextDay: "dddd, MMM D",
         nextWeek: "MMM D",
         sameElse: "MMM D"
     } ).toUpperCase();
 
-    const weekday = moment( date ).calendar( today, {
+    const weekday = calendarFormat( date, today, {
         sameDay: "[Today]",
         nextDay: "[Tomorrow]",
         nextWeek: "dddd",

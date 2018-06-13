@@ -55,7 +55,6 @@ describe( "event-time", () => {
     const sandbox = sinon.createSandbox();
 
     beforeEach( () => {
-        // sandbox.stub( moment.fn, "toJSON" ).callsFake( function () { return this.format(); } );
     } );
 
     afterEach( () => {
