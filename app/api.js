@@ -1,5 +1,6 @@
 import { makeFullEvent, makeSummaryEvent } from "./models/event";
 import RSVPStorage from "./models/rsvps";
+import { format } from "./utils/date";
 
 import axios from "axios/index";
 
@@ -13,8 +14,8 @@ export default {
     getEventList: async ( firstDate, lastDate ) => {
         const dateFormat = "YYYY-MM-DD";
 
-        const from = firstDate.format( dateFormat );
-        const to = lastDate.format( dateFormat );
+        const from = format( firstDate, dateFormat );
+        const to = format( lastDate, dateFormat );
 
         const url = `${root}/events.json?range_from=${from}&range_to=${to}`;
         const { data } = await axios.get( url );
