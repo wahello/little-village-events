@@ -44,7 +44,7 @@ export default {
         loadEventDetails,
         handleRSVP: async ( effects, state ) => {
             const { event } = state;
-            if ( event.rsvpId )
+            if ( event.rsvp )
                 await effects.confirmRescindSVP( state );
             else
                 await effects.confirmAddRSVP( state );

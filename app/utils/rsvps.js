@@ -2,6 +2,8 @@ import { dayTimestamp } from "./date";
 import { rsvpTense } from "./event-time";
 
 import _values from "lodash/values";
+import { EventWithRSVP } from "app/models/event-with-rsvp";
+import { sortByStartTime } from "app/utils/event";
 
 export const groupByDates = ( rsvps, currentTime, forPast ) => {
 
@@ -21,4 +23,12 @@ export const groupByDates = ( rsvps, currentTime, forPast ) => {
         return result;
     }, {} );
 
+};
+
+export const toDayEvents = ( rsvpsByDates, timestamp ) => {
+
+    return sortByStartTime( []
+        .concat( ..._values( rsvpsByDates[ timestamp ] ) )
+        .map( rsvp => new EventWithRSVP( null, rsvp ) )
+    );
 };

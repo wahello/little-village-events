@@ -1,9 +1,8 @@
 import { now } from "app/utils/date";
-import { sortByStartTime } from "app/utils/event";
 import * as RSVPS from "app/utils/rsvps";
+import { toDayEvents } from "app/utils/rsvps";
 
 import _keys from "lodash/keys";
-import _values from "lodash/values";
 
 
 const toEventList = ( rsvps ) => {
@@ -14,12 +13,12 @@ const toEventList = ( rsvps ) => {
         .map( Number )
         .sort( ( a, b ) => b - a ) // reverse sorting
         .reduce( ( result, timestamp ) => {
-            const rsvps = [].concat( ..._values( rsvpsByDates[ timestamp ] ) );
+            const events = toDayEvents( rsvpsByDates, timestamp );
 
             result.push( {
                 today: currentTime,
                 date: new Date( timestamp ),
-                data: sortByStartTime( rsvps )
+                data: events
             } );
             return result;
         }, [] );
