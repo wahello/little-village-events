@@ -8,11 +8,10 @@ import {
     isBefore
 } from "./date";
 
-import { getRSVPInfo } from "./event-time";
+import { getRSVPInfo, isOngoingEvent } from "./event-time";
 
-import { EventWithRSVP } from "../models/event-with-rsvp";
+import { EventWithRSVP } from "app/models/event-with-rsvp";
 
-import _keys from "lodash/keys";
 import _range from "lodash/range";
 import _sortBy from "lodash/sortBy";
 import _values from "lodash/values";
@@ -23,27 +22,18 @@ const sortEvents = ( events ) =>
 ;
 
 
-export const upcomingEventsMap = ( dates, events ) => {
-    if ( !dates )
-        return [];
+export const upcomingEventsMap = ( events ) => {
 
     events = events || [];
-    const week = { start: weekStart( dates.first ), end: weekEnd( dates.first ) };
-
     return events.reduce( ( result, event ) => {
-
-        const rsvpInfo = getRSVPInfo( event );
-        if ( !rsvpInfo.last ) {
-            const timestamp = dayTimestamp( rsvpInfo.first );
-            result.eventsByDate[ timestamp ] = result.eventsByDate[ timestamp ] || [];
-            result.eventsByDate[ timestamp ].push( event );
+        if ( isOngoingEvent( event ) ) {
+            result.ongoingEvents[ event.id ] = event;
             return result;
         }
 
-        if ( isAfter( rsvpInfo.first, week.end ) || isBefore( rsvpInfo.last, week.start ) )
-            return result;
-
-        result.ongoingEvents[ event.id ] = event;
+        const timestamp = dayTimestamp( event.startTime );
+        result.eventsByDate[ timestamp ] = result.eventsByDate[ timestamp ] || [];
+        result.eventsByDate[ timestamp ].push( event );
         return result;
 
     }, { eventsByDate: {}, ongoingEvents: {} } );
@@ -56,7 +46,13 @@ export const upcomingEvents = ( dates, { eventsByDate, ongoingEvents }, rsvpsByD
 
     const week = { start: weekStart( dates.first ), end: weekEnd( dates.first ) };
 
-    let addOngoingEvents = _keys( ongoingEvents ).length;
+    const thisWeekOngoingEvents = _values( ongoingEvents )
+        .filter( event => {
+            const rsvpInfo = getRSVPInfo( event );
+            return !isAfter( rsvpInfo.first, week.end ) && !isBefore( rsvpInfo.last, week.start );
+        } );
+    let addOngoingEvents = thisWeekOngoingEvents.length;
+
     const numberOfDays = daysDiff( dates.last, dates.first ) + 1;
 
     return _range( numberOfDays ).reduce( ( result, day ) => {
@@ -87,7 +83,7 @@ export const upcomingEvents = ( dates, { eventsByDate, ongoingEvents }, rsvpsByD
         if ( addOngoingEvents && isAfter( date, week.end ) ) {
             result.push( {
                 today: currentTime,
-                data: sortEvents( _values( ongoingEvents ) ),
+                data: sortEvents( thisWeekOngoingEvents ),
                 ongoing: true
             } );
 

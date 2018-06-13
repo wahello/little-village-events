@@ -13,6 +13,7 @@ import dateFormat from "date-fns/format";
 
 export { default as isAfter } from "date-fns/is_after";
 export { default as isBefore } from "date-fns/is_before";
+export { default as isSameDay } from "date-fns/is_same_day";
 
 export { default as minutesDiff } from "date-fns/difference_in_minutes";
 export { default as hoursDiff } from "date-fns/difference_in_hours";

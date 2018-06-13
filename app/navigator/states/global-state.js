@@ -159,7 +159,7 @@ const globalState = {
 
     },
     computed: {
-        eventMaps: ( { dates, events } ) => upcomingEventsMap( dates, events ),
+        eventMaps: ( { events } ) => upcomingEventsMap( events ),
         rsvpMap: ( { rsvps } ) => RSVPs.groupByDates( rsvps, new Date() ),
     }
 };

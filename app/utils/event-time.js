@@ -1,4 +1,16 @@
-import { now, addToDate, dayStart, daysDiff, minutesDiff, subtractFromDate, moveTimeToDate, isBefore, isAfter } from "./date";
+import {
+    addToDate,
+    daysDiff,
+    dayStart,
+    isAfter,
+    isBefore,
+    isSameDay,
+    minutesDiff,
+    moveTimeToDate,
+    now,
+    subtractFromDate
+} from "./date";
+
 import config from "../config";
 
 const { eventThresholds } = config;
@@ -27,6 +39,13 @@ export const lastRSVPDate = event => {
     }
     return last;
 };
+
+
+export const isOngoingEvent = event => {
+    const { startTime, endTime } = event;
+    return endTime && !isSameDay( startTime, endTime );
+};
+
 
 export const getRSVPInfo = event => {
     const { startTime, endTime, allDay = false } = event;
