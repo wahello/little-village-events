@@ -12,8 +12,6 @@ import { getRSVPInfo } from "./event-time";
 
 import { EventWithRSVP } from "../models/event-with-rsvp";
 
-import _find from "lodash/find";
-import _findIndex from "lodash/findIndex";
 import _keys from "lodash/keys";
 import _range from "lodash/range";
 import _sortBy from "lodash/sortBy";

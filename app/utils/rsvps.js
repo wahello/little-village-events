@@ -1,8 +1,6 @@
 import { dayTimestamp } from "./date";
 import { rsvpTense } from "./event-time";
 
-import _get from "lodash/get";
-import _set from "lodash/set";
 import _values from "lodash/values";
 
 export const groupByDates = ( rsvps, currentTime, forPast ) => {
