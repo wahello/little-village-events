@@ -3,9 +3,7 @@ import startOfDay from "date-fns/start_of_day";
 import endOfDate from "date-fns/end_of_day";
 import startOfWeek from "date-fns/start_of_week";
 import endOfWeek from "date-fns/end_of_week";
-import differenceInDays from "date-fns/difference_in_days";
-import differenceInHours from "date-fns/difference_in_hours";
-import differenceInMinutes from "date-fns/difference_in_minutes";
+import differenceInCalendarDays from "date-fns/difference_in_calendar_days";
 import addDays from "date-fns/add_days";
 import addMinutes from "date-fns/add_minutes";
 import subDays from "date-fns/sub_days";
@@ -14,8 +12,12 @@ import subMinutes from "date-fns/sub_minutes";
 export { default as isAfter } from "date-fns/is_after";
 export { default as isBefore } from "date-fns/is_before";
 
+export { default as minutesDiff } from "date-fns/difference_in_minutes";
+export { default as hoursDiff } from "date-fns/difference_in_hours";
+export const daysDiff = differenceInCalendarDays;
 
 export const now = Date.now;
+
 
 export const dayStart = ( date ) => {
     return startOfDay( date );
@@ -73,25 +75,10 @@ export const subtractFromDate = ( date, param ) => {
 };
 
 
-export const daysDiff = ( startDay, endDay ) => {
-    return differenceInDays( dayStart( endDay ), dayStart( startDay ) );
-};
-
-
-export const hoursDiff = ( startDay, endDay ) => {
-    return differenceInHours( endDay, startDay );
-};
-
-
-export const minutesDiff = ( startDay, endDay ) => {
-    return differenceInMinutes( endDay, startDay );
-};
-
-
 export const moveTimeToDate = ( time, date ) => {
     if ( time === date )
         return time;
-    const daysToAdd = daysDiff( time, date );
+    const daysToAdd = daysDiff( date, time );
     return daysToAdd
         ? addToDate( time, { days: daysToAdd } )
         : time

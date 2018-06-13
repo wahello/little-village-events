@@ -10,7 +10,7 @@ export const firstRSVPDate = event => {
 
 export const lastRSVPDate = event => {
     const { startTime, endTime, allDay } = event;
-    const days = endTime ? daysDiff( startTime, endTime ) : 0;
+    const days = endTime ? daysDiff( endTime, startTime ) : 0;
     if ( days < 1 )
         return null;
 
@@ -37,7 +37,7 @@ export const getRSVPInfo = event => {
         first,
         last,
         allDay,
-        duration: allDay || !endTime ? 0 : Math.max( 0, minutesDiff( last || startTime, endTime ) )
+        duration: allDay || !endTime ? 0 : Math.max( 0, minutesDiff( endTime, last || startTime ) )
     };
 
 };
@@ -65,10 +65,10 @@ const calcRSVPEndTime = ( rsvpInfo, startTime ) => {
 export const RSVPTimeForDay = ( event, calendarDay ) => {
     const rsvpInfo = getRSVPInfo( event );
     const { first, last, allDay } = rsvpInfo;
-    if ( daysDiff( last || first, calendarDay ) > 0 )
+    if ( daysDiff( calendarDay, last || first ) > 0 )
         return null;
 
-    if ( daysDiff( first, calendarDay ) < 0 )
+    if ( daysDiff( calendarDay, first ) < 0 )
         return null;
 
     const startTime = calcRSVPStartTime( rsvpInfo, calendarDay );
@@ -105,10 +105,10 @@ export const rsvpTense = ( rsvp, currentTime ) => {
     currentTime = currentTime || now();
     const { startTime, endTime } = rsvp;
 
-    if ( rsvp.allDay && daysDiff( startTime, currentTime ) === 0 )
+    if ( rsvp.allDay && daysDiff( currentTime, startTime ) === 0 )
         return "upcoming";
 
-    const minutes = minutesDiff( currentTime, startTime );
+    const minutes = minutesDiff( startTime, currentTime );
     if ( minutes > 0 )
         return minutes < eventThresholds.upcoming ? "upcoming" : "future";
 
@@ -131,7 +131,7 @@ export const eventTense = ( event, calendarDay, currentTime ) => {
         ;
     }
 
-    const days = daysDiff( rsvpTime.startTime, currentTime );
+    const days = daysDiff( currentTime, rsvpTime.startTime );
     if ( days > 0 )
         return "past";
     if ( days < 0 )

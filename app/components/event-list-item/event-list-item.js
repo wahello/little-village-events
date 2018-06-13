@@ -116,7 +116,7 @@ const LeftPanel = ( { event } ) => {
 
 const Days = ( { event } ) => {
     const { startTime, endTime } = event;
-    if ( !startTime || !endTime || daysDiff( startTime, endTime ) === 0 )
+    if ( !startTime || !endTime || daysDiff( endTime, startTime ) === 0 )
         return null;
     const format = "MMM. D";
     const value = `${startTime.format( format )} - ${endTime.format( format )}`;

@@ -49,7 +49,7 @@ export const upcomingEventsMap = ( dates, events ) => {
         return result;
 
     }, { eventsByDate: {}, ongoingEvents: {} } );
-}
+};
 
 
 export const upcomingEvents = ( dates, { eventsByDate, ongoingEvents }, rsvpsByDates, currentTime ) => {
@@ -59,9 +59,9 @@ export const upcomingEvents = ( dates, { eventsByDate, ongoingEvents }, rsvpsByD
     const week = { start: weekStart( dates.first ), end: weekEnd( dates.first ) };
 
     let addOngoingEvents = _keys( ongoingEvents ).length;
-    const numberOfDays = daysDiff( dates.first, dates.last ) + 1;
+    const numberOfDays = daysDiff( dates.last, dates.first ) + 1;
 
-    const result = _range( numberOfDays ).reduce( ( result, day ) => {
+    return _range( numberOfDays ).reduce( ( result, day ) => {
         const date = addToDate( dates.first, { day } );
         const timestamp = dayTimestamp( date );
 
@@ -106,6 +106,4 @@ export const upcomingEvents = ( dates, { eventsByDate, ongoingEvents }, rsvpsByD
         return result;
 
     }, [] );
-
-    return result;
-}
+};
