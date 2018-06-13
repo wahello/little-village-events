@@ -4,11 +4,10 @@ import { firstRSVPDate, lastRSVPDate, getRSVPInfo, RSVPTimeForDay, calcRSVPTime,
 import _keys from "lodash/keys";
 import _pick from "lodash/pick";
 
-import moment from "moment";
 import sinon from "sinon";
 import config from "../../config";
 
-const dateHour = ( date, hour ) => dayStart( date ).add( { hour } );
+const dateHour = ( date, hour ) => addToDate( dayStart( date ), { minutes: hour * 60 } );
 
 const earlyMorning = date => dateHour( date, 2 );
 const morning = date => dateHour( date, 9 );
@@ -47,7 +46,7 @@ const toJSON = event => {
 
 describe( "event-time", () => {
 
-    const today = noon( moment( "2018-05-14" ) );
+    const today = noon( new Date( "2018-05-14" ) );
     const tomorrow = addToDate( today, { days: 1 } );
     const weekLater = addToDate( today, { days: 7 } );
     const yesterday = subtractFromDate( today, { days: 1 } );
@@ -56,7 +55,7 @@ describe( "event-time", () => {
     const sandbox = sinon.createSandbox();
 
     beforeEach( () => {
-        sandbox.stub( moment.fn, "toJSON" ).callsFake( function () { return this.format(); } );
+        // sandbox.stub( moment.fn, "toJSON" ).callsFake( function () { return this.format(); } );
     } );
 
     afterEach( () => {
@@ -519,4 +518,3 @@ describe( "event-time", () => {
     } );
 
 } );
-

@@ -1,7 +1,5 @@
-import { addToDate, dayStart, daysDiff, subtractFromDate, moveTimeToDate } from "./date";
+import { now, addToDate, dayStart, daysDiff, minutesDiff, subtractFromDate, moveTimeToDate, isBefore, isAfter } from "./date";
 import config from "../config";
-
-import moment from "moment";
 
 const { eventThresholds } = config;
 
@@ -21,7 +19,7 @@ export const lastRSVPDate = event => {
         return dayStart( last );
 
     // overnight
-    if ( endTime.isBefore( last ) ) {
+    if ( isBefore( endTime, last ) ) {
         return days > 1
             ? subtractFromDate( last, { day: 1 } )
             : null
@@ -39,17 +37,17 @@ export const getRSVPInfo = event => {
         first,
         last,
         allDay,
-        duration: allDay || !endTime ? 0 : Math.max( 0, endTime.diff( last || startTime, "minutes" ) )
+        duration: allDay || !endTime ? 0 : Math.max( 0, minutesDiff( last || startTime, endTime ) )
     };
 
 };
 
 const calcRSVPStartTime = ( rsvpInfo, calendarDay ) => {
     const { first, last } = rsvpInfo;
-    if ( !last || calendarDay.isBefore( first ) )
+    if ( !last || isBefore( calendarDay, first ) )
         return first;
 
-    if ( calendarDay.isAfter( last ) )
+    if ( isAfter( calendarDay, last ) )
         return last;
 
     return moveTimeToDate( first, calendarDay );
@@ -104,18 +102,18 @@ export const calcRSVPTime = ( event, calendarDay ) => {
 
 
 export const rsvpTense = ( rsvp, currentTime ) => {
-    currentTime = currentTime || moment();
+    currentTime = currentTime || now();
     const { startTime, endTime } = rsvp;
 
     if ( rsvp.allDay && daysDiff( startTime, currentTime ) === 0 )
         return "upcoming";
 
-    const minutes = startTime.diff( currentTime, "minutes" );
+    const minutes = minutesDiff( currentTime, startTime );
     if ( minutes > 0 )
         return minutes < eventThresholds.upcoming ? "upcoming" : "future";
 
     const isPast = endTime
-        ? endTime.isBefore( currentTime )
+        ? isBefore( endTime, currentTime )
         : Math.abs( minutes ) >= eventThresholds.past
     ;
 
@@ -124,10 +122,10 @@ export const rsvpTense = ( rsvp, currentTime ) => {
 
 
 export const eventTense = ( event, calendarDay, currentTime ) => {
-    currentTime = currentTime || moment();
+    currentTime = currentTime || now();
     const rsvpTime = RSVPTimeForDay( event, calendarDay );
     if ( !rsvpTime ) {
-        return calendarDay.isBefore( event.startTime )
+        return isBefore( calendarDay, event.startTime )
             ? "future"
             : "past"
         ;

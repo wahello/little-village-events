@@ -1,13 +1,14 @@
 import { sortByDate } from "./date";
+import format from "date-fns/format";
 
 export const formatStartDate = ( { startTime } ) =>
-    startTime && startTime.format( "dddd, MMM D" )
+    startTime && format( startTime, "dddd, MMM D" )
 ;
 
 export const formatStartTime = ( { allDay, startTime } ) =>
     allDay
         ? "All day"
-        : startTime && startTime.format( "h:mm A" )
+        : startTime && format( startTime, "h:mm A" )
 ;
 
 export const formatStartTimeAndPlace = ( event ) =>

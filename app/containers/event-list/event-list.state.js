@@ -1,6 +1,5 @@
-import { upcomingEvents } from "../../utils/events";
+import { upcomingEvents } from "app/utils/events";
 
-import moment from "moment";
 
 export default {
     initialState: () => ( {
@@ -8,6 +7,6 @@ export default {
     effects: {
     },
     computed: {
-        eventList: ( { dates, events, rsvps } ) => upcomingEvents( dates, events, rsvps, moment() )
+        eventList: ( { dates, eventMaps, rsvpMap } ) => upcomingEvents( dates, eventMaps, rsvpMap, new Date() )
     }
 }

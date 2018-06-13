@@ -1,8 +1,5 @@
 import Categories from "./categories";
 
-import moment from "moment";
-
-import _assign from "lodash/assign";
 import _get from "lodash/get";
 import _keys from "lodash/keys";
 import _last from "lodash/last";
@@ -10,7 +7,6 @@ import _pick from "lodash/pick";
 import _reduce from "lodash/reduce";
 import _values from "lodash/values";
 import _toNumber from "lodash/toNumber";
-import memoize from "memoizee";
 
 
 const priceRange = ( { tickets } ) => {
@@ -33,7 +29,7 @@ const priceRange = ( { tickets } ) => {
 function date( path ) {
     return rawEvent => {
         const date = _get( rawEvent, path, null );
-        return date && moment( date );
+        return date && new Date( date );
     }
 }
 

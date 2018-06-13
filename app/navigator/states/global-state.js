@@ -1,6 +1,10 @@
+import * as RSVPs from "app/utils/rsvps";
+
 import api from "../../api";
-import categories from "../../models/categories";
 import openEmbeddedBrowser from "../../utils/openEmbeddedBrowser"
+
+import { upcomingEventsMap } from "app/utils/events";
+import { addToDate, now } from "app/utils/date";
 
 import { mergeIntoState, provideState, update } from "@textpress/freactal";
 
@@ -21,7 +25,26 @@ const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
     rsvps: {},
+    events: null,
+    dates: null,
     api,
+};
+
+
+const numberOfDays = 14;
+
+const loadEvents = async api => {
+    const first = now();
+    const last = addToDate( now(), { days: numberOfDays - 1 } );
+    const events = await api.getEventList( first, last );
+
+    return {
+        events,
+        dates: {
+            first,
+            last
+        }
+    };
 };
 
 
@@ -34,7 +57,10 @@ const globalState = {
             const rsvps = await api.rsvps.all();
             api.rsvps.addEventListener( "added", effects._rsvpAdded );
             api.rsvps.addEventListener( "removed", effects._rsvpRemoved );
-            return mergeIntoState( { rsvps } );
+            return mergeIntoState( {
+                rsvps,
+                ...( await loadEvents( api ) )
+            } );
         },
 
         call: async ( effects, number ) => {
@@ -131,8 +157,11 @@ const globalState = {
         }
 
 
+    },
+    computed: {
+        eventMaps: ( { dates, events } ) => upcomingEventsMap( dates, events ),
+        rsvpMap: ( { rsvps } ) => RSVPs.groupByDates( rsvps, new Date() ),
     }
-
 };
 
 const rootStatefulComponent = provideState( globalState )();

@@ -1,6 +1,7 @@
 import EventHashtags from "../event-hashtags";
 import EventTimeLocationRSVP from "../event-time-location-rsvp";
 import { TouchableButton } from "../touchable";
+import { daysDiff } from "app/utils/date";
 
 import { injectState } from "@textpress/freactal";
 
@@ -115,7 +116,7 @@ const LeftPanel = ( { event } ) => {
 
 const Days = ( { event } ) => {
     const { startTime, endTime } = event;
-    if ( !startTime || !endTime || startTime.diff( endTime, "days" ) === 0 )
+    if ( !startTime || !endTime || daysDiff( startTime, endTime ) === 0 )
         return null;
     const format = "MMM. D";
     const value = `${startTime.format( format )} - ${endTime.format( format )}`;

@@ -1,31 +1,9 @@
-import { mergeIntoState } from "../../utils/freactal";
-
-import moment from "moment";
-
-const numberOfDays = 14;
-
-const loadEvents = async ( effects, { state: { api } } ) => {
-    const first = moment();
-    const last = moment().add( { days: numberOfDays - 1 } );
-    const events = await api.getEventList( first, last );
-
-    return mergeIntoState( {
-        events,
-        dates: {
-            first,
-            last
-        }
-    } );
-};
-
 
 export default {
     initialState: () => ( {
-        events: null,
-        dates: null
     } ),
     effects: {
-        initialize: loadEvents,
+        // initialize: loadEvents,
         // updateEvent: ( effects, event ) => {
         //     return state => {
         //         const { events } = state;
