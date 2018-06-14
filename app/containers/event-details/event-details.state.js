@@ -4,7 +4,13 @@ import { mergeIntoState } from "../../utils/freactal";
 
 
 function setRSVP( rsvp ) {
-    return state => ( { ...state, event: new EventWithRSVP( state.event.event, rsvp ) } )
+    return state => {
+        const event = new EventWithRSVP( state.event.event, rsvp );
+        return {
+            ...state,
+            event
+        };
+    }
 }
 
 

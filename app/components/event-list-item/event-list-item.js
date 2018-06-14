@@ -125,6 +125,8 @@ const Days = ( { event } ) => {
 
 const Item = ( props ) => {
     const { item: event, section: { date: calendarDay, ongoing }, effects: { navigateToEventDetails } } = props;
+    console.log( event.id );
+
     return (
         <TouchableButton activeOpacity={ 0.6 }
             onPress={ () => { navigateToEventDetails( event, calendarDay ) } }>
