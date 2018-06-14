@@ -10,6 +10,13 @@ const Header = ( { section: { title } } ) => (
     <Text>Header { title }</Text>
 );
 
+const Item = ( { item } ) => {
+    console.log( `Rendering ${item.title}` );
+    return (
+        <Text key={ item.key }>    item { item.title }</Text>
+    );
+};
+
 class Content extends Component {
 
     constructor( props ) {
@@ -26,7 +33,7 @@ class Content extends Component {
             <View>
                 <FlatList
                     data={ this.state.expanded ? this.state.items : this.state.items.slice( 0, 5 ) }
-                    renderItem={ ( { item } ) => <Text key={ item.key }>    item { item.title }</Text> }
+                    renderItem={ Item }
                 />
                 <TouchableButton onPress={ () => this.setState( { expanded: !this.state.expanded } ) }>
                     <Text>    { this.state.expanded ? "SHOW LESS" : "SHOW MORE" }</Text>
