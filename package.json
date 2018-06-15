@@ -4,8 +4,9 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
-        "run:ios": "react-native run-ios",
+        "start": "react-native start",
         "storybook": "yarn clear:storybook-cache && BABEL_ENV=development storybook start -p 7007 -c .storybook",
+        "run:ios": "react-native run-ios",
         "test": "jest",
         "postinstall": "rndebugger-open",
         "clear:storybook-cache": "rimraf ./node_modules/.cache/react-storybook/*",
