@@ -3,19 +3,60 @@ import { TouchableButton } from "app/components/touchable";
 import _range from "lodash/range";
 
 import React, { Component } from "react";
-import { FlatList, SectionList, Text, View } from "react-native";
+import { FlatList, SectionList, Text, View, StyleSheet } from "react-native";
+
+
+const styles = StyleSheet.create( {
+    header: {
+        fontSize: 18,
+        fontWeight: "bold",
+        padding: 20,
+        backgroundColor: "white",
+        // opacity: .8
+    },
+    item: {
+        display: "flex",
+        flexDirection: "row",
+        padding: 10
+    },
+    thumbnail: {
+        width: 50,
+        height: 50,
+        backgroundColor: "#ccc"
+    }
+} );
 
 
 const Header = ( { section: { title } } ) => (
-    <Text>Header { title }</Text>
+    <Text style={styles.header}>Header { title }</Text>
 );
 
-const Item = ( { item } ) => {
-    console.log( `Rendering ${item.title}` );
-    return (
-        <Text key={ item.key }>    item { item.title }</Text>
-    );
-};
+
+
+class Item extends Component {
+    componentDidMount() {
+        const { item } = this.props;
+        console.log( `+++ Mounted ${item.title}` );
+    }
+
+    componentWillUnmount() {
+        const { item } = this.props;
+        console.log( `--- Unmounted ${item.title}` );
+    }
+
+    render() {
+        const { item } = this.props;
+        console.log( `Rendering ${item.title}` );
+        return (
+            <View key={ item.key } style={ styles.item } >
+                <View style={ styles.thumbnail } />
+                <Text >    item { item.title }</Text>
+            </View>
+        );
+
+    }
+}
+
 
 class Content extends Component {
 
@@ -24,7 +65,7 @@ class Content extends Component {
 
         this.state = {
             expanded: false,
-            items: _range( 20 ).map( i => ( { key: `${i}`, title: `${ this.props.item.data }-${i}` } ) )
+            items: _range( 100 ).map( i => ( { key: `${i}`, title: `${ this.props.item.data }-${i}` } ) )
         };
     }
 
@@ -33,7 +74,7 @@ class Content extends Component {
             <View>
                 <FlatList
                     data={ this.state.expanded ? this.state.items : this.state.items.slice( 0, 5 ) }
-                    renderItem={ Item }
+                    renderItem={ props => <Item {...props} /> }
                 />
                 <TouchableButton onPress={ () => this.setState( { expanded: !this.state.expanded } ) }>
                     <Text>    { this.state.expanded ? "SHOW LESS" : "SHOW MORE" }</Text>
@@ -45,7 +86,7 @@ class Content extends Component {
 
 
 const EventListTest = () => {
-    const sections = _range( 20 ).map( i => ( {
+    const sections = _range( 50 ).map( i => ( {
         title: `Day ${ i + 1 }`,
         data: [ { key: `${i}`, data: i + 1 } ]
     } ) );
