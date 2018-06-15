@@ -1,12 +1,25 @@
+import { showOnboardingScreen } from "app/containers/onboarding";
+
+import { registerScreens, onboardingNav, mainAppNav } from "./screens";
+
 import { Navigation } from "react-native-navigation";
-import registerScreens from "./register-screens";
 
-const startApp = () => {
-    const params = registerScreens();
 
-    Navigation
-        .startTabBasedApp( params )
-    ;
+export const startOnboarding = () =>
+    Navigation.startSingleScreenApp( onboardingNav() );
+
+
+export const startMainApp = () =>
+    Navigation.startTabBasedApp( mainAppNav() );
+
+
+const startApp = async () => {
+    registerScreens();
+
+    if ( await showOnboardingScreen() )
+        startOnboarding();
+    else
+        startMainApp();
 };
 
 export default startApp;

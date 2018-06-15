@@ -16,7 +16,7 @@ const OnboardingLocationsPicker = ( { state, effects, onSkip, onContinue } ) =>
         title="Show events in or near"
         state={state}
         onSkip={onSkip}
-        onContinue={onContinue}
+        onContinue={ () => onContinue( state.selected ) }
     >
         <EventLocationsChooser
             locations={ state.locations }
@@ -29,9 +29,9 @@ const OnboardingLocationsPicker = ( { state, effects, onSkip, onContinue } ) =>
 
 export default compose(
     provideState( {
-        initialState: () => ( {
+        initialState: ( { selected } ) => ( {
             locations: Locations,
-            selected: null
+            selected
         } ),
         effects: {
             updateSelected: update( ( state, value ) => {

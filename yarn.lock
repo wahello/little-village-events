@@ -8154,6 +8154,10 @@ react-native-open-maps@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.1.4.tgz#ccd7bac2a69bc36716c7188ecbf7e3d3ca93a6a3"
 
+react-native-permissions@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-1.1.1.tgz#4876004681ff8556454613d85249b01baff9b35b"
+
 react-native-phone-call@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.6.tgz#354ba3c7737702ba7487fffd3cea979131b4640a"
