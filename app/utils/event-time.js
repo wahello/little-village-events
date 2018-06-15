@@ -4,7 +4,7 @@ import {
     dayStart,
     isAfter,
     isBefore,
-    isSameDay,
+    hoursDiff,
     minutesDiff,
     moveTimeToDate,
     now,
@@ -43,7 +43,7 @@ export const lastRSVPDate = event => {
 
 export const isOngoingEvent = event => {
     const { startTime, endTime } = event;
-    return endTime && !isSameDay( startTime, endTime );
+    return endTime && hoursDiff( endTime, startTime ) >= 24 || false;
 };
 
 
