@@ -47,7 +47,7 @@ class EventDetails extends Component {
 
         const { state, effects } = this.props;
 
-        const { event, calendarDay, windowDimensions: { width, height } } = state;
+        const { event, eventDetails, calendarDay, windowDimensions: { width, height } } = state;
 
         if ( !event )
             return <Loading/>;
@@ -62,6 +62,7 @@ class EventDetails extends Component {
             <ParallaxScroll
                 renderHeader={ props => <Header.Fixed event={ event } { ...props } /> }
                 renderParallaxForeground={ props => <Header.Foreground event={ event }
+                    eventDetails={ eventDetails }
                     handleRSVP={ () => effects.handleRSVP( state ) } { ...props } /> }
                 renderParallaxBackground={ () => imageUri ? <Header.Background uri={ imageUri }/> : null }
                 headerHeight={ fixedHeaderHeight }
@@ -74,9 +75,10 @@ class EventDetails extends Component {
                 parallaxForegroundScrollSpeed={ 1 }
             >
                 <View style={ [ styles.body, { minHeight: height - headerHeight } ] }>
-                    <EventDetailsDateCard event={ event } calendarDay={ calendarDay } addEventToCalendar={ effects.addEventToCalendar }/>
+                    <EventDetailsDateCard event={ event } calendarDay={ calendarDay }
+                        addEventToCalendar={ effects.addEventToCalendar }/>
                     <EventDetailsVenueCard event={ event } call={ effects.call } openMap={ effects.openMap }/>
-                    <EventDetailsDescriptionCard event={ event }/>
+                    <EventDetailsDescriptionCard eventDetail={ eventDetails }/>
                 </View>
             </ParallaxScroll>
         );

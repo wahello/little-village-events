@@ -40,7 +40,7 @@ const htmlStyles = StyleSheet.create( {
 } );
 
 
-export const DescriptionCard = ( { summary, description, details } ) =>
+export const DescriptionCard = ( { summary, description } ) =>
     <DetailsCard style={ styles.root }>
         <Text style={ styles.tab }>DESCRIPTION</Text>
         <ExpandableView initialMaxHeight={350} paddingBottom={18} >
@@ -56,8 +56,8 @@ export const DescriptionCard = ( { summary, description, details } ) =>
 
 
 
-export default ( { event: { details } } ) => {
-    const { summary, description } = details || {};
+export default ( { eventDetail } ) => {
+    const { summary, description } = eventDetail || {};
     if ( !summary && !description )
         return null;
 

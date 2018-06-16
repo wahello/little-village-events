@@ -21,7 +21,7 @@ const screenState = {
                 state.navigator.push( {
                     screen: EventDetails.id,
                     backButtonTitle: EventDetails.backButtonTitle,
-                    passProps: { event, calendarDay }
+                    passProps: { eventId: event.id, calendarDay }
                 } );
                 return state;
             }

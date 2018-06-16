@@ -1,6 +1,6 @@
 import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-sheets/rsvp";
 import { EventWithRSVP } from "app/models/event-with-rsvp";
-import { mergeIntoState } from "../../utils/freactal";
+import { mergeIntoState, update } from "app/utils/freactal";
 // import { EventDetails } from "app/models/event-schema";
 
 
@@ -15,37 +15,39 @@ function setRSVP( rsvp ) {
 }
 
 
-const initialize = async ( effects, { event, state: { api, realm } } ) => {
-    let eventDetails = realm.objects( "EventDetails" ).filtered( "id = $0", event.id )[0];
+const initialize = async ( effects, { eventId, state: { api, realm } } ) => {
+    const event = realm.objects( "Event" ).filtered( "id = $0", eventId )[0];
+    let eventDetails = event && realm.objects( "EventDetails" ).filtered( "id = $0", eventId )[0];
     if ( !eventDetails ) {
-        const fullEvent = await api.getEvent( event.id );
+        const fullEvent = await api.getEvent( eventId );
 
         eventDetails = {
-            id: event.id,
+            id: eventId,
             ...fullEvent.details,
             venue: {
-                ...fullEvent.venue,
+                ...event.venue,
                 ...fullEvent.details.venue
             }
         };
 
-        console.log( "eventDetails", JSON.stringify( eventDetails ) );
+        // console.log( "eventDetails", JSON.stringify( eventDetails ) );
         realm.write( () => {
             eventDetails = realm.create( "EventDetails", eventDetails, true );
         } );
     }
 
     return mergeIntoState( {
+        event,
         eventDetails
     } );
 };
 
-
 export default {
 
 
-    initialState: ( { event, calendarDay } ) => ( {
-        event,
+    initialState: ( { eventId, calendarDay } ) => ( {
+        eventId,
+        event: null,
         eventDetails: null,
         calendarDay
     } ),
@@ -53,6 +55,7 @@ export default {
 
     effects: {
         initialize,
+        setEvent: update( ( effects, event ) => { event } ),
 
         handleRSVP: async ( effects, state ) => {
             const { event } = state;
