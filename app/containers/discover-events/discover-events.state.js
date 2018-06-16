@@ -13,11 +13,9 @@ const initialize = ( effects, { state } ) => {
 
     const sections = range( numberOfDays ).map( day => {
         const date = addToDate( dates.first, { day } );
-        // const timestamp = dayTimestamp( date );
         return {
             today,
             date,
-            liveQuery,
             data: [ ...realm.objects( "Event" )
                 .filtered( "eventDate = $0", date )
                 .sorted( [ [ "featured", true ], "startTime", "name" ] )
@@ -28,8 +26,12 @@ const initialize = ( effects, { state } ) => {
     const liveQuery = realm.objects( "Event" )
         .filtered( "eventDate >= $0 AND eventDate <= $1", dates.first, dates.last );
 
+    realm.addListener( "change", ( realm, name, ...args ) => {
+        console.log( "@@@@@ change", JSON.stringify( [ ...args ] ) );
+    } );
+
     liveQuery.addListener( ( events, changes ) => {
-        console.log( "liveQuery.addListener", JSON.stringify( changes ) );
+        // debugger;
         // // Update UI in response to inserted objects
         // changes.insertions.forEach((index) => {
         //   let insertedDog = puppies[index];
@@ -37,10 +39,15 @@ const initialize = ( effects, { state } ) => {
         // });
         //
         // // Update UI in response to modified objects
-        // changes.modifications.forEach((index) => {
-        //   let modifiedDog = puppies[index];
-        //   ...
-        // });
+        const indexes = [ ...changes.modifications ];
+        if ( indexes.length )
+            effects.refresh( realm, dates, indexes );
+
+        // changes.modifications.forEach( ( index ) => {
+        //     const modifiedEvent = events[index];
+        //     // const modifiedEvent = omit( events[index], [ "categories", "multimedia" ] );
+        //     console.log( "@@@@ modifiedEvent", index, modifiedEvent.name );
+        // } );
         //
         // // Update UI in response to deleted objects
         // changes.deletions.forEach((index) => {
@@ -86,7 +93,21 @@ export default {
     } ),
     effects: {
         initialize,
-        finalize
+        finalize,
+        refresh: ( effects, realm, dates, indexes ) => {
+            // console.log( "@@@refresh", indexes );
+            return state => {
+                const { sections } = state;
+                // const liveQuery = [ ...realm.objects( "Event" )
+                //     .filtered( "eventDate >= $0 AND eventDate <= $1", dates.first, dates.last ) ];
+                // const event = liveQuery[0];
+                // console.log( "@@@@ EVENT", liveQuery[indexes[0]] );
+                return {
+                    ...state,
+                    sections: [].concat( sections )
+                };
+            };
+        }
         // updateEvent: ( effects, event ) => {
         //     return state => {
         //         const { events } = state;

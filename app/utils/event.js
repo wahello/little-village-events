@@ -12,7 +12,7 @@ export const formatStartTime = ( { allDay, startTime } ) =>
 ;
 
 export const formatStartTimeAndPlace = ( event ) =>
-    [ formatStartTime( event ), event.venueName && `@ ${event.venueName}` ]
+    [ formatStartTime( event ), event.venue.name && `@ ${event.venue.name}` ]
         .filter( part => !!part )
         .join( " " )
 ;

@@ -6,10 +6,11 @@ import { mergeIntoState, update } from "app/utils/freactal";
 
 function setRSVP( rsvp ) {
     return state => {
-        const event = new EventWithRSVP( state.event.event, rsvp );
+        // const event = new EventWithRSVP( state.event.event, rsvp );
         return {
             ...state,
-            event
+            rsvp
+            // event
         };
     }
 }
@@ -41,11 +42,15 @@ const initialize = async ( effects, { eventId, state: { api, realm } } ) => {
 export default {
 
 
-    initialState: ( { eventId, calendarDay, state: { realm } } ) => ( {
-        event: getEvent( realm, eventId ),
-        eventDetails: null,
-        calendarDay
-    } ),
+    initialState: ( { eventId, calendarDay, state: { realm } } ) => {
+        const event = getEvent( realm, eventId );
+        return ( {
+            event,
+            rsvp: event.rsvp,
+            eventDetails: null,
+            calendarDay
+        } );
+    },
 
 
     effects: {
@@ -63,8 +68,8 @@ export default {
 
 
         confirmAddRSVP: async ( effects, state ) => {
-            const { event, windowDimensions } = state;
-            const { details: { ticketUrl } } = event;
+            const { event, eventDetails, windowDimensions } = state;
+            const { ticketUrl } = eventDetails;
 
             if ( ticketUrl )
                 await effects.openEmbeddedBrowser( { url: ticketUrl, wait: true } );
@@ -73,6 +78,7 @@ export default {
                 windowDimensions.width,
                 ( ...args ) => effects.RSVPConfirmed( state, ...args )
             ) );
+            // effects.RSVPConfirmed( state )
 
             return mergeIntoState( {} );
         },
@@ -85,24 +91,37 @@ export default {
                 windowDimensions.width,
                 ( ...args ) => effects.RSVPRescinded( state, ...args )
             ) );
+
+            // effects.RSVPRescinded( state )
             return mergeIntoState( {} );
         },
 
 
         RSVPConfirmed: async ( effects, state, addToCalendar ) => {
-            const { api, event, calendarDay } = state;
-            const rsvp = await api.rsvps.add( event, calendarDay );
+            const { api, event, calendarDay, realm } = state;
+
+            // const rsvp = null;
+            // const rsvp = await api.rsvps.add( event, calendarDay );
+            realm.write( () => {
+                event.rsvp = true;
+            } );
+
             if ( addToCalendar )
                 await effects.addEventToCalendar( event );
 
-            return setRSVP( rsvp );
+            return setRSVP( event.rsvp );
         },
 
 
         RSVPRescinded: async ( effects, state ) => {
-            const { api, event } = state;
-            await api.rsvps.remove( event );
-            return setRSVP( null );
+            const { api, event, realm } = state;
+            // await api.rsvps.remove( event );
+
+            realm.write( () => {
+                event.rsvp = false;
+            } );
+
+            return setRSVP( event.rsvp );
         }
 
 

@@ -57,7 +57,7 @@ const loadEvents = async ( realm, api ) => {
                     name: event.venueName,
                     ...event.venue
                 },
-                eventDate: dayStart( event.startTime ),
+                eventDate: dayStart( event.startTime )
             }, true );
         } );
     } ) );
@@ -84,7 +84,7 @@ const globalState = {
             // api.rsvps.addEventListener( "removed", effects._rsvpRemoved );
             const realm = await Realm.open( {
                 schema,
-                schemaVersion: 9,
+                schemaVersion: 13,
                 migration: ( oldRealm, newRealm ) => {
                     newRealm.delete( newRealm.objects( "Event" ) );
                     newRealm.delete( newRealm.objects( "Asset" ) );

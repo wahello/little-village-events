@@ -47,7 +47,7 @@ class EventDetails extends Component {
 
         const { state, effects } = this.props;
 
-        const { event, eventDetails, calendarDay, windowDimensions: { width, height } } = state;
+        const { event, eventDetails, rsvp, calendarDay, windowDimensions: { width, height } } = state;
 
         if ( !event )
             return <Loading/>;
@@ -61,8 +61,10 @@ class EventDetails extends Component {
         return (
             <ParallaxScroll
                 renderHeader={ props => <Header.Fixed event={ event } { ...props } /> }
-                renderParallaxForeground={ props => <Header.Foreground event={ event }
+                renderParallaxForeground={ props => <Header.Foreground
+                    event={ event }
                     eventDetails={ eventDetails }
+                    rsvp={ rsvp }
                     handleRSVP={ () => effects.handleRSVP( state ) } { ...props } /> }
                 renderParallaxBackground={ () => imageUri ? <Header.Background uri={ imageUri }/> : null }
                 headerHeight={ fixedHeaderHeight }

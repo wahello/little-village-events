@@ -51,6 +51,7 @@ export const Event = {
 
         categories: "Category[]",
         featured: "bool",
+        rsvp: { type: "bool", indexed: true, default: false },
 
         multimedia: "Asset[]"
     }

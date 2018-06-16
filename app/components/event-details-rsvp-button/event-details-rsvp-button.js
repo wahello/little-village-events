@@ -115,13 +115,13 @@ const RSVPButton = ( { eventDetails } ) => {
 
 };
 
-export default ( { event, eventDetails, handleRSVP } ) => {
-    if ( !event.rsvpId && !eventDetails )
+export default ( { rsvp, eventDetails, handleRSVP } ) => {
+    if ( !eventDetails )
         return null;
 
     return (
         <TouchableButton onPress={ handleRSVP }>
-            { event.rsvpId
+            { rsvp
                 ? <GoingButton/>
                 : <RSVPButton eventDetails={ eventDetails }/>
             }
