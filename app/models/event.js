@@ -129,6 +129,8 @@ const detailsProperties = {
     priceRange: priceRange,
 
     venue: object( "venue", fields( {
+        "id": 1,
+        "name": 1,
         "address": 1,
         "phone": 1,
         "latitude": 1,

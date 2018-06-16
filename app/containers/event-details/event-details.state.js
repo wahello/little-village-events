@@ -15,19 +15,16 @@ function setRSVP( rsvp ) {
 }
 
 
+const getEvent = ( realm, eventId ) => realm.objects( "Event" ).filtered( "id = $0", eventId )[0];
+
+
 const initialize = async ( effects, { eventId, state: { api, realm } } ) => {
-    const event = realm.objects( "Event" ).filtered( "id = $0", eventId )[0];
-    let eventDetails = event && realm.objects( "EventDetails" ).filtered( "id = $0", eventId )[0];
+    let eventDetails = realm.objects( "EventDetails" ).filtered( "id = $0", eventId )[0];
     if ( !eventDetails ) {
         const fullEvent = await api.getEvent( eventId );
-
         eventDetails = {
             id: eventId,
-            ...fullEvent.details,
-            venue: {
-                ...event.venue,
-                ...fullEvent.details.venue
-            }
+            ...fullEvent.details
         };
 
         // console.log( "eventDetails", JSON.stringify( eventDetails ) );
@@ -37,7 +34,6 @@ const initialize = async ( effects, { eventId, state: { api, realm } } ) => {
     }
 
     return mergeIntoState( {
-        event,
         eventDetails
     } );
 };
@@ -45,9 +41,8 @@ const initialize = async ( effects, { eventId, state: { api, realm } } ) => {
 export default {
 
 
-    initialState: ( { eventId, calendarDay } ) => ( {
-        eventId,
-        event: null,
+    initialState: ( { eventId, calendarDay, state: { realm } } ) => ( {
+        event: getEvent( realm, eventId ),
         eventDetails: null,
         calendarDay
     } ),
@@ -55,7 +50,6 @@ export default {
 
     effects: {
         initialize,
-        setEvent: update( ( effects, event ) => { event } ),
 
         handleRSVP: async ( effects, state ) => {
             const { event } = state;
