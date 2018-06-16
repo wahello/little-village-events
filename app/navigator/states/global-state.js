@@ -1,18 +1,24 @@
-import * as RSVPs from "app/utils/rsvps";
-
 import api from "../../api";
-import openEmbeddedBrowser from "../../utils/openEmbeddedBrowser"
 
+import schema from "app/models/event-schema";
+
+import * as RSVPs from "app/utils/rsvps";
+import openEmbeddedBrowser from "app/utils/openEmbeddedBrowser"
 import { upcomingEventsMap } from "app/utils/events";
-import { addToDate, now } from "app/utils/date";
+import { isOngoingEvent } from "app/utils/event-time";
+import { addToDate, dayStart, now } from "app/utils/date";
 
 import { mergeIntoState, provideState, update } from "@textpress/freactal";
+
+import slowlog from "app/utils/slowlog";
 
 import React, { Component } from "react";
 import { Alert, Dimensions, Linking, Share } from "react-native";
 import openMap from "react-native-open-maps";
 import call from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
+
+import Realm from "realm";
 
 import hoistNonReactStatics from "hoist-non-react-statics";
 import { object } from "prop-types";
@@ -24,22 +30,41 @@ const appName = "little_village_events";
 const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
-    rsvps: {},
-    events: null,
-    dates: null,
+    // rsvps: {},
+    // events: null,
+    // dates: null,
+    realm: null,
     api,
 };
 
 
+
+
+
 const numberOfDays = 14;
 
-const loadEvents = async api => {
-    const first = now();
-    const last = addToDate( now(), { days: numberOfDays - 1 } );
+const loadEvents = async ( realm, api ) => {
+    const first = dayStart( now() );
+    const last = addToDate( first, { days: numberOfDays - 1 } );
     const events = await api.getEventList( first, last );
 
+    slowlog( () => realm.write( () => {
+        events.forEach( event => {
+            realm.create( "Event", {
+                ...event,
+                venue: {
+                    id: event.venueId,
+                    name: event.venueName,
+                    ...event.venue
+                },
+                eventDate: dayStart( event.startTime ),
+            }, true );
+        } );
+    } ) );
+
+    console.warn( "Event", JSON.stringify( realm.objects( "Event" )[0] ) );
+
     return {
-        events,
         dates: {
             first,
             last
@@ -52,14 +77,25 @@ const globalState = {
     initialState: () => initialState,
 
     effects: {
-        initialize: async ( effects ) => {
-            await api.rsvps.clear();
-            const rsvps = await api.rsvps.all();
-            api.rsvps.addEventListener( "added", effects._rsvpAdded );
-            api.rsvps.addEventListener( "removed", effects._rsvpRemoved );
+        initialize: async () => {
+            // await api.rsvps.clear();
+            // const rsvps = await api.rsvps.all();
+            // api.rsvps.addEventListener( "added", effects._rsvpAdded );
+            // api.rsvps.addEventListener( "removed", effects._rsvpRemoved );
+            const realm = await Realm.open( {
+                schema,
+                schemaVersion: 9,
+                migration: ( oldRealm, newRealm ) => {
+                    newRealm.delete( newRealm.objects( "Event" ) );
+                    newRealm.delete( newRealm.objects( "Asset" ) );
+                    newRealm.delete( newRealm.objects( "Category" ) );
+                    newRealm.delete( newRealm.objects( "Venue" ) );
+                }
+            } );
             return mergeIntoState( {
-                rsvps,
-                ...( await loadEvents( api ) )
+                // rsvps,
+                realm,
+                ...( await loadEvents( realm, api ) )
             } );
         },
 

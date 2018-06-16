@@ -1,7 +1,7 @@
 import EventHashtags from "../event-hashtags";
 import EventTimeLocationRSVP from "../event-time-location-rsvp";
 import { TouchableButton } from "../touchable";
-import { daysDiff } from "app/utils/date";
+import { daysDiff, format } from "app/utils/date";
 
 import { injectState } from "@textpress/freactal";
 
@@ -118,14 +118,14 @@ const Days = ( { event } ) => {
     const { startTime, endTime } = event;
     if ( !startTime || !endTime || daysDiff( endTime, startTime ) === 0 )
         return null;
-    const format = "MMM. D";
-    const value = `${startTime.format( format )} - ${endTime.format( format )}`;
+    const formatStr = "MMM. D";
+    const value = `${format( formatStr, startTime )} - ${format( formatStr, endTime )}`;
     return <Text style={ styles.days }>{ value }</Text>;
 };
 
 const Item = ( props ) => {
     const { item: event, section: { date: calendarDay, ongoing }, effects: { navigateToEventDetails } } = props;
-    console.log( event.id );
+    // console.log( event.id );
 
     return (
         <TouchableButton activeOpacity={ 0.6 }

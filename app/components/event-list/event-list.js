@@ -1,19 +1,25 @@
+import Item from "app/components/event-list-item";
+
 import Header from "../event-list-header";
-import Item from "../event-list-item";
 import Separator from "../event-list-item-separator";
+
 
 import React from "react";
 import { SectionList } from "react-native";
 
+
+
 const EventList = ( props ) => {
     const { state } = props;
+    // console.log( "@@@ EventList state.sections", JSON.stringify( state.sections ) );
     return (
         <SectionList
             ItemSeparatorComponent={ Separator }
-            sections={ state.eventList }
-            renderItem={ props => <Item { ...props }/> }
+            sections={ state.sections }
+            // renderItem={ props => null }
+            renderItem={ props => <Item {...props} /> }
             renderSectionHeader={ Header }
-            keyExtractor={ ( item, index ) => item.id || index }
+            keyExtractor={ ( item, index ) => `${item.id || index}` }
         />
     );
 };

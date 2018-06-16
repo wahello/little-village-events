@@ -1,6 +1,7 @@
 import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-sheets/rsvp";
-import { EventWithRSVP } from "../../models/event-with-rsvp";
+import { EventWithRSVP } from "app/models/event-with-rsvp";
 import { mergeIntoState } from "../../utils/freactal";
+// import { EventDetails } from "app/models/event-schema";
 
 
 function setRSVP( rsvp ) {
@@ -14,40 +15,45 @@ function setRSVP( rsvp ) {
 }
 
 
-const initialize = async ( effects, { event, calendarDay, state: { api } } ) => {
-    if ( !event.details ) {
-        effects.loadEventDetails( api, event.id );
+const initialize = async ( effects, { event, state: { api, realm } } ) => {
+    let eventDetails = realm.objects( "EventDetails" ).filtered( "id = $0", event.id )[0];
+    if ( !eventDetails ) {
+        const fullEvent = await api.getEvent( event.id );
+
+        eventDetails = {
+            id: event.id,
+            ...fullEvent.details,
+            venue: {
+                ...fullEvent.venue,
+                ...fullEvent.details.venue
+            }
+        };
+
+        console.log( "eventDetails", JSON.stringify( eventDetails ) );
+        realm.write( () => {
+            eventDetails = realm.create( "EventDetails", eventDetails, true );
+        } );
     }
 
     return mergeIntoState( {
-        event,
-        calendarDay
+        eventDetails
     } );
-};
-
-
-const loadEventDetails = async ( effects, api, eventId ) => {
-    const event = await api.getEvent( eventId );
-
-    // if ( effects.updateEvent )
-    //     await effects.updateEvent( event );
-
-    return state => ( { ...state, event: new EventWithRSVP( event, state.event.rsvp ) } );
 };
 
 
 export default {
 
 
-    initialState: () => ( {
-        event: null,
-        calendarDay: null
+    initialState: ( { event, calendarDay } ) => ( {
+        event,
+        eventDetails: null,
+        calendarDay
     } ),
 
 
     effects: {
         initialize,
-        loadEventDetails,
+
         handleRSVP: async ( effects, state ) => {
             const { event } = state;
             if ( event.rsvp )
