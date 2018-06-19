@@ -1,5 +1,6 @@
 
-import provideGlobalState from "./states/global-state";
+import withGlobalState from "app/decorators/with-global-state";
+
 import provideScreenState from "./states/screen-state";
 import provideActionSheet from "../utils/with-action-sheet";
 
@@ -10,10 +11,11 @@ import hoistNonReactStatics from "hoist-non-react-statics";
 
 import _omit from "lodash/omit";
 
-export default screen => {
+
+export default ( screen, getStateContext ) => {
     const ScreenView = hoistNonReactStatics(
         compose(
-            provideGlobalState,
+            withGlobalState( getStateContext ),
             provideScreenState,
             provideActionSheet
         )( screen.view ),

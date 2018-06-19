@@ -1,11 +1,13 @@
 import registerScreen from "./register-screen";
+import makeGlobalStateContextProvider from "./states/global-state";
 
 import { DiscoverEventsTab, RSVPEventsTab, EventDetails } from "./screens";
 
-const registerScreens = () => {
-    registerScreen( DiscoverEventsTab );
-    registerScreen( RSVPEventsTab );
-    registerScreen( EventDetails );
+const registerScreens = ( props ) => {
+    const getStateContext = makeGlobalStateContextProvider( props );
+    registerScreen( DiscoverEventsTab, getStateContext );
+    registerScreen( RSVPEventsTab, getStateContext );
+    registerScreen( EventDetails, getStateContext );
 
     return {
         tabs: [

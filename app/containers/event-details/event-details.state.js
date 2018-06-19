@@ -1,5 +1,6 @@
 import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-sheets/rsvp";
 import { EventWithRSVP } from "app/models/event-with-rsvp";
+import { createEventDetails } from "app/utils/realm";
 import { mergeIntoState, update } from "app/utils/freactal";
 // import { EventDetails } from "app/models/event-schema";
 
@@ -16,22 +17,14 @@ function setRSVP( rsvp ) {
 }
 
 
-const getEvent = ( realm, eventId ) => realm.objects( "Event" ).filtered( "id = $0", eventId )[0];
+const getEvent = ( realm, eventId ) => realm.objectForPrimaryKey( "Event", eventId );
 
 
 const initialize = async ( effects, { eventId, state: { api, realm } } ) => {
-    let eventDetails = realm.objects( "EventDetails" ).filtered( "id = $0", eventId )[0];
+    let eventDetails = realm.objectForPrimaryKey( "EventDetails", eventId );
     if ( !eventDetails ) {
         const fullEvent = await api.getEvent( eventId );
-        eventDetails = {
-            id: eventId,
-            ...fullEvent.details
-        };
-
-        // console.log( "eventDetails", JSON.stringify( eventDetails ) );
-        realm.write( () => {
-            eventDetails = realm.create( "EventDetails", eventDetails, true );
-        } );
+        eventDetails = realm.write( () => createEventDetails( realm, eventId, fullEvent.details ) );
     }
 
     return mergeIntoState( {
