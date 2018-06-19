@@ -1,4 +1,4 @@
-import { formatStartDate, formatStartTimeAndPlace } from "../utils/event";
+import { formatStartDate, formatStartTime } from "../utils/event";
 
 import React from "react";
 import { Text, View } from "react-native";
@@ -40,10 +40,19 @@ const makePartViews = ( texts, name, styles ) => {
 };
 
 
-export const makeInfoParts = ( event ) =>
+const formatStartTimeAndPlace = ( eventItem ) => {
+    const { eventSummary: { venue } } = eventItem;
+    return [ formatStartTime( eventItem ), venue && venue.name && `@ ${venue.name}` ]
+        .filter( part => !!part )
+        .join( " " )
+    ;
+};
+
+
+export const makeInfoParts = ( eventItem ) =>
     [
-        formatStartDate( event ),
-        formatStartTimeAndPlace( event )
+        formatStartDate( eventItem ),
+        formatStartTimeAndPlace( eventItem )
     ].filter( part => !!part )
 ;
 
@@ -64,4 +73,3 @@ export const calcTitleHeight = async ( parts, windowWidth, rawStyles ) => {
 
     return padding + height;
 };
-

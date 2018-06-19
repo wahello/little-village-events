@@ -40,15 +40,15 @@ const rawStyles = {
 const styles = StyleSheet.create( rawStyles );
 
 
-const makeConfirmRSVPTitleParts = ( event ) => ( {
-    name: [ `RSVP to ${event.name}?` ],
-    info: makeInfoParts( event ),
+const makeConfirmRSVPTitleParts = ( eventItem ) => ( {
+    name: [ `RSVP to ${eventItem.eventSummary.name}?` ],
+    info: makeInfoParts( eventItem ),
     note: [ "RSVP-ing to an event will add it to the list of events you are planning to attend and will allow us to notify you if the venue updates the event." ]
 } );
 
 
-export const confirmRSPVActionSheet = async ( event, windowWidth, callback ) => {
-    const parts = makeConfirmRSVPTitleParts( event );
+export const confirmRSPVActionSheet = async ( eventItem, windowWidth, callback ) => {
+    const parts = makeConfirmRSVPTitleParts( eventItem );
 
     return {
         title: makeTitleView( parts, styles ),
@@ -70,15 +70,15 @@ export const confirmRSPVActionSheet = async ( event, windowWidth, callback ) => 
 
 };
 
-const makeRescindRSVPTitleParts = ( event ) => ( {
-    name: [ `Rescind RSVP to ${event.name}?` ],
-    info: makeInfoParts( event ),
+const makeRescindRSVPTitleParts = ( eventItem ) => ( {
+    name: [ `Rescind RSVP to ${eventItem.eventSummary.name}?` ],
+    info: makeInfoParts( eventItem ),
     note: [ "Rescinding the RSVP will remove this event from the list of events you are planning to attend. It will also remove the event from your calendar." ]
 } );
 
 
-export const rescindRSPVActionSheet = async ( event, windowWidth, callback ) => {
-    const parts = makeRescindRSVPTitleParts( event );
+export const rescindRSPVActionSheet = async ( eventItem, windowWidth, callback ) => {
+    const parts = makeRescindRSVPTitleParts( eventItem );
 
     return {
         title: makeTitleView( parts, styles ),

@@ -2,6 +2,7 @@ import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-she
 import { EventWithRSVP } from "app/models/event-with-rsvp";
 import { getEventItem, getEventDetails, createEventDetails } from "app/utils/realm";
 import { mergeIntoState, update } from "app/utils/freactal";
+import { addToDate } from "app/utils/date";
 // import { EventDetails } from "app/models/event-schema";
 
 
@@ -16,6 +17,14 @@ function setRSVP( rsvp ) {
     }
 }
 
+
+const makeCalendarEvent = ( { startTime, endTime, eventSummary }, { venue, moreInfo } ) => ( {
+    title: eventSummary.name,
+    startDate: startTime.toISOString(),
+    endDate: ( endTime || addToDate( startTime, { hours: 1 } ) ).toISOString(),
+    location: venue.name ? [ venue.name, venue.location ].join( " " ) : venue.location,
+    url: moreInfo || ""
+} );
 
 
 const initialize = async ( effects, { eventItemId, state: { api, realm } } ) => {
@@ -49,8 +58,10 @@ export default {
         initialize,
 
         handleRSVP: async ( effects, state ) => {
-            const { event } = state;
-            if ( event.rsvp )
+            const { eventItem } = state;
+            const { eventSummary } = eventItem;
+
+            if ( eventItem.rsvp )
                 await effects.confirmRescindSVP( state );
             else
                 await effects.confirmAddRSVP( state );
@@ -60,13 +71,13 @@ export default {
 
 
         confirmAddRSVP: async ( effects, state ) => {
-            const { event, eventDetails, windowDimensions } = state;
+            const { eventItem, eventDetails, windowDimensions } = state;
             const { ticketUrl } = eventDetails;
 
             if ( ticketUrl )
                 await effects.openEmbeddedBrowser( { url: ticketUrl, wait: true } );
             await effects.showActionSheet( await confirmRSPVActionSheet(
-                event,
+                eventItem,
                 windowDimensions.width,
                 ( ...args ) => effects.RSVPConfirmed( state, ...args )
             ) );
@@ -77,9 +88,9 @@ export default {
 
 
         confirmRescindSVP: async ( effects, state ) => {
-            const { event, windowDimensions } = state;
+            const { eventItem, windowDimensions } = state;
             await effects.showActionSheet( await rescindRSPVActionSheet(
-                event,
+                eventItem,
                 windowDimensions.width,
                 ( ...args ) => effects.RSVPRescinded( state, ...args )
             ) );
@@ -90,30 +101,30 @@ export default {
 
 
         RSVPConfirmed: async ( effects, state, addToCalendar ) => {
-            const { api, event, calendarDay, realm } = state;
+            const { api, eventItem, eventDetails, calendarDay, realm } = state;
 
             // const rsvp = null;
             // const rsvp = await api.rsvps.add( event, calendarDay );
             realm.write( () => {
-                event.rsvp = true;
+                eventItem.rsvp = true;
             } );
 
             if ( addToCalendar )
-                await effects.addEventToCalendar( event );
+                await effects.addEventToCalendar( makeCalendarEvent( eventItem, eventDetails ) );
 
-            return setRSVP( event.rsvp );
+            return setRSVP( eventItem.rsvp );
         },
 
 
         RSVPRescinded: async ( effects, state ) => {
-            const { api, event, realm } = state;
+            const { api, eventItem, realm } = state;
             // await api.rsvps.remove( event );
 
             realm.write( () => {
-                event.rsvp = false;
+                eventItem.rsvp = false;
             } );
 
-            return setRSVP( event.rsvp );
+            return setRSVP( eventItem.rsvp );
         }
 
 

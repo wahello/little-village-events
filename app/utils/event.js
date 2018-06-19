@@ -11,12 +11,6 @@ export const formatStartTime = ( { allDay, startTime } ) =>
         : startTime && format( startTime, "h:mm A" )
 ;
 
-export const formatStartTimeAndPlace = ( event ) =>
-    [ formatStartTime( event ), event.venue.name && `@ ${event.venue.name}` ]
-        .filter( part => !!part )
-        .join( " " )
-;
-
 
 export const sortByStartTime = ( events ) => {
     return sortByDate( events, "startTime" );

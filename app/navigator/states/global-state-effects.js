@@ -97,15 +97,9 @@ export const openExternalURL = async ( effects, url ) => {
 };
 
 
-export const addEventToCalendar = async ( effects, { name, venueName, startTime, details: { venue, moreInfo } } ) => {
+export const addEventToCalendar = async ( effects, calendarEvent ) => {
     try {
-        await calendar.presentEventDialog( {
-            title: name,
-            startDate: startTime.toISOString(),
-            endDate: startTime.clone().add( { hours: 1 } ).toISOString(),
-            location: venue ? venue.location : venueName,
-            url: moreInfo || ""
-        } );
+        await calendar.presentEventDialog( calendarEvent );
     } catch ( x ) {
         if ( x.message === "permissionNotGranted" )
             await effects.showUpdateYourSettings( "Update " );
