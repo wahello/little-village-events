@@ -1,21 +1,16 @@
 import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-sheets/rsvp";
-import { EventWithRSVP } from "app/models/event-with-rsvp";
-import { getEventItem, getEventDetails, createEventDetails } from "app/utils/realm";
-import { mergeIntoState, update } from "app/utils/freactal";
+// import { confirmRSPVDateTimeActionSheet } from "../../action-sheets/rsvp-date-time";
+// import { EventWithRSVP } from "app/models/event-with-rsvp";
+import { getEventItem, getEventDetails, createEventDetails, createEventItem } from "app/utils/realm";
+import { mergeIntoState } from "app/utils/freactal";
+import { getRSVPInfo } from "app/utils/event-time";
 import { addToDate } from "app/utils/date";
+import config from "app/config";
+
 // import { EventDetails } from "app/models/event-schema";
 
+import setHours from "date-fns/set_hours";
 
-function setRSVP( rsvp ) {
-    return state => {
-        // const event = new EventWithRSVP( state.event.event, rsvp );
-        return {
-            ...state,
-            rsvp
-            // event
-        };
-    }
-}
 
 
 const makeCalendarEvent = ( { startTime, endTime, eventSummary }, { venue, moreInfo } ) => ( {
@@ -47,7 +42,6 @@ export default {
         const eventItem = getEventItem( realm, eventItemId );
         return ( {
             eventItem,
-            rsvp: eventItem.rsvp,
             eventDetails: null,
             calendarDay
         } );
@@ -63,25 +57,52 @@ export default {
 
             if ( eventItem.rsvp )
                 await effects.confirmRescindSVP( state );
-            else
-                await effects.confirmAddRSVP( state );
+            else {
+                if ( eventSummary.ongoing || eventSummary.allDay )
+                    await effects.confirmRSVPDateTime( state );
+                else
+                    await effects.confirmAddRSVP( state, state.eventItem );
+            }
 
             return mergeIntoState( {} );
         },
 
 
-        confirmAddRSVP: async ( effects, state ) => {
+        confirmRSVPDateTime: async ( effects, state ) => {
             const { eventItem, eventDetails, windowDimensions } = state;
-            const { ticketUrl } = eventDetails;
+
+            // await effects.showActionSheet( await confirmRSPVDateTimeActionSheet(
+            //     event,
+            //     windowDimensions.width,
+            //     ( ...args ) => effects.RSVPDateTimeConfirmed( state, ...args )
+            // ) );
+
+            const rsvpInfo = getRSVPInfo( eventItem );
+
+
+            let startTime = rsvpInfo.first;
+            if ( rsvpInfo.allDay ) {
+                startTime = setHours( startTime, 21 );
+            }
+
+            effects.RSVPDateTimeConfirmed( state, startTime, rsvpInfo.duration );
+
+            return mergeIntoState( {} );
+        },
+
+
+        confirmAddRSVP: async ( effects, state, rsvpTime ) => {
+            const { eventItem: { eventSummary }, eventDetails: { ticketUrl }, windowDimensions } = state;
+            console.log( "@@@@ confirmAddRSVP", rsvpTime );
 
             if ( ticketUrl )
                 await effects.openEmbeddedBrowser( { url: ticketUrl, wait: true } );
             await effects.showActionSheet( await confirmRSPVActionSheet(
-                eventItem,
+                rsvpTime,
+                eventSummary,
                 windowDimensions.width,
-                ( ...args ) => effects.RSVPConfirmed( state, ...args )
+                ( ...args ) => effects.RSVPConfirmed( state, rsvpTime, ...args )
             ) );
-            // effects.RSVPConfirmed( state )
 
             return mergeIntoState( {} );
         },
@@ -95,36 +116,69 @@ export default {
                 ( ...args ) => effects.RSVPRescinded( state, ...args )
             ) );
 
-            // effects.RSVPRescinded( state )
             return mergeIntoState( {} );
         },
 
 
-        RSVPConfirmed: async ( effects, state, addToCalendar ) => {
-            const { api, eventItem, eventDetails, calendarDay, realm } = state;
+        RSVPDateTimeConfirmed: async ( effects, state, startTime, duration ) => {
+            const { api, eventItem, calendarDay, realm } = state;
+
+            const endTime = addToDate( startTime, { minutes: duration || config.eventThresholds.past } )
+            // debugger;
+            const rsvpTime = {
+                startTime,
+                endTime,
+            };
+
+            console.log( "confirmedEvent", rsvpTime );
+            await effects.confirmAddRSVP( state, rsvpTime );
+            // const rsvp = null;
+            // const rsvp = await api.rsvps.add( event, calendarDay );
+            // realm.write( () => {
+            //     event.rsvp = true;
+            // } );
+
+            // if ( addToCalendar )
+            //     await effects.addEventToCalendar( event );
+
+            // return setRSVP( event.rsvp );
+        },
+
+
+        RSVPConfirmed: async ( effects, state, rsvpTime, addToCalendar ) => {
+            const { eventItem: { eventSummary }, eventDetails, realm } = state;
 
             // const rsvp = null;
             // const rsvp = await api.rsvps.add( event, calendarDay );
+            let updatedItem;
             realm.write( () => {
-                eventItem.rsvp = true;
+                updatedItem = createEventItem( realm, eventSummary, rsvpTime );
             } );
 
             if ( addToCalendar )
-                await effects.addEventToCalendar( makeCalendarEvent( eventItem, eventDetails ) );
+                await effects.addEventToCalendar( makeCalendarEvent( updatedItem, eventDetails ) );
 
-            return setRSVP( eventItem.rsvp );
+            return mergeIntoState( {
+                eventItem: updatedItem
+            } );
         },
 
 
         RSVPRescinded: async ( effects, state ) => {
-            const { api, eventItem, realm } = state;
+            const { eventItem, realm } = state;
+            const { eventSummary } = eventItem;
             // await api.rsvps.remove( event );
 
+            let updatedItem;
             realm.write( () => {
-                eventItem.rsvp = false;
+                updatedItem = createEventItem( realm, eventSummary );
+                if ( eventItem.id !== updatedItem.id )
+                    realm.delete( eventItem );
             } );
 
-            return setRSVP( eventItem.rsvp );
+            return mergeIntoState( {
+                eventItem: updatedItem
+            } );
         }
 
 

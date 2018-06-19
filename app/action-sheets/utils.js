@@ -40,19 +40,18 @@ const makePartViews = ( texts, name, styles ) => {
 };
 
 
-const formatStartTimeAndPlace = ( eventItem ) => {
-    const { eventSummary: { venue } } = eventItem;
-    return [ formatStartTime( eventItem ), venue && venue.name && `@ ${venue.name}` ]
+const formatStartTimeAndPlace = ( rsvpTime, { venue } ) => {
+    return [ formatStartTime( rsvpTime ), venue && venue.name && `@ ${venue.name}` ]
         .filter( part => !!part )
         .join( " " )
     ;
 };
 
 
-export const makeInfoParts = ( eventItem ) =>
+export const makeInfoParts = ( rsvpTime, eventSummary ) =>
     [
-        formatStartDate( eventItem ),
-        formatStartTimeAndPlace( eventItem )
+        formatStartDate( rsvpTime ),
+        formatStartTimeAndPlace( rsvpTime, eventSummary )
     ].filter( part => !!part )
 ;
 

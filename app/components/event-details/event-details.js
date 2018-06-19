@@ -47,7 +47,7 @@ class EventDetails extends Component {
 
         const { state, effects } = this.props;
 
-        const { eventItem, eventDetails, rsvp, calendarDay, windowDimensions: { width, height } } = state;
+        const { eventItem, eventDetails, calendarDay, windowDimensions: { width, height } } = state;
         const { eventSummary } = eventItem;
 
         if ( !eventItem )
@@ -65,7 +65,7 @@ class EventDetails extends Component {
                 renderParallaxForeground={ props => <Header.Foreground
                     event={ eventSummary }
                     eventDetails={ eventDetails }
-                    rsvp={ rsvp }
+                    rsvp={ eventItem.rsvp }
                     handleRSVP={ () => effects.handleRSVP( state ) } { ...props } /> }
                 renderParallaxBackground={ () => imageUri ? <Header.Background uri={ imageUri }/> : null }
                 headerHeight={ fixedHeaderHeight }

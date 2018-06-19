@@ -1,10 +1,15 @@
 import schema from "app/models/event-schema";
 
 import { dayStart } from "app/utils/date";
+import { isOngoingEvent } from "app/utils/event-time";
 import isProduction from "app/utils/is-production";
 
 import Realm from "realm";
 import isUndefined from "lodash/isUndefined";
+
+import pick from "lodash/pick";
+import omit from "lodash/omit";
+import keys from "lodash/keys";
 
 
 export const createInstance = ( options = {} ) =>
@@ -38,13 +43,22 @@ export const createEventDetails = ( realm, eventId, detailsData ) =>
     }, true );
 
 
-export const createEventItem = ( realm, eventSummary, { startTime, endTime, allDay } = {} ) => {
+export const createEventItem = ( realm, eventSummary, rsvpTime ) => {
+    const ongoing = isOngoingEvent( eventSummary );
+
+    const id = rsvpTime && ongoing
+        ? `${eventSummary.id}.${rsvpTime.startTime}`
+        : `${eventSummary.id}`;
+
+    const startTime = rsvpTime && rsvpTime.startTime || eventSummary.startTime;
+
     return realm.create( "EventItem", {
-        id: startTime ? `${eventSummary.id}.${startTime}` : `${eventSummary.id}`,
-        eventDate: dayStart( startTime || eventSummary.startTime ),
-        startTime: startTime || eventSummary.startTime,
-        endTime: endTime || eventSummary.endTime,
-        allDay: isUndefined( allDay ) ? eventSummary.allDay : allDay,
+        id,
+        eventDate: ongoing ? null : dayStart( startTime ),
+        startTime,
+        endTime: rsvpTime && rsvpTime.endTime || eventSummary.endTime,
+        allDay: rsvpTime ? false : eventSummary.allDay,
+        rsvp: !!rsvpTime,
         eventSummary,
     }, true );
 }
@@ -67,3 +81,7 @@ export const getEventSummary = ( realm, eventId ) =>
 
 export const getEventDetails = ( realm, eventId ) =>
     realm.objectForPrimaryKey( "EventDetails", eventId );
+
+
+export const clone = ( obj, skipProps = [] ) =>
+    pick( obj, keys( omit( obj.objectSchema().properties, skipProps ) ) );
