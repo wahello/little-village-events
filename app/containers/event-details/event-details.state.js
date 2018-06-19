@@ -27,7 +27,7 @@ const initialize = async ( effects, { eventItemId, state: { api, realm } } ) => 
     let eventDetails = getEventDetails( realm, eventSummary.id );
     if ( !eventDetails ) {
         const fullEvent = await api.getEvent( eventSummary.id );
-        eventDetails = realm.write( () => createEventDetails( realm, eventSummary.id, fullEvent.details ) );
+        realm.write( () => eventDetails = createEventDetails( realm, eventSummary.id, fullEvent.details ) );
     }
 
     return mergeIntoState( {
