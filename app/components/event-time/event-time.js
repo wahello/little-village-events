@@ -76,16 +76,16 @@ const colorsByTense = {
 };
 
 
-const EventTime = ( { event, calendarDay, ongoing, size = "small" } ) => {
+const EventTime = ( { eventItem, calendarDay, ongoing, size = "small" } ) => {
 
     const styles = stylesSize[size];
-    const tense = ongoing ? "future" : eventTense( event, calendarDay );
+    const tense = ongoing ? "future" : eventTense( eventItem, calendarDay );
     const colors = colorsByTense[ tense ];
 
     return (
         <View style={ [ styles.root, colors.root ] }>
             <Text style={ [ styles.label, colors.label ] }>
-                { formatStartTime( event ) }
+                { formatStartTime( eventItem ) }
             </Text>
         </View>
     );

@@ -16,12 +16,12 @@ const screenState = {
         initialize: update( ( state, { navigator } ) => ( { navigator } ) ),
 
 
-        navigateToEventDetails: async ( effects, event, calendarDay ) => {
+        navigateToEventDetails: async ( effects, eventItem, calendarDay ) => {
             return ( state ) => {
                 state.navigator.push( {
                     screen: EventDetails.id,
                     backButtonTitle: EventDetails.backButtonTitle,
-                    passProps: { eventId: event.id, calendarDay }
+                    passProps: { eventItemId: eventItem.id, calendarDay }
                 } );
                 return state;
             }

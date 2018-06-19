@@ -15,7 +15,7 @@ import React from "react";
 
 
 const Screen = ( { event } ) => {
-    return <EventDetails eventId={ event.id } calendarDay={ new Date( event.startTime ) } />
+    return <EventDetails eventItemId={ `${event.id}` } calendarDay={ new Date( event.startTime ) } />
 };
 
 

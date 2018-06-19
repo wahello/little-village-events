@@ -71,24 +71,25 @@ const stylesSize = {
 
 
 const EventTimeLocationRSVP = ( props ) => {
-    const { event, size = "small" } = props;
+    const { eventItem, size = "small" } = props;
+    const { eventSummary } = eventItem;
 
     const locationStyle = [ styles.location, stylesSize[ size ].location ];
 
-    const locationViews = event.venueName
+    const locationViews = eventSummary.venueName
         ? (
             <Fragment>
                 <Text style={ locationStyle }>@</Text>
                 <View style={ styles.locationWrapper }>
                     <Text numberOfLines={ 1 } style={ locationStyle }>
-                        { event.venueName }
+                        { eventSummary.venueName }
                     </Text>
                 </View>
             </Fragment>
 
         ) : null;
 
-    const rsvpViews = event.rsvp
+    const rsvpViews = eventItem.rsvp
         ? (
             <View style={ styles.rsvpBadge }>
                 <CheckmarkIcon style={ styles.rsvpBadgeIcon }/>

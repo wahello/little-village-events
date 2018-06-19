@@ -1,6 +1,6 @@
 import api from "app/api";
 
-import { createEvent } from "app/utils/realm";
+import { createEventItem, createEventSummary } from "app/utils/realm";
 //import * as RSVPs from "app/utils/rsvps";
 import openBrowser from "app/utils/openEmbeddedBrowser"
 import { addToDate, dayStart, now } from "app/utils/date";
@@ -26,10 +26,11 @@ const loadEvents = async ( realm, api ) => {
     const events = await api.getEventList( first, last );
 
     slowlog( () => realm.write( () => {
-        events.forEach( event => createEvent( realm, event ) );
+        events.forEach( eventData => {
+            const summary = createEventSummary( realm, eventData );
+            createEventItem( realm, summary );
+        } );
     } ) );
-
-    console.warn( "Event", JSON.stringify( realm.objects( "Event" )[0] ) );
 
     return {
         dates: {

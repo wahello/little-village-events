@@ -16,19 +16,19 @@ const initialize = ( effects, { state } ) => {
         return {
             today,
             date,
-            data: [ ...realm.objects( "Event" )
+            data: [ ...realm.objects( "EventItem" )
                 .filtered( "eventDate = $0", date )
-                .sorted( [ [ "featured", true ], "startTime", "name" ] )
+                .sorted( [ [ "eventSummary.featured", true ], "startTime", "eventSummary.name" ] )
             ]
         };
     } );
 
-    const liveQuery = realm.objects( "Event" )
+    const liveQuery = realm.objects( "EventItem" )
         .filtered( "eventDate >= $0 AND eventDate <= $1", dates.first, dates.last );
 
-    realm.addListener( "change", ( realm, name, ...args ) => {
-        console.log( "@@@@@ change", JSON.stringify( [ ...args ] ) );
-    } );
+    // realm.addListener( "change", ( realm, name, ...args ) => {
+    //     console.log( "@@@@@ change", JSON.stringify( [ ...args ] ) );
+    // } );
 
     liveQuery.addListener( ( events, changes ) => {
         // debugger;
@@ -66,7 +66,6 @@ const initialize = ( effects, { state } ) => {
 
 
 const finalize = () => ( { liveQuery } ) => {
-    console.log( "finalize" );
     liveQuery && liveQuery.removeAllListeners();
 };
 

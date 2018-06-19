@@ -33,8 +33,23 @@ export const Venue = {
 };
 
 
-export const Event = {
-    name: "Event",
+export const EventItem = {
+    name: "EventItem",
+    primaryKey: "id",
+    properties: {
+        id: "string",
+        eventDate: { type: "date?", indexed: true },
+        startTime: "date",
+        endTime: "date?",
+        allDay: "bool",
+        rsvp: { type: "bool", indexed: true, default: false },
+        eventSummary: "EventSummary"
+    }
+};
+
+
+export const EventSummary = {
+    name: "EventSummary",
     primaryKey: "id",
     properties: {
         id: "int",
@@ -45,15 +60,15 @@ export const Event = {
         startTime: "date",
         endTime: "date?",
 
-        eventDate: { type: "date?", indexed: true },
         ongoing: "bool?",
         allDay: "bool",
 
         categories: "Category[]",
         featured: "bool",
-        rsvp: { type: "bool", indexed: true, default: false },
 
-        multimedia: "Asset[]"
+        multimedia: "Asset[]",
+
+        items: { type: "linkingObjects", objectType: "EventItem", property: "eventSummary" }
     }
 };
 
@@ -73,4 +88,4 @@ export const EventDetails = {
 };
 
 
-export default [ Category, Asset, Venue, Event, EventDetails ];
+export default [ Category, Asset, Venue, EventItem, EventSummary, EventDetails ];
