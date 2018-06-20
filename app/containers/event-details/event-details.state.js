@@ -22,8 +22,9 @@ const makeCalendarEvent = ( { startTime, endTime, eventSummary }, { venue, moreI
 } );
 
 
-const initialize = async ( effects, { eventItemId, state: { api, realm } } ) => {
-    const { eventSummary } = getEventItem( realm, eventItemId );
+const initialize = async ( effects, { eventItemData, state: { api, realm } } ) => {
+    const eventItem = getEventItem( realm, eventItemData.id );
+    const { eventSummary } = getEventItem( realm, eventItemData.id );
     let eventDetails = getEventDetails( realm, eventSummary.id );
     if ( !eventDetails ) {
         const fullEvent = await api.getEvent( eventSummary.id );
@@ -31,6 +32,7 @@ const initialize = async ( effects, { eventItemId, state: { api, realm } } ) => 
     }
 
     return mergeIntoState( {
+        eventItem,
         eventDetails
     } );
 };
@@ -38,10 +40,9 @@ const initialize = async ( effects, { eventItemId, state: { api, realm } } ) => 
 export default {
 
 
-    initialState: ( { eventItemId, calendarDay, state: { realm } } ) => {
-        const eventItem = getEventItem( realm, eventItemId );
+    initialState: ( { eventItemData, calendarDay } ) => {
         return ( {
-            eventItem,
+            eventItem: eventItemData,
             eventDetails: null,
             calendarDay
         } );

@@ -5,11 +5,10 @@ import { isOngoingEvent } from "app/utils/event-time";
 import isProduction from "app/utils/is-production";
 
 import Realm from "realm";
-import isUndefined from "lodash/isUndefined";
 
-import pick from "lodash/pick";
 import omit from "lodash/omit";
-import keys from "lodash/keys";
+import values from "lodash/values";
+import isFunction from "lodash/isFunction";
 
 
 export const createInstance = ( options = {} ) =>
@@ -83,5 +82,24 @@ export const getEventDetails = ( realm, eventId ) =>
     realm.objectForPrimaryKey( "EventDetails", eventId );
 
 
-export const clone = ( obj, skipProps = [] ) =>
-    pick( obj, keys( omit( obj.objectSchema().properties, skipProps ) ) );
+
+const copyRealmObjProperty = ( obj, name, type ) => {
+    switch ( type ) {
+        case "object": return toPlainObj( obj[name] );
+        case "list": return obj[name].map( toPlainObj );
+        case "linkingObjects": return null;
+    }
+
+    return obj[name];
+};
+
+
+export function toPlainObj( obj, skipProps = [] ) {
+    const props = obj.objectSchema().properties;
+    const result = [];
+    values( omit( props, skipProps ) ).forEach( ( { name, type } ) => {
+        result[name] = copyRealmObjProperty( obj, name, type );
+    } );
+
+    return result;
+}

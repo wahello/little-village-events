@@ -1,6 +1,8 @@
 import { EventDetails } from "../screens";
+import { toPlainObj } from "app/utils/realm";
+
 //import WebPage from "../containers/web-page";
-import { provideState, update } from "../../utils/freactal";
+import { provideState, update } from "app/utils/freactal";
 
 //import { Navigation } from "react-native-navigation";
 
@@ -21,7 +23,10 @@ const screenState = {
                 state.navigator.push( {
                     screen: EventDetails.id,
                     backButtonTitle: EventDetails.backButtonTitle,
-                    passProps: { eventItemId: eventItem.id, calendarDay }
+                    passProps: {
+                        eventItemData: toPlainObj( eventItem ),
+                        calendarDay
+                    }
                 } );
                 return state;
             }
