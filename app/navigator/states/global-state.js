@@ -1,6 +1,8 @@
 import * as effects from "./global-state-effects.js";
 import api from "app/api";
 
+import { now } from "app/utils/date";
+
 import { provideState } from "@textpress/freactal";
 
 import { Dimensions } from "react-native";
@@ -9,6 +11,7 @@ import { Dimensions } from "react-native";
 const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
+    today: now(),
     // rsvps: {},
     // events: null,
     // dates: null,

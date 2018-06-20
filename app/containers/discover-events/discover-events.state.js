@@ -1,4 +1,4 @@
-import { daysDiff, addToDate, now } from "app/utils/date";
+import { daysDiff, addToDate } from "app/utils/date";
 
 import { mergeIntoState, update } from "@textpress/freactal";
 
@@ -6,10 +6,9 @@ import range from "lodash/range";
 
 
 const initialize = ( effects, { state } ) => {
-    const { dates, realm } = state;
+    const { dates, realm, today } = state;
 
     const numberOfDays = daysDiff( dates.last, dates.first ) + 1;
-    const today = now();
 
     const sections = range( numberOfDays ).map( day => {
         const date = addToDate( dates.first, { day } );
