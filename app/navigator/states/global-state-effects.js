@@ -28,7 +28,8 @@ const loadEvents = async ( realm, api ) => {
     slowlog( () => realm.write( () => {
         events.forEach( eventData => {
             const summary = createEventSummary( realm, eventData );
-            createEventItem( realm, summary );
+            if ( !summary.items.length )
+                createEventItem( realm, summary );
         } );
     } ) );
 
