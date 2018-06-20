@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':realm')
     compile project(':react-native-measure-text')
     compile project(':react-native-svg')
     compile project(':react-native-add-calendar-event')

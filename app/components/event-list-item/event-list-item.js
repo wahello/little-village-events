@@ -1,7 +1,7 @@
 import EventHashtags from "../event-hashtags";
 import EventTimeLocationRSVP from "../event-time-location-rsvp";
 import { TouchableButton } from "../touchable";
-import { daysDiff } from "app/utils/date";
+import { daysDiff, format } from "app/utils/date";
 
 import { injectState } from "@textpress/freactal";
 
@@ -102,8 +102,9 @@ const styles = StyleSheet.create( {
 
 } );
 
-const LeftPanel = ( { event } ) => {
-    const uri = imageUriBuilder( event ).resize( imageSize );
+
+const LeftPanel = ( { eventSummary } ) => {
+    const uri = imageUriBuilder( eventSummary ).resize( imageSize );
     if ( !uri )
         return <View style={ styles.leftPanel }/>;
 
@@ -114,35 +115,43 @@ const LeftPanel = ( { event } ) => {
     );
 };
 
-const Days = ( { event } ) => {
-    const { startTime, endTime } = event;
+
+const Days = ( { eventItem } ) => {
+    const { startTime, endTime } = eventItem;
     if ( !startTime || !endTime || daysDiff( endTime, startTime ) === 0 )
         return null;
-    const format = "MMM. D";
-    const value = `${startTime.format( format )} - ${endTime.format( format )}`;
+    const formatStr = "MMM. D";
+    const value = `${format( formatStr, startTime )} - ${format( formatStr, endTime )}`;
     return <Text style={ styles.days }>{ value }</Text>;
 };
 
+
 const Item = ( props ) => {
-    const { item: event, section: { date: calendarDay, ongoing }, effects: { navigateToEventDetails } } = props;
-    console.log( event.id );
+    const { item: eventItem, section: { date: calendarDay, ongoing }, effects: { navigateToEventDetails } } = props;
+    const { eventSummary } = eventItem;
+    // console.log( event.id );
 
     return (
         <TouchableButton activeOpacity={ 0.6 }
-            onPress={ () => { navigateToEventDetails( event, calendarDay ) } }>
+            onPress={ () => { navigateToEventDetails( eventItem, calendarDay ) } }>
             <View style={ styles.card }>
-                <LeftPanel event={ event }/>
+                <LeftPanel eventSummary={ eventSummary }/>
                 <View style={ styles.rightPanel }>
                     <View style={ styles.topSection }>
                         <View style={ styles.info }>
-                            <EventHashtags event={ event }/>
+                            <EventHashtags event={ eventSummary }/>
                             <Text style={ styles.name }>
-                                { event.name }
+                                { eventSummary.name }
                             </Text>
-                            <Days event={ event }/>
+                            <Days eventItem={ eventItem }/>
                         </View>
                     </View>
-                    <EventTimeLocationRSVP event={ event } calendarDay={ calendarDay } ongoing={ ongoing } size="small"/>
+                    <EventTimeLocationRSVP
+                        eventItem={ eventItem }
+                        calendarDay={ calendarDay }
+                        ongoing={ ongoing }
+                        size="small"
+                    />
                 </View>
             </View>
         </TouchableButton>

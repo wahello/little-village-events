@@ -47,21 +47,25 @@ class EventDetails extends Component {
 
         const { state, effects } = this.props;
 
-        const { event, calendarDay, windowDimensions: { width, height } } = state;
+        const { eventItem, eventDetails, calendarDay, windowDimensions: { width, height } } = state;
+        const { eventSummary } = eventItem;
 
-        if ( !event )
+        if ( !eventItem )
             return <Loading/>;
 
         const headerHeight = Math.round( width * .68 );
 
         const imageWidth = PixelRatio.getPixelSizeForLayoutSize( width );
         const imageHeight = PixelRatio.getPixelSizeForLayoutSize( headerHeight );
-        const imageUri = imageUriBuilder( event ).scale( imageWidth, imageHeight );
+        const imageUri = imageUriBuilder( eventSummary ).scale( imageWidth, imageHeight );
 
         return (
             <ParallaxScroll
-                renderHeader={ props => <Header.Fixed event={ event } { ...props } /> }
-                renderParallaxForeground={ props => <Header.Foreground event={ event }
+                renderHeader={ props => <Header.Fixed event={ eventSummary } { ...props } /> }
+                renderParallaxForeground={ props => <Header.Foreground
+                    event={ eventSummary }
+                    eventDetails={ eventDetails }
+                    rsvp={ eventItem.rsvp }
                     handleRSVP={ () => effects.handleRSVP( state ) } { ...props } /> }
                 renderParallaxBackground={ () => imageUri ? <Header.Background uri={ imageUri }/> : null }
                 headerHeight={ fixedHeaderHeight }
@@ -74,9 +78,10 @@ class EventDetails extends Component {
                 parallaxForegroundScrollSpeed={ 1 }
             >
                 <View style={ [ styles.body, { minHeight: height - headerHeight } ] }>
-                    <EventDetailsDateCard event={ event } calendarDay={ calendarDay } addEventToCalendar={ effects.addEventToCalendar }/>
-                    <EventDetailsVenueCard event={ event } call={ effects.call } openMap={ effects.openMap }/>
-                    <EventDetailsDescriptionCard event={ event }/>
+                    <EventDetailsDateCard eventItem={ eventItem } calendarDay={ calendarDay }
+                        addEventToCalendar={ effects.addEventToCalendar }/>
+                    <EventDetailsVenueCard event={ eventSummary } call={ effects.call } openMap={ effects.openMap }/>
+                    <EventDetailsDescriptionCard eventDetail={ eventDetails }/>
                 </View>
             </ParallaxScroll>
         );

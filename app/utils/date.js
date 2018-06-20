@@ -21,11 +21,11 @@ export const daysDiff = differenceInCalendarDays;
 
 export const format = dateFormat;
 
-export const now = Date.now;
+export const now = () => new Date();
 
 
 export const dayStart = ( date ) => {
-    return startOfDay( date );
+    return new Date( format( date, "YYYY-MM-DD[T00:00:00.000]Z" ) )
 };
 
 

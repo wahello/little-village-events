@@ -1,4 +1,5 @@
 import { showOnboardingScreen } from "app/containers/onboarding";
+import { createInstance } from "app/utils/realm";
 
 import { registerScreens, onboardingNav, mainAppNav } from "./screens";
 
@@ -14,7 +15,9 @@ export const startMainApp = () =>
 
 
 const startApp = async () => {
-    registerScreens();
+    registerScreens( {
+        realm: createInstance()
+    } );
 
     if ( await showOnboardingScreen() )
         startOnboarding();

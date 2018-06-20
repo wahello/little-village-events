@@ -47,21 +47,21 @@ const styles = StyleSheet.create( {
 } );
 
 
-const Date = ( { event } ) =>
+const Date = ( { eventItem } ) =>
     <Text style={ styles.date }>
-        { formatStartDate( event ) }
+        { formatStartDate( eventItem ) }
     </Text>
 ;
 
-const AddToCalendar = ( { event, addEventToCalendar } ) => {
-    const { endTime } = event;
+const AddToCalendar = ( { eventItem, addEventToCalendar } ) => {
+    const { endTime } = eventItem;
     return !endTime ? (
-        <DetailsButton style={ { button: styles.calendarButton, label: styles.calendarButtonLabel } } label="+" onPress={ () => addEventToCalendar( event ) }/>
+        <DetailsButton style={ { button: styles.calendarButton, label: styles.calendarButtonLabel } } label="+" onPress={ () => addEventToCalendar( eventItem ) }/>
     ) : null;
 };
 
-export default ( { event, calendarDay, addEventToCalendar } ) => {
-    const { startTime } = event;
+export default ( { eventItem, calendarDay, addEventToCalendar } ) => {
+    const { startTime } = eventItem;
     if ( !startTime )
         return null;
 
@@ -71,14 +71,14 @@ export default ( { event, calendarDay, addEventToCalendar } ) => {
             renderIcon={ CalendarIcon }
             renderButton={ () => (
                 <AddToCalendar
-                    event={ event }
+                    eventItem={ eventItem }
                     addEventToCalendar={ addEventToCalendar }
                 />
             ) }
         >
-            <Date event={ event }/>
+            <Date eventItem={ eventItem }/>
             <View style={ styles.timeContainer }>
-                <EventTime event={ event } calendarDay={ calendarDay } size="regular"/>
+                <EventTime eventItem={ eventItem } calendarDay={ calendarDay } size="regular"/>
             </View>
         </DetailsIconCard>
     );

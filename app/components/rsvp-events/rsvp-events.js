@@ -1,6 +1,5 @@
 import Header from "./rsvp-events.header";
-import UpcomingRSVPList from "../../containers/upcoming-rsvp-list";
-import PastRSVPList from "../../containers/past-rsvp-list";
+import { UpcomingRSVPList, PastRSVPList } from "app/containers/rsvp-list";
 
 import * as Styles from "../../styles";
 

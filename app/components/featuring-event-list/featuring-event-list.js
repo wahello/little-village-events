@@ -9,19 +9,18 @@ import React from "react";
 import { SectionList } from "react-native";
 
 const renderEvent = ( props ) => {
-    const { item: event } = props;
-    return event.showAsFeatured
+    const { item: event, section: { featured } } = props;
+    return featured[ event.id ]
         ? <FeaturedItem { ...props }/>
         : <Item { ...props }/>
     ;
 };
 
-const FeaturingEventList = ( props ) => {
-    const { state } = props;
+const FeaturingEventList = ( { sections } ) => {
     return (
         <SectionList
             ItemSeparatorComponent={ Separator }
-            sections={ state.eventList }
+            sections={ sections }
             renderItem={ renderEvent }
             renderSectionHeader={ Header }
             keyExtractor={ ( item, index ) => item.id || index }

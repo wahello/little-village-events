@@ -1,7 +1,9 @@
 import navigatorStyleDecorator from "./decorators/navigator-style";
 
-import registerScreen from "../app/navigator/register-screen";
-import NavigatorStyles from "../app/navigator/styles";
+import makeGlobalStateContextProvider from "/app/navigator/states/global-state";
+import registerScreen from "/app/navigator/register-screen";
+import NavigatorStyles from "/app/navigator/styles";
+import { createInstance } from "/app/utils/realm";
 
 import { getStorybookUI, configure, addDecorator } from "@storybook/react-native";
 import { withKnobs } from "@storybook/addon-knobs/react";
@@ -37,7 +39,13 @@ const StorybookScreen = {
     view: StorybookUIHMRRoot
 };
 
-registerScreen( StorybookScreen );
+
+const getStateContext = makeGlobalStateContextProvider( {
+    realm: createInstance( { inMemory: true } )
+} );
+
+registerScreen( StorybookScreen, getStateContext );
+
 
 Navigation
     .startSingleScreenApp( {

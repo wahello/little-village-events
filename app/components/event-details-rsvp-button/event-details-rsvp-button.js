@@ -94,11 +94,11 @@ const GoingButton = () => {
 
 };
 
-const RSVPButton = ( { event: { details } } ) => {
-    if ( !details )
+const RSVPButton = ( { eventDetails } ) => {
+    if ( !eventDetails )
         return null;
 
-    const { priceRange } = details;
+    const { priceRange } = eventDetails;
     const isFree = !priceRange.length;
     const label = isFree ? "RSVP" : priceLabel( priceRange );
 
@@ -115,15 +115,15 @@ const RSVPButton = ( { event: { details } } ) => {
 
 };
 
-export default ( { event, handleRSVP } ) => {
-    if ( !event.rsvpId && !event.details )
+export default ( { rsvp, eventDetails, handleRSVP } ) => {
+    if ( !eventDetails )
         return null;
 
     return (
         <TouchableButton onPress={ handleRSVP }>
-            { event.rsvpId
+            { rsvp
                 ? <GoingButton/>
-                : <RSVPButton event={ event }/>
+                : <RSVPButton eventDetails={ eventDetails }/>
             }
         </TouchableButton>
     );

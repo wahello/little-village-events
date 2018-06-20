@@ -1,0 +1,211 @@
+{
+    "id": 666116,
+    "name": "‘If Objects Could Talk’ ",
+    "venue_id": 695,
+    "description": "<p>The African American Museum of Iowa opens its new temporary exhibit, “If Objects Could Talk,” on Aug. 25, 2017. The exhibit opens to the public from 6:30pm to 8:00pm. Patrons are welcome to explore the galleries and enjoy light refreshments in the lobby.</p><br><br><p>“If Objects Could Talk,” offers a glimpse of the Museum’s collection of thousands of objects, documents, and photographs. Each item tells a unique story about African American history, communities, and culture in Iowa. The exhibit demonstrates how history can transform everyday objects into invaluable records for learning about local history, change over time, and Iowa’s diverse communities and people. Immersive elements in this exhibit will be available to deepen visitors’ understanding of the exhibit themes and become active participants in learning. From Martin Luther King, Jr.’s speech in Davenport, IA and Viola Gibson singing “I Shall Not be Moved,” to a typewriter interactive that accompanies Vernon Smith’s actual typewriter, patrons will be engaged from beginning to end.</p><br><br><p>As part of the opening festivities, the AAMI is partnering with the University of Iowa Library to teach patrons about preserving their pictures and documents. Participants will be able to scan documents and images relating to Iowa’s African American history, receiving a digital copy for themselves while one copy is given to the African American Museum of Iowa.This event will continue through Saturday along with an informational presentation on how to best care for your paper documents at home by Nancy Kraft, Head of  Preservation &amp; Conservation at the University of Iowa Libraries.</p><br><br><p>“If Objects Could Talk” will be on display through July 27, 2018. The African American Museum of Iowa’s mission is to preserve, exhibit, and teach Iowa’s African American heritage. For more information on this or other programs, please visit the AAMI website, www.BlackIowa.org or call 319-862-2101.  Starting August 14th, the AAMI will be open Tuesday-Saturday 10:00am – 4:00pm and is located at 55 12th Ave. SE, Cedar Rapids, Iowa.</p>",
+    "url": null,
+    "starttime": "2018-06-18T01:00:00.000-04:00",
+    "endtime": "2018-06-19T00:59:00.000-04:00",
+    "restrictions": "",
+    "ticketurl": "",
+    "created_at": "2017-08-23T14:04:41.771-04:00",
+    "updated_at": "2017-08-23T14:04:41.771-04:00",
+    "tickets": {
+        "0": {
+            "name": "",
+            "price": "0.00"
+        }
+    },
+    "parent_id": null,
+    "user_id": 945,
+    "multimedia": {
+        "0": {
+            "source": "uc",
+            "id": "85b3b139-ca79-48de-a954-cc6032c358de",
+            "type": "img",
+            "image": "https://ucarecdn.com/85b3b139-ca79-48de-a954-cc6032c358de/-/crop/1167x630/83,0/-/resize/800x432/"
+        }
+    },
+    "recurring_id": 665811,
+    "calendar_id": 7,
+    "featured": false,
+    "status": "approved",
+    "external_uid": null,
+    "external_src": null,
+    "moreinfo": "http://r20.rs6.net/tn.jsp?f=001l1PBlxeATFGlnuqHgVLGBBRVCCQtynbm_Me0rAE1dmrrWGnQxgxFTqEoi9BQfxtBf4qkeKk4pkJFAQ2C2iefdlisGpSRzPMC_uLNdBPGR6xZXfkT9T3weYA1UC464s5XOW3cSAVCwy4LDGziAEz_iA==&c=0vFeGv0JOmCsyk044h2yJ7KfV-hyAjvmxGlqIBC7VoUpHjOa2ezuoA==&ch=DwSYZQ6UP5WGSqYldsBY7tLjwYi4SSATfdnowwn9DE_V11r-eXMpiQ==",
+    "allday": true,
+    "allday_text": "",
+    "summary": "",
+    "organizer_id": null,
+    "facebook_uid": null,
+    "scraper_id": null,
+    "print_only": null,
+    "venue": {
+        "id": 695,
+        "name": "African American Museum of Iowa",
+        "url": "http://littlevillagemag.com/iowa-city-area-events-calendar/venues/695",
+        "address": "55 12th Ave SE, Cedar Rapids, IA 50401",
+        "phone": "(319) 862-2101",
+        "latitude": 41.9687748,
+        "longitude": -91.6597132,
+        "facebook": null,
+        "timezone": "America/Chicago"
+    },
+    "lists": [
+
+    ],
+    "categories": [
+        {
+            "id": 62,
+            "name": "Editors' Picks ",
+            "image": "https://ucarecdn.com/612a31f5-6fb2-4954-a63e-57ebb0b24140/-/crop/640x346/0,42/-/resize/500x270/"
+        },
+        {
+            "id": 64,
+            "name": "Art/Exhibition",
+            "image": "https://ucarecdn.com/08f042e4-3088-4baf-bd91-41a14dbe36a5/-/crop/800x431/0,0/-/resize/500x270/"
+        }
+    ],
+    "calendar": {
+        "lists": [
+            {
+                "id": 214,
+                "name": "Widget",
+                "calendar_id": 7,
+                "created_at": "2018-04-12T14:35:57.901-04:00",
+                "updated_at": "2018-04-12T14:35:57.901-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 7,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 153,
+                "name": "Slider",
+                "calendar_id": 7,
+                "created_at": "2017-09-05T12:13:57.755-04:00",
+                "updated_at": "2017-09-05T12:13:57.755-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 6,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 51,
+                "name": "Family Events",
+                "calendar_id": 7,
+                "created_at": "2015-10-02T16:01:35.151-04:00",
+                "updated_at": "2015-10-09T13:18:03.284-04:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 3,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 50,
+                "name": "Things To Do",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T15:50:16.283-04:00",
+                "updated_at": "2015-10-09T16:27:38.143-04:00",
+                "description": "",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 1,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 58,
+                "name": "",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T16:36:28.158-04:00",
+                "updated_at": "2015-10-09T16:36:28.158-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 4,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 49,
+                "name": "Witching Hour ",
+                "calendar_id": 7,
+                "created_at": "2015-10-01T15:49:22.788-04:00",
+                "updated_at": "2015-10-30T13:39:23.221-04:00",
+                "description": "Witching Hour, a new festival, seeks to explore and engage “the unknown” through performance and discussion. Discussions (in the afternoon) will feature artists, writers, scientists, entrepreneurs, and other thinkers discussing their creative processes and paths to innovation via lectures and moderated Q&As. Performances (at night) will reflect a range of disciplines, including but not limited to music, comedy, literature, film, and dance.\r\n\r\nThe goal is to bring together our community to enjoy new art, to learn about the different ways we make things, to talk to each other, and to be inspired.",
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 2,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 60,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2017-06-06T13:21:18.900-04:00",
+                "updated_at": "2017-06-06T13:21:18.900-04:00",
+                "description": null,
+                "active": false,
+                "activefrom": null,
+                "activeto": null,
+                "sort": 5,
+                "autoremove": true,
+                "nav": false,
+                "display": null,
+                "tagline": null,
+                "banner_img": null
+            },
+            {
+                "id": 53,
+                "name": "Editor's Picks",
+                "calendar_id": 7,
+                "created_at": "2015-10-09T10:56:30.069-04:00",
+                "updated_at": "2018-05-05T17:23:48.104-04:00",
+                "description": "Upcoming event highlights curated by Little Village editors",
+                "active": true,
+                "activefrom": "2017-08-29T00:00:00.000-04:00",
+                "activeto": "2018-06-30T00:00:00.000-04:00",
+                "sort": 0,
+                "autoremove": true,
+                "nav": true,
+                "display": "list",
+                "tagline": "",
+                "banner_img": ""
+            }
+        ]
+    },
+    "editable": false,
+    "distributable": false
+}
