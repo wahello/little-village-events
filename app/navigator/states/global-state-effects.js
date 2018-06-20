@@ -31,7 +31,7 @@ const loadEvents = async ( realm, api ) => {
             if ( !summary.items.length )
                 createEventItem( realm, summary );
         } );
-    } ) );
+    } ), { threshold: 100 } );
 
     return {
         dates: {
