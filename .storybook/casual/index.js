@@ -1,5 +1,4 @@
 import Categories from "/app/models/categories";
-import { makeRSVPEvent } from "/app/models/rsvp";
 import { sortByStartTime } from "/app/utils/event";
 
 import config from "/app/config";
@@ -24,7 +23,7 @@ casual.define( "anyDate", () => casual.coin_flip ? casual.futureDate : casual.pa
 casual.define( "categories", () => {
     const ids = _keys( Categories );
     const result = _range( casual.integer( 1, 5 ) )
-        .map( (  ) => {
+        .map( ( ) => {
             const id = ids[ casual.integer( 0, ids.length - 1 ) ];
             const name = Categories[id];
             return {
@@ -76,16 +75,6 @@ casual.define( "events", ( quantity, tense ) => {
     }
 
     return sortByStartTime( result );
-} );
-
-casual.define( "rsvps", ( quantity, tense ) => {
-    const events = casual.events( quantity, tense );
-
-    return events.reduce( ( result, event ) => {
-        const rsvp = makeRSVPEvent( event, event.startTime );
-        result[rsvp.rsvpId] = rsvp;
-        return result
-    }, {} );
 } );
 
 

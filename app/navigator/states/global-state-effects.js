@@ -1,7 +1,6 @@
 import api from "app/api";
 
 import { createEventItem, createEventSummary } from "app/utils/realm";
-//import * as RSVPs from "app/utils/rsvps";
 import openBrowser from "app/utils/openEmbeddedBrowser"
 import { addToDate, dayStart, now } from "app/utils/date";
 import slowlog from "app/utils/slowlog";
@@ -12,8 +11,6 @@ import { Alert, Dimensions, Linking, Share } from "react-native";
 import openMapApp from "react-native-open-maps";
 import phoneCall from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
-
-import _omit from "lodash/omit";
 
 
 const appName = "little_village_events";
@@ -45,13 +42,8 @@ const loadEvents = async ( realm, api ) => {
 export const initialize = async ( effects, { realm } ) => {
     Dimensions.addEventListener( "change", effects.updateDimensions );
 
-    // await api.rsvps.clear();
-    // const rsvps = await api.rsvps.all();
-    // api.rsvps.addEventListener( "added", effects._rsvpAdded );
-    // api.rsvps.addEventListener( "removed", effects._rsvpRemoved );
 
     return mergeIntoState( {
-        // rsvps,
         realm,
         ...( await loadEvents( realm, api ) )
     } );
@@ -135,13 +127,3 @@ export const updateDimensions = update( ( state, dimensions ) => {
         windowDimensions: dimensions.screen
     }
 } );
-
-
-export const _rsvpAdded = async ( effects, rsvp ) => {
-    return ( state ) => ( { ...state, rsvps: { ...state.rsvps, [ rsvp.rsvpId ]: rsvp } } );
-};
-
-
-export const _rsvpRemoved = async ( effects, rsvp ) => {
-    return ( state ) => ( { ...state, rsvps: _omit( state.rsvps, [ rsvp.rsvpId ] ) } );
-};

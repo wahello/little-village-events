@@ -12,9 +12,6 @@ const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
     today: now(),
-    // rsvps: {},
-    // events: null,
-    // dates: null,
     realm: null,
     api,
 };
@@ -26,8 +23,6 @@ export default ( props = {} ) => {
         initialState: () => ( { ...initialState } ),
         effects,
         computed: {
-            // eventMaps: ( { events } ) => upcomingEventsMap( events ),
-            // rsvpMap: ( { rsvps } ) => RSVPs.groupByDates( rsvps, new Date() ),
         }
     };
 
