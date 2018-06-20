@@ -53,7 +53,7 @@ export const createEventItem = ( realm, eventSummary, rsvpTime ) => {
 
     return realm.create( "EventItem", {
         id,
-        eventDate: ongoing ? null : dayStart( startTime ),
+        eventDate: ongoing && !rsvpTime ? null : dayStart( startTime ),
         startTime,
         endTime: rsvpTime && rsvpTime.endTime || eventSummary.endTime || defaultEventEndItem( eventSummary ),
         allDay: rsvpTime ? false : eventSummary.allDay,
