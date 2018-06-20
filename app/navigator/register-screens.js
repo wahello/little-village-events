@@ -31,16 +31,16 @@ const registerScreens = ( props ) => {
             //         bottom: -6
             //     }
             // },
-            // {
-            //     screen: RSVPEventsTab.id,
-            //     title: RSVPEventsTab.title,
-            //     icon: require( "../components/icons/pngs/rsvps.png" ),
-            //     selectedIcon: require( "../components/icons/pngs/rsvps-active.png" ),
-            //     iconInsets: {
-            //         top: 6,
-            //         bottom: -6
-            //     }
-            // }
+            {
+                screen: RSVPEventsTab.id,
+                title: RSVPEventsTab.title,
+                icon: require( "../components/icons/pngs/rsvps.png" ),
+                selectedIcon: require( "../components/icons/pngs/rsvps-active.png" ),
+                iconInsets: {
+                    top: 6,
+                    bottom: -6
+                }
+            }
         ],
         tabsStyle: {
             tabBarButtonColor: "#929292",

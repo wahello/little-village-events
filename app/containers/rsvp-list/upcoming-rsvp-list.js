@@ -1,5 +1,5 @@
-import UpcomingRSVPList from "../../components/upcoming-rsvp-list";
-import state from "./upcoming-rsvp-list.state";
+import UpcomingRSVPList from "app/components/upcoming-rsvp-list";
+import state from "./rsvp-list.state";
 
 import { injectState, provideState } from "../../utils/freactal";
 

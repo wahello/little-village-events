@@ -8,18 +8,17 @@ import Realm from "realm";
 
 import omit from "lodash/omit";
 import values from "lodash/values";
-import isFunction from "lodash/isFunction";
 
 
 export const createInstance = ( options = {} ) =>
     new Realm( {
         schema,
-        schemaVersion: 1,
+        schemaVersion: 2,
         // deleteRealmIfMigrationNeeded: !isProduction(),
         ...options,
         migration: ( oldRealm, newRealm ) => {
-            if ( !isProduction() )
-                newRealm.deleteAll();
+            // if ( !isProduction() )
+            //     newRealm.deleteAll();
         }
     } );
 
@@ -40,6 +39,8 @@ export const createEventDetails = ( realm, eventId, detailsData ) =>
         id: eventId,
         ...detailsData
     }, true );
+
+
 
 
 export const createEventItem = ( realm, eventSummary, rsvpTime ) => {

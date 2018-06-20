@@ -5,7 +5,7 @@ import React from "react";
 
 const PastRSVPList = ( props ) => {
     const { state } = props;
-    if ( !state.eventList.length )
+    if ( !state.sections.length )
         return <EmptyMessage/>;
 
     return <EventList { ...props}/>;

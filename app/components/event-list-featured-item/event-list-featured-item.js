@@ -30,13 +30,13 @@ const styles = Styles.create( {
 
 } );
 
-const FeaturedItem = ( { item: event, section: { date: calendarDay }, effects: { navigateToEventDetails }, state: { windowDimensions } } ) => (
+const FeaturedItem = ( { item: eventItem, section: { date: calendarDay }, effects: { navigateToEventDetails }, state: { windowDimensions } } ) => (
     <TouchableButton activeOpacity={ 0.6 }
-        onPress={ () => navigateToEventDetails( event ) }>
+        onPress={ () => navigateToEventDetails( eventItem ) }>
         <View style={ styles.card }>
-            <Banner event={ event } windowDimensions={ windowDimensions }/>
+            <Banner event={ eventItem.eventSummary } windowDimensions={ windowDimensions }/>
             <View style={ styles.bottomBar }>
-                <EventTimeLocationRSVP event={ event } calendarDay={ calendarDay } size="regular"/>
+                <EventTimeLocationRSVP eventItem={ eventItem } calendarDay={ calendarDay } size="regular"/>
             </View>
         </View>
     </TouchableButton>
