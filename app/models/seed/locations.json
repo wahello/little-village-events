@@ -1,0 +1,5 @@
+[
+    { "id": "anywhere", "order": 1, "name": "Anywhere" },
+    { "id": "iowacity", "order": 2, "name": "Iowa City" },
+    { "id": "cedarrapids", "order": 3, "name": "Cedar Rapids" }
+]

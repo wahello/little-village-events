@@ -49,9 +49,9 @@ const LocationItem = ( { label, selected, ...props } ) =>
 ;
 
 
-const EventLocationsChooser = ( { state, effects, locations, onChange, style, ...props } ) =>
+const EventLocationsChooser = ( { state, effects, onChange, style, ...props } ) =>
     <View style={ [ styles.root, style ] } {...props}>
-        { [ ...locations.entries() ].map( ( [ id, { name } ] ) =>
+        { state.Locations.map( ( { id, name } ) =>
             <Fragment key={id}>
                 <LocationItem
                     label={name}

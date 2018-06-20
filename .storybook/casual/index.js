@@ -1,15 +1,9 @@
-import Categories from "/app/models/categories";
 import { sortByStartTime } from "/app/utils/event";
 
 import config from "/app/config";
 
 import casual from "casual-browserify";
 import moment from "moment";
-
-import _isEqual from "lodash/isEqual";
-import _keys from "lodash/keys";
-import _range from "lodash/range";
-import _uniqWith from "lodash/uniqWith";
 
 import "./multimedia-image-source";
 
@@ -20,19 +14,19 @@ casual.define( "futureDate", () => moment().add( { minutes: casual.integer( 1, 2
 casual.define( "pastDate", () => moment().subtract( { minutes: casual.integer( config.eventThresholds.past + 1, 20160 ) } ) );
 casual.define( "anyDate", () => casual.coin_flip ? casual.futureDate : casual.pastDate );
 
-casual.define( "categories", () => {
-    const ids = _keys( Categories );
-    const result = _range( casual.integer( 1, 5 ) )
-        .map( ( ) => {
-            const id = ids[ casual.integer( 0, ids.length - 1 ) ];
-            const name = Categories[id];
-            return {
-                id,
-                name
-            }
-        } );
-    return _uniqWith( result, _isEqual );
-} );
+// casual.define( "categories", () => {
+//     const ids = _keys( Categories );
+//     const result = _range( casual.integer( 1, 5 ) )
+//         .map( ( ) => {
+//             const id = ids[ casual.integer( 0, ids.length - 1 ) ];
+//             const name = Categories[id];
+//             return {
+//                 id: casual.id,
+//                 name: casual.word
+//             }
+//         } );
+//     return _uniqWith( result, _isEqual );
+// } );
 
 casual.define( "multimedia", () => [ {
     source: "lorem",

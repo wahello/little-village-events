@@ -1,0 +1,8 @@
+[
+    {
+        "id": "default",
+        "newUser": true,
+        "location": { "id": "anywhere" },
+        "interests": []
+    }
+]

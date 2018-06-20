@@ -1,4 +1,6 @@
 import * as effects from "./global-state-effects.js";
+import * as computed from "./global-state-computed.js";
+
 import api from "app/api";
 
 import { now } from "app/utils/date";
@@ -22,8 +24,7 @@ export default ( props = {} ) => {
     const globalState = {
         initialState: () => ( { ...initialState } ),
         effects,
-        computed: {
-        }
+        computed
     };
 
     const rootStatefulComponent = provideState( globalState )();

@@ -1,4 +1,4 @@
-import schema from "app/models/event-schema";
+import schema from "app/models/schema";
 
 import { dayStart } from "app/utils/date";
 import { isOngoingEvent, defaultEventEndItem } from "app/utils/event-time";
@@ -13,7 +13,7 @@ import values from "lodash/values";
 export const createInstance = ( options = {} ) =>
     new Realm( {
         schema,
-        schemaVersion: 2,
+        schemaVersion: 5,
         // deleteRealmIfMigrationNeeded: !isProduction(),
         ...options,
         migration: ( oldRealm, newRealm ) => {

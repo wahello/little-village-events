@@ -1,5 +1,3 @@
-import Categories from "./categories";
-
 import _get from "lodash/get";
 import _keys from "lodash/keys";
 import _last from "lodash/last";
@@ -104,8 +102,7 @@ export const summaryProperties = {
     "endTime": date( "endtime" ),
 
     "categories": array( "categories", fields( {
-        "id": 1,
-        "name": c => ( Categories.get( c.id ) || {} ).name || null
+        "id": 1
     } ) ),
     "featured": 1,
 

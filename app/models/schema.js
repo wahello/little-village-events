@@ -3,7 +3,8 @@ export const Category = {
     primaryKey: "id",
     properties: {
         id: "int",
-        name: "string?"
+        name: "string?",
+        order: "int"
     }
 };
 
@@ -88,4 +89,27 @@ export const EventDetails = {
 };
 
 
-export default [ Category, Asset, Venue, EventItem, EventSummary, EventDetails ];
+export const Location = {
+    name: "Location",
+    primaryKey: "id",
+    properties: {
+        id: "string",
+        name: "string",
+        order: "int"
+    }
+};
+
+
+export const UserProfile = {
+    name: "UserProfile",
+    primaryKey: "id",
+    properties: {
+        id: "string",
+        newUser: "bool",
+        location: "Location",
+        interests: "Category[]"
+    }
+};
+
+
+export default [ Category, Asset, Venue, EventItem, EventSummary, EventDetails, Location, UserProfile ];

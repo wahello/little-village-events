@@ -1,0 +1,17 @@
+[
+    { "id": 62, "order": 1, "name": "Editors' Picks", "icon": null },
+    { "id": 63, "order": 2, "name": "Music", "icon": null },
+    { "id": 64, "order": 3, "name": "Art/Exhibition", "icon": null },
+    { "id": 65, "order": 4, "name": "Theatre/Performance", "icon": null },
+    { "id": 81, "order": 5, "name": "Literature", "icon": null },
+    { "id": 67, "order": 6, "name": "Cinema", "icon": null },
+    { "id": 68, "order": 7, "name": "Foodie", "icon": null },
+    { "id": 79, "order": 8, "name": "Education", "icon": null },
+    { "id": 80, "order": 9, "name": "Community", "icon": null },
+    { "id": 71, "order": 10, "name": "Fashion", "icon": null },
+    { "id": 66, "order": 11, "name": "Drink Specials", "icon": null },
+    { "id": 82, "order": 12, "name": "Crafty", "icon": null },
+    { "id": 83, "order": 13, "name": "Family", "icon": null },
+    { "id": 84, "order": 14, "name": "Gaming", "icon": null },
+    { "id": 85, "order": 15, "name": "Sports/Rec", "icon": null }
+]

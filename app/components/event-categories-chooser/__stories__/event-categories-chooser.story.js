@@ -1,5 +1,6 @@
 import EventCategoriesChooser from "..";
-import Categories from "../../../models/categories";
+
+import { injectState } from "@textpress/freactal";
 
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react-native";
@@ -7,10 +8,14 @@ import { storiesOf } from "@storybook/react-native";
 import React from "react";
 
 
-storiesOf( "EventCategoriesChooser", module )
-    .add( "default", () => ( <EventCategoriesChooser
-        categories={ Categories }
+const Story = injectState( ( { state } ) =>
+    <EventCategoriesChooser
+        categories={ state.Categories }
         selected={ [] }
         onChange={ action( "onChange" ) }
-    /> ) )
+    />
+);
+
+storiesOf( "EventCategoriesChooser", module )
+    .add( "default", () => <Story /> )
 ;

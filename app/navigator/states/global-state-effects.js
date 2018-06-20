@@ -1,5 +1,7 @@
 import api from "app/api";
 
+import seed from "app/models/seed";
+
 import { createEventItem, createEventSummary } from "app/utils/realm";
 import openBrowser from "app/utils/openEmbeddedBrowser"
 import { addToDate, dayStart, now } from "app/utils/date";
@@ -42,6 +44,7 @@ const loadEvents = async ( realm, api ) => {
 export const initialize = async ( effects, { realm } ) => {
     Dimensions.addEventListener( "change", effects.updateDimensions );
 
+    seed( realm );
 
     return mergeIntoState( {
         realm,

@@ -1,5 +1,6 @@
 import EventLocationsChooser from "..";
-import Locations from "../../../models/locations";
+
+import { injectState } from "@textpress/freactal";
 
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react-native";
@@ -7,10 +8,15 @@ import { storiesOf } from "@storybook/react-native";
 import React from "react";
 
 
-storiesOf( "EventLocationsChooser", module )
-    .add( "default", () => ( <EventLocationsChooser
-        locations={ Locations }
+const Story = injectState( ( { state } ) =>
+    <EventLocationsChooser
+        locations={ state.Locations }
         selected={ null }
         onChange={ action( "onChange" ) }
-    /> ) )
+    />
+);
+
+
+storiesOf( "EventLocationsChooser", module )
+    .add( "default", () => <Story /> )
 ;

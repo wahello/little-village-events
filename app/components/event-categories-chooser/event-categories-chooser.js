@@ -52,7 +52,7 @@ const styles = StyleSheet.create( {
 
 const CategoryItem = ( { icon: Icon, label, selected, ...props } ) =>
     <TouchableButton style={styles.item} {...props}>
-        <Icon style={[ styles.icon, selected ? styles.selectedIcon : null ]} />
+        {/* <Icon style={[ styles.icon, selected ? styles.selectedIcon : null ]} /> */}
         <Text style={[ styles.label, selected ? styles.selectedLabel : null ]}>{label.toUpperCase()}</Text>
         <RoundCheckmark style={styles.checkmark} checked={selected} />
     </TouchableButton>
@@ -61,11 +61,11 @@ const CategoryItem = ( { icon: Icon, label, selected, ...props } ) =>
 
 const EventCategoriesChooser = ( { state, effects, categories, onChange, style, ...props } ) =>
     <View style={ [ styles.root, style ] } {...props}>
-        { [ ...categories.entries() ].map( ( [ id, { name, icon } ] ) =>
+        { categories.map( ( { id, name, icon } ) =>
             <Fragment key={id}>
                 <CategoryItem
-                    icon={ icon() }
-                    label={name}
+                    // icon={ icon() }
+                    label={name ? name : `${id}` }
                     selected={ state.selected.has( id ) }
                     onPress={ () => effects.toggleItem( id, onChange ) }
                 />

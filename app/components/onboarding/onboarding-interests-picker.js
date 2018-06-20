@@ -1,8 +1,6 @@
 import OnboardingPicker from "./onboarding-picker";
 import EventCategoriesChooser from "../../components/event-categories-chooser";
 
-import Categories from "../../models/categories";
-
 import { update, injectState, provideState } from "@textpress/freactal";
 
 import React from "react";
@@ -18,7 +16,7 @@ const OnboardingInterestsPicker = ( { state, effects, onSkip, onContinue } ) =>
         onContinue={onContinue}
     >
         <EventCategoriesChooser
-            categories={ state.categories }
+            categories={ state.Categories }
             selected={ state.selected }
             onChange={ effects.updateSelected }
         />
@@ -29,7 +27,6 @@ const OnboardingInterestsPicker = ( { state, effects, onSkip, onContinue } ) =>
 export default compose(
     provideState( {
         initialState: () => ( {
-            categories: Categories,
             selected: []
         } ),
         effects: {

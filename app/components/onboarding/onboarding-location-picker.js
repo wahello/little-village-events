@@ -1,8 +1,6 @@
 import OnboardingPicker from "./onboarding-picker";
 import EventLocationsChooser from "../../components/event-locations-chooser";
 
-import Locations from "../../models/locations";
-
 import { update, injectState, provideState } from "@textpress/freactal";
 
 import React from "react";
@@ -30,7 +28,6 @@ const OnboardingLocationsPicker = ( { state, effects, onSkip, onContinue } ) =>
 export default compose(
     provideState( {
         initialState: ( { selected } ) => ( {
-            locations: Locations,
             selected
         } ),
         effects: {
