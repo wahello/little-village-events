@@ -1,7 +1,7 @@
 import schema from "app/models/event-schema";
 
 import { dayStart } from "app/utils/date";
-import { isOngoingEvent } from "app/utils/event-time";
+import { isOngoingEvent, defaultEventEndItem } from "app/utils/event-time";
 import isProduction from "app/utils/is-production";
 
 import Realm from "realm";
@@ -55,7 +55,7 @@ export const createEventItem = ( realm, eventSummary, rsvpTime ) => {
         id,
         eventDate: ongoing ? null : dayStart( startTime ),
         startTime,
-        endTime: rsvpTime && rsvpTime.endTime || eventSummary.endTime,
+        endTime: rsvpTime && rsvpTime.endTime || eventSummary.endTime || defaultEventEndItem( eventSummary ),
         allDay: rsvpTime ? false : eventSummary.allDay,
         rsvp: !!rsvpTime,
         eventSummary,

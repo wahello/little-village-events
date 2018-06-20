@@ -158,3 +158,7 @@ export const eventTense = ( event, calendarDay, currentTime ) => {
 
     return rsvpTense( RSVPTimeForDay( event, calendarDay ), currentTime );
 };
+
+
+export const defaultEventEndItem = ( { startTime } ) =>
+    addToDate( startTime, { minutes: config.eventThresholds.past } );
