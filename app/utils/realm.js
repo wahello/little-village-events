@@ -97,7 +97,7 @@ const copyRealmObjProperty = ( obj, name, type ) => {
 
 export function toPlainObj( obj, skipProps = [] ) {
     const props = obj.objectSchema().properties;
-    const result = [];
+    const result = {};
     values( omit( props, skipProps ) ).forEach( ( { name, type } ) => {
         result[name] = copyRealmObjProperty( obj, name, type );
     } );
