@@ -22,7 +22,10 @@ const initialState = {
 export default ( props = {} ) => {
 
     const globalState = {
-        initialState: () => ( { ...initialState } ),
+        initialState: () => ( {
+            ...initialState,
+            realm: props.realm
+        } ),
         effects,
         computed
     };
