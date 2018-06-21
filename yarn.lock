@@ -8259,9 +8259,9 @@ react-native-compat@^1.0.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-custom-actionsheet@^0.0.4:
+react-native-custom-actionsheet@DelightfulStudio/react-native-custom-actionsheet:
   version "0.0.4"
-  resolved "https://registry.yarnpkg.com/react-native-custom-actionsheet/-/react-native-custom-actionsheet-0.0.4.tgz#21560576bf8030a51a04d8988276f52eb6955029"
+  resolved "https://codeload.github.com/DelightfulStudio/react-native-custom-actionsheet/tar.gz/65d17f8c06c2da740b8cf5b85b54edd0e42bd997"
 
 react-native-debugger-open@^0.3.17:
   version "0.3.17"

@@ -27,7 +27,7 @@
         "react": "16.4.1",
         "react-native": "0.55.4",
         "react-native-add-calendar-event": "^2.0.1",
-        "react-native-custom-actionsheet": "^0.0.4",
+        "react-native-custom-actionsheet": "DelightfulStudio/react-native-custom-actionsheet",
         "react-native-htmlview": "^0.12.1",
         "react-native-iphone-x-helper": "^1.0.3",
         "react-native-linear-gradient": "^2.4.0",
