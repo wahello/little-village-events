@@ -1,8 +1,8 @@
 import schema from "app/models/schema";
 import seed from "app/models/seed";
 
-import { dayStart } from "app/utils/date";
-import { isOngoingEvent, defaultEventEndItem } from "app/utils/event-time";
+import { dayStart, dayEnd } from "app/utils/date";
+import { isOngoingEvent, defaultEventEndTime } from "app/utils/event-time";
 import isProduction from "app/utils/is-production";
 
 import Realm from "realm";
@@ -46,24 +46,51 @@ export const createEventDetails = ( realm, eventId, detailsData ) =>
     }, true );
 
 
-
-
-export const createEventItem = ( realm, eventSummary, rsvpTime ) => {
+export const createRsvpedEventItem = ( realm, eventSummary, { startTime, endTime } ) => {
     const ongoing = isOngoingEvent( eventSummary );
 
-    const id = rsvpTime && ongoing
-        ? `${eventSummary.id}.${rsvpTime.startTime}`
+    const id = ongoing
+        ? `${eventSummary.id}.${startTime}`
         : `${eventSummary.id}`;
-
-    const startTime = rsvpTime && rsvpTime.startTime || eventSummary.startTime;
 
     return realm.create( "EventItem", {
         id,
-        eventDate: ongoing && !rsvpTime ? null : dayStart( startTime ),
+        eventDate: dayStart( startTime ),
+        startTime: startTime,
+        endTime,
+        allDay: false,
+        rsvp: true,
+        eventSummary,
+    }, true );
+}
+
+
+const normilizeEventTime = eventSummary => {
+    const { allDay, startTime, endTime } = eventSummary;
+    return allDay
+        ? {
+            startTime: dayStart( startTime ),
+            endTime: dayEnd( endTime || startTime )
+        }
+        : {
+            startTime,
+            endTime: endTime || defaultEventEndTime( eventSummary )
+        }
+};
+
+
+export const createEventItem = ( realm, eventSummary ) => {
+
+    const ongoing = isOngoingEvent( eventSummary );
+
+    const { startTime, endTime } = normilizeEventTime( eventSummary );
+
+    return realm.create( "EventItem", {
+        id: `${eventSummary.id}`,
+        eventDate: ongoing ? null : dayStart( startTime ),
         startTime,
-        endTime: rsvpTime && rsvpTime.endTime || eventSummary.endTime || defaultEventEndItem( eventSummary ),
-        allDay: rsvpTime ? false : eventSummary.allDay,
-        rsvp: !!rsvpTime,
+        endTime,
+        allDay: eventSummary.allDay,
         eventSummary,
     }, true );
 }

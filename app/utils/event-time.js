@@ -160,5 +160,5 @@ export const eventTense = ( event, calendarDay, currentTime ) => {
 };
 
 
-export const defaultEventEndItem = ( { startTime } ) =>
+export const defaultEventEndTime = ( { startTime } ) =>
     addToDate( startTime, { minutes: config.eventThresholds.past } );

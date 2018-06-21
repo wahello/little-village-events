@@ -1,6 +1,6 @@
 import { confirmRSPVActionSheet, rescindRSPVActionSheet } from "../../action-sheets/rsvp";
 // import { confirmRSPVDateTimeActionSheet } from "../../action-sheets/rsvp-date-time";
-import { getEventItem, getEventDetails, createEventDetails, createEventItem } from "app/utils/realm";
+import { getEventItem, getEventDetails, createEventDetails, createEventItem, createRsvpedEventItem } from "app/utils/realm";
 import { mergeIntoState } from "app/utils/freactal";
 import { getRSVPInfo } from "app/utils/event-time";
 import { addToDate } from "app/utils/date";
@@ -134,7 +134,7 @@ export default {
 
             let updatedItem;
             realm.write( () => {
-                updatedItem = createEventItem( realm, eventSummary, rsvpTime );
+                updatedItem = createRsvpedEventItem( realm, eventSummary, rsvpTime );
             } );
 
             if ( addToCalendar )
