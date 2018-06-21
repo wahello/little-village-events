@@ -53,7 +53,7 @@ casual.define( "eventTimes", tense => {
     switch ( tense ) {
         case "ongoing":
             const endOfWeek = weekEnd( today );
-            const startTime = subtractFromDate( endOfWeek, { minutes: casual.integer( 24 * 60, 20160 ) } );
+            const startTime = subtractFromDate( endOfWeek, { minutes: casual.integer( 60, 20160 ) } );
             let endTime = moveTimeToDate(
                 new Date( Math.max( today.valueOf(), startTime.valueOf() ) ),
                 startTime
