@@ -5109,9 +5109,13 @@ hoist-non-react-statics@1.x.x, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
-hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+hoist-non-react-statics@^2.3.1:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
+
+hoist-non-react-statics@^2.5.5:
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -8399,9 +8403,9 @@ react-modal@^3.3.2:
     react-lifecycles-compat "^3.0.0"
     warning "^3.0.0"
 
-react-native-add-calendar-event@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-add-calendar-event/-/react-native-add-calendar-event-1.1.4.tgz#fae3a7d234892e9a2cb40e276200142c3a0fdf07"
+react-native-add-calendar-event@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-add-calendar-event/-/react-native-add-calendar-event-2.0.1.tgz#f5ecbc676de81e380e9d1dabf30cc6579f5b430b"
 
 react-native-cli@^2.0.1:
   version "2.0.1"
@@ -8452,15 +8456,15 @@ react-native-measure-text@1.0.0-beta:
   version "1.0.0-beta"
   resolved "https://registry.yarnpkg.com/react-native-measure-text/-/react-native-measure-text-1.0.0-beta.tgz#dd9bc2575c31f9e90ff7ca3601bf1368ca05cc84"
 
-react-native-navigation@^1.1.469:
-  version "1.1.469"
-  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.469.tgz#0c70ae1994267e70015c53bfc29513d3c4bb1501"
+react-native-navigation@^1.1.471:
+  version "1.1.471"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-1.1.471.tgz#8ab400f3047d4a3bccd3af232e44a7a1cd5d3f37"
   dependencies:
     lodash "4.x.x"
 
-react-native-open-maps@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.1.4.tgz#ccd7bac2a69bc36716c7188ecbf7e3d3ca93a6a3"
+react-native-open-maps@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-open-maps/-/react-native-open-maps-0.2.1.tgz#d2cfb4de7a6c4c6f591ff9cc0c734d1838ebdc8f"
 
 react-native-permissions@^1.1.1:
   version "1.1.1"
@@ -8622,9 +8626,9 @@ react-treebeard@^2.1.0:
     shallowequal "^0.2.2"
     velocity-react "^1.3.1"
 
-react@16.4.0:
-  version "16.4.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.4.0.tgz#402c2db83335336fba1962c08b98c6272617d585"
+react@16.4.1:
+  version "16.4.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.4.1.tgz#de51ba5764b5dbcd1f9079037b862bd26b82fe32"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -8712,9 +8716,9 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-realm@^2.8.3:
-  version "2.8.3"
-  resolved "https://registry.yarnpkg.com/realm/-/realm-2.8.3.tgz#dbee0520610e1f4a3e13ccbd5840075030a27433"
+realm@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/realm/-/realm-2.10.0.tgz#bdbbaf3833d9838c2a9928b6cb963543e0015ea9"
   dependencies:
     command-line-args "^4.0.6"
     decompress "^4.2.0"

@@ -76,10 +76,10 @@ export const openExternalURL = async ( effects, url ) => {
 
 export const addEventToCalendar = async ( effects, calendarEvent ) => {
     try {
-        await calendar.presentEventDialog( calendarEvent );
+        await calendar.presentEventCreatingDialog( calendarEvent );
     } catch ( x ) {
         if ( x.message === "permissionNotGranted" )
-            await effects.showUpdateYourSettings( "Update " );
+            await effects.showUpdateYourSettings();
         else
             console.error( "Failed addEventToCalendar", x.message, x )
     }
