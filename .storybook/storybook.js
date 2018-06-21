@@ -1,3 +1,4 @@
+import api from "./api";
 import navigatorStyleDecorator from "./decorators/navigator-style";
 
 import makeGlobalStateContextProvider from "/app/navigator/states/global-state";
@@ -41,7 +42,8 @@ const StorybookScreen = {
 
 
 const getStateContext = makeGlobalStateContextProvider( {
-    realm: createInstance( { inMemory: true } )
+    realm: createInstance( { inMemory: true } ),
+    api
 } );
 
 registerScreen( StorybookScreen, getStateContext );

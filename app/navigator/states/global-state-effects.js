@@ -1,11 +1,8 @@
-import api from "app/api";
-
-import seed from "app/models/seed";
-
 import { createEventItem, createEventSummary } from "app/utils/realm";
 import openBrowser from "app/utils/openEmbeddedBrowser"
-import { addToDate, dayStart, now } from "app/utils/date";
 import slowlog from "app/utils/slowlog";
+
+import config from "app/config";
 
 import { mergeIntoState, update } from "@textpress/freactal";
 
@@ -15,14 +12,8 @@ import phoneCall from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
 
 
-const appName = "little_village_events";
-const numberOfDays = 14;
-
-
-const loadEvents = async ( realm, api ) => {
-    const first = dayStart( now() );
-    const last = addToDate( first, { days: numberOfDays - 1 } );
-    const events = await api.getEventList( first, last );
+const loadEvents = async ( realm, api, dates ) => {
+    const events = await api.getEventList( dates.first, dates.last );
 
     slowlog( () => realm.write( () => {
         events.forEach( eventData => {
@@ -31,25 +22,15 @@ const loadEvents = async ( realm, api ) => {
                 createEventItem( realm, summary );
         } );
     } ), { threshold: 100 } );
-
-    return {
-        dates: {
-            first,
-            last
-        }
-    };
 };
 
 
-export const initialize = async ( effects, { realm } ) => {
+export const initialize = async ( effects, { realm, api, dates } ) => {
     Dimensions.addEventListener( "change", effects.updateDimensions );
 
-    seed( realm );
+    await loadEvents( realm, api, dates );
 
-    return mergeIntoState( {
-        realm,
-        ...( await loadEvents( realm, api ) )
-    } );
+    return mergeIntoState( {} );
 };
 
 
@@ -115,7 +96,7 @@ export const showUpdateYourSettings = async () => {
 
     Alert.alert(
         "Update Your Settings",
-        `To add an event to your calendar, you'll need to give ${appName} permission to access your calendar in Settings`,
+        `To add an event to your calendar, you'll need to give ${config.appName} permission to access your calendar in Settings`,
         buttons,
         { cancelable: false }
     );

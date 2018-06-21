@@ -1,4 +1,6 @@
 export default {
+    appName: "little_village_events",
+    daysToLoad: 14,
     eventThresholds: {
         dayStart: 0,
         dayLength: 1440,

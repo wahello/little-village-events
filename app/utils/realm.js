@@ -1,4 +1,5 @@
 import schema from "app/models/schema";
+import seed from "app/models/seed";
 
 import { dayStart } from "app/utils/date";
 import { isOngoingEvent, defaultEventEndItem } from "app/utils/event-time";
@@ -10,8 +11,8 @@ import omit from "lodash/omit";
 import values from "lodash/values";
 
 
-export const createInstance = ( options = {} ) =>
-    new Realm( {
+export const createInstance = ( options = {} ) => {
+    const realm = new Realm( {
         schema,
         schemaVersion: 5,
         // deleteRealmIfMigrationNeeded: !isProduction(),
@@ -21,6 +22,10 @@ export const createInstance = ( options = {} ) =>
             //     newRealm.deleteAll();
         }
     } );
+
+    seed( realm );
+    return realm;
+}
 
 
 export const createEventSummary = ( realm, summaryData ) =>
