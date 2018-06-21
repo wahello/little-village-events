@@ -4,7 +4,7 @@ const gulp = require( "gulp" );
 const transform = require( "gulp-transform" );
 const rename = require( "gulp-rename" );
 
-const svgr = require( "svgr" ).default;
+const svgr = require( "@svgr/core" ).default;
 
 const yargs = require( "yargs" );
 yargs.version( false );
@@ -14,9 +14,11 @@ const svgrOptions = {
     native: true,
     viewBox: false,
     title: false,
-    tabWidth: 4,
-    useTabs: false,
-    template
+    template,
+    prettierConfig: {
+        tabWidth: 4,
+        useTabs: false,
+    }
 };
 
 
@@ -48,14 +50,13 @@ const logUnsupportedComponents = components => !components.size
 `;
 
 
-function template() {
-    return ( code, state ) => {
-        const {
-            reactNativeSvgReplacedComponents = new Set(),
-            unsupportedComponents = new Set(),
-        } = state;
+function template( code, config, state ) {
+    const {
+        reactNativeSvgReplacedComponents = new Set(),
+        unsupportedComponents = new Set(),
+    } = state;
 
-        return `import React from 'react';
+    return `import React from 'react';
     import Svg, { ${componentsToList(
         reactNativeSvgReplacedComponents,
     )} } from 'react-native-svg';
@@ -69,5 +70,4 @@ function template() {
         const props = { style: omit( flattenedStyle, [ "color" ] ), ...rest };
         return ${code};
     }`
-    };
 }

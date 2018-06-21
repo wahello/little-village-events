@@ -49,6 +49,7 @@
         "@storybook/addon-links": "^3.4.6",
         "@storybook/addons": "^3.4.6",
         "@storybook/react-native": "^3.4.6",
+        "@svgr/core": "^2.0.0",
         "@textpress/eslint-config-textpress": "^0.4.0",
         "babel-core": "^6.26.3",
         "babel-jest": "23.0.1",
@@ -63,12 +64,11 @@
         "gulp-transform": "^3.0.5",
         "jest": "23.1.0",
         "prop-types": "^15.6.1",
-        "react-dom": "16.4.0",
+        "react-dom": "16.4.1",
         "react-native-cli": "^2.0.1",
         "react-native-debugger-open": "^0.3.17",
-        "react-test-renderer": "16.4.0",
-        "sinon": "^5.1.0",
-        "svgr": "^1.10.0",
+        "react-test-renderer": "16.4.1",
+        "sinon": "^6.0.0",
         "yargs": "^11.0.0"
     },
     "jest": {
