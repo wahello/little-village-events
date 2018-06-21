@@ -11,6 +11,7 @@ import { withKnobs } from "@storybook/addon-knobs/react";
 
 import React, { Component } from "react";
 import { Navigation } from "react-native-navigation";
+import { registerScreens } from "app/navigator/screens";
 
 // This assumes that storybook is running on the same host as your RN packager,
 // to set manually use, e.g. host: 'localhost' option
@@ -46,6 +47,7 @@ const getStateContext = makeGlobalStateContextProvider( {
     api
 } );
 
+registerScreens( getStateContext );
 registerScreen( StorybookScreen, getStateContext );
 
 
