@@ -120,8 +120,9 @@ const Days = ( { eventItem } ) => {
     const { startTime, endTime } = eventItem;
     if ( !startTime || !endTime || daysDiff( endTime, startTime ) === 0 )
         return null;
+
     const formatStr = "MMM. D";
-    const value = `${format( formatStr, startTime )} - ${format( formatStr, endTime )}`;
+    const value = `${format( startTime, formatStr)} - ${format( endTime, formatStr )}`;
     return <Text style={ styles.days }>{ value }</Text>;
 };
 
