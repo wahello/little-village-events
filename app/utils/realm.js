@@ -62,10 +62,10 @@ export const createRsvpedEventItem = ( realm, eventSummary, { startTime, endTime
         rsvp: true,
         eventSummary,
     }, true );
-}
+};
 
 
-const normilizeEventTime = eventSummary => {
+const normalizeEventTime = eventSummary => {
     const { allDay, startTime, endTime } = eventSummary;
     return allDay
         ? {
@@ -83,7 +83,7 @@ export const createEventItem = ( realm, eventSummary ) => {
 
     const ongoing = isOngoingEvent( eventSummary );
 
-    const { startTime, endTime } = normilizeEventTime( eventSummary );
+    const { startTime, endTime } = normalizeEventTime( eventSummary );
 
     return realm.create( "EventItem", {
         id: `${eventSummary.id}`,
@@ -91,6 +91,7 @@ export const createEventItem = ( realm, eventSummary ) => {
         startTime,
         endTime,
         allDay: eventSummary.allDay,
+        rsvp: false,
         eventSummary,
     }, true );
 }
