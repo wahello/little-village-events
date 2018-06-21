@@ -102,7 +102,8 @@ export const summaryProperties = {
     "endTime": date( "endtime" ),
 
     "categories": array( "categories", fields( {
-        "id": 1
+        "id": 1,
+        "name": c => c.name ? c.name.trim() : undefined
     } ) ),
     "featured": 1,
 
