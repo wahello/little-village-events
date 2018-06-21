@@ -17,5 +17,6 @@ import "../app/components/web-page/__stories__/web-page.story";
 import "../app/containers/event-details/__stories__/event-details.story";
 import "../app/containers/event-list-test/__stories__/event-list-test.story";
 import "../app/containers/rsvp-events/__stories__/rsvp-events.story";
+import "../app/containers/discover-events/__stories__/discover-events.story";
 import "../app/components/status-bar-spacer/__stories__/status-bar-spacer.story";
 import "../app/utils/__stories__/with-action-sheet.story";
