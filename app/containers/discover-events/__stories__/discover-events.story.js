@@ -1,5 +1,5 @@
 import DiscoverEvents from "..";
-import { createEventItem, createEventSummary } from "app/utils/realm";
+import { createEventDetails, createEventItem, createEventSummary } from "app/utils/realm";
 
 import navigatorStyleDecorator from "/.storybook/decorators/navigator-style";
 import withRealmSeed from "/.storybook/decorators/with-realm-seed";
@@ -13,7 +13,10 @@ import React from "react";
 
 const createEvents = ( realm, props ) => casual
     .events( props )
-    .forEach( e => createEventItem( realm, createEventSummary( realm, e ) ) )
+    .forEach( eventSummaryData => {
+        createEventItem( realm, createEventSummary( realm, eventSummaryData ) );
+        createEventDetails( realm, eventSummaryData.id, casual.eventDetails( eventSummaryData ) );
+    } )
     ;
 
 

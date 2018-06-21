@@ -81,7 +81,7 @@ casual.define( "eventTimes", tense => {
 } );
 
 
-casual.define( "summaryEvent", ( { tense, Categories } ) => {
+casual.define( "eventSummary", ( { tense, Categories } ) => {
     return {
         "id": casual.id,
         "updatedAt": casual.pastDate,
@@ -100,13 +100,43 @@ casual.define( "summaryEvent", ( { tense, Categories } ) => {
 } );
 
 
+const price = () => {
+    return casual.integer( 0, 5000 ) / 10;
+};
+
+
+casual.define( "eventDetails", eventSummary => {
+    const address = `${casual.address}, ${casual.city}, ${casual.state_abbr} ${casual.zip( 5 )}`;
+
+    return {
+        id: eventSummary.id,
+        description: casual.text,
+        summary: casual.description,
+        moreInfo: "https://google.com",
+        ticketUrl: casual.coin_flip ? "https://google.com" : "",
+        priceRange: casual.random_element( [ [], [ price() ], [ price(), price() ].sort( ( a, b ) => a - b ) ] ),
+        venue: {
+            id: eventSummary.venueId,
+            name: eventSummary.venueName,
+            address,
+            phone: casual.phone,
+            latitude: Number( casual.latitude ),
+            longitude: Number( casual.longitude ),
+            "location": [ eventSummary.venueName, address ].filter( p => !!p ).join( " " )
+
+        }
+    };
+
+} );
+
+
 casual.define( "events", ( { quantity, tense, state } ) => {
     const { Categories } = state;
 
     const ids = {};
     const result = [];
     while ( result.length < quantity ) {
-        const event = casual.summaryEvent( { tense, Categories } );
+        const event = casual.eventSummary( { tense, Categories } );
         if ( ids[ event.id ] )
             continue;
 
