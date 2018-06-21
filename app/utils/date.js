@@ -24,14 +24,8 @@ export const format = dateFormat;
 export const now = () => new Date();
 
 
-export const dayStart = ( date ) => {
-    return new Date( format( date, "YYYY-MM-DD[T00:00:00.000]Z" ) )
-};
-
-
-export const dayEnd = ( date ) => {
-    return endOfDate( date );
-};
+export const dayStart = ( date ) => new Date( format( date, "YYYY-MM-DD[T00:00:00.000]Z" ) );
+export const dayEnd = ( date ) => new Date( format( date, "YYYY-MM-DD[T23:59:59.999]Z" ) );
 
 
 export const dayTimestamp = ( date ) => {
