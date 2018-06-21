@@ -1,6 +1,5 @@
 import NavigatorStyles from "./styles";
 import registerScreen from "./register-screen";
-import makeGlobalStateContextProvider from "./states/global-state";
 
 import DiscoverEventsView from "app/containers/discover-events";
 import EventDetailsView from "app/containers/event-details";
@@ -104,8 +103,7 @@ export const EventDetails = {
 };
 
 
-export const registerScreens = props => {
-    const getStateContext = makeGlobalStateContextProvider( props );
+export const registerScreens = getStateContext => {
     registerScreen( Onboarding, getStateContext );
     registerScreen( DiscoverEventsTab, getStateContext );
     registerScreen( RSVPEventsTab, getStateContext );

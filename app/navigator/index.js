@@ -1,8 +1,10 @@
+import makeGlobalStateContextProvider from "./states/global-state";
+
 import { showOnboardingScreen } from "app/containers/onboarding";
 import { createInstance } from "app/utils/realm";
 import api from "app/api";
 
-import { registerScreens, onboardingNav, mainAppNav } from "./screens";
+import { mainAppNav, onboardingNav, registerScreens } from "./screens";
 
 import { Navigation } from "react-native-navigation";
 
@@ -16,10 +18,10 @@ export const startMainApp = () =>
 
 
 const startApp = async () => {
-    registerScreens( {
+    registerScreens( makeGlobalStateContextProvider( {
         realm: createInstance(),
         api
-    } );
+    } ) );
 
     if ( await showOnboardingScreen() )
         startOnboarding();
