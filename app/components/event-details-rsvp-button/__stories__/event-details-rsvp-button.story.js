@@ -4,7 +4,7 @@ import oneDollarEvent from "./data/one-dollar-event.json";
 import priceyEvent from "./data/pricey-event.json";
 import freeEvent from "./data/free-event.json";
 
-import { makeFullEvent } from "../../../models/event";
+import { makeFullEvent } from "app/models/event";
 
 import layout from "/.storybook/decorators/layout";
 
@@ -13,6 +13,10 @@ import { action } from "@storybook/addon-actions";
 
 import React from "react";
 
+
+const eventDetails = event => makeFullEvent( event ).details;
+
+
 const actions = {
     handleRSVP: args => action( "handleRSVP" )( args )
 };
@@ -20,9 +24,9 @@ const actions = {
 
 storiesOf( "EventDetailsRsvpButton", module )
     .addDecorator( layout( { theme: "black" } ) )
-    .add( "default", () => ( <EventDetailsRsvpButton event={ makeFullEvent( cinemaEvent ) } { ...actions } /> ) )
-    .add( "$1 price", () => ( <EventDetailsRsvpButton event={ makeFullEvent( oneDollarEvent ) } { ...actions } /> ) )
-    .add( "large price", () => ( <EventDetailsRsvpButton event={ makeFullEvent( priceyEvent ) } { ...actions } /> ) )
-    .add( "free", () => ( <EventDetailsRsvpButton event={ makeFullEvent( freeEvent ) } { ...actions } /> ) )
-    .add( "going", () => ( <EventDetailsRsvpButton event={ { ...makeFullEvent( freeEvent ), rsvp: true } } { ...actions } /> ) )
+    .add( "default", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( cinemaEvent ) } { ...actions } /> ) )
+    .add( "$1 price", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( oneDollarEvent ) } { ...actions } /> ) )
+    .add( "large price", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( priceyEvent ) } { ...actions } /> ) )
+    .add( "free", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( freeEvent ) } { ...actions } /> ) )
+    .add( "going", () => ( <EventDetailsRsvpButton rsvp={true} eventDetails={ eventDetails( freeEvent ) } { ...actions } /> ) )
 ;
