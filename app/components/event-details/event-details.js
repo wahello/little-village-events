@@ -81,7 +81,7 @@ class EventDetails extends Component {
                     <EventDetailsDateCard eventItem={ eventItem } calendarDay={ calendarDay }
                         addEventToCalendar={ effects.addEventToCalendar }/>
                     <EventDetailsVenueCard event={ eventSummary } call={ effects.call } openMap={ effects.openMap }/>
-                    <EventDetailsDescriptionCard eventDetail={ eventDetails }/>
+                    <EventDetailsDescriptionCard eventDetails={ eventDetails }/>
                 </View>
             </ParallaxScroll>
         );

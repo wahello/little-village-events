@@ -56,8 +56,8 @@ export const DescriptionCard = ( { summary, description } ) =>
 
 
 
-export default ( { eventDetail } ) => {
-    const { summary, description } = eventDetail || {};
+export default ( { eventDetails } ) => {
+    const { summary, description } = eventDetails || {};
     if ( !summary && !description )
         return null;
 
