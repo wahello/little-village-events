@@ -8261,7 +8261,7 @@ react-native-compat@^1.0.0:
 
 react-native-custom-actionsheet@DelightfulStudio/react-native-custom-actionsheet:
   version "0.0.4"
-  resolved "https://codeload.github.com/DelightfulStudio/react-native-custom-actionsheet/tar.gz/65d17f8c06c2da740b8cf5b85b54edd0e42bd997"
+  resolved "https://codeload.github.com/DelightfulStudio/react-native-custom-actionsheet/tar.gz/0ebac0375d52a1fe1f31cb0ab27b9a719533ac89"
 
 react-native-debugger-open@^0.3.17:
   version "0.3.17"
