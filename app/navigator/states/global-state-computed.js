@@ -1,8 +1,7 @@
 import { toPlainObj } from "app/utils/realm";
 
-const asArray = ( realm, objectType ) => realm
-    ? [ ...realm.objects( objectType ).sorted( "order" ).map( c => toPlainObj( c ) ) ]
-    : []
+const asArray = ( realm, objectType ) =>
+    [ ...realm.objects( objectType ).sorted( "order" ).map( c => toPlainObj( c ) ) ]
 ;
 
 
