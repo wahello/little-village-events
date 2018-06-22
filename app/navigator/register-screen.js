@@ -1,8 +1,7 @@
-
-import withGlobalState from "app/decorators/with-global-state";
-
 import provideScreenState from "./states/screen-state";
-import provideActionSheet from "../utils/with-action-sheet";
+
+import provideActionSheet from "app/decorators/with-action-sheet";
+import withGlobalState from "app/decorators/with-global-state";
 
 import { Navigation } from "react-native-navigation";
 import { compose } from "recompose";

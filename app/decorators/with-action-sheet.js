@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { provideState, injectState, mergeIntoState, update } from "./freactal";
+import { provideState, injectState, mergeIntoState, update } from "../utils/freactal";
 
 import { ActionSheetCustom as ActionSheet } from "react-native-custom-actionsheet";
 
