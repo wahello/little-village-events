@@ -13,6 +13,7 @@ import Swiper from "react-native-swiper";
 import { StyleSheet } from "react-native";
 import React, { Component } from "react";
 
+import map from "lodash/map";
 
 
 const styles = StyleSheet.create( {
@@ -30,7 +31,7 @@ class OnboardingSequence extends Component {
 
 
     render() {
-        const { state: { userProfile }, effects } = this.props;
+        const { state: { userProfile, Categories, Locations }, effects } = this.props;
         return (
             <Swiper ref={this._swiperRef}
                 style={styles.root}
@@ -39,11 +40,19 @@ class OnboardingSequence extends Component {
             >
                 <OnboardingStart onContinue={ this.next } />
                 <InterestsIntro onContinue={ this.next } onSkip={ () => this.skip( 2 ) } />
-                <InterestsPicker onContinue={ this.next } onSkip={ () => this.skip( 1 ) } />
+                <InterestsPicker
+                    categories = { Categories }
+                    selected={ map( userProfile.interests, "id" ) }
+                    onContinue={ selected => { effects.saveInterests( selected.map( id => ( { id } ) ) ); this.next() } }
+                    onSkip={ () => this.skip( 1 ) }
+                />
                 <LocationIntro onContinue={ this.next } onSkip={ () => this.skip( 2 ) } />
                 <LocationPicker
-                    selected={ userProfile.location }
-                    onContinue={ selected => { effects.saveLocation( selected ); this.next() } } onSkip={ () => this.skip( 1 ) } />
+                    locations = { Locations }
+                    selected={ userProfile.location.id }
+                    onContinue={ selected => { effects.saveLocation( { id: selected } ); this.next() } }
+                    onSkip={ () => this.skip( 1 ) }
+                />
                 <NotificationsIntro onContinue={ () => Permissions.request( "notification" ) }
                     onSkip={ startMainApp } />
             </Swiper>

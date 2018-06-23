@@ -8,15 +8,15 @@ import React from "react";
 import { compose } from "recompose";
 
 
-const OnboardingInterestsPicker = ( { state, effects, onSkip, onContinue } ) =>
+const OnboardingInterestsPicker = ( { state, effects, categories, onSkip, onContinue } ) =>
     <OnboardingPicker
         title="Select at least three categories"
         state={state}
         onSkip={onSkip}
-        onContinue={onContinue}
+        onContinue={ () => onContinue( state.selected ) }
     >
         <EventCategoriesChooser
-            categories={ state.Categories }
+            categories={ categories }
             selected={ state.selected }
             onChange={ effects.updateSelected }
         />
@@ -26,8 +26,8 @@ const OnboardingInterestsPicker = ( { state, effects, onSkip, onContinue } ) =>
 
 export default compose(
     provideState( {
-        initialState: () => ( {
-            selected: []
+        initialState: ( { selected } ) => ( {
+            selected
         } ),
         effects: {
             updateSelected: update( ( state, value ) => {

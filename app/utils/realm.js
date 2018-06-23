@@ -25,7 +25,14 @@ export const createInstance = ( options = {} ) => {
 
     seed( realm );
     return realm;
-}
+};
+
+
+export const write = ( realm, fn ) => {
+    let result;
+    realm.write( () => result = fn() );
+    return result;
+};
 
 
 export const createEventSummary = ( realm, summaryData ) =>
@@ -115,6 +122,16 @@ export const getEventSummary = ( realm, eventId ) =>
 export const getEventDetails = ( realm, eventId ) =>
     realm.objectForPrimaryKey( "EventDetails", eventId );
 
+
+export const getUserProfile = ( realm, id ) =>
+    realm.objectForPrimaryKey( "UserProfile", id );
+
+
+export const updateUserProfile = ( realm, id, userProfileData ) =>
+    realm.create( "UserProfile", {
+        id,
+        ...userProfileData
+    }, true );
 
 
 const copyRealmObjProperty = ( obj, name, type ) => {

@@ -9,7 +9,7 @@ import { compose } from "recompose";
 import isNil from "lodash/isNil";
 
 
-const OnboardingLocationsPicker = ( { state, effects, onSkip, onContinue } ) =>
+const OnboardingLocationsPicker = ( { state, effects, locations, onSkip, onContinue } ) =>
     <OnboardingPicker
         title="Show events in or near"
         state={state}
@@ -17,7 +17,7 @@ const OnboardingLocationsPicker = ( { state, effects, onSkip, onContinue } ) =>
         onContinue={ () => onContinue( state.selected ) }
     >
         <EventLocationsChooser
-            locations={ state.locations }
+            locations={ locations }
             selected={ state.selected }
             onChange={ effects.updateSelected }
         />

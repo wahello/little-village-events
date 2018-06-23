@@ -34,6 +34,16 @@ export const initialize = async ( effects, { realm, api, dates } ) => {
 };
 
 
+export const saveLocation = update( ( { realm, userProfile }, location ) => ( {
+    userProfile: write( realm, () => updateUserProfile( realm, userProfile.id, { location } ) )
+} ) );
+
+
+export const saveInterests = update( ( { realm, userProfile }, interests ) => ( {
+    userProfile: write( realm, () => updateUserProfile( realm, userProfile.id, { interests } ) )
+} ) );
+
+
 export const call = async ( effects, number ) => {
     await phoneCall( {
         number: number.replace( /[- ()]/g, "" ),

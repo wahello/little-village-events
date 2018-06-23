@@ -1,4 +1,4 @@
-import makeGlobalStateContextProvider from "./states/global-state";
+import makeGlobalState from "./states/global-state";
 
 import { showOnboardingScreen } from "app/containers/onboarding";
 import { createInstance } from "app/utils/realm";
@@ -17,13 +17,15 @@ export const startMainApp = () =>
     Navigation.startTabBasedApp( mainAppNav() );
 
 
-const startApp = async () => {
-    registerScreens( makeGlobalStateContextProvider( {
+const startApp = () => {
+    const globalState = makeGlobalState( {
         realm: createInstance(),
         api
-    } ) );
+    } );
 
-    if ( await showOnboardingScreen() )
+    registerScreens( globalState.getChildContext );
+
+    if ( globalState.showOnboardingScreen() )
         startOnboarding();
     else
         startMainApp();
