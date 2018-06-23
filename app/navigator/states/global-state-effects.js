@@ -1,4 +1,4 @@
-import { createEventItem, createEventSummary, updateUserProfile, write } from "app/utils/realm";
+import { createEventItem, createEventSummary, updateUserProfile as _updateUserProfile, write } from "app/utils/realm";
 import openBrowser from "app/utils/openEmbeddedBrowser"
 import { showUpdateYourSettingsAlert } from "app/utils/alerts";
 import slowlog from "app/utils/slowlog";
@@ -43,15 +43,9 @@ export const initialize = async ( effects, { realm, api, dates } ) => {
 };
 
 
-export const saveLocation = update( ( { realm, userProfile }, location ) => ( {
-    userProfile: write( realm, () => updateUserProfile( realm, userProfile.id, { location } ) )
+export const updateUserProfile = update( ( { realm, userProfile }, profileData ) => ( {
+    userProfile: write( realm, () => _updateUserProfile( realm, userProfile.id, profileData ) )
 } ) );
-
-
-export const saveInterests = update( ( { realm, userProfile }, interests ) => ( {
-    userProfile: write( realm, () => updateUserProfile( realm, userProfile.id, { interests } ) )
-} ) );
-
 
 
 export const call = async ( effects, number ) => {

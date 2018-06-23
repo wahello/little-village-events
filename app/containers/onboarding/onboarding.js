@@ -1,4 +1,5 @@
 import Onboarding from "app/components/onboarding";
+import { startMainApp } from "app/navigator";
 
 import { provideState, injectState } from "app/utils/freactal";
 
@@ -17,6 +18,22 @@ export default compose(
                     callback
                 );
                 return state;
+            },
+
+            saveInterests: ( effects, interests ) => {
+                effects.updateUserProfile( { interests } );
+                return state => state;
+            },
+
+            saveLocation: ( effects, location ) => {
+                effects.updateUserProfile( { location } );
+                return state => state;
+            },
+
+            finishOnboarding: effects => {
+                effects.updateUserProfile( { newUser: false } );
+                startMainApp();
+                return state => state;
             }
         },
         computed: {

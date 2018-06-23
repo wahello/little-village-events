@@ -5,8 +5,6 @@ import NotificationsIntro from "./onboarding-notifications-intro";
 import LocationIntro from "./onboarding-location-intro";
 import LocationPicker from "./onboarding-location-picker";
 
-import { startMainApp } from "app/navigator";
-
 import Swiper from "react-native-swiper";
 import { StyleSheet } from "react-native";
 import React, { Component } from "react";
@@ -30,7 +28,7 @@ class OnboardingSequence extends Component {
         if ( swiperState.index + n < swiperState.total )
             this.swiper.scrollBy( n, animate );
         else
-            startMainApp();
+            this.props.effects.finishOnboarding();
     }
 
     next = () => this.scrollBy( 1 )

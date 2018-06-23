@@ -23,6 +23,7 @@ export const createInstance = ( options = {} ) => {
         }
     } );
 
+    // realm.write( () => realm.deleteAll() );
     seed( realm );
     return realm;
 };
