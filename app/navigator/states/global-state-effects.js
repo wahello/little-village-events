@@ -1,4 +1,4 @@
-import { createEventItem, createEventSummary } from "app/utils/realm";
+import { createEventItem, createEventSummary, updateUserProfile, write } from "app/utils/realm";
 import openBrowser from "app/utils/openEmbeddedBrowser"
 import slowlog from "app/utils/slowlog";
 
@@ -10,6 +10,7 @@ import { Alert, Dimensions, Linking, Share } from "react-native";
 import openMapApp from "react-native-open-maps";
 import phoneCall from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
+import Permissions from "react-native-permissions";
 
 
 const loadEvents = async ( realm, api, dates ) => {
@@ -25,8 +26,15 @@ const loadEvents = async ( realm, api, dates ) => {
 };
 
 
+export const checkPermissions = async () => {
+    const permissions = await Permissions.checkMultiple( [ "event", "notification", "location" ] );
+    return mergeIntoState( { permissions } );
+};
+
+
 export const initialize = async ( effects, { realm, api, dates } ) => {
     Dimensions.addEventListener( "change", effects.updateDimensions );
+    effects.checkPermissions();
 
     await loadEvents( realm, api, dates );
 
@@ -42,6 +50,7 @@ export const saveLocation = update( ( { realm, userProfile }, location ) => ( {
 export const saveInterests = update( ( { realm, userProfile }, interests ) => ( {
     userProfile: write( realm, () => updateUserProfile( realm, userProfile.id, { interests } ) )
 } ) );
+
 
 
 export const call = async ( effects, number ) => {

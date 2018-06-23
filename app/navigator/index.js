@@ -1,6 +1,5 @@
 import makeGlobalState from "./states/global-state";
 
-import { showOnboardingScreen } from "app/containers/onboarding";
 import { createInstance } from "app/utils/realm";
 import api from "app/api";
 

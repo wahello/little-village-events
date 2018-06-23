@@ -14,6 +14,7 @@ import { Dimensions } from "react-native";
 const initialState = {
     screenDimensions: Dimensions.get( "screen" ),
     windowDimensions: Dimensions.get( "window" ),
+    permissions: {}
 };
 
 
