@@ -1,12 +1,13 @@
 import { createEventItem, createEventSummary, updateUserProfile, write } from "app/utils/realm";
 import openBrowser from "app/utils/openEmbeddedBrowser"
+import { showUpdateYourSettingsAlert } from "app/utils/alerts";
 import slowlog from "app/utils/slowlog";
 
 import config from "app/config";
 
 import { mergeIntoState, update } from "@textpress/freactal";
 
-import { Alert, Dimensions, Linking, Share } from "react-native";
+import { Dimensions, Linking, Share } from "react-native";
 import openMapApp from "react-native-open-maps";
 import phoneCall from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
@@ -98,7 +99,7 @@ export const addEventToCalendar = async ( effects, calendarEvent ) => {
         await calendar.presentEventCreatingDialog( calendarEvent );
     } catch ( x ) {
         if ( x.message === "permissionNotGranted" )
-            await effects.showUpdateYourSettings();
+            await showUpdateYourSettingsAlert( `To add an event to your calendar, you'll need to give ${config.appName} permission to access your calendar in Settings` );
         else
             console.error( "Failed addEventToCalendar", x.message, x )
     }
@@ -106,21 +107,34 @@ export const addEventToCalendar = async ( effects, calendarEvent ) => {
 };
 
 
-export const showUpdateYourSettings = async () => {
-    const buttons = [ { text: "Cancel", style: "cancel" } ];
+export const requestPermission = async ( effects, permission, message, callback ) => {
+    switch ( await Permissions.check( permission ) ) {
+        case "authorized":
+            callback();
+            break;
 
-    const supported = await Linking.canOpenURL( "app-settings:" );
-    if ( supported )
-        buttons.push( { text: "Settings", onPress: () => Linking.openURL( "app-settings:" ) } );
+        case "undetermined":
+            const result = await Permissions.request( permission );
+            effects.updatePermission( permission, result );
+            if ( result !== "denied" )
+                callback();
+            break;
 
-    Alert.alert(
-        "Update Your Settings",
-        `To add an event to your calendar, you'll need to give ${config.appName} permission to access your calendar in Settings`,
-        buttons,
-        { cancelable: false }
-    );
-    return mergeIntoState( {} );
+        default:
+            await showUpdateYourSettingsAlert( message );
+            break;
+    }
+
+    return state => state;
 };
+
+
+export const updatePermission = update( ( { permissions }, key, value ) => ( {
+    permissions: {
+        ...permissions,
+        [key]: value
+    }
+} ) );
 
 
 export const updateDimensions = update( ( state, dimensions ) => {

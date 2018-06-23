@@ -61,8 +61,8 @@ class OnboardingSequence extends Component {
             hideNotificationsInto
                 ? null
                 : <NotificationsIntro
-                    onContinue={ () => Permissions.request( "notification" ) }
-                    onSkip={ startMainApp }
+                    onContinue={ () => effects.requestNotificationsPermission( this.next ) }
+                    onSkip={ () => this.skip( 1 ) }
                     key="notificationsIntro"
                 />
         ].filter( x => !!x );
