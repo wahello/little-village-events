@@ -1,7 +1,7 @@
 import Item from "app/components/event-list-item";
 
-import Header from "../event-list-header";
-import Separator from "../event-list-item-separator";
+import SectionHeader from "app/components/event-list-section-header";
+import Separator from "app/components/event-list-item-separator";
 
 
 import React from "react";
@@ -18,7 +18,7 @@ const EventList = ( props ) => {
             sections={ state.sections }
             // renderItem={ props => null }
             renderItem={ props => <Item {...props} /> }
-            renderSectionHeader={ Header }
+            renderSectionHeader={ SectionHeader }
             keyExtractor={ ( item, index ) => `${item.id || index}` }
         />
     );
