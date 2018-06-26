@@ -6,35 +6,31 @@ import { eventTense } from "../../utils/event-time";
 import React from "react";
 import { View, Text } from "react-native";
 
-import _isString from "lodash/isString";
-
 
 const stylesSize = {
     regular: Styles.create( {
         root: {
-            paddingHorizontal: 5,
             paddingVertical: 4,
-
+            paddingHorizontal: 6,
             borderRadius: 3
         },
 
         label: {
-            fontSize: Styles.variables.regularFontSize
+            fontSize: Styles.variables.regularFontSize,
+            fontWeight: "600"
         }
-
     } ),
     small: Styles.create( {
         root: {
-            paddingHorizontal: 4,
-            paddingVertical: 3,
-
-            borderRadius: 5
+            paddingHorizontal: 6,
+            paddingVertical: 4,
+            borderRadius: 3
         },
 
         label: {
-            fontSize: Styles.variables.smallFontSize
+            fontSize: Styles.variables.smallFontSize,
+            fontWeight: "600"
         }
-
     } )
 
 };
@@ -42,7 +38,7 @@ const stylesSize = {
 const colorsByTense = {
     past: Styles.create( {
         root: {
-            backgroundColor: Styles.variables.mediumGrayColor
+            backgroundColor: "#DADADA"
         },
         label: {
             color: Styles.variables.textColor
@@ -85,7 +81,7 @@ const EventTime = ( { eventItem, calendarDay, ongoing, size = "small" } ) => {
     return (
         <View style={ [ styles.root, colors.root ] }>
             <Text style={ [ styles.label, colors.label ] }>
-                { formatStartTime( eventItem ) }
+                { formatStartTime( eventItem ).toUpperCase() }
             </Text>
         </View>
     );
