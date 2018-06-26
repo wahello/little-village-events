@@ -17,7 +17,7 @@ const styles = StyleSheet.create( {
         fontSize: variables.smallFontSize,
         fontWeight: "400",
         color: variables.grayTextColor,
-        marginRight: 10
+        marginRight: 7
     }
 } );
 

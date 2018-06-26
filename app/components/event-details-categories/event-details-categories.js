@@ -11,6 +11,7 @@ const styles = StyleSheet.create( {
     },
     category: {
         color: "white",
+        marginRight: 10
     }
 } );
 

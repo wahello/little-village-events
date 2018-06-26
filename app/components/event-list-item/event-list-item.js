@@ -1,6 +1,8 @@
-import EventTimeLocationRSVP from "../event-time-location-rsvp";
-import { TouchableButton } from "../touchable";
 import EventCategories from "app/components/event-categories";
+import EventTimeLocationRSVP from "app/components/event-time-location-rsvp";
+import { TouchableButton } from "app/components/touchable";
+
+import imageUriBuilder from "app/utils/image-uri-builder";
 import { daysDiff, format } from "app/utils/date";
 
 import { injectState } from "@textpress/freactal";
@@ -8,7 +10,6 @@ import { injectState } from "@textpress/freactal";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { compose } from "recompose";
-import imageUriBuilder from "../../utils/image-uri-builder";
 
 const imageSize = 90;
 
@@ -35,11 +36,10 @@ const styles = StyleSheet.create( {
 
     rightPanel: {
         flex: 1,
-        marginLeft: 18,
+        marginLeft: 12,
         flexDirection: "column",
         justifyContent: "flex-start",
-        alignContent: "flex-start",
-        alignItems: "stretch",
+        alignContent: "flex-start"
     },
 
     topSection: {
@@ -52,11 +52,7 @@ const styles = StyleSheet.create( {
 
     bottomSection: {
         flex: 0,
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        alignContent: "flex-start",
-        alignItems: "center"
-
+        flexDirection: "row"
     },
 
     info: {
@@ -69,7 +65,7 @@ const styles = StyleSheet.create( {
         flex: 0,
 
         fontSize: 16,
-        fontWeight: "500",
+        fontWeight: "600",
         fontStyle: "normal",
         letterSpacing: 0,
         textAlign: "left",
@@ -123,7 +119,7 @@ const Days = ( { eventItem } ) => {
         return null;
 
     const formatStr = "MMM. D";
-    const value = `${format( startTime, formatStr)} - ${format( endTime, formatStr )}`;
+    const value = `${format( startTime, formatStr )} - ${format( endTime, formatStr )}`;
     return <Text style={ styles.days }>{ value }</Text>;
 };
 
@@ -141,19 +137,21 @@ const Item = ( props ) => {
                 <View style={ styles.rightPanel }>
                     <View style={ styles.topSection }>
                         <View style={ styles.info }>
-                            <Text style={ styles.name }>
                             <EventCategories event={ eventSummary } numberOfLines={1} />
+                            <Text style={ styles.name } numberOfLines={2}>
                                 { eventSummary.name }
                             </Text>
                             <Days eventItem={ eventItem }/>
                         </View>
                     </View>
-                    <EventTimeLocationRSVP
-                        eventItem={ eventItem }
-                        calendarDay={ calendarDay }
-                        ongoing={ ongoing }
-                        size="small"
-                    />
+                    <View style={ styles.bottomSection }>
+                        <EventTimeLocationRSVP
+                            eventItem={ eventItem }
+                            calendarDay={ calendarDay }
+                            ongoing={ ongoing }
+                            size="small"
+                        />
+                    </View>
                 </View>
             </View>
         </TouchableButton>

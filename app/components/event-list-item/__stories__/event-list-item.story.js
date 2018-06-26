@@ -3,9 +3,9 @@ import defautEvent from "./data/default.json";
 import longEverythingEvent from "./data/long-everything.json";
 
 import { makeFullEvent } from "app/models/event";
-import { createEventWithDetails, getEventItem } from "app/utils/realm";
+import { createEventWithDetails, createEventSummary, createRsvpedEventItem, getEventItem } from "app/utils/realm";
 import { injectState } from "app/utils/freactal";
-import { now, addToDate, subtractFromDate } from "app/utils/date";
+import { now, addToDate } from "app/utils/date";
 
 import layout from "/.storybook/decorators/layout";
 import withRealm from "/.storybook/decorators/with-realm";
@@ -54,10 +54,16 @@ storiesOf( "EventListItem", module )
                 createEventWithDetails( realm, makeFullEvent( { ...defautEvent, starttime: inFewHours } ) );
                 createEventWithDetails( realm, makeFullEvent( { ...longEverythingEvent, starttime: rightNow } ) );
                 createEventWithDetails( realm, makeFullEvent( { ...longEverythingEvent, id: 3, starttime: inAnHour } ) );
+                createRsvpedEventItem(
+                    realm,
+                    createEventSummary( realm, makeFullEvent( { ...longEverythingEvent, id: 4 } ) ),
+                    { startTime: inAnHour }
+                );
             } );
         }
     } ) )
     .add( "default", () => ( <Story eventItemId={ "1" } /> ) )
     .add( "long everything", () => ( <Story eventItemId={ "2" } /> ) )
     .add( "upcoming", () => ( <Story eventItemId={ "3" } /> ) )
+    .add( "rsvp-ed", () => ( <Story eventItemId={ "4" } /> ) )
 ;

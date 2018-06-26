@@ -1,6 +1,6 @@
-import EventTime from "../event-time";
-import CheckmarkIcon from "../icons/checkmark";
-import * as Styles from "../../styles";
+import EventTime from "app/components/event-time";
+import CheckmarkIcon from "app/components/icons/checkmark";
+import * as Styles from "app/styles";
 
 import React, { Fragment } from "react";
 import { Text, View } from "react-native";
@@ -12,7 +12,6 @@ const styles = Styles.create( {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginVertical: 2
     },
 
     timeAndLocation: {
@@ -28,12 +27,16 @@ const styles = Styles.create( {
 
     location: {
         marginLeft: 4,
-        fontSize: 14,
         fontWeight: "normal",
         fontStyle: "normal",
         letterSpacing: 0,
         textAlign: "left",
         color: Styles.variables.textColor
+    },
+
+    atSymbol: {
+        marginLeft: 5,
+        color: Styles.variables.grayTextColor
     },
 
     rsvpBadge: {
@@ -56,13 +59,13 @@ const styles = Styles.create( {
 const stylesSize = {
     regular: Styles.create( {
         location: {
-            fontSize: Styles.variables.regularFontSize
+            fontSize: Styles.variables.largeFontSize
         }
 
     } ),
     small: Styles.create( {
         location: {
-            fontSize: Styles.variables.smallFontSize
+            fontSize: Styles.variables.regularFontSize
         }
 
     } )
@@ -79,7 +82,7 @@ const EventTimeLocationRSVP = ( props ) => {
     const locationViews = venue.name
         ? (
             <Fragment>
-                <Text style={ locationStyle }>@</Text>
+                <Text style={ [ locationStyle, styles.atSymbol ] }>@</Text>
                 <View style={ styles.locationWrapper }>
                     <Text numberOfLines={ 1 } style={ locationStyle }>
                         { venue.name }
