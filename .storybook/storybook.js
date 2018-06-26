@@ -1,7 +1,7 @@
 import api from "./api";
 import navigatorStyleDecorator from "./decorators/navigator-style";
 
-import makeGlobalStateContextProvider from "/app/navigator/states/global-state";
+import makeGlobalState from "/app/navigator/states/global-state";
 import registerScreen from "/app/navigator/register-screen";
 import NavigatorStyles from "/app/navigator/styles";
 import { createInstance } from "/app/utils/realm";
@@ -42,13 +42,13 @@ const StorybookScreen = {
 };
 
 
-const getStateContext = makeGlobalStateContextProvider( {
+const globalState = makeGlobalState( {
     realm: createInstance( { inMemory: true } ),
     api
 } );
 
-registerScreens( getStateContext );
-registerScreen( StorybookScreen, getStateContext );
+registerScreens( globalState.getChildContext );
+registerScreen( StorybookScreen, globalState.getChildContext );
 
 
 Navigation
