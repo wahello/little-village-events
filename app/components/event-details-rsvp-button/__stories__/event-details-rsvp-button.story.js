@@ -2,6 +2,7 @@ import EventDetailsRsvpButton from "..";
 import cinemaEvent from "./data/cinema-event.json";
 import oneDollarEvent from "./data/one-dollar-event.json";
 import priceyEvent from "./data/pricey-event.json";
+import priceyEventWithCents from "./data/pricey-event-with-cents.json";
 import freeEvent from "./data/free-event.json";
 
 import { makeFullEvent } from "app/models/event";
@@ -27,6 +28,7 @@ storiesOf( "EventDetailsRsvpButton", module )
     .add( "default", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( cinemaEvent ) } { ...actions } /> ) )
     .add( "$1 price", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( oneDollarEvent ) } { ...actions } /> ) )
     .add( "large price", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( priceyEvent ) } { ...actions } /> ) )
+    .add( "large price with cents", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( priceyEventWithCents ) } { ...actions } /> ) )
     .add( "free", () => ( <EventDetailsRsvpButton eventDetails={ eventDetails( freeEvent ) } { ...actions } /> ) )
     .add( "going", () => ( <EventDetailsRsvpButton rsvp={true} eventDetails={ eventDetails( freeEvent ) } { ...actions } /> ) )
 ;

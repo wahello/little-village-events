@@ -69,9 +69,13 @@ const SmallPrint = ( { text } ) =>
 ;
 
 
-const formatPrice = ( price, forceDecimals ) =>
-    numeral( price ).format( forceDecimals ? "$0,0.00" : "$0,0[.]00" )
-;
+const formatPrice = ( price, forceDecimals ) => {
+    let result = numeral( price );
+    if ( result.value() > 100 && !forceDecimals )
+        result = numeral( Math.round( result.value() ) );
+
+    return result.format( forceDecimals ? "$0,0.00" : "$0,0[.]00" );
+};
 
 
 const priceLabel = priceRange => priceRange
