@@ -6,9 +6,9 @@ import groupBy from "lodash/groupBy";
 import keys from "lodash/keys";
 
 
-const buildLiveQuery = ( realm, dates, currentWeek ) =>
+const buildLiveQuery = ( realm, dates, today, currentWeek ) =>
     realm.objects( "EventItem" )
-        .filtered( "( eventDate >= $0 AND eventDate <= $1 ) OR ( eventDate = null AND endTime > $2 AND startTime <= $3 )", dates.first, dates.last, currentWeek.first, currentWeek.last )
+        .filtered( "( endTime >= $0 AND eventDate <= $1 ) OR ( eventDate = null AND endTime > $2 AND startTime <= $3 )", today, dates.last, currentWeek.first, currentWeek.last )
         .sorted( [ "eventDate", [ "eventSummary.featured", true ], "startTime", "eventSummary.name" ] )
 ;
 
@@ -34,7 +34,7 @@ const initialize = ( effects, { state } ) => {
     const { realm, dates, today } = state;
     const currentWeek = { first: today, last: weekEnd( today ) };
 
-    const liveQuery = buildLiveQuery( realm, dates, currentWeek );
+    const liveQuery = buildLiveQuery( realm, dates, today, currentWeek );
     liveQuery.addListener( ( events, { modifications, insertions, deletions } ) => {
         if ( modifications.length || insertions.length || deletions.length )
             effects.refresh( realm );
