@@ -19,8 +19,9 @@ const styles = StyleSheet.create( {
         alignContent: "stretch",
         alignItems: "stretch",
 
-        margin: 6,
         padding: 10,
+        paddingLeft: 16,
+        paddingRight: 16,
 
         backgroundColor: "#ffffff",
     },

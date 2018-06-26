@@ -1,14 +1,16 @@
 import Hr from "../hr";
-import * as Styles from "../../styles";
+import * as Styles from "app/styles";
 
+import { View } from "react-native";
 import React from "react";
 
 
 const styles = Styles.create( {
     root: {
-        marginLeft: 120,
+        paddingLeft: 120,
+        backgroundColor: Styles.variables.bodyBackgroundColor
     },
 } );
 
 
-export default () => <Hr style={ styles.root }/>;
+export default () => <View style={ styles.root }><Hr/></View>;
