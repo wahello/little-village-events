@@ -1,6 +1,6 @@
-import EventHashtags from "../event-hashtags";
 import EventTimeLocationRSVP from "../event-time-location-rsvp";
 import { TouchableButton } from "../touchable";
+import EventCategories from "app/components/event-categories";
 import { daysDiff, format } from "app/utils/date";
 
 import { injectState } from "@textpress/freactal";
@@ -141,8 +141,8 @@ const Item = ( props ) => {
                 <View style={ styles.rightPanel }>
                     <View style={ styles.topSection }>
                         <View style={ styles.info }>
-                            <EventHashtags event={ eventSummary }/>
                             <Text style={ styles.name }>
+                            <EventCategories event={ eventSummary } numberOfLines={1} />
                                 { eventSummary.name }
                             </Text>
                             <Days eventItem={ eventItem }/>

@@ -1,38 +1,26 @@
-import { Animated, Text, StyleSheet } from "react-native";
+import EventCategories from "app/components/event-categories";
+import { StyleSheet } from "react-native";
+
 import React from "react";
 
 
 const styles = StyleSheet.create( {
     root: {
-        flex: 1,
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "flex-end",
-        maxHeight: 28,
         width: 220,
-        marginBottom: 7,
-        overflow: "hidden",
+        marginBottom: 7
     },
     category: {
-        fontSize: 12,
-        fontWeight: "400",
         color: "white",
-        marginRight: 10
     }
 } );
 
 
-const categories = event => event.categories
-    .map( c => ( c.name || "" ).toUpperCase() )
-    .filter( c => !!c )
-    .sort()
-;
-
 
 export default ( { event, style, ...props } ) =>
-    <Animated.View style={ [ styles.root, style ] } {...props}>
-        { categories( event ).map( c =>
-            <Text style={styles.category} key={c}>{c}</Text>
-        ) }
-    </Animated.View>
+    <EventCategories
+        event={ event }
+        style={[ styles.root, style ]}
+        textStyle={ styles.category }
+        numberOfLines={2}
+        {...props} />
 ;
