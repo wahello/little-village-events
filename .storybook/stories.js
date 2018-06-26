@@ -8,6 +8,7 @@ import "../app/components/event-details-rsvp-button/__stories__/event-details-rs
 import "../app/components/event-details-title/__stories__/event-details-title.story";
 import "../app/components/event-details-venue-card/__stories__/event-details-venue-card.story";
 import "../app/components/event-list-featured-item/__stories__/event-list-featured-item.story";
+import "../app/components/event-list-item/__stories__/event-list-item.story";
 import "../app/components/event-locations-chooser/__stories__/event-locations-chooser.story";
 import "../app/components/onboarding/__stories__/onboarding.story";
 import "../app/components/icons/__stories__/icons.story";
