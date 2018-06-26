@@ -8,6 +8,7 @@ import React from "react";
 const styles = Styles.create( {
     root: {
         paddingLeft: 120,
+        paddingRight: 16,
         backgroundColor: Styles.variables.bodyBackgroundColor
     },
 } );

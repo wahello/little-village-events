@@ -38,10 +38,10 @@ const stylesSize = {
 const colorsByTense = {
     past: Styles.create( {
         root: {
-            backgroundColor: "#DADADA"
+            backgroundColor: Styles.variables.mediumGrayColor
         },
         label: {
-            color: Styles.variables.textColor
+            color: Styles.variables.invertedTextColor
         }
     } ),
     present: Styles.create( {
@@ -62,10 +62,10 @@ const colorsByTense = {
     } ),
     future: Styles.create( {
         root: {
-            backgroundColor: Styles.variables.mediumGrayColor
+            backgroundColor: Styles.variables.highlightColorLight
         },
         label: {
-            color: Styles.variables.invertedTextColor
+            color: Styles.variables.textColor
         }
     } ),
 

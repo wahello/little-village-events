@@ -10,7 +10,7 @@ const styles = StyleSheet.create( {
         width: "100%",
         borderBottomWidth: variables.borderWidth,
         borderBottomColor: variables.borderColor,
-        opacity: .3
+        opacity: .5
     }
 } );
 

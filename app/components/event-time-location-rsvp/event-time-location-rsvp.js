@@ -43,6 +43,7 @@ const styles = Styles.create( {
         flex: 0,
         height: 22,
         width: 22,
+        marginLeft: 4,
         borderRadius: 22,
         backgroundColor: "#007aff",
         alignSelf: "flex-start"
