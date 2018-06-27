@@ -139,6 +139,12 @@ export const eventTense = ( eventItem, calendarDay, currentTime ) => {
 export const defaultEventEndTime = ( { startTime } ) =>
     addToDate( startTime, { minutes: config.eventThresholds.past } );
 
+export const normalizeEventTime = time => {
+    const base = dayStart( time );
+    const oldMinutes = minutesDiff( time, base );
+    const minutes = Math.ceil( oldMinutes / config.eventThresholds.interval ) * config.eventThresholds.interval;
+    return addToDate( base, { minutes } );
+};
 
 export const nextRSVPTime = ( rsvpInfo, currentTime ) => {
     const { first, last } = rsvpInfo;
