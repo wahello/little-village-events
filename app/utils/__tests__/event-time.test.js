@@ -1,5 +1,5 @@
-import { dayStart, addToDate, subtractFromDate } from "../date";
-import { firstRSVPDate, lastRSVPDate, getRSVPInfo, RSVPTimeForDay, calcRSVPTime, eventTense } from "../event-time";
+import { addToDate, dayEnd, dayStart, subtractFromDate } from "../date";
+import { eventTense, firstRSVPDate, getRSVPInfo, lastRSVPDate, RSVPTimeForDay } from "../event-time";
 
 import _keys from "lodash/keys";
 import _pick from "lodash/pick";
@@ -89,7 +89,6 @@ describe( "event-time", () => {
 
         it( "handles one time events", () => {
             [
-                { startTime: morning( today ) },
                 { startTime: morning( today ), endTime: evening( today ) },
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ), allDay: false }
             ].forEach( allDayExpectedWrapper( test )( null ) );
@@ -122,22 +121,18 @@ describe( "event-time", () => {
 
         it( "handles one time events", () => {
             test(
-                { startTime: morning( today ) },
-                { first: morning( today ), last: null, allDay: false, duration: 0 }
-            );
-            test(
                 { startTime: morning( today ), endTime: evening( today ) },
-                { first: morning( today ), last: null, allDay: false, duration: 540 }
+                { first: morning( today ), last: morning( today ), singleDay: true, allDay: false, duration: 540 }
             );
 
             test(
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ) },
-                { first: lateEvening( today ), last: null, allDay: false, duration: 240 }
+                { first: lateEvening( today ), last: lateEvening( today ), singleDay: true, allDay: false, duration: 240 }
             );
 
             test(
                 { startTime: evening( today ), endTime: morning( today ) },
-                { first: evening( today ), last: null, allDay: false, duration: 0 }
+                { first: evening( today ), last: evening( today ), singleDay: true, allDay: false, duration: 0 }
             );
 
         } );
@@ -145,18 +140,18 @@ describe( "event-time", () => {
         it( "handles reoccurring events", () => {
             test(
                 { startTime: morning( yesterday ), endTime: evening( tomorrow ) },
-                { first: morning( yesterday ), last: morning( tomorrow ), allDay: false, duration: 540 }
+                { first: morning( yesterday ), last: morning( tomorrow ), singleDay: false, allDay: false, duration: 540 }
             );
 
             test(
                 { startTime: morning( yesterday ), endTime: evening( tomorrow ), allDay: true },
-                { first: dayStart( yesterday ), last: dayStart( tomorrow ), allDay: true, duration: 0 }
+                { first: dayStart( yesterday ), last: dayStart( tomorrow ), singleDay: false, allDay: true, duration: null }
             );
 
 
             test(
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ), allDay: true },
-                { first: dayStart( today ), last: dayStart( tomorrow ), allDay: true, duration: 0 }
+                { first: dayStart( today ), last: dayStart( tomorrow ), singleDay: false, allDay: true, duration: null }
             );
 
         } );
@@ -177,14 +172,8 @@ describe( "event-time", () => {
             it( "handles events", () => {
 
                 test(
-                    { startTime: morning( today ) },
-                    { startTime: morning( today ), endTime: null, allDay: false }
-                );
-
-
-                test(
-                    { startTime: morning( today ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
+                    { startTime: morning( today ), endTime: morning( today ), allDay: true },
+                    { startTime: dayStart( today ), endTime: dayEnd( today ), allDay: true }
                 );
 
 
@@ -196,17 +185,30 @@ describe( "event-time", () => {
 
                 test(
                     { startTime: morning( today ), endTime: evening( today ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
+                    { startTime: dayStart( today ), endTime: dayEnd( today ), allDay: true }
                 );
 
 
-                [
-                    yesterday,
-                    tomorrow,
-                ].forEach( day => {
-                    testAllDayExpected( null )( { startTime: morning( day ) } );
-                    testAllDayExpected( null )( { startTime: morning( day ), endTime: evening( day ) } );
-                } );
+                test(
+                    { startTime: morning( yesterday ), endTime: evening( yesterday ), allDay: false },
+                    null
+                );
+
+                test(
+                    { startTime: morning( yesterday ), endTime: evening( yesterday ), allDay: true },
+                    null
+                );
+
+                test(
+                    { startTime: morning( tomorrow ), endTime: evening( tomorrow ), allDay: false },
+                    null
+                );
+
+                test(
+                    { startTime: morning( tomorrow ), endTime: evening( tomorrow ), allDay: true },
+                    null
+                );
+
 
                 test( { startTime: lateEvening( yesterday ), endTime: earlyMorning( today ) }, null );
 
@@ -248,20 +250,20 @@ describe( "event-time", () => {
                     if ( event.allDay === undefined ) {
                         test(
                             { ...event, allDay: true },
-                            { startTime: dayStart( today ), endTime: null, allDay: true } );
+                            { startTime: dayStart( today ), endTime: dayEnd( today ), allDay: true } );
                     }
                 } );
 
 
                 test(
                     { startTime: lateEvening( weekAgo ), endTime: earlyMorning( today ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
+                    { startTime: dayStart( today ), endTime: dayEnd( today ), allDay: true }
                 );
 
 
                 test(
                     { startTime: lateEvening( today ), endTime: earlyMorning( weekLater ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
+                    { startTime: dayStart( today ), endTime: dayEnd( today ), allDay: true }
                 );
 
 
@@ -286,146 +288,6 @@ describe( "event-time", () => {
     } );
 
 
-    describe( "calcRSVPTime", () => {
-
-        const test = integrityWrapper(
-            ( event, expected ) => expect( JSON.stringify( calcRSVPTime( event, today ) ) ).toMatch( JSON.stringify( expected ) )
-        );
-
-        describe( "one time events", () => {
-
-            it( "returns rsvp time for current events", () => {
-                test(
-                    { startTime: morning( today ) },
-                    { startTime: morning( today ), endTime: null, allDay: false }
-                );
-
-                test(
-                    { startTime: morning( today ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
-                );
-
-                test(
-                    { startTime: morning( today ), endTime: evening( today ) },
-                    { startTime: morning( today ), endTime: evening( today ), allDay: false }
-                );
-
-                test(
-                    { startTime: morning( today ), endTime: evening( today ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
-                );
-
-                test(
-                    { startTime: morning( weekAgo ), endTime: evening( weekLater ) },
-                    { startTime: morning( today ), endTime: evening( today ), allDay: false }
-                );
-
-                test(
-                    { startTime: morning( weekAgo ), endTime: evening( weekLater ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
-                );
-
-                test(
-                    { startTime: lateEvening( weekAgo ), endTime: earlyMorning( weekLater ) },
-                    { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ), allDay: false }
-                );
-
-            } );
-
-            it( "throws exceptions for non-current events", () => {
-
-                [
-                    yesterday,
-                    tomorrow,
-                ].forEach( day => {
-                    expect( () => calcRSVPTime( { startTime: morning( day ) }, today ) ).toThrow();
-                    expect( () => calcRSVPTime( { startTime: morning( day ), allDay: true }, today ) ).toThrow();
-                    expect( () => calcRSVPTime(
-                        { startTime: morning( day ), endTime: evening( day ) }
-                        , today )
-                    ).toThrow();
-                    expect( () => calcRSVPTime(
-                        { startTime: morning( day ), endTime: evening( day ), allDay: true }
-                        , today )
-                    ).toThrow();
-                } );
-
-
-                expect( () => calcRSVPTime(
-                    { startTime: lateEvening( yesterday ), endTime: earlyMorning( today ) }
-                    , today )
-                ).toThrow();
-            } );
-
-
-        } );
-
-
-        describe( "reoccurring events", () => {
-
-            it( "returns rsvp time for current events", () => {
-                [
-                    { startTime: morning( weekAgo ), endTime: evening( weekLater ) },
-                    { startTime: morning( weekAgo ), endTime: evening( today ) },
-                    { startTime: morning( today ), endTime: evening( weekLater ) }
-                ].forEach( event => {
-                    test(
-                        event,
-                        { startTime: morning( today ), endTime: evening( today ), allDay: false }
-                    );
-
-                    test(
-                        { ...event, allDay: true },
-                        { startTime: dayStart( today ), endTime: null, allDay: true }
-                    );
-                } );
-
-
-                test(
-                    { startTime: earlyMorning( weekAgo ), endTime: morning( weekLater ) },
-                    { startTime: earlyMorning( today ), endTime: morning( today ), allDay: false }
-                );
-
-                test(
-                    { startTime: evening( weekAgo ), endTime: lateEvening( weekLater ) },
-                    { startTime: evening( today ), endTime: lateEvening( today ), allDay: false }
-                );
-
-                test(
-                    { startTime: lateEvening( weekAgo ), endTime: earlyMorning( weekLater ) },
-                    { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ), allDay: false }
-                );
-
-                test(
-                    { startTime: lateEvening( yesterday ), endTime: earlyMorning( today ), allDay: true },
-                    { startTime: dayStart( today ), endTime: null, allDay: true }
-                );
-
-            } );
-
-            it( "throws exceptions for invalid events", () => {
-                [
-                    { startTime: morning( weekAgo ), endTime: evening( yesterday ) },
-                    { startTime: lateEvening( weekAgo ), endTime: earlyMorning( yesterday ) },
-                    { startTime: morning( tomorrow ), endTime: evening( weekLater ) },
-                    { startTime: lateEvening( tomorrow ), endTime: earlyMorning( weekLater ) },
-                ].forEach( event => {
-                    expect( () => calcRSVPTime( event, today ) ).toThrow();
-                    expect( () => calcRSVPTime( { ...event, allDay: true }, today ) ).toThrow();
-                } );
-
-                expect( () => calcRSVPTime(
-                    { startTime: lateEvening( weekAgo ), endTime: earlyMorning( today ) }
-                    , today )
-                ).toThrow();
-
-            } );
-
-
-        } );
-
-    } );
-
     describe( "eventTense", () => {
 
         const currentTime = noon( today );
@@ -439,25 +301,21 @@ describe( "event-time", () => {
         it( "handles one time events", () => {
 
             [
-                { startTime: morning( yesterday ) },
                 { startTime: morning( yesterday ), endTime: evening( yesterday ) },
                 { startTime: lateEvening( yesterday ), endTime: earlyMorning( today ), allDay: false },
                 { startTime: lateEvening( yesterday ), endTime: evening( today ), allDay: false },
                 { startTime: earlyMorning( today ), endTime: morning( today ), allDay: false },
-                { startTime: morning( today ), allDay: false },
                 { startTime: subtractFromDate( currentTime, { minutes: config.eventThresholds.past } ), allDay: false },
             ].forEach( testAllDayExpected( "past" ) );
 
             [
                 { startTime: morning( today ), endTime: evening( today ) },
                 { startTime: currentTime, endTime: evening( today ) },
-                { startTime: subtractFromDate( currentTime, { minutes: config.eventThresholds.past - 1 } ) },
+                { startTime: subtractFromDate( currentTime, { minutes: config.eventThresholds.past - 1 } ), endTime: evening( today ) },
             ].forEach( testExpected( "present" ) );
 
             [
-                { startTime: morning( today ), allDay: true },
                 { startTime: morning( today ), endTime: evening( today ), allDay: true },
-                { startTime: evening( today ), allDay: true },
                 { startTime: evening( today ), endTime: lateEvening( today ), allDay: true },
                 { startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming - 1 } ) },
                 {
@@ -467,10 +325,8 @@ describe( "event-time", () => {
             ].forEach( testExpected( "upcoming" ) );
 
             [
-                { startTime: evening( today ), allDay: false },
                 { startTime: evening( today ), endTime: lateEvening( today ), allDay: false },
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ), allDay: false },
-                { startTime: morning( tomorrow ) },
                 { startTime: morning( tomorrow ), endTime: evening( tomorrow ) },
                 { startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming } ), allDay: false },
             ].forEach( testAllDayExpected( "future" ) );

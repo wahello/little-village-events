@@ -82,7 +82,9 @@ const normalizeEventTime = eventSummary => {
         }
         : {
             startTime,
-            endTime: endTime || defaultEventEndTime( eventSummary )
+            endTime: endTime && endTime.valueOf() > startTime.valueOf()
+                ? endTime
+                : defaultEventEndTime( eventSummary )
         }
 };
 
