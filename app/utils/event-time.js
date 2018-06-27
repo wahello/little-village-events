@@ -74,10 +74,17 @@ const calcRSVPStartTime = ( rsvpInfo, calendarDay ) => {
     return moveTimeToDate( first, calendarDay );
 };
 
+const calcRSVPEndTime = ( startTime, rsvpInfo ) => {
+    const { allDay, duration } = rsvpInfo;
+    return allDay
+        ? dayEnd( startTime )
+        : addToDate( startTime, { minutes: duration } )
+    ;
+};
 
 export const RSVPTimeForDay = ( eventItem, calendarDay ) => {
     const rsvpInfo = getRSVPInfo( eventItem );
-    const { first, last, duration, allDay } = rsvpInfo;
+    const { first, last, allDay } = rsvpInfo;
     if ( daysDiff( calendarDay, last ) > 0 )
         return null;
 
@@ -88,7 +95,7 @@ export const RSVPTimeForDay = ( eventItem, calendarDay ) => {
 
     return {
         startTime,
-        endTime: allDay ? dayEnd( startTime ) : addToDate( startTime, { minutes: duration } ),
+        endTime: calcRSVPEndTime( startTime, rsvpInfo ),
         allDay
     };
 };
@@ -131,3 +138,35 @@ export const eventTense = ( eventItem, calendarDay, currentTime ) => {
 
 export const defaultEventEndTime = ( { startTime } ) =>
     addToDate( startTime, { minutes: config.eventThresholds.past } );
+
+
+export const nextRSVPTime = ( rsvpInfo, currentTime ) => {
+    const { first, last } = rsvpInfo;
+
+    if ( isAfter( first, currentTime ) )
+        return {
+            startTime: first,
+            endTime: calcRSVPEndTime( first, rsvpInfo )
+        };
+
+    const lastEnd = calcRSVPEndTime( last, rsvpInfo );
+    if ( isAfter( currentTime, lastEnd ) )
+        return null;
+
+    let startTime = moveTimeToDate( first, currentTime );
+    let endTime = calcRSVPEndTime( startTime, rsvpInfo );
+
+    if ( !isBefore( currentTime, endTime ) ) {
+        startTime = addToDate( startTime, { day: 1 } );
+        endTime = addToDate( endTime, { day: 1 } );
+    } else {
+        startTime = isAfter( startTime, currentTime )
+            ? startTime
+            : currentTime
+        ;
+    }
+
+    return { startTime, endTime };
+};
+
+

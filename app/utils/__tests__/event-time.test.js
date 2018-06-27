@@ -1,11 +1,11 @@
 import { addToDate, dayEnd, dayStart, subtractFromDate } from "../date";
-import { eventTense, firstRSVPDate, getRSVPInfo, lastRSVPDate, RSVPTimeForDay } from "../event-time";
 
 import _keys from "lodash/keys";
 import _pick from "lodash/pick";
 
 import sinon from "sinon";
 import config from "../../config";
+import { eventTense, firstRSVPDate, getRSVPInfo, lastRSVPDate, nextRSVPTime, RSVPTimeForDay } from "../event-time";
 
 const dateHour = ( date, hour ) => addToDate( dayStart( date ), { minutes: hour * 60 } );
 
@@ -369,6 +369,96 @@ describe( "event-time", () => {
             ].forEach( testAllDayExpected( "future" ) );
 
         } );
+
+    } );
+
+    describe( "nextRSVPTime", () => {
+        const currentTime = noon( today );
+
+        const test = integrityWrapper(
+            ( rsvpInfo, expected ) => expect( nextRSVPTime( rsvpInfo, currentTime ) ).toEqual( expected )
+        );
+
+        it( "handles past events", () => {
+            test(
+                { first: earlyMorning( today ), last: earlyMorning( yesterday ), duration: 7 * 60 },
+                null
+            );
+
+            test(
+                { first: dayStart( weekAgo ), last: dayStart( yesterday ), allDay: true },
+                null
+            );
+
+            test(
+                { first: morning( weekAgo ), last: morning( today ), duration: ( currentTime.valueOf() - morning( today ).valueOf() ) / 60000 - 1 },
+                null
+            );
+
+        } );
+
+        it( "handles present events", () => {
+            test(
+                { first: dayStart( today ), last: dayStart( today ), allDay: true },
+                { startTime: currentTime, endTime: dayEnd( today ) }
+            );
+
+            test(
+                { first: morning( today ), last: morning( today ), duration: 9 * 60 },
+                { startTime: currentTime, endTime: evening( today ) }
+            );
+
+            test(
+                { first: dayStart( weekAgo ), last: dayStart( weekLater ), allDay: true },
+                { startTime: currentTime, endTime: dayEnd( today ) }
+            );
+
+            test(
+                { first: morning( weekAgo ), last: morning( weekLater ), duration: 9 * 60 },
+                { startTime: currentTime, endTime: evening( today ) }
+            );
+
+        } );
+
+        it( "handles future events", () => {
+            test(
+                { first: evening( weekAgo ), last: evening( weekLater ), duration: 4 * 60 },
+                { startTime: evening( today ), endTime: lateEvening( today ) }
+            );
+
+            test(
+                { first: earlyMorning( weekAgo ), last: earlyMorning( weekLater ), duration: 7 * 60 },
+                { startTime: earlyMorning( tomorrow ), endTime: morning( tomorrow ) }
+            );
+
+            test(
+                { first: evening( today ), last: evening( today ), duration: 4 * 60 },
+                { startTime: evening( today ), endTime: lateEvening( today ) }
+            );
+
+            test(
+                { first: dayStart( tomorrow ), last: dayStart( tomorrow ), allDay: true },
+                { startTime: dayStart( tomorrow ), endTime: dayEnd( tomorrow ) }
+            );
+
+            test(
+                { first: morning( tomorrow ), last: morning( tomorrow ), duration: 9 * 60 },
+                { startTime: morning( tomorrow ), endTime: evening( tomorrow ) }
+            );
+
+            test(
+                { first: dayStart( tomorrow ), last: dayStart( weekLater ), allDay: true },
+                { startTime: dayStart( tomorrow ), endTime: dayEnd( tomorrow ) }
+            );
+
+            test(
+                { first: morning( tomorrow ), last: morning( weekLater ), duration: 9 * 60 },
+                { startTime: morning( tomorrow ), endTime: evening( tomorrow ) }
+            );
+
+        } );
+
+
 
     } );
 
