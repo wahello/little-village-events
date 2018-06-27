@@ -11,6 +11,7 @@ import "../app/components/event-list-featured-item/__stories__/event-list-featur
 import "../app/components/event-list-item/__stories__/event-list-item.story";
 import "../app/components/event-time/__stories__/event-time.story";
 import "../app/components/event-locations-chooser/__stories__/event-locations-chooser.story";
+import "../app/components/events-for-you-header/__stories__/events-for-you-header.story";
 import "../app/components/onboarding/__stories__/onboarding.story";
 import "../app/components/icons/__stories__/icons.story";
 import "../app/components/expandable-view/__stories__/expandable-view.story";
