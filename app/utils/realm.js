@@ -14,7 +14,7 @@ import values from "lodash/values";
 export const createInstance = ( options = {} ) => {
     const realm = new Realm( {
         schema,
-        schemaVersion: 5,
+        schemaVersion: 6,
         // deleteRealmIfMigrationNeeded: !isProduction(),
         ...options,
         migration: ( oldRealm, newRealm ) => {

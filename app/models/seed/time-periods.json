@@ -1,0 +1,5 @@
+[
+    { "id": "month", "order": 1, "name": "This month" },
+    { "id": "week", "order": 2, "name": "This week" },
+    { "id": "weekend", "order": 3, "name": "This weekend" }
+]

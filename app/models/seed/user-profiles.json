@@ -3,6 +3,7 @@
         "id": "default",
         "newUser": true,
         "location": { "id": "anywhere" },
-        "interests": []
+        "interests": [],
+        "timePeriod": { "id": "week" }
     }
 ]

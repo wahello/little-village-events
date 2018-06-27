@@ -100,6 +100,17 @@ export const Location = {
 };
 
 
+export const TimePeriod = {
+    name: "TimePeriod",
+    primaryKey: "id",
+    properties: {
+        id: "string",
+        name: "string",
+        order: "int"
+    }
+};
+
+
 export const UserProfile = {
     name: "UserProfile",
     primaryKey: "id",
@@ -107,9 +118,10 @@ export const UserProfile = {
         id: "string",
         newUser: "bool",
         location: "Location",
-        interests: "Category[]"
+        interests: "Category[]",
+        timePeriod: "TimePeriod"
     }
 };
 
 
-export default [ Category, Asset, Venue, EventItem, EventSummary, EventDetails, Location, UserProfile ];
+export default [ Category, Asset, Venue, EventItem, EventSummary, EventDetails, Location, TimePeriod, UserProfile ];

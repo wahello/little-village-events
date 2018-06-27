@@ -7,4 +7,5 @@ const asArray = ( realm, objectType ) =>
 
 export const Categories = ( { realm } ) => asArray( realm, "Category" );
 export const Locations = ( { realm } ) => asArray( realm, "Location" );
+export const TimePeriods = ( { realm } ) => asArray( realm, "TimePeriod" );
 export const showOnboardingScreen = ( { userProfile } ) => userProfile.newUser;
