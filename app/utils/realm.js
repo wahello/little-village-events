@@ -8,6 +8,7 @@ import Realm from "realm";
 
 import omit from "lodash/omit";
 import values from "lodash/values";
+import uniqBy from "lodash/uniqBy";
 
 
 export const createInstance = ( options = {} ) => {
@@ -35,9 +36,10 @@ export const write = ( realm, fn ) => {
 };
 
 
-export const createEventSummary = ( realm, summaryData ) =>
+export const createEventSummary = ( realm, { categories, ...summaryData } ) =>
     realm.create( "EventSummary", {
         ...summaryData,
+        categories: uniqBy( categories, "id" ),
         venue: {
             id: summaryData.venueId,
             name: summaryData.venueName,
