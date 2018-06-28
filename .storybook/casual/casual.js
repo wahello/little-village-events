@@ -1,6 +1,7 @@
 import { sortByStartTime } from "/app/utils/event";
 import { normalizeEventTime } from "/app/utils/event-time";
 import { addToDate, dayStart, maxDate, moveTimeToDate, now, subtractFromDate, weekEnd } from "/app/utils/date";
+import { toEventItem } from "/app/utils/realm";
 
 import config from "/app/config";
 
@@ -13,7 +14,6 @@ import uniqWith from "lodash/uniqWith";
 import isEqual from "lodash/isEqual";
 
 import "./multimedia-image-source";
-import { toEventSummaryObject } from "app/utils/realm";
 
 
 casual.define( "id", () => casual.integer( 100000, Number.MAX_SAFE_INTEGER ) );
@@ -149,5 +149,9 @@ casual.define( "events", ( { quantity, tense, state } ) => {
     return sortByStartTime( result );
 } );
 
+
+casual.define( "eventItems", props => casual.events( props ).map( toEventItem ) );
+
+casual.define( "rsvps", props => casual.eventItems( props ).map( eventItem => ( { ...eventItem, eventDate: dayStart( eventItem.startTime ) ,rsvp: true } ) ) );
 
 export default casual;
