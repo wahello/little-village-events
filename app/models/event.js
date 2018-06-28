@@ -95,8 +95,6 @@ export const summaryProperties = {
     "updatedAt": date( "updated_at" ),
 
     "name": 1,
-    "venueId": "venue_id",
-    "venueName": "venue.name",
     "allDay": "allday",
     "startTime": date( "starttime" ),
     "endTime": date( "endtime" ),
@@ -149,13 +147,13 @@ const detailsProperties = {
     } ) )
 };
 
-export const makeSummaryEvent = rawEvent => ( {
+export const makeEventSummaryData = rawEvent => ( {
     ...process( rawEvent, summaryProperties ),
     details: null
 } );
 
 
-export const makeFullEvent = rawEvent => ( {
+export const makeEventFullData = rawEvent => ( {
     ...process( rawEvent, summaryProperties ),
     details: process( rawEvent, detailsProperties )
 } );

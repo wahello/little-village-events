@@ -4,7 +4,7 @@ export default {
         return [];
     },
 
-    getEvent: async eventId => {
+    getEventFullData: async eventId => {
         return null;
     },
 }

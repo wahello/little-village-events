@@ -1,7 +1,7 @@
 import EventDetailsDateCard from "..";
 import event from "./event.json";
 
-import { makeFullEvent } from "app/models/event";
+import { makeEventFullData } from "app/models/event";
 import { now, subtractFromDate } from "app/utils/date";
 
 import layout from "/.storybook/decorators/layout";
@@ -23,6 +23,6 @@ const Screen = ( props ) => {
 
 storiesOf( "EventDetailsDateCard", module )
     .addDecorator( layout() )
-    .add( "default", () => ( <Screen eventItem={ makeFullEvent( event ) } { ...actions } /> ) )
+    .add( "default", () => ( <Screen eventItem={ makeEventFullData( event ) } { ...actions } /> ) )
     .add( "started", () => ( <Screen eventItem={ { startTime: subtractFromDate( now(), { minutes: 1 } ) } } { ...actions }/> ) )
 ;

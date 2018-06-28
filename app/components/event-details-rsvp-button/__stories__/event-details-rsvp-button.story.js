@@ -5,7 +5,7 @@ import priceyEvent from "./data/pricey-event.json";
 import priceyEventWithCents from "./data/pricey-event-with-cents.json";
 import freeEvent from "./data/free-event.json";
 
-import { makeFullEvent } from "app/models/event";
+import { makeEventFullData } from "app/models/event";
 
 import layout from "/.storybook/decorators/layout";
 
@@ -15,7 +15,7 @@ import { action } from "@storybook/addon-actions";
 import React from "react";
 
 
-const eventDetails = event => makeFullEvent( event ).details;
+const eventDetails = event => makeEventFullData( event ).details;
 
 
 const actions = {

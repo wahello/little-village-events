@@ -8,7 +8,7 @@ import noName from "./data/no-name.json";
 import noNameAndPhone from "./data/no-name-and-phone.json";
 import noPhone from "./data/no-phone.json";
 
-import { makeFullEvent } from "../../../models/event";
+import { makeEventFullData } from "../../../models/event";
 
 import layout from "/.storybook/decorators/layout";
 
@@ -23,7 +23,7 @@ const actions = {
 
 storiesOf( "EventDetailsVenueCard", module )
     .addDecorator( layout() )
-    .add( "complete", () => ( <EventDetailsVenueCard event={ makeFullEvent( completeEvent ) } { ...actions } /> ) )
+    .add( "complete", () => ( <EventDetailsVenueCard event={ makeEventFullData( completeEvent ) } { ...actions } /> ) )
     .add( "no venue", () => ( <EventDetailsVenueCard event={ {} } { ...actions }/> ) )
     .add( "complex address", () => ( <VenueCard venue={ complexAddress } { ...actions }/> ) )
     .add( "long venue name", () => ( <VenueCard venue={ longVenueName } { ...actions }/> ) )

@@ -4,7 +4,7 @@ import darkCoverEvent from "./data/dark-cover.json";
 import alldayEvent from "./data/allday.json";
 
 import { createEventWithDetails } from "app/utils/realm";
-import { makeFullEvent } from "app/models/event";
+import { makeEventFullData } from "app/models/event";
 
 import navigatorStyleDecorator from "/.storybook/decorators/navigator-style";
 import withRealm from "/.storybook/decorators/with-realm";
@@ -24,9 +24,9 @@ storiesOf( "EventDetailsScreen", module )
     .addDecorator( withRealm( {
         seed: realm => {
             realm.write( () => {
-                createEventWithDetails( realm, makeFullEvent( darkCoverEvent ) );
-                createEventWithDetails( realm, makeFullEvent( lightCoverEvent ) );
-                createEventWithDetails( realm, makeFullEvent( alldayEvent ) );
+                createEventWithDetails( realm, makeEventFullData( darkCoverEvent ) );
+                createEventWithDetails( realm, makeEventFullData( lightCoverEvent ) );
+                createEventWithDetails( realm, makeEventFullData( alldayEvent ) );
             } );
         }
     } ) )

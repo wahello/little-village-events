@@ -2,7 +2,7 @@ import FeatureItem from "..";
 import lightCoverEvent from "./data/light-cover.json";
 import darkCoverEvent from "./data/dark-cover.json";
 
-import { makeSummaryEvent } from "../../../models/event";
+import { makeEventSummaryData } from "../../../models/event";
 
 import layout from "/.storybook/decorators/layout";
 
@@ -30,6 +30,6 @@ const Screen = ( { event } ) => (
 
 storiesOf( "EventListFeaturedItem", module )
     .addDecorator( layout( { theme: "light" } ) )
-    .add( "default", () => <Screen event={ { ...makeSummaryEvent( darkCoverEvent ), rsvp: true } } /> )
-    .add( "light cover", () => <Screen event={ makeSummaryEvent( lightCoverEvent ) } /> )
+    .add( "default", () => <Screen event={ { ...makeEventSummaryData( darkCoverEvent ), rsvp: true } } /> )
+    .add( "light cover", () => <Screen event={ makeEventSummaryData( lightCoverEvent ) } /> )
 ;

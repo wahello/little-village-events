@@ -25,7 +25,7 @@ const initialize = async ( effects, { eventItemData, state: { api, realm } } ) =
     const { eventSummary } = getEventItem( realm, eventItemData.id );
     let eventDetails = getEventDetails( realm, eventSummary.id );
     if ( !eventDetails ) {
-        const fullEvent = await api.getEvent( eventSummary.id );
+        const fullEvent = await api.getEventFullData( eventSummary.id );
         realm.write( () => eventDetails = createEventDetails( realm, eventSummary.id, fullEvent.details ) );
     }
 

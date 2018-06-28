@@ -1,4 +1,4 @@
-import { makeFullEvent, makeSummaryEvent } from "app/models/event";
+import { makeEventFullData, makeEventSummaryData } from "app/models/event";
 import { format } from "app/utils/date";
 
 import axios from "axios/index";
@@ -16,12 +16,12 @@ export default {
 
         const url = `${root}/events.json?range_from=${from}&range_to=${to}`;
         const { data } = await axios.get( url );
-        return data.events ? data.events.map( makeSummaryEvent ) : [];
+        return data.events ? data.events.map( makeEventSummaryData ) : [];
     },
 
-    getEvent: async eventId => {
+    getEventFullData: async eventId => {
         const url = `${root}/events/${eventId}.json`;
         const { data } = await axios.get( url );
-        return makeFullEvent( data );
+        return makeEventFullData( data );
     },
 }

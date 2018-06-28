@@ -89,20 +89,21 @@ casual.define( "eventSummary", ( { tense, allDay, Categories } ) => {
         "updatedAt": casual.pastDate,
 
         "name": casual.catch_phrase,
-        "venueId": casual.id,
-        "venueName": casual.company_name,
 
         "categories": Categories ? casual.categories( Categories ) : [],
         "featured": casual.integer( 0, 3 ) === 0,
 
         "multimedia": casual.multimedia,
 
+        "venue": {
+            id: casual.id,
+            name: casual.company_name
+        },
+
         ...casual.eventTimes( { tense, allDay } )
     }
 } );
 
-
-casual.define( "eventSummaryObject", ( props ) => toEventSummaryObject( casual.eventSummary( props ), [] ) );
 
 const price = () => {
     return casual.integer( 0, 5000 ) / 10;
@@ -120,14 +121,11 @@ casual.define( "eventDetails", eventSummary => {
         ticketUrl: casual.coin_flip ? "https://google.com" : "",
         priceRange: casual.random_element( [ [], [ price() ], [ price(), price() ].sort( ( a, b ) => a - b ) ] ),
         venue: {
-            id: eventSummary.venueId,
-            name: eventSummary.venueName,
+            ...eventSummary.venue,
             address,
             phone: casual.phone,
             latitude: Number( casual.latitude ),
             longitude: Number( casual.longitude ),
-            "location": [ eventSummary.venueName, address ].filter( p => !!p ).join( " " )
-
         }
     };
 

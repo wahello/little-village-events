@@ -35,20 +35,12 @@ export const write = ( realm, fn ) => {
     return result;
 };
 
-export const toEventSummaryObject = ( summaryData, categories ) => {
-    return {
-        ...summaryData,
-        categories: uniqBy( categories, "id" ),
-        venue: {
-            id: summaryData.venueId,
-            name: summaryData.venueName,
-            ...summaryData.venue
-        }
-    }
-};
 
 export const createEventSummary = ( realm, { categories, ...summaryData } ) =>
-    realm.create( "EventSummary", toEventSummaryObject( summaryData, categories ), true );
+    realm.create( "EventSummary", {
+        ...summaryData,
+        categories: uniqBy( categories, "id" )
+    }, true );
 
 
 export const createEventDetails = ( realm, eventId, detailsData ) =>

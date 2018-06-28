@@ -2,7 +2,7 @@ import EventListItem from "..";
 import defautEvent from "./data/default.json";
 import longEverythingEvent from "./data/long-everything.json";
 
-import { makeFullEvent } from "app/models/event";
+import { makeEventFullData } from "app/models/event";
 import { createEventWithDetails, createEventSummary, createRsvpedEventItem, getEventItem } from "app/utils/realm";
 import { injectState } from "app/utils/freactal";
 import { now, addToDate } from "app/utils/date";
@@ -51,12 +51,12 @@ storiesOf( "EventListItem", module )
                 const rightNow = now();
                 const inAnHour = addToDate( rightNow, { minutes: 60 } );
                 const inFewHours = addToDate( rightNow, { minutes: 60 * 2 } );
-                createEventWithDetails( realm, makeFullEvent( { ...defautEvent, starttime: inFewHours } ) );
-                createEventWithDetails( realm, makeFullEvent( { ...longEverythingEvent, starttime: rightNow } ) );
-                createEventWithDetails( realm, makeFullEvent( { ...longEverythingEvent, id: 3, starttime: inAnHour } ) );
+                createEventWithDetails( realm, makeEventFullData( { ...defautEvent, starttime: inFewHours } ) );
+                createEventWithDetails( realm, makeEventFullData( { ...longEverythingEvent, starttime: rightNow } ) );
+                createEventWithDetails( realm, makeEventFullData( { ...longEverythingEvent, id: 3, starttime: inAnHour } ) );
                 createRsvpedEventItem(
                     realm,
-                    createEventSummary( realm, makeFullEvent( { ...longEverythingEvent, id: 4 } ) ),
+                    createEventSummary( realm, makeEventFullData( { ...longEverythingEvent, id: 4 } ) ),
                     { startTime: inAnHour }
                 );
             } );

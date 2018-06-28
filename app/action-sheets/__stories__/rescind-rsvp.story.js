@@ -11,7 +11,7 @@ import { storiesOf } from "@storybook/react-native";
 import React from "react";
 
 const actionSheetFactory = ( props ) => {
-    const eventSummary = casual.eventSummaryObject( props );
+    const eventSummary = casual.eventSummary( props );
     const eventItem = toEventItem( eventSummary );
     return rescindRSVPActionSheet( { eventSummary, eventItem } );
 };
