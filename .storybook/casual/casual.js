@@ -13,6 +13,7 @@ import uniqWith from "lodash/uniqWith";
 import isEqual from "lodash/isEqual";
 
 import "./multimedia-image-source";
+import { toEventSummaryObject } from "app/utils/realm";
 
 
 casual.define( "id", () => casual.integer( 100000, Number.MAX_SAFE_INTEGER ) );
@@ -100,6 +101,8 @@ casual.define( "eventSummary", ( { tense, allDay, Categories } ) => {
     }
 } );
 
+
+casual.define( "eventSummaryObject", ( props ) => toEventSummaryObject( casual.eventSummary( props ), [] ) );
 
 const price = () => {
     return casual.integer( 0, 5000 ) / 10;

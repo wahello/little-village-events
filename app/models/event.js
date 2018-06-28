@@ -20,7 +20,7 @@ const priceRange = ( { tickets } ) => {
     return result.length > 2
         ? [ result[ 0 ], _last( result ) ]
         : result
-    ;
+        ;
 };
 
 
@@ -101,21 +101,30 @@ export const summaryProperties = {
     "startTime": date( "starttime" ),
     "endTime": date( "endtime" ),
 
-    "categories": array( "categories", data => {
-        const { id, name } = data;
-        const result = { id };
-        if ( name )
-            result.name = name.trim();
-        return result;
-    } ),
-    "featured": 1,
+    venue: data => {
+        return data.venue_id ? {
+            id: data.venue_id,
+            ...( data.venue ) || {}
+        } : null;
+    },
 
-    "multimedia": array( "multimedia", fields( {
-        source: 1,
-        type: 1,
-        id: 1
-    } ) )
+    "categories":
+        array( "categories", data => {
+            const { id, name } = data;
+            const result = { id };
+            if ( name )
+                result.name = name.trim();
+            return result;
+        } ),
+    "featured":
+        1,
 
+    "multimedia":
+        array( "multimedia", fields( {
+            source: 1,
+            type: 1,
+            id: 1
+        } ) )
 };
 
 

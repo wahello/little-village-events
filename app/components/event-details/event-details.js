@@ -3,7 +3,7 @@ import EventDetailsDateCard from "../event-details-date-card";
 import EventDetailsVenueCard from "../event-details-venue-card";
 import EventDetailsDescriptionCard from "../event-details-description-card";
 
-import imageUriBuilder from "../../utils/image-uri-builder";
+import imageUriBuilder from "app/utils/image-uri-builder";
 
 import ParallaxScroll from "@monterosa/react-native-parallax-scroll";
 
