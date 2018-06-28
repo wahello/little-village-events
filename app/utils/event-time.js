@@ -56,7 +56,7 @@ export const getRSVPInfo = eventItem => {
     return {
         first,
         last,
-        singleDay: first === last,
+        ongoing: first !== last,
         allDay,
         duration: allDay ? null : Math.max( 0, minutesDiff( endTime, last ) )
     };
