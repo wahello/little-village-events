@@ -1,6 +1,6 @@
 import { sortByStartTime } from "/app/utils/event";
 import { normalizeEventTime } from "/app/utils/event-time";
-import { addToDate, moveTimeToDate, now, subtractFromDate, weekEnd } from "/app/utils/date";
+import { addToDate, dayStart, maxDate, moveTimeToDate, now, subtractFromDate, weekEnd } from "/app/utils/date";
 
 import config from "/app/config";
 
@@ -17,6 +17,7 @@ import "./multimedia-image-source";
 
 casual.define( "id", () => casual.integer( 100000, Number.MAX_SAFE_INTEGER ) );
 
+casual.define( "todayDate", () => normalizeEventTime( addToDate( dayStart( now() ), { minutes: casual.integer( 1, 23 * 60 ) } ) ) );
 casual.define( "upcomingDate", () => normalizeEventTime( addToDate( now(), { minutes: casual.integer( 1, config.eventThresholds.upcoming ) } ) ) );
 casual.define( "futureDate", () => normalizeEventTime( addToDate( now(), { minutes: casual.integer( 1, 20160 ) } ) ) );
 casual.define( "pastDate", () => normalizeEventTime( subtractFromDate( now(), { minutes: casual.integer( config.eventThresholds.past + 1, 20160 ) } ) ) );
@@ -27,9 +28,9 @@ casual.define( "categories", ( Categories ) => {
 
     const ids = keys( categories );
     const result = range( casual.integer( 1, 5 ) )
-        .map( ( ) => {
+        .map( () => {
             const id = Number( casual.random_value( ids ) );
-            const { name } = categories[id];
+            const { name } = categories[ id ];
             return {
                 id,
                 name
@@ -56,7 +57,7 @@ casual.define( "eventTimes", ( { tense, allDay = casual.integer( 0, 10 ) > 8 } )
             const startTime = subtractFromDate( endOfWeek, { minutes: casual.integer( 60, 20160 ) } );
             let endTime = moveTimeToDate(
                 startTime,
-                new Date( Math.max( today.valueOf(), startTime.valueOf() ) ),
+                maxDate( today, startTime )
             );
 
             endTime = addToDate( endTime, { days: casual.integer( 1, 14 ) } );
@@ -70,7 +71,7 @@ casual.define( "eventTimes", ( { tense, allDay = casual.integer( 0, 10 ) > 8 } )
             };
     }
 
-    const startTime = casual[`${tense}Date`];
+    const startTime = casual[ `${tense}Date` ];
     const endTime = allDay ? null : normalizeEventTime( addToDate( startTime, { minutes: casual.integer( 30, 24 * 60 - 1 ) } ) );
 
     return {
