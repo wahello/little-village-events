@@ -2,7 +2,8 @@ import FeatureItem from "..";
 import lightCoverEvent from "./data/light-cover.json";
 import darkCoverEvent from "./data/dark-cover.json";
 
-import { makeEventSummaryData } from "../../../models/event";
+import { makeEventSummaryData } from "app/models/event";
+import { toEventItem } from "app/utils/realm";
 
 import layout from "/.storybook/decorators/layout";
 
@@ -18,18 +19,19 @@ const styles = StyleSheet.create( {
     }
 } );
 
-const Screen = ( { event } ) => (
+const Screen = ( { eventItem } ) => (
     <ListView
         style={ styles.list }
-        dataSource={ new ListView.DataSource( { rowHasChanged: () => true } ).cloneWithRows( [ event ] ) }
+        dataSource={ new ListView.DataSource( { rowHasChanged: () => true } ).cloneWithRows( [ eventItem ] ) }
         renderRow={
-            item => <FeatureItem item={ item } section={ { date: event.startTime.clone() } }/>
+            eventItem => <FeatureItem item={ eventItem } section={ { date: eventItem.startTime } }/>
         }
     />
 );
 
 storiesOf( "EventListFeaturedItem", module )
     .addDecorator( layout( { theme: "light" } ) )
-    .add( "default", () => <Screen event={ { ...makeEventSummaryData( darkCoverEvent ), rsvp: true } } /> )
-    .add( "light cover", () => <Screen event={ makeEventSummaryData( lightCoverEvent ) } /> )
+    .add( "default", () => <Screen eventItem={ { ...toEventItem( makeEventSummaryData( darkCoverEvent ) ), rsvp: true } } /> )
+    .add( "light cover", () => <Screen eventItem={ { ...toEventItem( makeEventSummaryData( lightCoverEvent ) ), rsvp: true } } /> )
+    .add( "not rsvp-ed", () => <Screen eventItem={ toEventItem( makeEventSummaryData( darkCoverEvent ) ) } /> )
 ;

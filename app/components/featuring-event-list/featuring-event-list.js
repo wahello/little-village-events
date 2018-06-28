@@ -9,8 +9,8 @@ import React from "react";
 import { SectionList } from "react-native";
 
 const renderEvent = ( props ) => {
-    const { item: event, section: { featured } } = props;
-    return featured[ event.id ]
+    const { item: eventItem, section: { featured } } = props;
+    return featured[ eventItem.id ]
         ? <FeaturedItem { ...props }/>
         : <Item { ...props }/>
     ;
