@@ -122,17 +122,17 @@ describe( "event-time", () => {
         it( "handles one time events", () => {
             test(
                 { startTime: morning( today ), endTime: evening( today ) },
-                { first: morning( today ), last: morning( today ), singleDay: true, allDay: false, duration: 540 }
+                { first: morning( today ), last: morning( today ), ongoing: false, allDay: false, duration: 540 }
             );
 
             test(
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ) },
-                { first: lateEvening( today ), last: lateEvening( today ), singleDay: true, allDay: false, duration: 240 }
+                { first: lateEvening( today ), last: lateEvening( today ), ongoing: false, allDay: false, duration: 240 }
             );
 
             test(
                 { startTime: evening( today ), endTime: morning( today ) },
-                { first: evening( today ), last: evening( today ), singleDay: true, allDay: false, duration: 0 }
+                { first: evening( today ), last: evening( today ), ongoing: false, allDay: false, duration: 0 }
             );
 
         } );
@@ -140,18 +140,18 @@ describe( "event-time", () => {
         it( "handles reoccurring events", () => {
             test(
                 { startTime: morning( yesterday ), endTime: evening( tomorrow ) },
-                { first: morning( yesterday ), last: morning( tomorrow ), singleDay: false, allDay: false, duration: 540 }
+                { first: morning( yesterday ), last: morning( tomorrow ), ongoing: true, allDay: false, duration: 540 }
             );
 
             test(
                 { startTime: morning( yesterday ), endTime: evening( tomorrow ), allDay: true },
-                { first: dayStart( yesterday ), last: dayStart( tomorrow ), singleDay: false, allDay: true, duration: null }
+                { first: dayStart( yesterday ), last: dayStart( tomorrow ), ongoing: true, allDay: true, duration: null }
             );
 
 
             test(
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ), allDay: true },
-                { first: dayStart( today ), last: dayStart( tomorrow ), singleDay: false, allDay: true, duration: null }
+                { first: dayStart( today ), last: dayStart( tomorrow ), ongoing: true, allDay: true, duration: null }
             );
 
         } );
@@ -400,22 +400,22 @@ describe( "event-time", () => {
         it( "handles present events", () => {
             test(
                 { first: dayStart( today ), last: dayStart( today ), allDay: true },
-                { startTime: currentTime, endTime: dayEnd( today ) }
+                { startTime: currentTime, endTime: addToDate( currentTime, { minutes: config.eventThresholds.past } ) }
             );
 
             test(
                 { first: morning( today ), last: morning( today ), duration: 9 * 60 },
-                { startTime: currentTime, endTime: evening( today ) }
+                { startTime: morning( today ), endTime: evening( today ) }
             );
 
             test(
                 { first: dayStart( weekAgo ), last: dayStart( weekLater ), allDay: true },
-                { startTime: currentTime, endTime: dayEnd( today ) }
+                { startTime: currentTime, endTime: addToDate( currentTime, { minutes: config.eventThresholds.past } ) }
             );
 
             test(
                 { first: morning( weekAgo ), last: morning( weekLater ), duration: 9 * 60 },
-                { startTime: currentTime, endTime: evening( today ) }
+                { startTime: morning( today ), endTime: evening( today ) }
             );
 
         } );

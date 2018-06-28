@@ -147,7 +147,7 @@ export const normalizeEventTime = time => {
 };
 
 export const nextRSVPTime = ( rsvpInfo, currentTime ) => {
-    const { first, last } = rsvpInfo;
+    const { first, last, allDay } = rsvpInfo;
 
     if ( isAfter( first, currentTime ) )
         return {
@@ -165,11 +165,9 @@ export const nextRSVPTime = ( rsvpInfo, currentTime ) => {
     if ( !isBefore( currentTime, endTime ) ) {
         startTime = addToDate( startTime, { day: 1 } );
         endTime = addToDate( endTime, { day: 1 } );
-    } else {
-        startTime = isAfter( startTime, currentTime )
-            ? startTime
-            : currentTime
-        ;
+    } else if ( allDay ) {
+        startTime = normalizeEventTime( currentTime );
+        endTime = defaultEventEndTime( { startTime } );
     }
 
     return { startTime, endTime };
