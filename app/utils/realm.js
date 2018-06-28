@@ -1,9 +1,8 @@
 import schema from "app/models/schema";
 import seed from "app/models/seed";
 
-import { dayStart, dayEnd } from "app/utils/date";
-import { isOngoingEvent, defaultEventEndTime } from "app/utils/event-time";
-import isProduction from "app/utils/is-production";
+import { dayEnd, dayStart } from "app/utils/date";
+import { defaultEventEndTime, isOngoingEvent } from "app/utils/event-time";
 
 import Realm from "realm";
 
@@ -68,7 +67,7 @@ export const createRsvpedEventItem = ( realm, eventSummary, { startTime, endTime
         endTime,
         allDay: false,
         rsvp: true,
-        eventSummary,
+        eventSummary
     }, true );
 };
 
@@ -89,22 +88,26 @@ const normalizeEventTime = eventSummary => {
 };
 
 
-export const createEventItem = ( realm, eventSummary ) => {
-
+export const toEventItemData = ( eventSummary ) => {
     const ongoing = isOngoingEvent( eventSummary );
 
     const { startTime, endTime } = normalizeEventTime( eventSummary );
 
-    return realm.create( "EventItem", {
+    return {
         id: `${eventSummary.id}`,
         eventDate: ongoing ? null : dayStart( startTime ),
         startTime,
         endTime,
         allDay: eventSummary.allDay,
         rsvp: false,
-        eventSummary,
-    }, true );
-}
+        eventSummary
+    };
+};
+
+
+export const createEventItem = ( realm, eventSummary ) => {
+    return realm.create( "EventItem", toEventItemData( eventSummary ), true );
+};
 
 
 export const createEventWithDetails = ( realm, eventData ) => {
@@ -139,12 +142,15 @@ export const updateUserProfile = ( realm, id, userProfileData ) =>
 
 const copyRealmObjProperty = ( obj, name, type ) => {
     switch ( type ) {
-        case "object": return toPlainObj( obj[name] );
-        case "list": return obj[name].map( toPlainObj );
-        case "linkingObjects": return null;
+        case "object":
+            return toPlainObj( obj[ name ] );
+        case "list":
+            return obj[ name ].map( toPlainObj );
+        case "linkingObjects":
+            return null;
     }
 
-    return obj[name];
+    return obj[ name ];
 };
 
 
@@ -152,7 +158,7 @@ export function toPlainObj( obj, skipProps = [] ) {
     const props = obj.objectSchema().properties;
     const result = {};
     values( omit( props, skipProps ) ).forEach( ( { name, type } ) => {
-        result[name] = copyRealmObjProperty( obj, name, type );
+        result[ name ] = copyRealmObjProperty( obj, name, type );
     } );
 
     return result;
