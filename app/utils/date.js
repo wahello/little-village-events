@@ -1,15 +1,17 @@
 import _sortBy from "lodash/sortBy";
-import startOfDay from "date-fns/start_of_day";
-import endOfDate from "date-fns/end_of_day";
 import startOfWeek from "date-fns/start_of_week";
 import endOfWeek from "date-fns/end_of_week";
 import differenceInCalendarDays from "date-fns/difference_in_calendar_days";
 import differenceInCalendarWeeks from "date-fns/difference_in_calendar_weeks";
 import addDays from "date-fns/add_days";
+import addHours from "date-fns/add_hours";
 import addMinutes from "date-fns/add_minutes";
 import subDays from "date-fns/sub_days";
 import subMinutes from "date-fns/sub_minutes";
 import dateFormat from "date-fns/format";
+
+export { default as minDate } from "date-fns/min";
+export { default as maxDate } from "date-fns/max";
 
 export { default as isAfter } from "date-fns/is_after";
 export { default as isBefore } from "date-fns/is_before";
@@ -57,7 +59,11 @@ export const addToDate = ( date, params ) => {
     if ( minutes )
         return addMinutes( date, minutes );
 
-    return date;
+    const hours = params.hour || params.hours;
+    if ( hours )
+        return addHours( date, hours );
+
+    throw new Error( `date.addToDate: Unrecognised options: ${ JSON.stringify( params ) }` )
 };
 
 
@@ -81,7 +87,7 @@ export const moveTimeToDate = ( time, date ) => {
     return daysToAdd
         ? addToDate( time, { days: daysToAdd } )
         : time
-    ;
+        ;
 };
 
 
