@@ -28,8 +28,7 @@ export const Venue = {
         address: "string?",
         phone: "string?",
         latitude: "double?",
-        longitude: "double?",
-        location: "string?"
+        longitude: "double?",        
     }
 };
 

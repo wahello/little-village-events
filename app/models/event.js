@@ -142,8 +142,7 @@ const detailsProperties = {
         "address": 1,
         "phone": 1,
         "latitude": 1,
-        "longitude": 1,
-        "location": venue => ( [ venue.name, venue.address ].filter( p => !!p ).join( " " ) )
+        "longitude": 1
     } ) )
 };
 

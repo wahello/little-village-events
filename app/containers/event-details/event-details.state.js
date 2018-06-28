@@ -10,12 +10,11 @@ import {
 import { mergeIntoState } from "app/utils/freactal";
 import { addToDate } from "app/utils/date";
 
-
 const makeCalendarEvent = ( { startTime, endTime, eventSummary }, { venue, moreInfo } ) => ( {
     title: eventSummary.name,
     startDate: startTime.toISOString(),
     endDate: ( endTime || addToDate( startTime, { hours: 1 } ) ).toISOString(),
-    location: venue.name ? [ venue.name, venue.location ].join( " " ) : venue.location,
+    location: ( [ venue.name, venue.address ].filter( p => !!p ).join( ", " ) ),
     url: moreInfo || ""
 } );
 

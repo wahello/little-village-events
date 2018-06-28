@@ -14,7 +14,7 @@ import uniqBy from "lodash/uniqBy";
 export const createInstance = ( options = {} ) => {
     const realm = new Realm( {
         schema,
-        schemaVersion: 6,
+        schemaVersion: 7,
         // deleteRealmIfMigrationNeeded: !isProduction(),
         ...options,
         migration: ( oldRealm, newRealm ) => {
