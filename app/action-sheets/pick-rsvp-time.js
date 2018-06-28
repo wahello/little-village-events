@@ -108,7 +108,6 @@ class PickRSVPTimeActionSheet extends Component {
 
     onDateChange = ( selectedDate ) => {
         const { calcRSVPTime, rsvpTime } = this.state;
-        LayoutAnimation.configureNext( LayoutAnimation.Presets.easeInEaseOut );
         this.setState( { selectedDate, rsvpTime: calcRSVPTime( selectedDate, rsvpTime ) } );
     };
 
