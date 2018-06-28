@@ -1,5 +1,8 @@
 {
     "extends": [
         "@textpress/eslint-config-textpress"
-    ]
+    ],
+    "globals": {
+        "__DEV__": true
+    }
 }
