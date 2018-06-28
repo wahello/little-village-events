@@ -18,7 +18,7 @@ const openEmbeddedBrowser = async ( options, wait ) => {
         let subscription = null;
         const onDismiss = () => {
             subscription.remove();
-            setTimeout( resolve, 500 );
+            setTimeout( resolve, 750 );
         };
         subscription = SafariView.addEventListener( "onDismiss", onDismiss );
 
