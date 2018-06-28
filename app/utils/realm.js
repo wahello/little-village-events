@@ -88,7 +88,7 @@ const normalizeEventTime = eventSummary => {
 };
 
 
-export const toEventItemData = ( eventSummary ) => {
+export const toEventItem = ( eventSummary ) => {
     const ongoing = isOngoingEvent( eventSummary );
 
     const { startTime, endTime } = normalizeEventTime( eventSummary );
@@ -106,7 +106,7 @@ export const toEventItemData = ( eventSummary ) => {
 
 
 export const createEventItem = ( realm, eventSummary ) => {
-    return realm.create( "EventItem", toEventItemData( eventSummary ), true );
+    return realm.create( "EventItem", toEventItem( eventSummary ), true );
 };
 
 
