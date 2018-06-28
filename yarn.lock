@@ -8259,10 +8259,6 @@ react-native-compat@^1.0.0:
   dependencies:
     prop-types "^15.5.10"
 
-react-native-custom-actionsheet@DelightfulStudio/react-native-custom-actionsheet:
-  version "0.0.4"
-  resolved "https://codeload.github.com/DelightfulStudio/react-native-custom-actionsheet/tar.gz/7f46984c80b5109a44c92691667b16dc49c799af"
-
 react-native-debugger-open@^0.3.17:
   version "0.3.17"
   resolved "https://registry.yarnpkg.com/react-native-debugger-open/-/react-native-debugger-open-0.3.17.tgz#85b1b0dd76b0025d6f7c16a7c161b9d30a9bae93"
@@ -8310,6 +8306,10 @@ react-native-permissions@^1.1.1:
 react-native-phone-call@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/react-native-phone-call/-/react-native-phone-call-1.0.6.tgz#354ba3c7737702ba7487fffd3cea979131b4640a"
+
+react-native-power-action-sheet@DelightfulStudio/react-native-power-action-sheet:
+  version "0.0.1"
+  resolved "https://codeload.github.com/DelightfulStudio/react-native-power-action-sheet/tar.gz/c24e1b44564ace27a74c94d6fc05be19a8de3aa9"
 
 react-native-safari-view@^2.1.0:
   version "2.1.0"
