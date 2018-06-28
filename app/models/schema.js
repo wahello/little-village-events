@@ -4,7 +4,7 @@ export const Category = {
     properties: {
         id: "int",
         name: "string?",
-        order: "int"
+        order: { type: "int", indexed: true },
     }
 };
 
@@ -105,7 +105,7 @@ export const TimePeriod = {
     properties: {
         id: "string",
         name: "string",
-        order: "int"
+        order: { type: "int", indexed: true },
     }
 };
 
