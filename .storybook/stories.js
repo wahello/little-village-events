@@ -23,4 +23,4 @@ import "../app/containers/event-details/__stories__/event-details.story";
 import "../app/containers/rsvp-events/__stories__/rsvp-events.story";
 import "../app/containers/event-list/__stories__/event-list.story.js";
 import "../app/components/status-bar-spacer/__stories__/status-bar-spacer.story";
-import "../app/utils/__stories__/with-action-sheet.story";
+import "../app/decorators/__stories__/with-action-sheet.story";
