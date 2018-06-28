@@ -1,5 +1,6 @@
 export default {
     appName: "little_village_events",
+    apiRoot: "http://littlevillagemag.com/iowa-city-area-events-calendar",
     daysToLoad: 14,
     eventThresholds: {
         dayStart: 0,
