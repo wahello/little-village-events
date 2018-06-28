@@ -51,19 +51,20 @@ export const weekTimestamp = ( date ) => {
 
 
 export const addToDate = ( date, params ) => {
+    let result = date;
     const days = params.day || params.days;
     if ( days )
-        return addDays( date, days );
+        result = addDays( result, days );
 
     const minutes = params.minute || params.minutes;
     if ( minutes )
-        return addMinutes( date, minutes );
+        result = addMinutes( result, minutes );
 
     const hours = params.hour || params.hours;
     if ( hours )
-        return addHours( date, hours );
+        result = addHours( result, hours );
 
-    return date;
+    return result;
 };
 
 
