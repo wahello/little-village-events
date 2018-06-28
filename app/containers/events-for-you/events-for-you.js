@@ -26,13 +26,16 @@ const styles = StyleSheet.create( {
 } );
 
 
-const EventsForYou = () =>
+const EventsForYou = ( { state } ) =>
     <View style={styles.root} >
         <StatusBarSpacer />
         <NavHeader>
             <Text>For you</Text>
         </NavHeader>
-        <EventList ListHeaderComponent={ () => <ListHeader /> } />
+        <EventList
+            ListHeaderComponent={ () => <ListHeader /> }
+            filters={ state.filters }
+        />
     </View>
 ;
 
@@ -40,6 +43,11 @@ const EventsForYou = () =>
 export default compose(
     provideState( {
         initialState: () => ( {} ),
+        computed: {
+            filters: ( { userProfile } ) => ( {
+                categories: userProfile.interests.map( x => x.id )
+            } )
+        }
     } ),
     injectState
 )( EventsForYou );
