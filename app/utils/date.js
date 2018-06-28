@@ -63,7 +63,7 @@ export const addToDate = ( date, params ) => {
     if ( hours )
         return addHours( date, hours );
 
-    throw new Error( `date.addToDate: Unrecognised options: ${ JSON.stringify( params ) }` )
+    return date;
 };
 
 
