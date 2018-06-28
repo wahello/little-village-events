@@ -14,7 +14,7 @@ import { compose } from "recompose";
 
 const generateRSVPs = ( quantity, state ) => {
     if ( !quantity )
-        return {};
+        return [];
 
     return [
         ...casual.rsvps( { quantity: 1, tense: "upcoming", state } ),
