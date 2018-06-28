@@ -1,3 +1,6 @@
+import variables from "app/styles/variables";
+
+
 export default {
     control: {
         opacity: 1
@@ -8,22 +11,22 @@ export default {
     },
 
     h1: {
-        fontSize: 16,
+        fontSize: variables.largeFontSize,
         fontWeight: "600",
         textAlign: "center",
-        color: "#000",
+        color: variables.textColor,
     },
 
     h2: {
-        fontSize: 16,
+        fontSize: variables.largeFontSize,
         textAlign: "center",
-        color: "#000",
+        color: variables.textColor,
     },
 
     infoText: {
-        fontSize: 16,
+        fontSize: variables.largeFontSize,
         textAlign: "center",
-        color: "#000",
+        color: variables.textColor,
         lineHeight: 22
     },
 
@@ -49,42 +52,42 @@ export default {
 
     date: {
         marginHorizontal: 5,
-        paddingHorizontal: 5,
-        paddingVertical: 5
+        paddingHorizontal: 6,
+        paddingVertical: 4,
+        borderRadius: 3
     },
 
     dateLabel: {
-        fontSize: 14,
-        color: "#000"
+        fontSize: variables.regularFontSize,
+        fontWeight: "600",
+        color: variables.textColor
     },
 
     dateHighlighted: {
-        borderRadius: 3,
-        backgroundColor: "#007AFF"
+        backgroundColor: variables.highlightColorLight
     },
 
     dateLabelHighlighted: {
-        color: "#FFF"
     },
 
     time: {
         marginHorizontal: 5,
-        paddingHorizontal: 5,
-        paddingVertical: 5
+        paddingHorizontal: 6,
+        paddingVertical: 4,
+        borderRadius: 3
     },
 
     timeLabel: {
-        fontSize: 14,
-        color: "#000"
+        fontSize: variables.regularFontSize,
+        fontWeight: "600",
+        color: variables.textColor
     },
 
     timeHighlighted: {
-        borderRadius: 3,
-        backgroundColor: "#007AFF"
+        backgroundColor: variables.highlightColorLight
     },
 
     timeLabelHighlighted: {
-        color: "#FFF"
     },
 
     deleteButtonLabel: {
