@@ -12,7 +12,7 @@ const buildLiveQuery = ( realm, dates, today, currentWeek, filters = {} ) => {
         today, dates.last, currentWeek.first, currentWeek.last
     );
 
-    if ( filters.categories ) {
+    if ( filters.categories.length ) {
         query = query.filtered(
             `SUBQUERY( eventSummary.categories, $category, ${ filters.categories.map( ( id, i ) => `$category.id = $${i}` ).join( " OR " ) } ).@count > 0`,
             ...filters.categories
