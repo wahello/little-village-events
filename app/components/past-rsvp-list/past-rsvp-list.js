@@ -8,7 +8,7 @@ const PastRSVPList = ( props ) => {
     if ( !state.sections.length )
         return <EmptyMessage/>;
 
-    return <EventList { ...props}/>;
+    return <EventList sections={state.sections}/>;
 };
 
 export default PastRSVPList;
