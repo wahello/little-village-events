@@ -26,7 +26,7 @@ const styles = StyleSheet.create( {
 } );
 
 
-const Story = injectState( ( { state, eventItemId, date = now(), ongoing = false } ) =>
+const Story = injectState( ( { state, eventItemId, date = now() } ) =>
     <ListView
         style={ styles.list }
         dataSource={ new ListView.DataSource( { rowHasChanged: () => true } ).cloneWithRows( [
@@ -35,7 +35,7 @@ const Story = injectState( ( { state, eventItemId, date = now(), ongoing = false
         renderRow={ item =>
             <EventListItem
                 item={ item }
-                section={ { date, ongoing } }
+                section={ { date } }
                 effects={ { navigateToEventDetails: action( "navigateToEventDetails" ) } }
             />
         }

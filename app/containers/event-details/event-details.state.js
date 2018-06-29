@@ -91,11 +91,10 @@ const handleRescindRSVP = async ( state ) => {
 export default {
 
 
-    initialState: ( { eventItemData, calendarDay, openActionSheet } ) => {
+    initialState: ( { eventItemData, openActionSheet } ) => {
         return ( {
             eventItem: eventItemData,
             eventDetails: null,
-            calendarDay,
             openActionSheet
         } );
     },

@@ -8,7 +8,7 @@ import React from "react";
 import { compose } from "recompose";
 
 
-const EventListContainer = ( { state, effects, ...props } ) =>
+const EventListContainer = ( { state, ...props } ) =>
     <EventList
         sections={ state.sections }
         {...props}

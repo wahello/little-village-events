@@ -60,7 +60,7 @@ const AddToCalendar = ( { eventItem, addEventToCalendar } ) => {
     ) : null;
 };
 
-export default ( { eventItem, calendarDay, addEventToCalendar } ) => {
+export default ( { eventItem, addEventToCalendar } ) => {
     const { startTime } = eventItem;
     if ( !startTime )
         return null;
@@ -78,7 +78,7 @@ export default ( { eventItem, calendarDay, addEventToCalendar } ) => {
         >
             <Date eventItem={ eventItem }/>
             <View style={ styles.timeContainer }>
-                <EventTime eventItem={ eventItem } calendarDay={ calendarDay } size="regular"/>
+                <EventTime eventItem={ eventItem } size="regular"/>
             </View>
         </DetailsIconCard>
     );

@@ -18,14 +18,13 @@ const screenState = {
         initialize: update( ( state, { navigator } ) => ( { navigator } ) ),
 
 
-        navigateToEventDetails: async ( effects, eventItem, calendarDay ) => {
+        navigateToEventDetails: async ( effects, eventItem ) => {
             return ( state ) => {
                 state.navigator.push( {
                     screen: EventDetails.id,
                     backButtonTitle: EventDetails.backButtonTitle,
                     passProps: {
-                        eventItemData: toPlainObj( eventItem ),
-                        calendarDay
+                        eventItemData: toPlainObj( eventItem )
                     }
                 } );
                 return state;

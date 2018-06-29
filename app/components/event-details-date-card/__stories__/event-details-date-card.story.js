@@ -17,12 +17,13 @@ const actions = {
 
 
 const Screen = ( props ) => {
-    return <EventDetailsDateCard { ...props } calendarDay={ new Date( props.eventItem.startTime ) } />
+    return <EventDetailsDateCard { ...props }/>
 };
 
 
 storiesOf( "EventDetailsDateCard", module )
     .addDecorator( layout() )
     .add( "default", () => ( <Screen eventItem={ makeEventFullData( event ) } { ...actions } /> ) )
-    .add( "started", () => ( <Screen eventItem={ { startTime: subtractFromDate( now(), { minutes: 1 } ) } } { ...actions }/> ) )
+    .add( "started", () => (
+        <Screen eventItem={ { startTime: subtractFromDate( now(), { minutes: 1 } ) } } { ...actions }/> ) )
 ;

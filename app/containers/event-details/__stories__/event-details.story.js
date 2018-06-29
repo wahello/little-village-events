@@ -16,7 +16,7 @@ import React from "react";
 
 const Screen = ( { eventData } ) => {
     const eventItemData = toEventItem( makeEventFullData( eventData ) );
-    return <EventDetails eventItemData={ eventItemData } calendarDay={ new Date( eventItemData.startTime ) }/>
+    return <EventDetails eventItemData={ eventItemData }/>
 };
 
 

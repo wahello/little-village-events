@@ -125,13 +125,13 @@ const Days = ( { eventItem } ) => {
 
 
 const Item = ( props ) => {
-    const { item: eventItem, section: { date: calendarDay, ongoing }, effects: { navigateToEventDetails } } = props;
+    const { item: eventItem, effects: { navigateToEventDetails } } = props;
     const { eventSummary } = eventItem;
     // console.log( event.id );
 
     return (
         <TouchableButton activeOpacity={ 0.6 }
-            onPress={ () => { navigateToEventDetails( eventItem, calendarDay ) } }>
+            onPress={ () => { navigateToEventDetails( eventItem ) } }>
             <View style={ styles.card }>
                 <LeftPanel eventSummary={ eventSummary }/>
                 <View style={ styles.rightPanel }>
@@ -147,8 +147,6 @@ const Item = ( props ) => {
                     <View style={ styles.bottomSection }>
                         <EventTimeLocationRSVP
                             eventItem={ eventItem }
-                            calendarDay={ calendarDay }
-                            ongoing={ ongoing }
                             size="small"
                         />
                     </View>
