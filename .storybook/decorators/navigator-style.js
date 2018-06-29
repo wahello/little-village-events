@@ -16,8 +16,7 @@ const styles = StyleSheet.create( {
         left: 5,
         top: 31,
         width: 22,
-        height: 22,
-        color: "#fff"
+        height: 22
     }
 } );
 
@@ -26,10 +25,12 @@ export default function navigatorStyleDecorator( options ) {
     if ( _isString( options.style ) )
         options.style = navStyles[ options.style ];
 
+    const navStyle = options.style || options.navigatorStyle;
+
     function StorybookProvider( { children } ) {
 
         const navigatorStyle = ( { state, children } ) => {
-            state.navigator.setStyle( options.style || options.navigatorStyle );
+            state.navigator.setStyle( navStyle );
             state.navigator.setButtons( { rightButtons: [], leftButtons: [], ...( options.navigatorButtons || {} ) } );
 
             return <Fragment>{ children }</Fragment>;
@@ -42,7 +43,9 @@ export default function navigatorStyleDecorator( options ) {
         return (
             <NavigatorStyle>
                 { children }
-                { options.back ? <BackIcon style={ styles.back } /> : null }
+                { options.back
+                    ? <BackIcon style={ [ styles.back, { color: navStyle.navBarButtonColor || "#000" } ] } />
+                    : null }
             </NavigatorStyle>
         );
     }
