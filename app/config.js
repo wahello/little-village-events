@@ -17,5 +17,5 @@ export default {
         past: 60,
         interval: 15
     },
-    debug: __DEV__ ? debugLogs : prodLogs
+    debug: global.__DEV__ ? debugLogs : prodLogs
 };
