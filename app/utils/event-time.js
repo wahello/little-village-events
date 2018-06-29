@@ -101,6 +101,47 @@ export const RSVPTimeForDay = ( eventItem, calendarDay ) => {
 };
 
 
+export const defaultEventEndTime = ( { startTime } ) =>
+    addToDate( startTime, { minutes: config.eventThresholds.past } );
+
+
+export const normalizeEventTime = time => {
+    const base = dayStart( time );
+    const oldMinutes = minutesDiff( time, base );
+    const minutes = Math.ceil( oldMinutes / config.eventThresholds.interval ) * config.eventThresholds.interval;
+    return addToDate( base, { minutes } );
+};
+
+
+export const nextRSVPTime = ( rsvpInfo, currentTime ) => {
+    const { first, last, allDay } = rsvpInfo;
+
+    if ( isAfter( first, currentTime ) )
+        return {
+            startTime: first,
+            endTime: calcRSVPEndTime( first, rsvpInfo ),
+            allDay: !!allDay
+        };
+
+    const lastEnd = calcRSVPEndTime( last, rsvpInfo );
+    if ( isAfter( currentTime, lastEnd ) )
+        return null;
+
+    let startTime = moveTimeToDate( first, currentTime );
+    let endTime = calcRSVPEndTime( startTime, rsvpInfo );
+
+    if ( !isBefore( currentTime, endTime ) ) {
+        startTime = addToDate( startTime, { day: 1 } );
+        endTime = addToDate( endTime, { day: 1 } );
+    } else if ( allDay ) {
+        startTime = normalizeEventTime( currentTime );
+        endTime = defaultEventEndTime( { startTime } );
+    }
+
+    return { startTime, endTime, allDay: !!allDay };
+};
+
+
 export const rsvpTense = ( rsvpTime, currentTime ) => {
     currentTime = currentTime || now();
     const { startTime, endTime, allDay } = rsvpTime;
@@ -120,12 +161,13 @@ export const eventTense = ( eventItem, currentTime ) => {
     currentTime = currentTime || now();
     const ongoing = !eventItem.eventDate;
     if ( ongoing ) {
-        if ( isAfter( currentTime, eventItem.endTime ) )
+        const rsvpTime = nextRSVPTime( getRSVPInfo( eventItem ), currentTime );
+        if ( !rsvpTime )
             return "past";
 
-        const minutes = minutesDiff( eventItem.startTime, currentTime );
-        return minutes < eventThresholds.upcoming ? "upcoming" : "future";
+        return rsvpTense( rsvpTime, currentTime );
     }
+
 
     const days = daysDiff( currentTime, eventItem.startTime );
     if ( days > 0 )
@@ -136,42 +178,5 @@ export const eventTense = ( eventItem, currentTime ) => {
     return rsvpTense( eventItem, currentTime );
 };
 
-
-export const defaultEventEndTime = ( { startTime } ) =>
-    addToDate( startTime, { minutes: config.eventThresholds.past } );
-
-export const normalizeEventTime = time => {
-    const base = dayStart( time );
-    const oldMinutes = minutesDiff( time, base );
-    const minutes = Math.ceil( oldMinutes / config.eventThresholds.interval ) * config.eventThresholds.interval;
-    return addToDate( base, { minutes } );
-};
-
-export const nextRSVPTime = ( rsvpInfo, currentTime ) => {
-    const { first, last, allDay } = rsvpInfo;
-
-    if ( isAfter( first, currentTime ) )
-        return {
-            startTime: first,
-            endTime: calcRSVPEndTime( first, rsvpInfo )
-        };
-
-    const lastEnd = calcRSVPEndTime( last, rsvpInfo );
-    if ( isAfter( currentTime, lastEnd ) )
-        return null;
-
-    let startTime = moveTimeToDate( first, currentTime );
-    let endTime = calcRSVPEndTime( startTime, rsvpInfo );
-
-    if ( !isBefore( currentTime, endTime ) ) {
-        startTime = addToDate( startTime, { day: 1 } );
-        endTime = addToDate( endTime, { day: 1 } );
-    } else if ( allDay ) {
-        startTime = normalizeEventTime( currentTime );
-        endTime = defaultEventEndTime( { startTime } );
-    }
-
-    return { startTime, endTime };
-};
 
 

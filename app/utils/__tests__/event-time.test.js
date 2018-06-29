@@ -1,4 +1,4 @@
-import { addToDate, dayEnd, dayStart, hoursDiff, subtractFromDate } from "../date";
+import { addToDate, dayEnd, dayStart, hoursDiff, moveTimeToDate, subtractFromDate } from "../date";
 
 import _keys from "lodash/keys";
 import _pick from "lodash/pick";
@@ -372,16 +372,25 @@ describe( "event-time", () => {
             [
                 { startTime: morning( weekAgo ), endTime: evening( weekLater ) },
                 { startTime: morning( weekAgo ), endTime: evening( today ) },
-                { startTime: morning( weekAgo ), endTime: earlyMorning( weekLater ) },
-                { startTime: earlyMorning( today ), endTime: evening( weekLater ) },
+                { startTime: morning( today ), endTime: evening( weekLater ) },
+            ].forEach( testExpected( "present" ) );
+
+            [
+                { startTime: morning( weekAgo ), endTime: evening( weekLater ), allDay: true },
+                { startTime: morning( weekAgo ), endTime: evening( today ), allDay: true },
+                { startTime: morning( today ), endTime: evening( weekLater ), allDay: true },
+                {
+                    startTime: moveTimeToDate( addToDate( currentTime, { minutes: config.eventThresholds.upcoming - 1 } ), weekAgo ),
+                    endTime: evening( weekLater )
+                },
                 {
                     startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming - 1 } ),
                     endTime: evening( weekLater ),
-                    allDay: false
                 }
-            ].forEach( testAllDayExpected( "upcoming" ) );
+            ].forEach( testExpected( "upcoming" ) );
 
             [
+                { startTime: evening( weekAgo ), endTime: lateEvening( weekLater ), allDay: false },
                 { startTime: evening( today ), endTime: lateEvening( weekLater ), allDay: false },
                 { startTime: morning( tomorrow ), endTime: evening( weekLater ) },
                 { startTime: lateEvening( today ), endTime: morning( weekLater ), allDay: false },
@@ -423,22 +432,22 @@ describe( "event-time", () => {
         it( "handles present events", () => {
             test(
                 { first: dayStart( today ), last: dayStart( today ), allDay: true },
-                { startTime: currentTime, endTime: addToDate( currentTime, { minutes: config.eventThresholds.past } ) }
+                { startTime: currentTime, endTime: addToDate( currentTime, { minutes: config.eventThresholds.past } ), allDay: true }
             );
 
             test(
                 { first: morning( today ), last: morning( today ), duration: 9 * 60 },
-                { startTime: morning( today ), endTime: evening( today ) }
+                { startTime: morning( today ), endTime: evening( today ), allDay: false }
             );
 
             test(
                 { first: dayStart( weekAgo ), last: dayStart( weekLater ), allDay: true },
-                { startTime: currentTime, endTime: addToDate( currentTime, { minutes: config.eventThresholds.past } ) }
+                { startTime: currentTime, endTime: addToDate( currentTime, { minutes: config.eventThresholds.past } ), allDay: true }
             );
 
             test(
                 { first: morning( weekAgo ), last: morning( weekLater ), duration: 9 * 60 },
-                { startTime: morning( today ), endTime: evening( today ) }
+                { startTime: morning( today ), endTime: evening( today ), allDay: false }
             );
 
         } );
@@ -446,41 +455,40 @@ describe( "event-time", () => {
         it( "handles future events", () => {
             test(
                 { first: evening( weekAgo ), last: evening( weekLater ), duration: 4 * 60 },
-                { startTime: evening( today ), endTime: lateEvening( today ) }
+                { startTime: evening( today ), endTime: lateEvening( today ), allDay: false }
             );
 
             test(
                 { first: earlyMorning( weekAgo ), last: earlyMorning( weekLater ), duration: 7 * 60 },
-                { startTime: earlyMorning( tomorrow ), endTime: morning( tomorrow ) }
+                { startTime: earlyMorning( tomorrow ), endTime: morning( tomorrow ), allDay: false }
             );
 
             test(
                 { first: evening( today ), last: evening( today ), duration: 4 * 60 },
-                { startTime: evening( today ), endTime: lateEvening( today ) }
+                { startTime: evening( today ), endTime: lateEvening( today ), allDay: false }
             );
 
             test(
                 { first: dayStart( tomorrow ), last: dayStart( tomorrow ), allDay: true },
-                { startTime: dayStart( tomorrow ), endTime: dayEnd( tomorrow ) }
+                { startTime: dayStart( tomorrow ), endTime: dayEnd( tomorrow ), allDay: true }
             );
 
             test(
                 { first: morning( tomorrow ), last: morning( tomorrow ), duration: 9 * 60 },
-                { startTime: morning( tomorrow ), endTime: evening( tomorrow ) }
+                { startTime: morning( tomorrow ), endTime: evening( tomorrow ), allDay: false }
             );
 
             test(
                 { first: dayStart( tomorrow ), last: dayStart( weekLater ), allDay: true },
-                { startTime: dayStart( tomorrow ), endTime: dayEnd( tomorrow ) }
+                { startTime: dayStart( tomorrow ), endTime: dayEnd( tomorrow ), allDay: true }
             );
 
             test(
                 { first: morning( tomorrow ), last: morning( weekLater ), duration: 9 * 60 },
-                { startTime: morning( tomorrow ), endTime: evening( tomorrow ) }
+                { startTime: morning( tomorrow ), endTime: evening( tomorrow ), allDay: false }
             );
 
         } );
-
 
     } );
 
