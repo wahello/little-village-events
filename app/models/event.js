@@ -20,7 +20,7 @@ const priceRange = ( { tickets } ) => {
     return result.length > 2
         ? [ result[ 0 ], _last( result ) ]
         : result
-        ;
+    ;
 };
 
 
