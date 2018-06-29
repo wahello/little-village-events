@@ -72,10 +72,10 @@ const colorsByTense = {
 };
 
 
-const EventTime = ( { eventItem, calendarDay, ongoing, size = "small" } ) => {
+const EventTime = ( { eventItem, size = "small" } ) => {
 
     const styles = stylesSize[size];
-    const tense = ongoing ? "future" : eventTense( eventItem, calendarDay );
+    const tense = eventTense( eventItem );
     const colors = colorsByTense[ tense ];
 
     return (

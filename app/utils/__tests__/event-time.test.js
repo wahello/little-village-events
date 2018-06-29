@@ -1,4 +1,4 @@
-import { addToDate, dayEnd, dayStart, subtractFromDate } from "../date";
+import { addToDate, dayEnd, dayStart, hoursDiff, subtractFromDate } from "../date";
 
 import _keys from "lodash/keys";
 import _pick from "lodash/pick";
@@ -71,7 +71,7 @@ describe( "event-time", () => {
             test( { startTime: morning( today ), allDay: true }, dayStart( today ) );
         } );
 
-        it( "handles reoccurring events", () => {
+        it( "handles ongoing events", () => {
             test( { startTime: morning( weekAgo ), endTime: evening( weekLater ) }, morning( weekAgo ) );
             test( {
                 startTime: morning( weekAgo ),
@@ -94,7 +94,7 @@ describe( "event-time", () => {
             ].forEach( allDayExpectedWrapper( test )( null ) );
         } );
 
-        it( "handles reoccurring events", () => {
+        it( "handles ongoing events", () => {
             test( { startTime: morning( weekAgo ), endTime: evening( weekLater ) }, morning( weekLater ) );
             test( {
                 startTime: morning( weekAgo ),
@@ -127,7 +127,13 @@ describe( "event-time", () => {
 
             test(
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ) },
-                { first: lateEvening( today ), last: lateEvening( today ), ongoing: false, allDay: false, duration: 240 }
+                {
+                    first: lateEvening( today ),
+                    last: lateEvening( today ),
+                    ongoing: false,
+                    allDay: false,
+                    duration: 240
+                }
             );
 
             test(
@@ -137,7 +143,7 @@ describe( "event-time", () => {
 
         } );
 
-        it( "handles reoccurring events", () => {
+        it( "handles ongoing events", () => {
             test(
                 { startTime: morning( yesterday ), endTime: evening( tomorrow ) },
                 { first: morning( yesterday ), last: morning( tomorrow ), ongoing: true, allDay: false, duration: 540 }
@@ -145,7 +151,13 @@ describe( "event-time", () => {
 
             test(
                 { startTime: morning( yesterday ), endTime: evening( tomorrow ), allDay: true },
-                { first: dayStart( yesterday ), last: dayStart( tomorrow ), ongoing: true, allDay: true, duration: null }
+                {
+                    first: dayStart( yesterday ),
+                    last: dayStart( tomorrow ),
+                    ongoing: true,
+                    allDay: true,
+                    duration: null
+                }
             );
 
 
@@ -224,7 +236,7 @@ describe( "event-time", () => {
 
         } );
 
-        describe( "reoccurring events", () => {
+        describe( "ongoing events", () => {
 
             it( "handles past events", () => {
                 [
@@ -241,7 +253,7 @@ describe( "event-time", () => {
                 [
                     { startTime: morning( weekAgo ), endTime: evening( weekLater ) },
                     { startTime: morning( weekAgo ), endTime: evening( today ) },
-                    { startTime: morning( today ), endTime: evening( weekLater ) },
+                    { startTime: morning( today ), endTime: evening( weekLater ) }
                 ].forEach( event => {
                     test(
                         { ...event, allDay: false },
@@ -292,11 +304,19 @@ describe( "event-time", () => {
 
         const currentTime = noon( today );
 
+        const eventTimeToEventItem = eventTime => ( {
+            startTime: eventTime.allDay ? dayStart( eventTime.startTime ) : eventTime.startTime,
+            endTime: eventTime.allDay ? dayEnd( eventTime.endTime ) : eventTime.endTime,
+            allDay: eventTime.allDay,
+            eventDate: hoursDiff( eventTime.endTime, eventTime.startTime ) < 24 ? dayStart( eventTime.startTime ) : null
+        } );
+
         const test = integrityWrapper(
-            ( event, expected ) => expect( eventTense( event, today, currentTime ) ).toEqual( expected )
+            ( eventTime, expected ) => expect( eventTense( eventTimeToEventItem( eventTime ), currentTime ) ).toEqual( expected )
         );
         const testExpected = expectedWrapper( test );
         const testAllDayExpected = allDayExpectedWrapper( test );
+
 
         it( "handles one time events", () => {
 
@@ -305,39 +325,48 @@ describe( "event-time", () => {
                 { startTime: lateEvening( yesterday ), endTime: earlyMorning( today ), allDay: false },
                 { startTime: lateEvening( yesterday ), endTime: evening( today ), allDay: false },
                 { startTime: earlyMorning( today ), endTime: morning( today ), allDay: false },
-                { startTime: subtractFromDate( currentTime, { minutes: config.eventThresholds.past } ), allDay: false },
+                {
+                    startTime: morning( today ),
+                    endTime: subtractFromDate( currentTime, { minutes: 1 } ),
+                    allDay: false
+                }
             ].forEach( testAllDayExpected( "past" ) );
 
             [
                 { startTime: morning( today ), endTime: evening( today ) },
                 { startTime: currentTime, endTime: evening( today ) },
-                { startTime: subtractFromDate( currentTime, { minutes: config.eventThresholds.past - 1 } ), endTime: evening( today ) },
+                {
+                    startTime: morning( today ),
+                    endTime: addToDate( currentTime, { minutes: 1 } ),
+                }
             ].forEach( testExpected( "present" ) );
 
             [
                 { startTime: morning( today ), endTime: evening( today ), allDay: true },
                 { startTime: evening( today ), endTime: lateEvening( today ), allDay: true },
-                { startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming - 1 } ) },
                 {
                     startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming - 1 } ),
                     endTime: evening( today )
-                },
+                }
             ].forEach( testExpected( "upcoming" ) );
 
             [
                 { startTime: evening( today ), endTime: lateEvening( today ), allDay: false },
                 { startTime: lateEvening( today ), endTime: earlyMorning( tomorrow ), allDay: false },
                 { startTime: morning( tomorrow ), endTime: evening( tomorrow ) },
-                { startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming } ), allDay: false },
+                {
+                    startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming } ),
+                    endTime: evening( today ),
+                    allDay: false
+                }
             ].forEach( testAllDayExpected( "future" ) );
         } );
 
-        it( "handles reoccurring events", () => {
+        it( "handles ongoing events", () => {
             [
                 { startTime: morning( weekAgo ), endTime: evening( yesterday ) },
                 { startTime: morning( weekAgo ), endTime: morning( today ), allDay: false },
                 { startTime: lateEvening( weekAgo ), endTime: earlyMorning( today ), allDay: false },
-                { startTime: lateEvening( weekAgo ), endTime: evening( today ), allDay: false },
             ].forEach( testAllDayExpected( "past" ) );
 
             [
@@ -345,27 +374,17 @@ describe( "event-time", () => {
                 { startTime: morning( weekAgo ), endTime: evening( today ) },
                 { startTime: morning( weekAgo ), endTime: earlyMorning( weekLater ) },
                 { startTime: earlyMorning( today ), endTime: evening( weekLater ) },
-            ].forEach( testExpected( "present" ) );
-
-            [
-                { startTime: morning( weekAgo ), endTime: evening( weekLater ), allDay: true },
-                { startTime: morning( weekAgo ), endTime: evening( today ), allDay: true },
-                { startTime: morning( weekAgo ), endTime: earlyMorning( weekLater ), allDay: true },
-                { startTime: earlyMorning( today ), endTime: evening( weekLater ), allDay: true },
-                { startTime: lateEvening( today ), endTime: morning( weekLater ), allDay: true },
                 {
                     startTime: addToDate( currentTime, { minutes: config.eventThresholds.upcoming - 1 } ),
                     endTime: evening( weekLater ),
                     allDay: false
                 }
-            ].forEach( testExpected( "upcoming" ) );
+            ].forEach( testAllDayExpected( "upcoming" ) );
 
             [
-                { startTime: lateEvening( weekAgo ), endTime: earlyMorning( weekLater ), allDay: false },
-                { startTime: lateEvening( weekAgo ), endTime: evening( weekLater ), allDay: false },
-                { startTime: evening( weekAgo ), endTime: lateEvening( weekLater ), allDay: false },
                 { startTime: evening( today ), endTime: lateEvening( weekLater ), allDay: false },
                 { startTime: morning( tomorrow ), endTime: evening( weekLater ) },
+                { startTime: lateEvening( today ), endTime: morning( weekLater ), allDay: false },
             ].forEach( testAllDayExpected( "future" ) );
 
         } );
@@ -391,7 +410,11 @@ describe( "event-time", () => {
             );
 
             test(
-                { first: morning( weekAgo ), last: morning( today ), duration: ( currentTime.valueOf() - morning( today ).valueOf() ) / 60000 - 1 },
+                {
+                    first: morning( weekAgo ),
+                    last: morning( today ),
+                    duration: ( currentTime.valueOf() - morning( today ).valueOf() ) / 60000 - 1
+                },
                 null
             );
 
@@ -457,7 +480,6 @@ describe( "event-time", () => {
             );
 
         } );
-
 
 
     } );

@@ -116,23 +116,24 @@ export const rsvpTense = ( rsvpTime, currentTime ) => {
 };
 
 
-export const eventTense = ( eventItem, calendarDay, currentTime ) => {
+export const eventTense = ( eventItem, currentTime ) => {
     currentTime = currentTime || now();
-    const rsvpTime = RSVPTimeForDay( eventItem, calendarDay );
-    if ( !rsvpTime ) {
-        return isBefore( calendarDay, eventItem.startTime )
-            ? "future"
-            : "past"
-        ;
+    const ongoing = !eventItem.eventDate;
+    if ( ongoing ) {
+        if ( isAfter( currentTime, eventItem.endTime ) )
+            return "past";
+
+        const minutes = minutesDiff( eventItem.startTime, currentTime );
+        return minutes < eventThresholds.upcoming ? "upcoming" : "future";
     }
 
-    const days = daysDiff( currentTime, rsvpTime.startTime );
+    const days = daysDiff( currentTime, eventItem.startTime );
     if ( days > 0 )
         return "past";
     if ( days < 0 )
         return "future";
 
-    return rsvpTense( rsvpTime, currentTime );
+    return rsvpTense( eventItem, currentTime );
 };
 
 
