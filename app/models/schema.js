@@ -19,6 +19,30 @@ export const Asset = {
 };
 
 
+export const Location = {
+    name: "Location",
+    primaryKey: "id",
+    properties: {
+        id: "string",
+        name: "string",
+        order: { type: "int", indexed: true },
+        latitude: "double?",
+        longitude: "double?"
+    }
+};
+
+
+export const VenueDistance = {
+    name: "VenueDistance",
+    primaryKey: "id",
+    properties: {
+        id: "string",
+        locationId: { type: "string", indexed: true },
+        distance: { type: "int", indexed: true }
+    }
+};
+
+
 export const Venue = {
     name: "Venue",
     primaryKey: "id",
@@ -28,7 +52,8 @@ export const Venue = {
         address: "string?",
         phone: "string?",
         latitude: "double?",
-        longitude: "double?",        
+        longitude: "double?",
+        distances: { type: "VenueDistance[]", default: [] }
     }
 };
 
@@ -88,17 +113,6 @@ export const EventDetails = {
 };
 
 
-export const Location = {
-    name: "Location",
-    primaryKey: "id",
-    properties: {
-        id: "string",
-        name: "string",
-        order: "int"
-    }
-};
-
-
 export const TimePeriod = {
     name: "TimePeriod",
     primaryKey: "id",
@@ -118,9 +132,10 @@ export const UserProfile = {
         newUser: "bool",
         location: "Location",
         interests: "Category[]",
-        timePeriod: "TimePeriod"
+        timePeriod: "TimePeriod",
+        maxDistance: "int"
     }
 };
 
 
-export default [ Category, Asset, Venue, EventItem, EventSummary, EventDetails, Location, TimePeriod, UserProfile ];
+export default [ Category, Asset, Location, VenueDistance, Venue, EventItem, EventSummary, EventDetails, TimePeriod, UserProfile ];

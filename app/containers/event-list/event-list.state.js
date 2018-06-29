@@ -4,6 +4,7 @@ import { mergeIntoState, update } from "@textpress/freactal";
 
 import groupBy from "lodash/groupBy";
 import keys from "lodash/keys";
+import isNil from "lodash/isNil";
 
 
 const buildLiveQuery = ( realm, dates, today, currentWeek, filters = {} ) => {
@@ -16,6 +17,14 @@ const buildLiveQuery = ( realm, dates, today, currentWeek, filters = {} ) => {
         query = query.filtered(
             `SUBQUERY( eventSummary.categories, $category, ${ filters.categories.map( ( id, i ) => `$category.id = $${i}` ).join( " OR " ) } ).@count > 0`,
             ...filters.categories
+        );
+    }
+
+    if ( !isNil( filters.location.latitude ) ) {
+        query = query.filtered(
+            "SUBQUERY( eventSummary.venue.distances, $distance, $distance.locationId = $0 AND $distance.distance < $1 ).@count > 0",
+            filters.location.id,
+            filters.maxDistance
         );
     }
 

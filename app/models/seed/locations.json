@@ -1,5 +1,5 @@
 [
     { "id": "anywhere", "order": 1, "name": "Anywhere" },
-    { "id": "iowacity", "order": 2, "name": "Iowa City" },
-    { "id": "cedarrapids", "order": 3, "name": "Cedar Rapids" }
+    { "id": "iowacity", "order": 2, "name": "Iowa City", "latitude": 41.660100, "longitude": -91.534200 },
+    { "id": "cedarrapids", "order": 3, "name": "Cedar Rapids", "latitude": 41.983056, "longitude": -91.668611 }
 ]

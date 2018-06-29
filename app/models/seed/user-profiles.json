@@ -4,6 +4,7 @@
         "newUser": true,
         "location": { "id": "anywhere" },
         "interests": [],
-        "timePeriod": { "id": "week" }
+        "timePeriod": { "id": "week" },
+        "maxDistance": 15
     }
 ]

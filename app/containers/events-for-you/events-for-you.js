@@ -45,7 +45,9 @@ export default compose(
         initialState: () => ( {} ),
         computed: {
             filters: ( { userProfile } ) => ( {
-                categories: userProfile.interests.map( x => x.id )
+                categories: userProfile.interests.map( x => x.id ),
+                location: userProfile.location,
+                maxDistance: userProfile.maxDistance
             } )
         }
     } ),

@@ -3,18 +3,20 @@ import seed from "app/models/seed";
 
 import { dayEnd, dayStart } from "app/utils/date";
 import { defaultEventEndTime, isOngoingEvent } from "app/utils/event-time";
+import { distance } from "app/utils/geo";
 
 import Realm from "realm";
 
 import omit from "lodash/omit";
 import values from "lodash/values";
 import uniqBy from "lodash/uniqBy";
+import isNil from "lodash/isNil";
 
 
 export const createInstance = ( options = {} ) => {
     const realm = new Realm( {
         schema,
-        schemaVersion: 8,
+        schemaVersion: 12,
         // deleteRealmIfMigrationNeeded: !isProduction(),
         ...options,
         migration: ( oldRealm, newRealm ) => {
@@ -25,6 +27,7 @@ export const createInstance = ( options = {} ) => {
 
     // realm.write( () => realm.deleteAll() );
     seed( realm );
+    // console.log( "Realm path:", realm.path );
     return realm;
 };
 
@@ -43,11 +46,26 @@ export const createEventSummary = ( realm, { categories, ...summaryData } ) =>
     }, true );
 
 
-export const createEventDetails = ( realm, eventId, detailsData ) =>
-    realm.create( "EventDetails", {
+export const createEventDetails = ( realm, eventId, detailsData, locations ) => {
+    if ( locations ) {
+        const { venue } = detailsData;
+        venue.distances = locations.map( location => ( {
+            id: `${venue.id}.${location.id}`,
+            locationId: location.id,
+            distance: isNil( location.latitude )
+                ? 0
+                : Math.round( distance(
+                    { lat: location.latitude, lon: location.longitude },
+                    { lat: venue.latitude, lon: venue.longitude }
+                ) )
+        } ) );
+    }
+
+    return realm.create( "EventDetails", {
         id: eventId,
         ...detailsData
     }, true );
+}
 
 
 export const createRsvpedEventItem = ( realm, eventSummary, { startTime, endTime } ) => {

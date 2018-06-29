@@ -1,7 +1,8 @@
-import { createEventItem, createEventSummary, updateUserProfile as _updateUserProfile, write } from "app/utils/realm";
+import { createEventItem, createEventSummary, createEventDetails, updateUserProfile as _updateUserProfile, write, toPlainObj } from "app/utils/realm";
 import openBrowser from "app/utils/openEmbeddedBrowser"
 import { showUpdateYourSettingsAlert } from "app/utils/alerts";
 import slowlog from "app/utils/slowlog";
+import debug from "app/utils/debug";
 
 import config from "app/config";
 
@@ -13,13 +14,30 @@ import phoneCall from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
 import Permissions from "react-native-permissions";
 
+const log = debug( "app:load-events" );
+
 
 const loadEvents = async ( realm, api, dates ) => {
     const events = await api.getEventList( dates.first, dates.last );
 
+    const locations = realm.objects( "Location" ).filtered( "latitude != null" ).map( toPlainObj );
+    // Realm isolates each transaction from external updates until it's completed,
+    // so we can't rely on `summary.venue.distances` being up-to-date, and have
+    // to track which venues have been/will be updated on our own
+    const updatedVenues = {};
+    const updateVenueDistancesIfNeeded = async ( { id: eventId, venue } ) => {
+        if ( !updatedVenues[ venue.id ] && venue.distances.length < locations.length ) {
+            updatedVenues[ venue.id ] = true;
+            log( "updating venue distances for %s (%o)", venue.name, toPlainObj( venue ) );
+            const fullEvent = await api.getEventFullData( eventId );
+            realm.write( () => createEventDetails( realm, eventId, fullEvent.details, locations ) );
+        }
+    };
+
     slowlog( () => realm.write( () => {
-        events.forEach( eventData => {
-            const summary = createEventSummary( realm, eventData );
+        events.forEach( eventSummaryData => {
+            const summary = createEventSummary( realm, eventSummaryData );
+            updateVenueDistancesIfNeeded( summary );
             if ( !summary.items.length )
                 createEventItem( realm, summary );
         } );

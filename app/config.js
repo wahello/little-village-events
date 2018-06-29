@@ -1,5 +1,5 @@
 const debugLogs = {
-    "app:load-events": true,
+    "app:load-events": false,
 };
 
 const prodLogs = {
