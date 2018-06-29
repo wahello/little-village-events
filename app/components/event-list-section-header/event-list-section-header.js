@@ -1,40 +1,27 @@
+import SectionListHeader from "app/components/section-list-header";
 import { calendarFormat } from "app/utils/date";
 
+import variables from "app/styles/variables";
+
+import { StyleSheet, Text } from "react-native";
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+
 
 const styles = StyleSheet.create( {
-    header: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-
-        height: 38,
-
-        paddingTop: 2,
-        paddingLeft: 16,
-        paddingRight: 16,
-        paddingBottom: 2,
-        backgroundColor: "#F9F9F9",
-
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: "#C8C7CC"
-    },
     weekday: {
-        fontSize: 16,
-        fontWeight: "bold",
-        color: "black",
+        fontSize: variables.largeFontSize,
+        fontWeight: "600",
+        color: variables.textColor,
     },
+
     monthday: {
-        fontSize: 14,
-        fontWeight: "bold",
-        color: "black",
+        fontSize: variables.regularFontSize,
+        fontWeight: "500",
+        color: variables.textColor,
         opacity: 0.7
     }
-
-
 } );
+
 
 const DateHeader = ( { today, date } ) => {
     const weekday = calendarFormat( date, today, {
@@ -56,26 +43,22 @@ const DateHeader = ( { today, date } ) => {
     } ).toUpperCase();
 
     return (
-        <View style={ styles.header }>
+        <SectionListHeader>
             <Text style={ styles.weekday }>{ weekday }</Text>
             <Text style={ styles.monthday }> { monthday }</Text>
-        </View>
+        </SectionListHeader>
     );
 };
 
-const TextHeader = ( { text } ) => {
-    return (
-        <View style={ styles.header }>
-            <Text style={ styles.weekday }>{ text }</Text>
-        </View>
-    );
-};
 
-const Header = ( { section: { today, date, ongoing } } ) => {
-    return ongoing
-        ? <TextHeader text="ONGOING"/>
-        : <DateHeader today={ today } date={ date }/>
-    ;
-};
+const TextHeader = ( { text } ) =>
+    <SectionListHeader>
+        <Text style={ styles.weekday }>{ text }</Text>
+    </SectionListHeader>
+;
 
-export default Header;
+
+export default ( { section: { today, date, ongoing } } ) => ongoing
+    ? <TextHeader text="ONGOING"/>
+    : <DateHeader today={ today } date={ date }/>
+;
