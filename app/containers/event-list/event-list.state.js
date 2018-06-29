@@ -20,7 +20,7 @@ const buildLiveQuery = ( realm, dates, today, currentWeek, filters = {} ) => {
         );
     }
 
-    if ( !isNil( filters.location.latitude ) ) {
+    if ( filters.location && !isNil( filters.location.latitude ) ) {
         query = query.filtered(
             "SUBQUERY( eventSummary.venue.distances, $distance, $distance.locationId = $0 AND $distance.distance < $1 ).@count > 0",
             filters.location.id,
