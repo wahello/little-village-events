@@ -1,5 +1,3 @@
-import Onboarding from "../onboarding";
-
 import OnboardingStart from "../onboarding-start";
 import InterestsPicker from "../onboarding-interests-picker";
 import InterestsIntro from "../onboarding-interests-intro";
@@ -12,9 +10,11 @@ import { storiesOf } from "@storybook/react-native";
 
 import React from "react";
 
+const categories = require( "app/models/seed/categories.json" );
+const locations = require( "app/models/seed/locations.json" );
 
-storiesOf( "Onboarding", module )
-    .add( "default", () => <Onboarding /> )
+
+storiesOf( "Onboarding Screens", module )
     .add( "onboarding start", () => ( <OnboardingStart
         onContinue={ action( "onContinue" ) }
     /> ) )
@@ -23,6 +23,8 @@ storiesOf( "Onboarding", module )
         onContinue={ action( "onContinue" ) }
     /> ) )
     .add( "interests picker", () => ( <InterestsPicker
+        categories={ categories }
+        selected={ [] }
         onSkip={ action( "onSkip" ) }
         onContinue={ action( "onContinue" ) }
     /> ) )
@@ -35,6 +37,8 @@ storiesOf( "Onboarding", module )
         onContinue={ action( "onContinue" ) }
     /> ) )
     .add( "location picker", () => ( <LocationPicker
+        locations={ locations }
+        selected={ [] }
         onSkip={ action( "onSkip" ) }
         onContinue={ action( "onContinue" ) }
     /> ) )
