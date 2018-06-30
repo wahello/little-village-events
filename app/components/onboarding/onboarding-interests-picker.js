@@ -1,5 +1,5 @@
 import OnboardingPicker from "./onboarding-picker";
-import EventCategoriesChooser from "../../components/event-categories-chooser";
+import EventCategoriesChooser from "app/components/event-categories-chooser";
 
 import { update, injectState, provideState } from "@textpress/freactal";
 
