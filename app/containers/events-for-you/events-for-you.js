@@ -21,19 +21,18 @@ const styles = StyleSheet.create( {
         display: "flex",
         alignItems: "stretch",
         backgroundColor: variables.panelBackgroundColor
-    },
-
+    }
 } );
 
 
-const EventsForYou = ( { state } ) =>
+const EventsForYou = ( { state, effects } ) =>
     <View style={styles.root} >
         <StatusBarSpacer />
         <NavHeader>
             <Text>For you</Text>
         </NavHeader>
         <EventList
-            ListHeaderComponent={ () => <ListHeader /> }
+            ListHeaderComponent={ () => <ListHeader onPress={ effects.navigateToEventsForYouOptions }/> }
             filters={ state.filters }
         />
     </View>

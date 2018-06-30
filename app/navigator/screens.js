@@ -2,6 +2,7 @@ import NavigatorStyles from "./styles";
 import registerScreen from "./register-screen";
 
 import EventsForYou from "app/containers/events-for-you";
+import EventsForYouOptionsView from "app/containers/events-for-you-options";
 import DiscoverEventsView from "app/containers/discover-events";
 import EventDetailsView from "app/containers/event-details";
 import RSVPEventsView from "app/containers/rsvp-events";
@@ -113,10 +114,22 @@ export const EventDetails = {
 };
 
 
+export const EventsForYouOptions = {
+    view: EventsForYouOptionsView,
+    id: "events.foryou.options",
+    navigatorStyle: {
+        ...NavigatorStyles.transparentLight,
+        tabBarHidden: true
+    },
+    backButtonTitle: ""
+};
+
+
 export const registerScreens = getStateContext => {
     registerScreen( Onboarding, getStateContext );
     registerScreen( ForYouTab, getStateContext );
     registerScreen( DiscoverEventsTab, getStateContext );
     registerScreen( RSVPEventsTab, getStateContext );
     registerScreen( EventDetails, getStateContext );
+    registerScreen( EventsForYouOptions, getStateContext );
 };

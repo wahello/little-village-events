@@ -1,4 +1,4 @@
-import { EventDetails } from "../screens";
+import { EventDetails, EventsForYouOptions } from "../screens";
 import { toPlainObj } from "app/utils/realm";
 
 //import WebPage from "../containers/web-page";
@@ -18,17 +18,26 @@ const screenState = {
         initialize: update( ( state, { navigator } ) => ( { navigator } ) ),
 
 
-        navigateToEventDetails: async ( effects, eventItem ) => {
-            return ( state ) => {
-                state.navigator.push( {
-                    screen: EventDetails.id,
-                    backButtonTitle: EventDetails.backButtonTitle,
-                    passProps: {
-                        eventItemData: toPlainObj( eventItem )
-                    }
-                } );
-                return state;
-            }
+        navigateToEventDetails: async ( effects, eventItem ) => state => {
+            state.navigator.push( {
+                screen: EventDetails.id,
+                backButtonTitle: EventDetails.backButtonTitle,
+                passProps: {
+                    eventItemData: toPlainObj( eventItem )
+                }
+            } );
+
+            return state;
+        },
+
+        navigateToEventsForYouOptions: async () => state => {
+            state.navigator.push( {
+                screen: EventsForYouOptions.id,
+                backButtonTitle: EventsForYouOptions.backButtonTitle,
+                passProps: {}
+            } );
+
+            return state;
         },
 
 
