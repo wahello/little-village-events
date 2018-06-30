@@ -3,7 +3,6 @@ package com.little_village_events;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import io.realm.react.RealmReactPackage;
 import io.github.airamrguez.RNMeasureTextPackage;
 import com.horcrux.svg.SvgPackage;
 import com.vonovak.AddCalendarEventPackage;
@@ -29,7 +28,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RealmReactPackage(),
             new RNMeasureTextPackage(),
             new SvgPackage(),
             new AddCalendarEventPackage(),
