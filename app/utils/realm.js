@@ -12,6 +12,8 @@ import values from "lodash/values";
 import uniqBy from "lodash/uniqBy";
 import isNil from "lodash/isNil";
 
+import EventEmitter from "EventEmitter";
+
 
 export const createInstance = ( options = {} ) => {
     const realm = new Realm( {
@@ -178,3 +180,32 @@ export function toPlainObj( obj, skipProps = [] ) {
 
     return result;
 }
+
+
+export const realmQuerySubscription = () => {
+    const eventName = "queryUpdate";
+    return {
+        query: null,
+        eventEmmiter: new EventEmitter(),
+
+        subscribe( callback ) {
+            this.eventEmmiter.addListener( eventName, callback );
+        },
+
+        update( newQuery ) {
+            if ( this.query )
+                this.query.removeAllListeners();
+            this.query = newQuery;
+            this.query.addListener( this._emitQeuryUpdate.bind( this ) );
+        },
+
+        reset() {
+            this.update( null );
+            this.eventEmmiter.removeAllListeners();
+        },
+
+        _emitQeuryUpdate( ...args ) {
+            this.eventEmmiter.emit( eventName, ...args );
+        }
+    }
+};

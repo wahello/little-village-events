@@ -1,13 +1,14 @@
+import { realmQuerySubscription } from "app/utils/realm";
 import { weekEnd } from "app/utils/date";
 
-import { mergeIntoState, update } from "@textpress/freactal";
+import { update } from "@textpress/freactal";
 
 import groupBy from "lodash/groupBy";
 import keys from "lodash/keys";
 import isNil from "lodash/isNil";
 
 
-const buildLiveQuery = ( realm, dates, today, currentWeek, filters = {} ) => {
+const buildLiveQuery = ( realm, dates, today, currentWeek, filters, liveQuerySubscription ) => {
     let query = realm.objects( "EventItem" ).filtered(
         "( endTime >= $0 AND eventDate <= $1 ) OR ( eventDate = null AND endTime > $2 AND startTime <= $3 )",
         today, dates.last, currentWeek.first, currentWeek.last
@@ -28,8 +29,11 @@ const buildLiveQuery = ( realm, dates, today, currentWeek, filters = {} ) => {
         );
     }
 
-    return query
+    query = query
         .sorted( [ "eventDate", [ "eventSummary.featured", true ], "startTime", "eventSummary.name" ] );
+
+    liveQuerySubscription.update( query );
+    return query;
 };
 
 
@@ -50,39 +54,40 @@ const buildSections = ( liveQuery, today, currentWeek ) => {
 };
 
 
-const initialize = ( effects, { state, filters } ) => {
-    const { realm, dates, today } = state;
-    const currentWeek = { first: today, last: weekEnd( today ) };
-
-    const liveQuery = buildLiveQuery( realm, dates, today, currentWeek, filters );
-    liveQuery.addListener( ( events, { modifications, insertions, deletions } ) => {
+const initialize = effects => state => {
+    const { liveQuerySubscription } = state;
+    liveQuerySubscription.subscribe( ( events, { modifications, insertions, deletions } ) => {
         if ( modifications.length || insertions.length || deletions.length )
-            effects.refresh( realm );
+            effects.refresh();
     } );
 
-    return mergeIntoState( {
-        sections: buildSections( liveQuery, today, currentWeek ),
-        liveQuery,
-        currentWeek
-    } );
+    return state;
 };
 
 
-const finalize = () => ( { liveQuery } ) => {
-    liveQuery && liveQuery.removeAllListeners();
+const finalize = () => ( { liveQuerySubscription } ) => {
+    liveQuerySubscription.reset();
 };
 
 
 export default {
-    initialState: () => ( {
-        sections: [],
-        liveQuery: null
+    initialState: ( { state: { today } } ) => ( {
+        liveQuerySubscription: realmQuerySubscription(),
+        currentWeek: { first: today, last: weekEnd( today ) },
+        forceUpdate: 0
     } ),
     effects: {
         initialize,
         finalize,
-        refresh: update( ( { liveQuery, today, currentWeek } ) => ( {
-            sections: buildSections( liveQuery, today, currentWeek )
-        } ) )
+        refresh: update( ( { forceUpdate } ) => ( { forceUpdate: forceUpdate + 1 } ) )
+    },
+    computed: {
+        liveQuery: ( { realm, dates, today, currentWeek, filters = {}, liveQuerySubscription } ) =>
+            buildLiveQuery( realm, dates, today, currentWeek, filters, liveQuerySubscription ),
+
+        // presence of `forceUpdate` in the args forces freactal to recalculate
+        // `sections` computed after we call `effects.refresh`
+        sections: ( { liveQuery, today, currentWeek, forceUpdate } ) =>
+            buildSections( liveQuery, today, currentWeek, forceUpdate )
     }
 }
