@@ -5,7 +5,8 @@
     "plugins": [
         [ "root-import", {
             "rootPathPrefix": "/"
-        } ]
+        } ],
+        "transform-decorators-legacy"
     ],
     "env": {
         "development": {
