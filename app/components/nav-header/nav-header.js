@@ -12,8 +12,8 @@ const styles = StyleSheet.create( {
 } );
 
 
-export default ( { children } ) =>
-    <View style={ styles.root }>
+export default ( { children, style } ) =>
+    <View style={ [ styles.root, style ] }>
         { children }
     </View>
 ;
