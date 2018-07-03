@@ -1,17 +1,15 @@
 import { createEventItem, createEventSummary, createEventDetails, updateUserProfile as _updateUserProfile, write, toPlainObj } from "app/utils/realm";
 import openBrowser from "app/utils/openEmbeddedBrowser"
-import { showUpdateYourSettingsAlert } from "app/utils/alerts";
 import slowlog from "app/utils/slowlog";
 import debug from "app/utils/debug";
-
-import config from "app/config";
+import calendar from "app/utils/calendar";
 
 import { mergeIntoState, update } from "@textpress/freactal";
 
 import { Dimensions, Linking, Share } from "react-native";
 import openMapApp from "react-native-open-maps";
 import phoneCall from "react-native-phone-call"
-import * as calendar from "react-native-add-calendar-event";
+
 
 const log = debug( "app:load-events" );
 
@@ -99,14 +97,7 @@ export const openExternalURL = async ( effects, url ) => {
 
 
 export const addEventToCalendar = async ( effects, calendarEvent ) => {
-    try {
-        await calendar.presentEventCreatingDialog( calendarEvent );
-    } catch ( x ) {
-        if ( x.message === "permissionNotGranted" )
-            await showUpdateYourSettingsAlert( `To add an event to your calendar, you'll need to give ${config.appName} permission to access your calendar in Settings` );
-        else
-            console.error( "Failed addEventToCalendar", x.message, x )
-    }
+    await calendar.addEvent( calendarEvent );
     return mergeIntoState( {} );
 };
 
