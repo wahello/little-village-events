@@ -1,141 +1,249 @@
-export const Category = {
+import { EntitySchema } from "typeorm/browser";
+
+
+const entitySchema = ( { name, ...props } ) => new EntitySchema( {
+    name,
+    tableName: name,
+    ...props
+} );
+
+
+export const Category = entitySchema( {
     name: "Category",
-    primaryKey: "id",
-    properties: {
-        id: "int",
-        name: "string?",
-        order: { type: "int", indexed: true },
-    }
-};
+    columns: {
+        id: { type: "int", primary: true },
+        name: { type: "text" },
+        order: { type: "int" },
+    },
+    indices: [
+        { columns: [ "order" ] }
+    ]
+} );
 
-export const Asset = {
+
+export const Asset = entitySchema( {
     name: "Asset",
-    primaryKey: "id",
-    properties: {
-        source: "string",
-        type: "string",
-        id: "string"
+    columns: {
+        id: { type: "text", primary: true },
+        source: { type: "text" },
+        type: { type: "text" }
     }
-};
+} );
 
 
-export const Location = {
+export const Location = entitySchema( {
     name: "Location",
-    primaryKey: "id",
-    properties: {
-        id: "string",
-        name: "string",
-        order: { type: "int", indexed: true },
-        latitude: "double?",
-        longitude: "double?"
-    }
-};
+    columns: {
+        id: { type: "text", primary: true },
+        name: { type: "text" },
+        order: { type: "int" },
+        latitude: { type: "double", nullable: true },
+        longitude: { type: "double", nullable: true }
+    },
+    indices: [
+        { columns: [ "order" ] }
+    ]
+} );
 
 
-export const VenueDistance = {
+export const VenueDistance = entitySchema( {
     name: "VenueDistance",
-    primaryKey: "id",
-    properties: {
-        id: "string",
-        locationId: { type: "string", indexed: true },
-        distance: { type: "int", indexed: true }
-    }
-};
+    columns: {
+        id: { type: "int", primary: true, generated: true },
+        locationId: { type: "text" },
+        distance: { type: "int" }
+    },
+    relations: {
+        venue: {
+            type: "many-to-one",
+            target: "Venue"
+        }
+    },
+    indices: [
+        { columns: [ "locationId", "venue" ], unique: true },
+        { columns: [ "locationId", "distance" ] }
+    ]
+} );
 
 
-export const Venue = {
+export const Venue = entitySchema( {
     name: "Venue",
-    primaryKey: "id",
-    properties: {
-        id: "int",
-        name: "string",
-        address: "string?",
-        phone: "string?",
-        latitude: "double?",
-        longitude: "double?",
-        distances: { type: "VenueDistance[]", default: [] }
+    columns: {
+        id: { type: "int", primary: true },
+        name: { type: "text" },
+        address: { type: "text", nullable: true },
+        phone: { type: "text", nullable: true },
+        latitude: { type: "double", nullable: true },
+        longitude: { type: "double", nullable: true }
+    },
+    relations: {
+        events: {
+            type: "one-to-many",
+            target: "EventSummary",
+            nullable: true
+        },
+        distances: {
+            type: "one-to-many",
+            target: "VenueDistance",
+            cascade: true,
+            nullable: true
+        }
     }
-};
+} );
 
 
-export const EventItem = {
+export const EventItem = entitySchema( {
     name: "EventItem",
-    primaryKey: "id",
-    properties: {
-        id: "string",
-        eventDate: { type: "date?", indexed: true },
-        startTime: "date",
-        endTime: "date?",
-        allDay: "bool",
-        rsvp: { type: "bool", indexed: true, default: false },
-        eventSummary: "EventSummary"
-    }
-};
+    columns: {
+        id: { type: "text", primary: true },
+        eventDate: { type: "date", nullable: true },
+        startTime: { type: "date" },
+        endTime: { type: "date" },
+        allDay: { type: "boolean" },
+        rsvp: { type: "boolean", default: false }
+    },
+    relations: {
+        eventSummary: {
+            type: "many-to-one",
+            target: "EventSummary",
+            eager: true,
+            cascade: true
+        }
+    },
+    indices: [
+        { columns: [ "eventDate", "startTime", "endTime" ] },
+        { columns: [ "rsvp" ] }
+    ]
+} );
 
 
-export const EventSummary = {
+export const EventSummary = entitySchema( {
     name: "EventSummary",
-    primaryKey: "id",
-    properties: {
-        id: "int",
-        updatedAt: "date?",
-        name: "string",
-        venue: "Venue",
+    columns: {
+        id: { type: "int", primary: true },
+        updatedAt: { type: "date", nullable: true },
+        name: { type: "text" },
 
-        startTime: "date",
-        endTime: "date?",
+        startTime: { type: "date" },
+        endTime: { type: "date", nullable: true },
 
-        ongoing: "bool?",
-        allDay: "bool",
+        ongoing: { type: "boolean", default: false },
+        allDay: { type: "boolean", default: false },
 
-        categories: "Category[]",
-        featured: "bool",
-
-        multimedia: "Asset[]",
-
-        items: { type: "linkingObjects", objectType: "EventItem", property: "eventSummary" }
+        featured: { type: "boolean", default: false },
+    },
+    relations: {
+        item: {
+            type: "one-to-many",
+            target: "EventItem",
+            cascade: true
+        },
+        venue: {
+            type: "many-to-one",
+            target: "Venue",
+            eager: true,
+            cascade: true
+        },
+        categories: {
+            type: "many-to-many",
+            target: "Category",
+            joinTable: { name: "EventSummaryCategories" },
+            eager: true,
+            cascade: true
+        },
+        multimedia: {
+            type: "one-to-many",
+            target: "Asset",
+            eager: true,
+            cascade: true
+        }
     }
-};
+} );
 
 
-export const EventDetails = {
+export const EventTicket = entitySchema( {
+    name: "EventTicket",
+    columns: {
+        id: { type: "int", primary: true, generated: true },
+        name: { type: "text", nullable: true },
+        price: { type: "double" }
+    },
+    relations: {
+        eventDetails: {
+            type: "many-to-one",
+            target: "EventDetails"
+        }
+    }
+} );
+
+
+export const EventDetails = entitySchema( {
     name: "EventDetails",
-    primaryKey: "id",
-    properties: {
-        id: "int",
-        description: "string",
-        summary: "string",
-        moreInfo: "string",
-        ticketUrl: "string",
-        priceRange: "double[]",
-        venue: "Venue"
+    columns: {
+        id: { type: "int", primary: true },
+        description: { type: "text" },
+        summary: { type: "text" },
+        moreInfo: { type: "text" },
+        ticketUrl: { type: "text" },
+    },
+    relations: {
+        tickets: {
+            type: "one-to-many",
+            target: "EventTicket",
+            eager: true,
+            cascade: true
+        },
+        venue: {
+            type: "many-to-one",
+            target: "Venue",
+            eager: true,
+            cascade: true
+        }
     }
-};
+} );
 
 
-export const TimePeriod = {
+export const TimePeriod = entitySchema( {
     name: "TimePeriod",
-    primaryKey: "id",
-    properties: {
-        id: "string",
-        name: "string",
-        order: { type: "int", indexed: true },
-    }
-};
+    columns: {
+        id: { type: "text", primary: true },
+        name: { type: "text" },
+        order: { type: "int" },
+    },
+    indices: [
+        { columns: [ "order" ] }
+    ]
+} );
 
 
-export const UserProfile = {
+export const UserProfile = entitySchema( {
     name: "UserProfile",
-    primaryKey: "id",
-    properties: {
-        id: "string",
-        newUser: "bool",
-        location: "Location",
-        interests: "Category[]",
-        timePeriod: "TimePeriod",
-        maxDistance: "int"
+    columns: {
+        id: { type: "text", primary: true },
+        newUser: { type: "boolean" },
+        maxDistance: { type: "int" }
+    },
+    relations: {
+        location: {
+            type: "many-to-one",
+            target: "Location",
+            eager: true
+        },
+        interests: {
+            type: "many-to-many",
+            target: "Category",
+            joinTable: { name: "UserProfileInterests" },
+            eager: true
+        },
+        timePeriod: {
+            type: "many-to-one",
+            target: "TimePeriod",
+            eager: true
+        }
     }
-};
+} );
 
 
-export default [ Category, Asset, Location, VenueDistance, Venue, EventItem, EventSummary, EventDetails, TimePeriod, UserProfile ];
+export default [
+    Category, Asset, Location, VenueDistance, Venue, EventItem, EventSummary,
+    EventTicket, EventDetails, TimePeriod, UserProfile ];
