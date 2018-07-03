@@ -48,7 +48,7 @@ export default ( props = {} ) => {
         getChildContext: () => root.getChildContext(),
         showOnboardingScreen: () => {
             const { state } = root.getChildContext().freactal;
-            return state.showOnboardingScreen;
+            return true;//state.showOnboardingScreen;
         }
     }
 };

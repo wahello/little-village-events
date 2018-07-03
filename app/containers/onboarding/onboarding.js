@@ -36,7 +36,7 @@ class OnboardingSequence extends Component {
 
 
     render() {
-        const { state: { userProfile, Categories, Locations, hideNotificationsInto }, effects } = this.props;
+        const { state: { userProfile, Categories, Locations, showNotificationsIntro }, effects } = this.props;
 
         const slides = [
             <OnboardingStart onContinue={ this.next } key="cover" />,
@@ -56,13 +56,13 @@ class OnboardingSequence extends Component {
                 onSkip={ () => this.skip( 1 ) }
                 key="LocationPicker"
             />,
-            hideNotificationsInto
-                ? null
-                : <NotificationsIntro
+            showNotificationsIntro
+                ? <NotificationsIntro
                     onContinue={ () => effects.requestNotificationsPermission( this.next ) }
                     onSkip={ () => this.skip( 1 ) }
                     key="notificationsIntro"
                 />
+                : null
         ].filter( x => !!x );
 
         return (

@@ -17,5 +17,8 @@ export default {
         past: 60,
         interval: 15
     },
+    notifications: {
+        reminder: 60
+    },
     debug: global.__DEV__ ? debugLogs : prodLogs
 };

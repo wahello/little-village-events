@@ -3,6 +3,7 @@ import openBrowser from "app/utils/openEmbeddedBrowser"
 import slowlog from "app/utils/slowlog";
 import debug from "app/utils/debug";
 import calendar from "app/utils/calendar";
+import notifications from "app/utils/notifications";
 
 import { mergeIntoState, update } from "@textpress/freactal";
 
@@ -102,9 +103,16 @@ export const addEventToCalendar = async ( effects, calendarEvent ) => {
 };
 
 
+export const scheduleNotification = async ( effects, notification ) => {
+    await notifications.schedule( notification );
+    return mergeIntoState( {} );
 };
 
 
+export const cancelNotification = async ( effects, notification ) => {
+    await notifications.cancel( notification );
+    return mergeIntoState( {} );
+};
 
 
 export const updateDimensions = update( ( state, dimensions ) => {

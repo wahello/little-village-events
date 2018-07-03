@@ -8,7 +8,8 @@ import {
     getEventItem
 } from "app/utils/realm";
 import { mergeIntoState } from "app/utils/freactal";
-import { addToDate } from "app/utils/date";
+import { addToDate, subtractFromDate } from "app/utils/date";
+import config from "app/config";
 
 const makeCalendarEvent = ( { startTime, endTime, eventSummary }, { venue, moreInfo } ) => ( {
     title: eventSummary.name,
@@ -16,6 +17,13 @@ const makeCalendarEvent = ( { startTime, endTime, eventSummary }, { venue, moreI
     endDate: ( endTime || addToDate( startTime, { hours: 1 } ) ).toISOString(),
     location: ( [ venue.name, venue.address ].filter( p => !!p ).join( ", " ) ),
     url: moreInfo || ""
+} );
+
+
+const makeEventNotification = ( { id, startTime, eventSummary } ) => ( {
+    id,
+    date: subtractFromDate( startTime, { minutes: config.notifications.reminder } ),
+    message: eventSummary.name,
 } );
 
 
@@ -35,18 +43,19 @@ const initialize = async ( effects, { eventItemData, state: { api, realm } } ) =
 };
 
 
-const handleAddRSVP = async ( state, openWebBrowser, addEventToCalendar ) => {
+const handleAddRSVP = async ( effects, state ) => {
+    const { openEmbeddedBrowser, addEventToCalendar, scheduleNotification } = effects;
     const { eventItem, eventDetails, realm, openActionSheet } = state;
     const { eventSummary } = eventItem;
     const { ticketUrl } = eventDetails;
 
     if ( ticketUrl )
-        await openWebBrowser( { url: ticketUrl, wait: true } );
+        await openEmbeddedBrowser( { url: ticketUrl, wait: true } );
 
     const result = await openActionSheet( addRSPVActionSheet( {
         eventItem: eventItem,
         eventSummary,
-        openWebBrowser: url => openWebBrowser( { url } )
+        openWebBrowser: url => openEmbeddedBrowser( { url } )
     } ) );
 
     if ( !result )
@@ -59,13 +68,16 @@ const handleAddRSVP = async ( state, openWebBrowser, addEventToCalendar ) => {
         updatedEventItem = createRsvpedEventItem( realm, eventSummary, rsvpTime );
     } );
 
+    await scheduleNotification( makeEventNotification( updatedEventItem ) );
+
     if ( addToCalendar )
         await addEventToCalendar( makeCalendarEvent( updatedEventItem, eventDetails ) );
 
     return updatedEventItem;
 };
 
-const handleRescindRSVP = async ( state ) => {
+const handleRescindRSVP = async ( effects, state ) => {
+    const { cancelNotification } = effects;
     const { eventItem, realm, openActionSheet } = state;
     const { eventSummary } = eventItem;
 
@@ -76,6 +88,8 @@ const handleRescindRSVP = async ( state ) => {
 
     if ( !result )
         return null;
+
+    await cancelNotification( makeEventNotification( eventItem ) );
 
     let updatedEventItem;
     realm.write( () => {
@@ -107,8 +121,8 @@ export default {
             const { eventItem } = state;
 
             const updatedEventItem = eventItem.rsvp
-                ? await handleRescindRSVP( state )
-                : await handleAddRSVP( state, effects.openEmbeddedBrowser, effects.addEventToCalendar )
+                ? await handleRescindRSVP( effects, state )
+                : await handleAddRSVP( effects, state )
             ;
 
             return mergeIntoState( updatedEventItem ? { eventItem: updatedEventItem } : {} );

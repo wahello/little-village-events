@@ -1,17 +1,24 @@
 import { startMainApp } from "app/navigator";
 
-import config from "app/config";
+import notifications from "app/utils/notifications";
+import { mergeIntoState } from "app/utils/freactal";
 
 
 export default {
+    initialState: () => ( {
+        showNotificationsIntro: false
+    } ),
+
     effects: {
-        requestNotificationsPermission: ( effects, callback ) => state => {
-            effects.requestPermission(
-                "notification",
-                `You can grant ${config.appName} permission to send you notifications in Settings`,
-                callback
-            );
-            return state;
+        initialize: async () => {
+            return mergeIntoState( {
+                showNotificationsIntro: !await notifications.initialized()
+            } )
+        },
+
+        requestNotificationsPermission: async () => {
+            await notifications.init();
+            return state => state;
         },
 
         saveInterests: ( effects, interests ) => {
@@ -29,10 +36,5 @@ export default {
             startMainApp();
             return state => state;
         }
-    },
-    computed: {
-        hideNotificationsInto: ( { permissions } ) =>
-            permissions.notification === "authorized" ||
-                permissions.notification === "restricted"
     }
 };
