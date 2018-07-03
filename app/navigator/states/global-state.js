@@ -4,7 +4,7 @@ import * as computed from "./global-state-computed.js";
 import config from "app/config";
 
 import { addToDate, dayStart, now } from "app/utils/date";
-import { getUserProfile } from "app/utils/realm";
+import { getUserProfile } from "app/utils/db";
 
 import { provideState } from "@textpress/freactal";
 
@@ -18,7 +18,8 @@ const initialState = {
 };
 
 
-const makeRootStatefulComponent = props => {
+const makeRootStatefulComponent = async props => {
+    const userProfile = await getUserProfile( props.db, "default" );
     const today = now();
     const first = dayStart( today );
     const last = addToDate( first, { days: config.daysToLoad - 1 } );
@@ -27,9 +28,9 @@ const makeRootStatefulComponent = props => {
     const globalState = {
         initialState: () => ( {
             ...initialState,
-            realm: props.realm,
+            db: props.db,
             api: props.api,
-            userProfile: getUserProfile( props.realm, "default" ),
+            userProfile,
             today,
             dates
         } ),
@@ -43,8 +44,8 @@ const makeRootStatefulComponent = props => {
 };
 
 
-export default ( props = {} ) => {
-    const root = makeRootStatefulComponent( props );
+export default async ( props = {} ) => {
+    const root = await makeRootStatefulComponent( props );
     return {
         getChildContext: () => root.getChildContext(),
         showOnboardingScreen: () => {

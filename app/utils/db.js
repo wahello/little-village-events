@@ -4,8 +4,9 @@ import seed from "app/models/seed";
 import { dayEnd, dayStart } from "app/utils/date";
 import { defaultEventEndTime, isOngoingEvent } from "app/utils/event-time";
 import { distance } from "app/utils/geo";
+import isProduction from "app/utils/is-production";
 
-import Realm from "realm";
+import { createConnection } from "typeorm/browser";
 
 import omit from "lodash/omit";
 import values from "lodash/values";
@@ -15,40 +16,40 @@ import isNil from "lodash/isNil";
 import EventEmitter from "EventEmitter";
 
 
-export const createInstance = ( options = {} ) => {
-    const realm = new Realm( {
-        schema,
-        schemaVersion: 12,
-        // deleteRealmIfMigrationNeeded: !isProduction(),
-        ...options,
-        migration: ( oldRealm, newRealm ) => {
-            // if ( !isProduction() )
-            //     newRealm.deleteAll();
-        }
+export const createInstance = async ( options = {} ) => {
+    const dbConnection = await createConnection( {
+        type: "react-native",
+        database: "events",
+        entities: schema,
+        location: "default",
+        logging: [ "error", "query", "schema" ],
+        // dropSchema: !isProduction(),
+        // synchronize: !isProduction(),
+        ...options
     } );
 
-    // realm.write( () => realm.deleteAll() );
-    seed( realm );
-    // console.log( "Realm path:", realm.path );
-    return realm;
+    const db = dbConnection.manager;
+    await seed( db );
+    // console.warn( "seeded DB" )
+    return db;
 };
 
 
-export const write = ( realm, fn ) => {
+export const write = ( db, fn ) => {
     let result;
-    realm.write( () => result = fn() );
+    db.write( () => result = fn() );
     return result;
 };
 
 
-export const createEventSummary = ( realm, { categories, ...summaryData } ) =>
-    realm.create( "EventSummary", {
+export const createEventSummary = ( db, { categories, ...summaryData } ) =>
+    db.create( "EventSummary", {
         ...summaryData,
         categories: uniqBy( categories, "id" )
     }, true );
 
 
-export const createEventDetails = ( realm, eventId, detailsData, locations ) => {
+export const createEventDetails = ( db, eventId, detailsData, locations ) => {
     if ( locations ) {
         const { venue } = detailsData;
         venue.distances = locations.map( location => ( {
@@ -63,21 +64,21 @@ export const createEventDetails = ( realm, eventId, detailsData, locations ) => 
         } ) );
     }
 
-    return realm.create( "EventDetails", {
+    return db.create( "EventDetails", {
         id: eventId,
         ...detailsData
     }, true );
 }
 
 
-export const createRsvpedEventItem = ( realm, eventSummary, { startTime, endTime } ) => {
+export const createRsvpedEventItem = ( db, eventSummary, { startTime, endTime } ) => {
     const ongoing = isOngoingEvent( eventSummary );
 
     const id = ongoing
         ? `${eventSummary.id}.${startTime}`
         : `${eventSummary.id}`;
 
-    return realm.create( "EventItem", {
+    return db.create( "EventItem", {
         id,
         eventDate: dayStart( startTime ),
         startTime: startTime,
@@ -122,36 +123,36 @@ export const toEventItem = ( eventSummary ) => {
 };
 
 
-export const createEventItem = ( realm, eventSummary ) => {
-    return realm.create( "EventItem", toEventItem( eventSummary ), true );
+export const createEventItem = ( db, eventSummary ) => {
+    return db.create( "EventItem", toEventItem( eventSummary ), true );
 };
 
 
-export const createEventWithDetails = ( realm, eventData ) => {
-    const summary = createEventSummary( realm, eventData );
-    createEventItem( realm, summary );
-    createEventDetails( realm, eventData.id, eventData.details );
+export const createEventWithDetails = ( db, eventData ) => {
+    const summary = createEventSummary( db, eventData );
+    createEventItem( db, summary );
+    createEventDetails( db, eventData.id, eventData.details );
 };
 
 
-export const getEventItem = ( realm, eventItemId ) =>
-    realm.objectForPrimaryKey( "EventItem", eventItemId );
+export const getEventItem = ( db, eventItemId ) =>
+    db.objectForPrimaryKey( "EventItem", eventItemId );
 
 
-export const getEventSummary = ( realm, eventId ) =>
-    realm.objectForPrimaryKey( "EventSummary", eventId );
+export const getEventSummary = ( db, eventId ) =>
+    db.objectForPrimaryKey( "EventSummary", eventId );
 
 
-export const getEventDetails = ( realm, eventId ) =>
-    realm.objectForPrimaryKey( "EventDetails", eventId );
+export const getEventDetails = ( db, eventId ) =>
+    db.objectForPrimaryKey( "EventDetails", eventId );
 
 
-export const getUserProfile = ( realm, id ) =>
-    realm.objectForPrimaryKey( "UserProfile", id );
+export const getUserProfile = ( db, id ) =>
+    db.objectForPrimaryKey( "UserProfile", id );
 
 
-export const updateUserProfile = ( realm, id, userProfileData ) =>
-    realm.create( "UserProfile", {
+export const updateUserProfile = ( db, id, userProfileData ) =>
+    db.create( "UserProfile", {
         id,
         ...userProfileData
     }, true );

@@ -4,13 +4,21 @@ const timePeriods = require( "./time-periods.json" );
 const userProfiles = require( "./user-profiles.json" );
 
 
-export default realm => {
-    if ( realm.empty ) {
-        realm.write( () => {
-            categories.forEach( x => realm.create( "Category", x, true ) );
-            locations.forEach( x => realm.create( "Location", x, true ) );
-            timePeriods.forEach( x => realm.create( "TimePeriod", x, true ) );
-            userProfiles.forEach( x => realm.create( "UserProfile", x, true ) );
+const isSeeded = async db =>
+    ( await db.findByIds( "UserProfile", userProfiles[0].id ) ).length
+;
+
+
+export default async db => {
+    if ( !await isSeeded( db ) ) {
+        await db.transaction( async tm => {
+            await Promise.all( [
+                tm.save( "Category", categories ),
+                tm.save( "Location", locations ),
+                tm.save( "TimePeriod", timePeriods ),
+            ] );
+
+            await tm.save( "UserProfile", userProfiles )
         } );
     }
 };

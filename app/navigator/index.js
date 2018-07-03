@@ -1,6 +1,6 @@
 import makeGlobalState from "./states/global-state";
 
-import { createInstance } from "app/utils/realm";
+import { createInstance } from "app/utils/db";
 import api from "app/api";
 
 import { mainAppNav, onboardingNav, registerScreens } from "./screens";
@@ -16,9 +16,9 @@ export const startMainApp = () =>
     Navigation.startTabBasedApp( mainAppNav() );
 
 
-const startApp = () => {
-    const globalState = makeGlobalState( {
-        realm: createInstance(),
+const startApp = async () => {
+    const globalState = await makeGlobalState( {
+        db: await createInstance(),
         api
     } );
 
