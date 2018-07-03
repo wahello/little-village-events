@@ -12,7 +12,6 @@ import { Dimensions, Linking, Share } from "react-native";
 import openMapApp from "react-native-open-maps";
 import phoneCall from "react-native-phone-call"
 import * as calendar from "react-native-add-calendar-event";
-import Permissions from "react-native-permissions";
 
 const log = debug( "app:load-events" );
 
@@ -45,15 +44,8 @@ const loadEvents = async ( realm, api, dates ) => {
 };
 
 
-export const checkPermissions = async () => {
-    const permissions = await Permissions.checkMultiple( [ "event", "notification", "location" ] );
-    return mergeIntoState( { permissions } );
-};
-
-
 export const initialize = async ( effects, { realm, api, dates } ) => {
     Dimensions.addEventListener( "change", effects.updateDimensions );
-    effects.checkPermissions();
 
     await loadEvents( realm, api, dates );
 
@@ -119,34 +111,9 @@ export const addEventToCalendar = async ( effects, calendarEvent ) => {
 };
 
 
-export const requestPermission = async ( effects, permission, message, callback ) => {
-    switch ( await Permissions.check( permission ) ) {
-        case "authorized":
-            callback();
-            break;
-
-        case "undetermined":
-            const result = await Permissions.request( permission );
-            effects.updatePermission( permission, result );
-            if ( result !== "denied" )
-                callback();
-            break;
-
-        default:
-            await showUpdateYourSettingsAlert( message );
-            break;
-    }
-
-    return state => state;
 };
 
 
-export const updatePermission = update( ( { permissions }, key, value ) => ( {
-    permissions: {
-        ...permissions,
-        [key]: value
-    }
-} ) );
 
 
 export const updateDimensions = update( ( state, dimensions ) => {
